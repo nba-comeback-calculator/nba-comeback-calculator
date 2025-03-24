@@ -9,11 +9,13 @@ and win probabilities, with a focus on the 2020-2018 seasons.
 import sys
 import os
 
-# Add the form_nba_chart_json_data directory to the path using relative path from script location
+# Add the API directory to the path using relative path from script location
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_dir)
-form_nba_chart_json_data_dir = os.path.join(parent_dir, "form_nba_chart_json_data")
-sys.path.append(form_nba_chart_json_data_dir)
+form_nba_chart_json_data_api_dir = os.path.join(
+    parent_dir, "form_nba_chart_json_data_api"
+)
+sys.path.append(form_nba_chart_json_data_api_dir)
 
 # Import API functions
 from form_nba_chart_json_data_api import (
@@ -22,14 +24,10 @@ from form_nba_chart_json_data_api import (
     GameFilter,
 )
 
-# Base paths for input and output files
-json_base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/seasons"
-)
-chart_base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/charts"
-)
 
+# Base paths for input and output files
+json_base_path = "../../../docs/frontend/source/_static/json/seasons"
+chart_base_path = "../../../docs/frontend/source/_static/json/charts/20_18"
 
 # Control which plots to generate
 plot_all = False
@@ -38,8 +36,8 @@ plot_all = False
 if plot_all or True:
     eras_one = [
         # ERA ONE
-        (1996, 2024),
-        # (2017, 2024),
+        (1996, 2016),
+        (2017, 2024),
         # (2021, 2024),
         # ("R2017", 2024),d
     ]
@@ -71,7 +69,7 @@ if plot_all or True:
     ]
     game_filters = None
     x = plot_biggest_deficit(
-        json_name=f"{chart_base_path}/20_18/nbacc_max_or_more_48_eras_0.json",
+        json_name=f"{chart_base_path}/nbacc_max_or_more_48_eras_0.json",
         year_groups=eras_one,
         game_filters=game_filters,
         start_time=48,

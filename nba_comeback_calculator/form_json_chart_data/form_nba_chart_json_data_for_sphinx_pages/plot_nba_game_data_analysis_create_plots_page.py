@@ -3,7 +3,7 @@
 Script for generating comprehensive NBA game analysis chart pages.
 
 This script automates the creation of Sphinx documentation pages with NBA
-game analysis charts. It generates both JSON data files and corresponding 
+game analysis charts. It generates both JSON data files and corresponding
 RST documentation files for various chart types.
 """
 
@@ -11,26 +11,24 @@ import sys
 import os
 import re
 
-# Add the form_nba_chart_json_data directory to the path using relative path from script location
+# Add the API directory to the path using relative path from script location
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_dir)
-form_nba_chart_json_data_dir = os.path.join(parent_dir, 'form_nba_chart_json_data')
-sys.path.append(form_nba_chart_json_data_dir)
+form_nba_chart_json_data_api_dir = os.path.join(
+    parent_dir, "form_nba_chart_json_data_api"
+)
+sys.path.append(form_nba_chart_json_data_api_dir)
 
 # Import API functions
 from form_nba_chart_json_data_api import (
     plot_biggest_deficit,
     plot_percent_versus_time,
-    GameFilter
+    GameFilter,
 )
 
 # Base paths for input and output files
-json_base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/seasons"
-)
-chart_base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/charts"
-)
+json_base_path = "../../../docs/frontend/source/_static/json/seasons"
+chart_base_path = "../../../docs/frontend/source/_static/json/charts"
 
 # Clean up and recreate directories
 import shutil
@@ -43,7 +41,7 @@ if os.path.exists(plots_dir):
 os.makedirs(plots_dir, exist_ok=True)
 
 # Clean up and recreate Sphinx directory
-sphinx_dir = "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/plots"
+sphinx_dir = "../../../docs/frontend/source/plots"
 if os.path.exists(sphinx_dir):
     print(f"Removing existing Sphinx directory: {sphinx_dir}")
     shutil.rmtree(sphinx_dir)

@@ -15,11 +15,6 @@ from form_nba_chart_json_data_plot_primitives import (
 )
 from form_nba_chart_json_data_num import Num
 
-# Set the base path for JSON data
-json_base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/seasons"
-)
-
 
 def parse_season_type(year):
     """

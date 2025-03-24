@@ -545,5 +545,13 @@ class FinalPlot:
 
         # Make sure the directory exists
         os.makedirs(os.path.dirname(self.json_name), exist_ok=True)
-        with open(self.json_name, "w") as fileobj:
-            fileobj.write(json.dumps(json_data, indent=4))
+        if not self.json_name.endswith(".gz"):
+            self.json_name = self.json_name + ".gz"
+        if self.json_name.endswith(".gz"):
+            import gzip
+
+            with gzip.open(self.json_name, "wt") as fileobj:
+                fileobj.write(json.dumps(json_data, indent=4))
+        else:
+            with open(self.json_name, "w") as fileobj:
+                fileobj.write(json.dumps(json_data, indent=4))

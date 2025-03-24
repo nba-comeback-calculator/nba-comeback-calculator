@@ -119,13 +119,13 @@ cursor = con.cursor()
 
 cursor.execute(
     """CREATE TABLE IF NOT EXISTS games (
-            game_id PRIMARY KEY, 
+            game_id PRIMARY KEY,
             game_date,
             season_id,
-            season_type,            
+            season_type,
             season_year,
-            home_team_id, 
-            away_team_id, 
+            home_team_id,
+            away_team_id,
             home_team_abbr,
             away_team_abbr,
             home_regular_season_win_pct,
@@ -136,7 +136,7 @@ cursor.execute(
 
 cursor.execute(
     """CREATE TABLE IF NOT EXISTS scores (
-            game_id, 
+            game_id,
             period,
             pctimestring,
             score
@@ -149,7 +149,7 @@ cursor.execute(
 )
 cursor.execute(
     """CREATE TABLE IF NOT EXISTS seasons (
-            season_key PRIMARY KEY, 
+            season_key PRIMARY KEY,
             season_id,
             season_year,
             season_type
@@ -211,7 +211,7 @@ def get_game_row(game_id, gate_data, season_year, season_type):
 
 
 game_count = 0
-now = datetime.datetime(2025, 3, 22)
+now = datetime.datetime(2025, 3, 24)
 season_types = ["Regular Season", "Playoffs"]
 # season_types = ["Playoffs"]
 # season_types = ["Regular Season"]

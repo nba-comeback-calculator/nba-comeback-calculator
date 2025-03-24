@@ -167,9 +167,18 @@ class Games:
         for game in self:
             season_data["games"][game.game_id] = game.to_json()
 
-        # Write the data to a JSON file
-        with open(filename, "w") as f:
-            json.dump(season_data, f, indent=2)
+        # Write the data to a JSON file, using gzip if filename ends with .gz
+        # Make sure filename ends with .gz
+        if not filename.endswith(".gz"):
+            filename = filename + ".gz"
+        if filename.endswith(".gz"):
+            import gzip
+
+            with gzip.open(filename, "wt") as f:
+                json.dump(season_data, f, indent=2)
+        else:
+            with open(filename, "w") as f:
+                json.dump(season_data, f, indent=2)
 
         print(f"Saved {len(season_data['games'])} games to {filename}")
 
@@ -350,15 +359,13 @@ class PlayByPlay:
 
 
 # Define base path for output JSON files
-base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/seasons"
-)
+base_path = "../../docs/frontend/source/_static/json/seasons"
 
 # Process each NBA season and create corresponding JSON files
 for year in range(1996, 2025, 1):
     print(f"Processing season {year}...")
     games = Games(cursor, start_year=year, stop_year=year)
-    games.to_json(f"{base_path}/nba_season_{year}.json")
+    games.to_json(f"{base_path}/nba_season_{year}.json.gz")
 
 # Close the database connection
 con.close()

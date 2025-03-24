@@ -185,8 +185,6 @@ class Num:
         """
         initial_params = Num.array([m_est, b_est])
 
-        breakpoint()
-
         # Minimize negative log-likelihood using scipy.optimize.fmin
         result = Num.minimize(
             Num.probit_neg_log_likelihood, initial_params, args=(X, Y, model)

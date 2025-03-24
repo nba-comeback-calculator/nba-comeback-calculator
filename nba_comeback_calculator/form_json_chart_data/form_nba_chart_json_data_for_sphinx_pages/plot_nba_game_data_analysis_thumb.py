@@ -9,11 +9,13 @@ or preview displays of NBA game analysis visualizations.
 import sys
 import os
 
-# Add the form_nba_chart_json_data directory to the path using relative path from script location
+# Add the API directory to the path using relative path from script location
 script_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(script_dir)
-form_nba_chart_json_data_dir = os.path.join(parent_dir, 'form_nba_chart_json_data')
-sys.path.append(form_nba_chart_json_data_dir)
+form_nba_chart_json_data_api_dir = os.path.join(
+    parent_dir, "form_nba_chart_json_data_api"
+)
+sys.path.append(form_nba_chart_json_data_api_dir)
 
 # Import API functions
 from form_nba_chart_json_data_api import (
@@ -21,12 +23,9 @@ from form_nba_chart_json_data_api import (
 )
 
 # Base paths for input and output files
-json_base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/seasons"
-)
-chart_base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/charts"
-)
+# Base paths for input and output files
+json_base_path = "../../../docs/frontend/source/_static/json/seasons"
+chart_base_path = "../../../docs/frontend/source/_static/json/charts"
 
 base_path = f"{chart_base_path}/thumb"
 # Control which plots to generate
@@ -67,10 +66,20 @@ plot_percent_versus_time(
     percents=["20%", "5%", "1%"],
 )
 
+plot_percent_versus_time(
+    json_name=f"{base_path}/nbacc_points_versus_time_with_calculated_guides_all_eras.json",
+    year_groups=eras_one,
+    start_time=24,
+    stop_time=0,
+    percents=["20%", "5%", "1%"],
+    plot_calculated_guides=True,
+)
+
 eras_one = [
     # ERA ONE
     (1996, 2016),
 ]
+
 
 plot_percent_versus_time(
     json_name=f"{base_path}/nbacc_points_versus_time_with_guides_old_school_era.json",
