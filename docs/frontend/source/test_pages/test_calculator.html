@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>NBA Charts Test Page</title>
+
+        <!-- External CDN Dependencies -->
+        <!-- CSS -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css"
+        />
+
+        <!-- Local CSS -->
+        <link rel="stylesheet" href="/_static/css/nbacc.css" />
+        <link rel="stylesheet" href="/_static/css/nbacc-media.css" />
+        <link rel="stylesheet" href="/_static/css/nbacc-calculator.css" />
+
+        <!-- External JS Dependencies -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.2.0/chartjs-plugin-zoom.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mathjs@11.8.0/lib/browser/math.min.js"></script>
+        <!--
+        <script src="https://cdn.jsdelivr.net/npm/numeric@1.2.6/numeric.min.js"></script>
+        -->
+        <script src="https://cdn.jsdelivr.net/npm/fmin@0.0.4/build/fmin.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+
+        <!-- Local JS -->
+        <script>
+            // Initialize shared global state for cross-file references
+
+
+            // Add a script loaded check function
+            window.checkScriptsLoaded = function() {
+                console.log('Checking if all required scripts are loaded:');
+                console.log('nbacc_utils loaded:', typeof nbacc_utils !== 'undefined');
+                console.log('nbacc_plotter_core loaded:', typeof nbacc_plotter_core !== 'undefined');
+                console.log('nbacc_plotter_data loaded:', typeof nbacc_plotter_data !== 'undefined');
+                console.log('nbacc_calculator_api loaded:', typeof nbacc_calculator_api !== 'undefined');
+                console.log('nbacc_calculator_ui loaded:', typeof nbacc_calculator_ui !== 'undefined');
+                console.log('numeric.js loaded:', typeof numeric !== 'undefined');
+            };
+
+        </script>
+        <!-- Load in strict dependency order -->
+        <!-- 1. Base utilities first -->
+        <script src="/_static/js/nbacc_utils.js"></script>
+        <script src="/_static/js/nbacc_saveas_image_dialog.js"></script>
+        <script src="/_static/js/nbacc_plotter_plugins.js"></script>
+
+        <!-- 2. Numerical functions -->
+        <script src="/_static/js/nbacc_calculator_num.js"></script>
+
+        <!-- 3. Core modules that depend on base utilities -->
+        <script src="/_static/js/nbacc_plotter_core.js"></script>
+        <script src="/_static/js/nbacc_plotter_data.js"></script>
+        <script src="/_static/js/nbacc_plotter_ui.js"></script>
+        <script src="/_static/js/nbacc_chart_loader.js"></script>
+
+        <!-- 4. Calculator modules -->
+        <script src="/_static/js/nbacc_calculator_season_game_loader.js"></script>
+        <script src="/_static/js/nbacc_calculator_plot_primitives.js"></script>
+        <script src="/_static/js/nbacc_calculator_api.js"></script>
+
+        <!-- 5. Finally, the UI module that depends on everything else -->
+        <script src="/_static/js/nbacc_calculator_ui.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>NBA Charts Test Page</h1>
+
+            <!-- Test chart container -->
+            <div id="plots/all_time_v_modern/percent_plot_group_1" class="nbacc-chart nbacc-calculator"></div>
+        </div>
+
+        <script>
+            // Initialize charts when page loads
+            document.addEventListener("DOMContentLoaded", function () {
+                // The chart loader will automatically find the chart div by ID and load the corresponding data
+                console.log("DOM loaded, charts should initialize");
+            });
+        </script>
+    </body>
+</html>
