@@ -1,0 +1,2959 @@
+{
+    "plot_type": "time_v_point_margin",
+    "title": "% Chance of Coming Back Deficit Versus Time | 2017-18 to 2024-25 (9925 Games) | For @ Away",
+    "min_x": 1,
+    "max_x": 24,
+    "x_label": "Minutes Remaining",
+    "y_label": "Points Down",
+    "calculate_occurrences": false,
+    "y_ticks": [
+        -31,
+        -29,
+        -27,
+        -25,
+        -23,
+        -21,
+        -19,
+        -17,
+        -15,
+        -13,
+        -11,
+        -9,
+        -7,
+        -5,
+        -3,
+        -1
+    ],
+    "y_tick_labels": [
+        -31,
+        -29,
+        -27,
+        -25,
+        -23,
+        -21,
+        -19,
+        -17,
+        -15,
+        -13,
+        -11,
+        -9,
+        -7,
+        -5,
+        -3,
+        -1
+    ],
+    "lines": [
+        {
+            "legend": "20%",
+            "number_of_games": 9925,
+            "x_values": [
+                24,
+                23,
+                22,
+                21,
+                20,
+                19,
+                18,
+                17,
+                16,
+                15,
+                14,
+                13,
+                12,
+                11,
+                10,
+                9,
+                8,
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1
+            ],
+            "y_values": [
+                {
+                    "win_count": 58,
+                    "loss_count": 215,
+                    "win_plus_loss_count": 273.0,
+                    "game_count": 273.0,
+                    "point_margin_occurs_percent": 0.027506297229219143,
+                    "percent": 0.21245421245421245,
+                    "x_value": 24,
+                    "y_value": -9,
+                    "y_fit_value": -9.628319542968347
+                },
+                {
+                    "win_count": 49,
+                    "loss_count": 220,
+                    "win_plus_loss_count": 269.0,
+                    "game_count": 269.0,
+                    "point_margin_occurs_percent": 0.027103274559193955,
+                    "percent": 0.1821561338289963,
+                    "x_value": 23,
+                    "y_value": -10,
+                    "y_fit_value": -9.547461483396066
+                },
+                {
+                    "win_count": 49,
+                    "loss_count": 201,
+                    "win_plus_loss_count": 250.0,
+                    "game_count": 250.0,
+                    "point_margin_occurs_percent": 0.02518891687657431,
+                    "percent": 0.196,
+                    "x_value": 22,
+                    "y_value": -10,
+                    "y_fit_value": -9.274583352998272
+                },
+                {
+                    "win_count": 45,
+                    "loss_count": 216,
+                    "win_plus_loss_count": 261.0,
+                    "game_count": 261.0,
+                    "point_margin_occurs_percent": 0.026297229219143577,
+                    "percent": 0.1724137931034483,
+                    "x_value": 21,
+                    "y_value": -9,
+                    "y_fit_value": -9.096720945353969
+                },
+                {
+                    "win_count": 50,
+                    "loss_count": 204,
+                    "win_plus_loss_count": 254.0,
+                    "game_count": 254.0,
+                    "point_margin_occurs_percent": 0.025591939546599496,
+                    "percent": 0.1968503937007874,
+                    "x_value": 20,
+                    "y_value": -9,
+                    "y_fit_value": -9.023073922213907
+                },
+                {
+                    "win_count": 56,
+                    "loss_count": 208,
+                    "win_plus_loss_count": 264.0,
+                    "game_count": 264.0,
+                    "point_margin_occurs_percent": 0.02659949622166247,
+                    "percent": 0.21212121212121213,
+                    "x_value": 19,
+                    "y_value": -9,
+                    "y_fit_value": -8.776889712870974
+                },
+                {
+                    "win_count": 41,
+                    "loss_count": 211,
+                    "win_plus_loss_count": 252.0,
+                    "game_count": 252.0,
+                    "point_margin_occurs_percent": 0.0253904282115869,
+                    "percent": 0.1626984126984127,
+                    "x_value": 18,
+                    "y_value": -9,
+                    "y_fit_value": -8.373362365541391
+                },
+                {
+                    "win_count": 40,
+                    "loss_count": 186,
+                    "win_plus_loss_count": 226.0,
+                    "game_count": 226.0,
+                    "point_margin_occurs_percent": 0.022770780856423173,
+                    "percent": 0.17699115044247787,
+                    "x_value": 17,
+                    "y_value": -9,
+                    "y_fit_value": -8.140808359341309
+                },
+                {
+                    "win_count": 46,
+                    "loss_count": 196,
+                    "win_plus_loss_count": 242.0,
+                    "game_count": 242.0,
+                    "point_margin_occurs_percent": 0.02438287153652393,
+                    "percent": 0.19008264462809918,
+                    "x_value": 16,
+                    "y_value": -8,
+                    "y_fit_value": -7.802411806341334
+                },
+                {
+                    "win_count": 45,
+                    "loss_count": 198,
+                    "win_plus_loss_count": 243.0,
+                    "game_count": 243.0,
+                    "point_margin_occurs_percent": 0.024483627204030228,
+                    "percent": 0.18518518518518517,
+                    "x_value": 15,
+                    "y_value": -8,
+                    "y_fit_value": -7.612099755264729
+                },
+                {
+                    "win_count": 44,
+                    "loss_count": 213,
+                    "win_plus_loss_count": 257.0,
+                    "game_count": 257.0,
+                    "point_margin_occurs_percent": 0.02589420654911839,
+                    "percent": 0.17120622568093385,
+                    "x_value": 14,
+                    "y_value": -8,
+                    "y_fit_value": -7.353712976437975
+                },
+                {
+                    "win_count": 31,
+                    "loss_count": 214,
+                    "win_plus_loss_count": 245.0,
+                    "game_count": 245.0,
+                    "point_margin_occurs_percent": 0.02468513853904282,
+                    "percent": 0.12653061224489795,
+                    "x_value": 13,
+                    "y_value": -8,
+                    "y_fit_value": -7.060874463157613
+                },
+                {
+                    "win_count": 43,
+                    "loss_count": 228,
+                    "win_plus_loss_count": 271.0,
+                    "game_count": 271.0,
+                    "point_margin_occurs_percent": 0.02730478589420655,
+                    "percent": 0.15867158671586715,
+                    "x_value": 12,
+                    "y_value": -7,
+                    "y_fit_value": -6.69428168466092
+                },
+                {
+                    "win_count": 48,
+                    "loss_count": 206,
+                    "win_plus_loss_count": 254.0,
+                    "game_count": 254.0,
+                    "point_margin_occurs_percent": 0.025591939546599496,
+                    "percent": 0.1889763779527559,
+                    "x_value": 11,
+                    "y_value": -7,
+                    "y_fit_value": -6.574919161085735
+                },
+                {
+                    "win_count": 46,
+                    "loss_count": 221,
+                    "win_plus_loss_count": 267.0,
+                    "game_count": 267.0,
+                    "point_margin_occurs_percent": 0.02690176322418136,
+                    "percent": 0.17228464419475656,
+                    "x_value": 10,
+                    "y_value": -7,
+                    "y_fit_value": -6.237590455870181
+                },
+                {
+                    "win_count": 44,
+                    "loss_count": 227,
+                    "win_plus_loss_count": 271.0,
+                    "game_count": 271.0,
+                    "point_margin_occurs_percent": 0.02730478589420655,
+                    "percent": 0.16236162361623616,
+                    "x_value": 9,
+                    "y_value": -7,
+                    "y_fit_value": -6.018451906630879
+                },
+                {
+                    "win_count": 57,
+                    "loss_count": 203,
+                    "win_plus_loss_count": 260.0,
+                    "game_count": 260.0,
+                    "point_margin_occurs_percent": 0.02619647355163728,
+                    "percent": 0.21923076923076923,
+                    "x_value": 8,
+                    "y_value": -6,
+                    "y_fit_value": -5.63833440849443
+                },
+                {
+                    "win_count": 39,
+                    "loss_count": 200,
+                    "win_plus_loss_count": 239.0,
+                    "game_count": 239.0,
+                    "point_margin_occurs_percent": 0.024080604534005037,
+                    "percent": 0.16317991631799164,
+                    "x_value": 7,
+                    "y_value": -6,
+                    "y_fit_value": -5.228559742301412
+                },
+                {
+                    "win_count": 41,
+                    "loss_count": 217,
+                    "win_plus_loss_count": 258.0,
+                    "game_count": 258.0,
+                    "point_margin_occurs_percent": 0.025994962216624687,
+                    "percent": 0.15891472868217055,
+                    "x_value": 6,
+                    "y_value": -6,
+                    "y_fit_value": -5.005747241377617
+                },
+                {
+                    "win_count": 39,
+                    "loss_count": 227,
+                    "win_plus_loss_count": 266.0,
+                    "game_count": 266.0,
+                    "point_margin_occurs_percent": 0.026801007556675062,
+                    "percent": 0.14661654135338345,
+                    "x_value": 5,
+                    "y_value": -5,
+                    "y_fit_value": -4.707347514965766
+                },
+                {
+                    "win_count": 46,
+                    "loss_count": 216,
+                    "win_plus_loss_count": 262.0,
+                    "game_count": 262.0,
+                    "point_margin_occurs_percent": 0.026397984886649874,
+                    "percent": 0.17557251908396945,
+                    "x_value": 4,
+                    "y_value": -5,
+                    "y_fit_value": -4.182857538094556
+                },
+                {
+                    "win_count": 48,
+                    "loss_count": 236,
+                    "win_plus_loss_count": 284.0,
+                    "game_count": 284.0,
+                    "point_margin_occurs_percent": 0.028614609571788414,
+                    "percent": 0.16901408450704225,
+                    "x_value": 3,
+                    "y_value": -4,
+                    "y_fit_value": -3.6797668934079666
+                },
+                {
+                    "win_count": 42,
+                    "loss_count": 237,
+                    "win_plus_loss_count": 279.0,
+                    "game_count": 279.0,
+                    "point_margin_occurs_percent": 0.028110831234256926,
+                    "percent": 0.15053763440860216,
+                    "x_value": 2,
+                    "y_value": -4,
+                    "y_fit_value": -3.0296254297485494
+                },
+                {
+                    "win_count": 46,
+                    "loss_count": 296,
+                    "win_plus_loss_count": 342.0,
+                    "game_count": 342.0,
+                    "point_margin_occurs_percent": 0.03445843828715365,
+                    "percent": 0.13450292397660818,
+                    "x_value": 1,
+                    "y_value": -3,
+                    "y_fit_value": -2.277601382480395
+                }
+            ]
+        },
+        {
+            "legend": "10%",
+            "number_of_games": 9925,
+            "x_values": [
+                24,
+                23,
+                22,
+                21,
+                20,
+                19,
+                18,
+                17,
+                16,
+                15,
+                14,
+                13,
+                12,
+                11,
+                10,
+                9,
+                8,
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1
+            ],
+            "y_values": [
+                {
+                    "win_count": 13,
+                    "loss_count": 153,
+                    "win_plus_loss_count": 166.0,
+                    "game_count": 166.0,
+                    "point_margin_occurs_percent": 0.01672544080604534,
+                    "percent": 0.0783132530120482,
+                    "x_value": 24,
+                    "y_value": -15,
+                    "y_fit_value": -15.618841046754634
+                },
+                {
+                    "win_count": 14,
+                    "loss_count": 132,
+                    "win_plus_loss_count": 146.0,
+                    "game_count": 146.0,
+                    "point_margin_occurs_percent": 0.014710327455919395,
+                    "percent": 0.0958904109589041,
+                    "x_value": 23,
+                    "y_value": -16,
+                    "y_fit_value": -15.149017900512813
+                },
+                {
+                    "win_count": 14,
+                    "loss_count": 137,
+                    "win_plus_loss_count": 151.0,
+                    "game_count": 151.0,
+                    "point_margin_occurs_percent": 0.015214105793450882,
+                    "percent": 0.09271523178807947,
+                    "x_value": 22,
+                    "y_value": -15,
+                    "y_fit_value": -14.677620468322523
+                },
+                {
+                    "win_count": 16,
+                    "loss_count": 171,
+                    "win_plus_loss_count": 187.0,
+                    "game_count": 187.0,
+                    "point_margin_occurs_percent": 0.01884130982367758,
+                    "percent": 0.0855614973262032,
+                    "x_value": 21,
+                    "y_value": -14,
+                    "y_fit_value": -14.369536979360213
+                },
+                {
+                    "win_count": 16,
+                    "loss_count": 149,
+                    "win_plus_loss_count": 165.0,
+                    "game_count": 165.0,
+                    "point_margin_occurs_percent": 0.01662468513853904,
+                    "percent": 0.09696969696969697,
+                    "x_value": 20,
+                    "y_value": -15,
+                    "y_fit_value": -14.292166119282944
+                },
+                {
+                    "win_count": 15,
+                    "loss_count": 154,
+                    "win_plus_loss_count": 169.0,
+                    "game_count": 169.0,
+                    "point_margin_occurs_percent": 0.017027707808564232,
+                    "percent": 0.08875739644970414,
+                    "x_value": 19,
+                    "y_value": -14,
+                    "y_fit_value": -13.94634983637
+                },
+                {
+                    "win_count": 11,
+                    "loss_count": 167,
+                    "win_plus_loss_count": 178.0,
+                    "game_count": 178.0,
+                    "point_margin_occurs_percent": 0.017934508816120905,
+                    "percent": 0.06179775280898876,
+                    "x_value": 18,
+                    "y_value": -14,
+                    "y_fit_value": -13.612800435403548
+                },
+                {
+                    "win_count": 20,
+                    "loss_count": 176,
+                    "win_plus_loss_count": 196.0,
+                    "game_count": 196.0,
+                    "point_margin_occurs_percent": 0.019748110831234258,
+                    "percent": 0.10204081632653061,
+                    "x_value": 17,
+                    "y_value": -14,
+                    "y_fit_value": -13.210424956851472
+                },
+                {
+                    "win_count": 17,
+                    "loss_count": 191,
+                    "win_plus_loss_count": 208.0,
+                    "game_count": 208.0,
+                    "point_margin_occurs_percent": 0.020957178841309824,
+                    "percent": 0.08173076923076923,
+                    "x_value": 16,
+                    "y_value": -12,
+                    "y_fit_value": -12.75066910685244
+                },
+                {
+                    "win_count": 12,
+                    "loss_count": 182,
+                    "win_plus_loss_count": 194.0,
+                    "game_count": 194.0,
+                    "point_margin_occurs_percent": 0.019546599496221662,
+                    "percent": 0.061855670103092786,
+                    "x_value": 15,
+                    "y_value": -13,
+                    "y_fit_value": -12.5218572859598
+                },
+                {
+                    "win_count": 21,
+                    "loss_count": 207,
+                    "win_plus_loss_count": 228.0,
+                    "game_count": 228.0,
+                    "point_margin_occurs_percent": 0.02297229219143577,
+                    "percent": 0.09210526315789473,
+                    "x_value": 14,
+                    "y_value": -11,
+                    "y_fit_value": -11.986083698154683
+                },
+                {
+                    "win_count": 22,
+                    "loss_count": 202,
+                    "win_plus_loss_count": 224.0,
+                    "game_count": 224.0,
+                    "point_margin_occurs_percent": 0.02256926952141058,
+                    "percent": 0.09821428571428571,
+                    "x_value": 13,
+                    "y_value": -11,
+                    "y_fit_value": -11.323481453482739
+                },
+                {
+                    "win_count": 20,
+                    "loss_count": 218,
+                    "win_plus_loss_count": 238.0,
+                    "game_count": 238.0,
+                    "point_margin_occurs_percent": 0.02397984886649874,
+                    "percent": 0.08403361344537816,
+                    "x_value": 12,
+                    "y_value": -11,
+                    "y_fit_value": -10.843156992303836
+                },
+                {
+                    "win_count": 18,
+                    "loss_count": 211,
+                    "win_plus_loss_count": 229.0,
+                    "game_count": 229.0,
+                    "point_margin_occurs_percent": 0.023073047858942066,
+                    "percent": 0.07860262008733625,
+                    "x_value": 11,
+                    "y_value": -11,
+                    "y_fit_value": -10.283172360611646
+                },
+                {
+                    "win_count": 21,
+                    "loss_count": 230,
+                    "win_plus_loss_count": 251.0,
+                    "game_count": 251.0,
+                    "point_margin_occurs_percent": 0.025289672544080606,
+                    "percent": 0.08366533864541832,
+                    "x_value": 10,
+                    "y_value": -10,
+                    "y_fit_value": -9.727283418488822
+                },
+                {
+                    "win_count": 11,
+                    "loss_count": 187,
+                    "win_plus_loss_count": 198.0,
+                    "game_count": 198.0,
+                    "point_margin_occurs_percent": 0.01994962216624685,
+                    "percent": 0.05555555555555555,
+                    "x_value": 9,
+                    "y_value": -10,
+                    "y_fit_value": -9.297530122590652
+                },
+                {
+                    "win_count": 12,
+                    "loss_count": 214,
+                    "win_plus_loss_count": 226.0,
+                    "game_count": 226.0,
+                    "point_margin_occurs_percent": 0.022770780856423173,
+                    "percent": 0.05309734513274336,
+                    "x_value": 8,
+                    "y_value": -9,
+                    "y_fit_value": -8.913665523515432
+                },
+                {
+                    "win_count": 23,
+                    "loss_count": 213,
+                    "win_plus_loss_count": 236.0,
+                    "game_count": 236.0,
+                    "point_margin_occurs_percent": 0.023778337531486147,
+                    "percent": 0.09745762711864407,
+                    "x_value": 7,
+                    "y_value": -9,
+                    "y_fit_value": -8.477662190666925
+                },
+                {
+                    "win_count": 15,
+                    "loss_count": 221,
+                    "win_plus_loss_count": 236.0,
+                    "game_count": 236.0,
+                    "point_margin_occurs_percent": 0.023778337531486147,
+                    "percent": 0.0635593220338983,
+                    "x_value": 6,
+                    "y_value": -9,
+                    "y_fit_value": -8.067274081594274
+                },
+                {
+                    "win_count": 29,
+                    "loss_count": 228,
+                    "win_plus_loss_count": 257.0,
+                    "game_count": 257.0,
+                    "point_margin_occurs_percent": 0.02589420654911839,
+                    "percent": 0.11284046692607004,
+                    "x_value": 5,
+                    "y_value": -8,
+                    "y_fit_value": -7.3289309573110435
+                },
+                {
+                    "win_count": 27,
+                    "loss_count": 251,
+                    "win_plus_loss_count": 278.0,
+                    "game_count": 278.0,
+                    "point_margin_occurs_percent": 0.02801007556675063,
+                    "percent": 0.09712230215827339,
+                    "x_value": 4,
+                    "y_value": -7,
+                    "y_fit_value": -6.701922542427495
+                },
+                {
+                    "win_count": 25,
+                    "loss_count": 213,
+                    "win_plus_loss_count": 238.0,
+                    "game_count": 238.0,
+                    "point_margin_occurs_percent": 0.02397984886649874,
+                    "percent": 0.10504201680672269,
+                    "x_value": 3,
+                    "y_value": -6,
+                    "y_fit_value": -5.892226520839856
+                },
+                {
+                    "win_count": 27,
+                    "loss_count": 228,
+                    "win_plus_loss_count": 255.0,
+                    "game_count": 255.0,
+                    "point_margin_occurs_percent": 0.025692695214105794,
+                    "percent": 0.10588235294117647,
+                    "x_value": 2,
+                    "y_value": -5,
+                    "y_fit_value": -4.897439134970249
+                },
+                {
+                    "win_count": 15,
+                    "loss_count": 239,
+                    "win_plus_loss_count": 254.0,
+                    "game_count": 254.0,
+                    "point_margin_occurs_percent": 0.025591939546599496,
+                    "percent": 0.05905511811023622,
+                    "x_value": 1,
+                    "y_value": -4,
+                    "y_fit_value": -3.6950601645040626
+                }
+            ]
+        },
+        {
+            "legend": "5%",
+            "number_of_games": 9925,
+            "x_values": [
+                24,
+                23,
+                22,
+                21,
+                20,
+                19,
+                18,
+                17,
+                16,
+                15,
+                14,
+                13,
+                12,
+                11,
+                10,
+                9,
+                8,
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1
+            ],
+            "y_values": [
+                {
+                    "win_count": 3,
+                    "loss_count": 77,
+                    "win_plus_loss_count": 80.0,
+                    "game_count": 80.0,
+                    "point_margin_occurs_percent": 0.008060453400503778,
+                    "percent": 0.0375,
+                    "x_value": 24,
+                    "y_value": -20,
+                    "y_fit_value": -20.565917101896535
+                },
+                {
+                    "win_count": 7,
+                    "loss_count": 79,
+                    "win_plus_loss_count": 86.0,
+                    "game_count": 86.0,
+                    "point_margin_occurs_percent": 0.008664987405541561,
+                    "percent": 0.08139534883720931,
+                    "x_value": 23,
+                    "y_value": -19,
+                    "y_fit_value": -19.774879873486263
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 78,
+                    "win_plus_loss_count": 80.0,
+                    "game_count": 80.0,
+                    "point_margin_occurs_percent": 0.008060453400503778,
+                    "percent": 0.025,
+                    "x_value": 22,
+                    "y_value": -20,
+                    "y_fit_value": -19.13954177540229
+                },
+                {
+                    "win_count": 3,
+                    "loss_count": 91,
+                    "win_plus_loss_count": 94.0,
+                    "game_count": 94.0,
+                    "point_margin_occurs_percent": 0.00947103274559194,
+                    "percent": 0.031914893617021274,
+                    "x_value": 21,
+                    "y_value": -19,
+                    "y_fit_value": -18.723919469851836
+                },
+                {
+                    "win_count": 7,
+                    "loss_count": 124,
+                    "win_plus_loss_count": 131.0,
+                    "game_count": 131.0,
+                    "point_margin_occurs_percent": 0.013198992443324937,
+                    "percent": 0.05343511450381679,
+                    "x_value": 20,
+                    "y_value": -18,
+                    "y_fit_value": -18.64347340095783
+                },
+                {
+                    "win_count": 5,
+                    "loss_count": 120,
+                    "win_plus_loss_count": 125.0,
+                    "game_count": 125.0,
+                    "point_margin_occurs_percent": 0.012594458438287154,
+                    "percent": 0.04,
+                    "x_value": 19,
+                    "y_value": -19,
+                    "y_fit_value": -18.215379232025978
+                },
+                {
+                    "win_count": 8,
+                    "loss_count": 138,
+                    "win_plus_loss_count": 146.0,
+                    "game_count": 146.0,
+                    "point_margin_occurs_percent": 0.014710327455919395,
+                    "percent": 0.0547945205479452,
+                    "x_value": 18,
+                    "y_value": -18,
+                    "y_fit_value": -17.939618826996234
+                },
+                {
+                    "win_count": 6,
+                    "loss_count": 127,
+                    "win_plus_loss_count": 133.0,
+                    "game_count": 133.0,
+                    "point_margin_occurs_percent": 0.013400503778337531,
+                    "percent": 0.045112781954887216,
+                    "x_value": 17,
+                    "y_value": -18,
+                    "y_fit_value": -17.397001845431355
+                },
+                {
+                    "win_count": 5,
+                    "loss_count": 148,
+                    "win_plus_loss_count": 153.0,
+                    "game_count": 153.0,
+                    "point_margin_occurs_percent": 0.015415617128463475,
+                    "percent": 0.032679738562091505,
+                    "x_value": 16,
+                    "y_value": -16,
+                    "y_fit_value": -16.83702539329052
+                },
+                {
+                    "win_count": 7,
+                    "loss_count": 137,
+                    "win_plus_loss_count": 144.0,
+                    "game_count": 144.0,
+                    "point_margin_occurs_percent": 0.014508816120906801,
+                    "percent": 0.04861111111111111,
+                    "x_value": 15,
+                    "y_value": -16,
+                    "y_fit_value": -16.576419797971898
+                },
+                {
+                    "win_count": 3,
+                    "loss_count": 151,
+                    "win_plus_loss_count": 154.0,
+                    "game_count": 154.0,
+                    "point_margin_occurs_percent": 0.015516372795969773,
+                    "percent": 0.01948051948051948,
+                    "x_value": 14,
+                    "y_value": -16,
+                    "y_fit_value": -15.811575395573799
+                },
+                {
+                    "win_count": 9,
+                    "loss_count": 162,
+                    "win_plus_loss_count": 171.0,
+                    "game_count": 171.0,
+                    "point_margin_occurs_percent": 0.017229219143576825,
+                    "percent": 0.05263157894736842,
+                    "x_value": 13,
+                    "y_value": -15,
+                    "y_fit_value": -14.843615879340268
+                },
+                {
+                    "win_count": 10,
+                    "loss_count": 166,
+                    "win_plus_loss_count": 176.0,
+                    "game_count": 176.0,
+                    "point_margin_occurs_percent": 0.017732997481108313,
+                    "percent": 0.056818181818181816,
+                    "x_value": 12,
+                    "y_value": -15,
+                    "y_fit_value": -14.269369831576197
+                },
+                {
+                    "win_count": 9,
+                    "loss_count": 183,
+                    "win_plus_loss_count": 192.0,
+                    "game_count": 192.0,
+                    "point_margin_occurs_percent": 0.019345088161209067,
+                    "percent": 0.046875,
+                    "x_value": 11,
+                    "y_value": -13,
+                    "y_fit_value": -13.34551185779617
+                },
+                {
+                    "win_count": 8,
+                    "loss_count": 166,
+                    "win_plus_loss_count": 174.0,
+                    "game_count": 174.0,
+                    "point_margin_occurs_percent": 0.017531486146095718,
+                    "percent": 0.04597701149425287,
+                    "x_value": 10,
+                    "y_value": -13,
+                    "y_fit_value": -12.609132099652285
+                },
+                {
+                    "win_count": 8,
+                    "loss_count": 189,
+                    "win_plus_loss_count": 197.0,
+                    "game_count": 197.0,
+                    "point_margin_occurs_percent": 0.019848866498740556,
+                    "percent": 0.04060913705583756,
+                    "x_value": 9,
+                    "y_value": -13,
+                    "y_fit_value": -12.005449510720561
+                },
+                {
+                    "win_count": 4,
+                    "loss_count": 198,
+                    "win_plus_loss_count": 202.0,
+                    "game_count": 202.0,
+                    "point_margin_occurs_percent": 0.02035264483627204,
+                    "percent": 0.019801980198019802,
+                    "x_value": 8,
+                    "y_value": -12,
+                    "y_fit_value": -11.618490491014565
+                },
+                {
+                    "win_count": 5,
+                    "loss_count": 213,
+                    "win_plus_loss_count": 218.0,
+                    "game_count": 218.0,
+                    "point_margin_occurs_percent": 0.021964735516372794,
+                    "percent": 0.022935779816513763,
+                    "x_value": 7,
+                    "y_value": -12,
+                    "y_fit_value": -11.16082707253117
+                },
+                {
+                    "win_count": 12,
+                    "loss_count": 178,
+                    "win_plus_loss_count": 190.0,
+                    "game_count": 190.0,
+                    "point_margin_occurs_percent": 0.019143576826196475,
+                    "percent": 0.06315789473684211,
+                    "x_value": 6,
+                    "y_value": -11,
+                    "y_fit_value": -10.595535788665577
+                },
+                {
+                    "win_count": 7,
+                    "loss_count": 207,
+                    "win_plus_loss_count": 214.0,
+                    "game_count": 214.0,
+                    "point_margin_occurs_percent": 0.021561712846347607,
+                    "percent": 0.03271028037383177,
+                    "x_value": 5,
+                    "y_value": -9,
+                    "y_fit_value": -9.493879812929986
+                },
+                {
+                    "win_count": 8,
+                    "loss_count": 213,
+                    "win_plus_loss_count": 221.0,
+                    "game_count": 221.0,
+                    "point_margin_occurs_percent": 0.022267002518891688,
+                    "percent": 0.03619909502262444,
+                    "x_value": 4,
+                    "y_value": -9,
+                    "y_fit_value": -8.782209902451967
+                },
+                {
+                    "win_count": 11,
+                    "loss_count": 213,
+                    "win_plus_loss_count": 224.0,
+                    "game_count": 224.0,
+                    "point_margin_occurs_percent": 0.02256926952141058,
+                    "percent": 0.049107142857142856,
+                    "x_value": 3,
+                    "y_value": -8,
+                    "y_fit_value": -7.719313868563853
+                },
+                {
+                    "win_count": 11,
+                    "loss_count": 258,
+                    "win_plus_loss_count": 269.0,
+                    "game_count": 269.0,
+                    "point_margin_occurs_percent": 0.027103274559193955,
+                    "percent": 0.040892193308550186,
+                    "x_value": 2,
+                    "y_value": -7,
+                    "y_fit_value": -6.43991193149187
+                },
+                {
+                    "win_count": 16,
+                    "loss_count": 276,
+                    "win_plus_loss_count": 292.0,
+                    "game_count": 292.0,
+                    "point_margin_occurs_percent": 0.02942065491183879,
+                    "percent": 0.0547945205479452,
+                    "x_value": 1,
+                    "y_value": -5,
+                    "y_fit_value": -4.86562209225406
+                }
+            ]
+        },
+        {
+            "legend": "1%",
+            "number_of_games": 9925,
+            "x_values": [
+                24,
+                23,
+                22,
+                21,
+                20,
+                19,
+                18,
+                17,
+                16,
+                15,
+                14,
+                13,
+                12,
+                11,
+                10,
+                9,
+                8,
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1
+            ],
+            "y_values": [
+                {
+                    "win_count": 0,
+                    "loss_count": 22,
+                    "win_plus_loss_count": 22.0,
+                    "game_count": 22.0,
+                    "point_margin_occurs_percent": 0.002216624685138539,
+                    "percent": 0.0,
+                    "x_value": 24,
+                    "y_value": -29,
+                    "y_fit_value": -29.845809042055485
+                },
+                {
+                    "win_count": 0,
+                    "loss_count": 106,
+                    "win_plus_loss_count": 106.0,
+                    "game_count": 106.0,
+                    "point_margin_occurs_percent": 0.010680100755667506,
+                    "percent": 0.0,
+                    "x_value": 23,
+                    "y_value": -29,
+                    "y_fit_value": -28.45222761603129
+                },
+                {
+                    "win_count": 0,
+                    "loss_count": 0,
+                    "win_plus_loss_count": 0.0,
+                    "game_count": 0.0,
+                    "point_margin_occurs_percent": 0.0,
+                    "percent": null,
+                    "x_value": 22,
+                    "y_value": -28,
+                    "y_fit_value": -27.509364093406933
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 36,
+                    "win_plus_loss_count": 37.0,
+                    "game_count": 37.0,
+                    "point_margin_occurs_percent": 0.0037279596977329976,
+                    "percent": 0.02702702702702703,
+                    "x_value": 21,
+                    "y_value": -26,
+                    "y_fit_value": -26.892016852523565
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 43,
+                    "win_plus_loss_count": 44.0,
+                    "game_count": 44.0,
+                    "point_margin_occurs_percent": 0.004433249370277078,
+                    "percent": 0.022727272727272728,
+                    "x_value": 20,
+                    "y_value": -27,
+                    "y_fit_value": -26.805802203321782
+                },
+                {
+                    "win_count": 0,
+                    "loss_count": 33,
+                    "win_plus_loss_count": 33.0,
+                    "game_count": 33.0,
+                    "point_margin_occurs_percent": 0.0033249370277078087,
+                    "percent": 0.0,
+                    "x_value": 19,
+                    "y_value": -26,
+                    "y_fit_value": -26.223368403705138
+                },
+                {
+                    "win_count": 0,
+                    "loss_count": 0,
+                    "win_plus_loss_count": 0.0,
+                    "game_count": 0.0,
+                    "point_margin_occurs_percent": 0.0,
+                    "percent": null,
+                    "x_value": 18,
+                    "y_value": -27,
+                    "y_fit_value": -26.056010544269068
+                },
+                {
+                    "win_count": 0,
+                    "loss_count": 330,
+                    "win_plus_loss_count": 330.0,
+                    "game_count": 330.0,
+                    "point_margin_occurs_percent": 0.03324937027707808,
+                    "percent": 0.0,
+                    "x_value": 17,
+                    "y_value": -26,
+                    "y_fit_value": -25.25032382636335
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 75,
+                    "win_plus_loss_count": 76.0,
+                    "game_count": 76.0,
+                    "point_margin_occurs_percent": 0.00765743073047859,
+                    "percent": 0.013157894736842105,
+                    "x_value": 16,
+                    "y_value": -24,
+                    "y_fit_value": -24.50235019211189
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 70,
+                    "win_plus_loss_count": 71.0,
+                    "game_count": 71.0,
+                    "point_margin_occurs_percent": 0.007153652392947104,
+                    "percent": 0.014084507042253521,
+                    "x_value": 15,
+                    "y_value": -25,
+                    "y_fit_value": -24.182104763535346
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 85,
+                    "win_plus_loss_count": 86.0,
+                    "game_count": 86.0,
+                    "point_margin_occurs_percent": 0.008664987405541561,
+                    "percent": 0.011627906976744186,
+                    "x_value": 14,
+                    "y_value": -23,
+                    "y_fit_value": -22.987561609314426
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 85,
+                    "win_plus_loss_count": 86.0,
+                    "game_count": 86.0,
+                    "point_margin_occurs_percent": 0.008664987405541561,
+                    "percent": 0.011627906976744186,
+                    "x_value": 13,
+                    "y_value": -22,
+                    "y_fit_value": -21.4468026350479
+                },
+                {
+                    "win_count": 0,
+                    "loss_count": 104,
+                    "win_plus_loss_count": 104.0,
+                    "game_count": 104.0,
+                    "point_margin_occurs_percent": 0.010478589420654912,
+                    "percent": 0.0,
+                    "x_value": 12,
+                    "y_value": -21,
+                    "y_fit_value": -20.696375310779555
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 110,
+                    "win_plus_loss_count": 111.0,
+                    "game_count": 111.0,
+                    "point_margin_occurs_percent": 0.011183879093198993,
+                    "percent": 0.009009009009009009,
+                    "x_value": 11,
+                    "y_value": -20,
+                    "y_fit_value": -19.089951462361324
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 125,
+                    "win_plus_loss_count": 126.0,
+                    "game_count": 126.0,
+                    "point_margin_occurs_percent": 0.01269521410579345,
+                    "percent": 0.007936507936507936,
+                    "x_value": 10,
+                    "y_value": -18,
+                    "y_fit_value": -18.015000950463683
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 144,
+                    "win_plus_loss_count": 145.0,
+                    "game_count": 145.0,
+                    "point_margin_occurs_percent": 0.014609571788413099,
+                    "percent": 0.006896551724137931,
+                    "x_value": 9,
+                    "y_value": -18,
+                    "y_fit_value": -17.08505593366772
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 157,
+                    "win_plus_loss_count": 159.0,
+                    "game_count": 159.0,
+                    "point_margin_occurs_percent": 0.01602015113350126,
+                    "percent": 0.012578616352201259,
+                    "x_value": 8,
+                    "y_value": -17,
+                    "y_fit_value": -16.692292295485906
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 162,
+                    "win_plus_loss_count": 163.0,
+                    "game_count": 163.0,
+                    "point_margin_occurs_percent": 0.01642317380352645,
+                    "percent": 0.006134969325153374,
+                    "x_value": 7,
+                    "y_value": -16,
+                    "y_fit_value": -16.193998158601193
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 179,
+                    "win_plus_loss_count": 180.0,
+                    "game_count": 180.0,
+                    "point_margin_occurs_percent": 0.0181360201511335,
+                    "percent": 0.005555555555555556,
+                    "x_value": 6,
+                    "y_value": -15,
+                    "y_fit_value": -15.338134280491376
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 187,
+                    "win_plus_loss_count": 188.0,
+                    "game_count": 188.0,
+                    "point_margin_occurs_percent": 0.01894206549118388,
+                    "percent": 0.005319148936170213,
+                    "x_value": 5,
+                    "y_value": -13,
+                    "y_fit_value": -13.554963817335556
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 204,
+                    "win_plus_loss_count": 206.0,
+                    "game_count": 206.0,
+                    "point_margin_occurs_percent": 0.02075566750629723,
+                    "percent": 0.009708737864077669,
+                    "x_value": 4,
+                    "y_value": -12,
+                    "y_fit_value": -12.684483021022796
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 206,
+                    "win_plus_loss_count": 207.0,
+                    "game_count": 207.0,
+                    "point_margin_occurs_percent": 0.020856423173803526,
+                    "percent": 0.004830917874396135,
+                    "x_value": 3,
+                    "y_value": -12,
+                    "y_fit_value": -11.14662587329591
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 219,
+                    "win_plus_loss_count": 220.0,
+                    "game_count": 220.0,
+                    "point_margin_occurs_percent": 0.02216624685138539,
+                    "percent": 0.004545454545454545,
+                    "x_value": 2,
+                    "y_value": -10,
+                    "y_fit_value": -9.333334371900431
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 251,
+                    "win_plus_loss_count": 253.0,
+                    "game_count": 253.0,
+                    "point_margin_occurs_percent": 0.025491183879093198,
+                    "percent": 0.007905138339920948,
+                    "x_value": 1,
+                    "y_value": -7,
+                    "y_fit_value": -7.061401594672187
+                }
+            ]
+        },
+        {
+            "legend": "Record",
+            "number_of_games": 9925,
+            "x_values": [
+                24,
+                23,
+                22,
+                21,
+                20,
+                19,
+                18,
+                17,
+                16,
+                15,
+                14,
+                13,
+                12,
+                11,
+                10,
+                9,
+                8,
+                7,
+                6,
+                5,
+                4,
+                3,
+                2,
+                1
+            ],
+            "y_values": [
+                {
+                    "win_count": 1,
+                    "loss_count": 12,
+                    "win_plus_loss_count": 13.0,
+                    "game_count": 13.0,
+                    "point_margin_occurs_percent": 0.001309823677581864,
+                    "win_games": [
+                        {
+                            "game_id": "0022100716",
+                            "game_date": "2022-01-25",
+                            "game_summary": "LAC(18th/0.512) @ WAS(21st/0.427): 116-115"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700569",
+                            "game_date": "2018-01-05",
+                            "game_summary": "DET(19th/0.476) @ PHI(5th/0.634): 78-114"
+                        },
+                        {
+                            "game_id": "0021800446",
+                            "game_date": "2018-12-17",
+                            "game_summary": "SAC(17th/0.476) @ MIN(21st/0.439): 105-132"
+                        },
+                        {
+                            "game_id": "0021801200",
+                            "game_date": "2019-04-07",
+                            "game_summary": "PHX(28th/0.232) @ HOU(5th/0.646): 113-149"
+                        },
+                        {
+                            "game_id": "0021900838",
+                            "game_date": "2020-02-22",
+                            "game_summary": "CLE(29th/0.292) @ MIA(11th/0.603): 105-124"
+                        },
+                        {
+                            "game_id": "0022000242",
+                            "game_date": "2021-01-23",
+                            "game_summary": "GSW(14th/0.542) @ UTA(1st/0.722): 108-127"
+                        },
+                        {
+                            "game_id": "0042000155",
+                            "game_date": "2021-06-01",
+                            "game_summary": "LAL(8th/0.583) @ PHX(2nd/0.708): 85-115"
+                        },
+                        {
+                            "game_id": "0022200754",
+                            "game_date": "2023-01-29",
+                            "game_summary": "LAC(12th/0.537) @ CLE(5th/0.622): 99-122"
+                        },
+                        {
+                            "game_id": "0042200111",
+                            "game_date": "2023-04-15",
+                            "game_summary": "ATL(17th/0.500) @ BOS(2nd/0.695): 99-112"
+                        },
+                        {
+                            "game_id": "0022301024",
+                            "game_date": "2024-03-23",
+                            "game_summary": "UTA(23rd/0.378) @ HOU(19th/0.500): 119-147"
+                        },
+                        {
+                            "game_id": "0022400616",
+                            "game_date": "2025-01-22",
+                            "game_summary": "CHA(28th/0.257) @ MEM(8th/0.606): 120-132"
+                        }
+                    ],
+                    "x_value": 24,
+                    "y_value": -30,
+                    "y_fit_value": -30.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 26,
+                    "win_plus_loss_count": 27.0,
+                    "game_count": 27.0,
+                    "point_margin_occurs_percent": 0.0027204030226700253,
+                    "win_games": [
+                        {
+                            "game_id": "0022100716",
+                            "game_date": "2022-01-25",
+                            "game_summary": "LAC(18th/0.512) @ WAS(21st/0.427): 116-115"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700340",
+                            "game_date": "2017-12-04",
+                            "game_summary": "NYK(22nd/0.354) @ IND(10th/0.585): 97-115"
+                        },
+                        {
+                            "game_id": "0022100816",
+                            "game_date": "2022-02-08",
+                            "game_summary": "IND(26th/0.305) @ ATL(16th/0.524): 112-133"
+                        },
+                        {
+                            "game_id": "0022100990",
+                            "game_date": "2022-03-09",
+                            "game_summary": "POR(25th/0.329) @ UTA(9th/0.598): 85-123"
+                        },
+                        {
+                            "game_id": "0022101096",
+                            "game_date": "2022-03-24",
+                            "game_summary": "IND(26th/0.305) @ MEM(2nd/0.683): 103-133"
+                        },
+                        {
+                            "game_id": "0022101195",
+                            "game_date": "2022-04-06",
+                            "game_summary": "PHX(1st/0.780) @ LAC(18th/0.512): 109-113"
+                        },
+                        {
+                            "game_id": "0042100304",
+                            "game_date": "2022-05-23",
+                            "game_summary": "MIA(3rd/0.646) @ BOS(6th/0.622): 82-102"
+                        },
+                        {
+                            "game_id": "0022300481",
+                            "game_date": "2024-01-05",
+                            "game_summary": "OKC(2nd/0.695) @ BKN(22nd/0.390): 115-124"
+                        },
+                        {
+                            "game_id": "0022301089",
+                            "game_date": "2024-04-01",
+                            "game_summary": "BKN(22nd/0.390) @ IND(14th/0.573): 111-133"
+                        },
+                        {
+                            "game_id": "0022301200",
+                            "game_date": "2024-04-14",
+                            "game_summary": "POR(27th/0.256) @ SAC(16th/0.561): 82-121"
+                        },
+                        {
+                            "game_id": "0022400092",
+                            "game_date": "2024-10-26",
+                            "game_summary": "ORL(19th/0.465) @ MEM(8th/0.606): 111-124"
+                        }
+                    ],
+                    "x_value": 23,
+                    "y_value": -28,
+                    "y_fit_value": -28.2
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 40,
+                    "win_plus_loss_count": 42.0,
+                    "game_count": 42.0,
+                    "point_margin_occurs_percent": 0.004231738035264484,
+                    "win_games": [
+                        {
+                            "game_id": "0022100716",
+                            "game_date": "2022-01-25",
+                            "game_summary": "LAC(18th/0.512) @ WAS(21st/0.427): 116-115"
+                        },
+                        {
+                            "game_id": "0022200705",
+                            "game_date": "2023-01-22",
+                            "game_summary": "LAL(14th/0.524) @ POR(26th/0.402): 121-112"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021900086",
+                            "game_date": "2019-11-03",
+                            "game_summary": "HOU(8th/0.611) @ MIA(11th/0.603): 100-129"
+                        },
+                        {
+                            "game_id": "0021901240",
+                            "game_date": "2020-08-01",
+                            "game_summary": "UTA(9th/0.611) @ OKC(8th/0.611): 94-110"
+                        },
+                        {
+                            "game_id": "0022000686",
+                            "game_date": "2021-03-26",
+                            "game_summary": "MIA(13th/0.556) @ CHA(19th/0.458): 105-110"
+                        },
+                        {
+                            "game_id": "0022000737",
+                            "game_date": "2021-04-02",
+                            "game_summary": "GSW(14th/0.542) @ TOR(24th/0.375): 77-130"
+                        },
+                        {
+                            "game_id": "0022100498",
+                            "game_date": "2021-12-26",
+                            "game_summary": "DET(28th/0.280) @ SAS(22nd/0.415): 109-144"
+                        },
+                        {
+                            "game_id": "0022101109",
+                            "game_date": "2022-03-26",
+                            "game_summary": "IND(26th/0.305) @ TOR(10th/0.585): 91-131"
+                        },
+                        {
+                            "game_id": "0022101158",
+                            "game_date": "2022-04-01",
+                            "game_summary": "POR(25th/0.329) @ SAS(22nd/0.415): 111-130"
+                        },
+                        {
+                            "game_id": "0042200132",
+                            "game_date": "2023-04-18",
+                            "game_summary": "NYK(8th/0.573) @ CLE(5th/0.622): 90-107"
+                        },
+                        {
+                            "game_id": "0022300261",
+                            "game_date": "2023-11-29",
+                            "game_summary": "UTA(23rd/0.378) @ MEM(24th/0.329): 91-105"
+                        },
+                        {
+                            "game_id": "0022300662",
+                            "game_date": "2024-01-29",
+                            "game_summary": "LAL(13th/0.573) @ HOU(19th/0.500): 119-135"
+                        }
+                    ],
+                    "x_value": 22,
+                    "y_value": -25,
+                    "y_fit_value": -25.2
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 34,
+                    "win_plus_loss_count": 36.0,
+                    "game_count": 36.0,
+                    "point_margin_occurs_percent": 0.0036272040302267002,
+                    "win_games": [
+                        {
+                            "game_id": "0041800142",
+                            "game_date": "2019-04-15",
+                            "game_summary": "LAC(11th/0.585) @ GSW(3rd/0.695): 135-131"
+                        },
+                        {
+                            "game_id": "0022100716",
+                            "game_date": "2022-01-25",
+                            "game_summary": "LAC(18th/0.512) @ WAS(21st/0.427): 116-115"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021701013",
+                            "game_date": "2018-03-13",
+                            "game_summary": "DET(19th/0.476) @ UTA(9th/0.585): 79-110"
+                        },
+                        {
+                            "game_id": "0021800600",
+                            "game_date": "2019-01-08",
+                            "game_summary": "WAS(25th/0.390) @ PHI(7th/0.622): 115-132"
+                        },
+                        {
+                            "game_id": "0021801188",
+                            "game_date": "2019-04-05",
+                            "game_summary": "SAC(17th/0.476) @ UTA(8th/0.610): 98-119"
+                        },
+                        {
+                            "game_id": "0021900561",
+                            "game_date": "2020-01-08",
+                            "game_summary": "NYK(25th/0.318) @ UTA(9th/0.611): 104-128"
+                        },
+                        {
+                            "game_id": "0022000697",
+                            "game_date": "2021-03-27",
+                            "game_summary": "CHI(21st/0.431) @ SAS(19th/0.458): 104-120"
+                        },
+                        {
+                            "game_id": "0022100865",
+                            "game_date": "2022-02-14",
+                            "game_summary": "HOU(30th/0.244) @ UTA(9th/0.598): 101-135"
+                        },
+                        {
+                            "game_id": "0022200301",
+                            "game_date": "2022-11-28",
+                            "game_summary": "CHA(27th/0.329) @ BOS(2nd/0.695): 105-140"
+                        },
+                        {
+                            "game_id": "0022400192",
+                            "game_date": "2024-11-08",
+                            "game_summary": "HOU(4th/0.648) @ OKC(1st/0.829): 107-126"
+                        },
+                        {
+                            "game_id": "0022400420",
+                            "game_date": "2024-12-27",
+                            "game_summary": "IND(10th/0.580) @ BOS(3rd/0.729): 105-142"
+                        },
+                        {
+                            "game_id": "0022400510",
+                            "game_date": "2025-01-08",
+                            "game_summary": "CHI(22nd/0.429) @ IND(10th/0.580): 113-129"
+                        }
+                    ],
+                    "x_value": 21,
+                    "y_value": -27,
+                    "y_fit_value": -27.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 43,
+                    "win_plus_loss_count": 44.0,
+                    "game_count": 44.0,
+                    "point_margin_occurs_percent": 0.004433249370277078,
+                    "win_games": [
+                        {
+                            "game_id": "0041800142",
+                            "game_date": "2019-04-15",
+                            "game_summary": "LAC(11th/0.585) @ GSW(3rd/0.695): 135-131"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700898",
+                            "game_date": "2018-02-26",
+                            "game_summary": "MEM(29th/0.268) @ BOS(4th/0.671): 98-109"
+                        },
+                        {
+                            "game_id": "0041700301",
+                            "game_date": "2018-05-13",
+                            "game_summary": "CLE(6th/0.610) @ BOS(4th/0.671): 83-108"
+                        },
+                        {
+                            "game_id": "0021800532",
+                            "game_date": "2018-12-29",
+                            "game_summary": "NYK(30th/0.207) @ UTA(8th/0.610): 97-129"
+                        },
+                        {
+                            "game_id": "0021900221",
+                            "game_date": "2019-11-22",
+                            "game_summary": "CLE(29th/0.292) @ DAL(13th/0.573): 101-143"
+                        },
+                        {
+                            "game_id": "0022001007",
+                            "game_date": "2021-05-07",
+                            "game_summary": "CLE(26th/0.306) @ DAL(8th/0.583): 90-110"
+                        },
+                        {
+                            "game_id": "0022100211",
+                            "game_date": "2021-11-16",
+                            "game_summary": "PHI(6th/0.622) @ UTA(9th/0.598): 85-120"
+                        },
+                        {
+                            "game_id": "0022200247",
+                            "game_date": "2022-11-20",
+                            "game_summary": "SAS(28th/0.268) @ LAL(14th/0.524): 92-123"
+                        },
+                        {
+                            "game_id": "0022201100",
+                            "game_date": "2023-03-24",
+                            "game_summary": "HOU(28th/0.268) @ MEM(5th/0.622): 114-151"
+                        },
+                        {
+                            "game_id": "0022201160",
+                            "game_date": "2023-03-31",
+                            "game_summary": "DEN(4th/0.646) @ PHX(9th/0.549): 93-100"
+                        },
+                        {
+                            "game_id": "0022400246",
+                            "game_date": "2024-11-18",
+                            "game_summary": "WAS(30th/0.217) @ NYK(5th/0.623): 106-134"
+                        }
+                    ],
+                    "x_value": 20,
+                    "y_value": -27,
+                    "y_fit_value": -27.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 37,
+                    "win_plus_loss_count": 38.0,
+                    "game_count": 38.0,
+                    "point_margin_occurs_percent": 0.003828715365239295,
+                    "win_games": [
+                        {
+                            "game_id": "0022201052",
+                            "game_date": "2023-03-17",
+                            "game_summary": "MEM(5th/0.622) @ SAS(28th/0.268): 126-120"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0022000527",
+                            "game_date": "2021-02-28",
+                            "game_summary": "GSW(14th/0.542) @ LAL(8th/0.583): 91-117"
+                        },
+                        {
+                            "game_id": "0022100303",
+                            "game_date": "2021-11-28",
+                            "game_summary": "SAC(24th/0.366) @ MEM(2nd/0.683): 101-128"
+                        },
+                        {
+                            "game_id": "0022100439",
+                            "game_date": "2021-12-17",
+                            "game_summary": "CHA(16th/0.524) @ POR(25th/0.329): 116-125"
+                        },
+                        {
+                            "game_id": "0022100498",
+                            "game_date": "2021-12-26",
+                            "game_summary": "DET(28th/0.280) @ SAS(22nd/0.415): 109-144"
+                        },
+                        {
+                            "game_id": "0022101213",
+                            "game_date": "2022-04-09",
+                            "game_summary": "NOP(20th/0.439) @ MEM(2nd/0.683): 114-141"
+                        },
+                        {
+                            "game_id": "0022101222",
+                            "game_date": "2022-04-10",
+                            "game_summary": "OKC(27th/0.293) @ LAC(18th/0.512): 88-138"
+                        },
+                        {
+                            "game_id": "0022200896",
+                            "game_date": "2023-02-24",
+                            "game_summary": "CLE(5th/0.622) @ ATL(17th/0.500): 119-136"
+                        },
+                        {
+                            "game_id": "0022300153",
+                            "game_date": "2023-11-06",
+                            "game_summary": "SAC(16th/0.561) @ HOU(19th/0.500): 97-122"
+                        },
+                        {
+                            "game_id": "0022300014",
+                            "game_date": "2023-11-10",
+                            "game_summary": "LAC(5th/0.622) @ DAL(6th/0.610): 126-144"
+                        },
+                        {
+                            "game_id": "0042300171",
+                            "game_date": "2024-04-21",
+                            "game_summary": "DAL(6th/0.610) @ LAC(5th/0.622): 97-109"
+                        }
+                    ],
+                    "x_value": 19,
+                    "y_value": -29,
+                    "y_fit_value": -29.2
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 49,
+                    "win_plus_loss_count": 51.0,
+                    "game_count": 51.0,
+                    "point_margin_occurs_percent": 0.005138539042821159,
+                    "win_games": [
+                        {
+                            "game_id": "0041800142",
+                            "game_date": "2019-04-15",
+                            "game_summary": "LAC(11th/0.585) @ GSW(3rd/0.695): 135-131"
+                        },
+                        {
+                            "game_id": "0022201052",
+                            "game_date": "2023-03-17",
+                            "game_summary": "MEM(5th/0.622) @ SAS(28th/0.268): 126-120"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700055",
+                            "game_date": "2017-10-25",
+                            "game_summary": "DEN(14th/0.561) @ CHA(20th/0.439): 93-110"
+                        },
+                        {
+                            "game_id": "0021700269",
+                            "game_date": "2017-11-24",
+                            "game_summary": "ORL(26th/0.305) @ BOS(4th/0.671): 103-118"
+                        },
+                        {
+                            "game_id": "0021700428",
+                            "game_date": "2017-12-15",
+                            "game_summary": "SAS(12th/0.573) @ HOU(1st/0.793): 109-124"
+                        },
+                        {
+                            "game_id": "0022000644",
+                            "game_date": "2021-03-20",
+                            "game_summary": "CHA(19th/0.458) @ LAC(5th/0.653): 98-125"
+                        },
+                        {
+                            "game_id": "0022000910",
+                            "game_date": "2021-04-24",
+                            "game_summary": "HOU(30th/0.236) @ DEN(5th/0.653): 116-129"
+                        },
+                        {
+                            "game_id": "0022001055",
+                            "game_date": "2021-05-14",
+                            "game_summary": "ORL(28th/0.292) @ PHI(3rd/0.681): 97-122"
+                        },
+                        {
+                            "game_id": "0022101019",
+                            "game_date": "2022-03-13",
+                            "game_summary": "LAL(23rd/0.402) @ PHX(1st/0.780): 111-140"
+                        },
+                        {
+                            "game_id": "0022300174",
+                            "game_date": "2023-11-11",
+                            "game_summary": "TOR(25th/0.305) @ BOS(1st/0.780): 94-117"
+                        },
+                        {
+                            "game_id": "0022300487",
+                            "game_date": "2024-01-05",
+                            "game_summary": "POR(27th/0.256) @ DAL(6th/0.610): 103-139"
+                        },
+                        {
+                            "game_id": "0022300538",
+                            "game_date": "2024-01-12",
+                            "game_summary": "POR(27th/0.256) @ MIN(4th/0.683): 93-116"
+                        }
+                    ],
+                    "x_value": 18,
+                    "y_value": -24,
+                    "y_fit_value": -24.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 47,
+                    "win_plus_loss_count": 48.0,
+                    "game_count": 48.0,
+                    "point_margin_occurs_percent": 0.004836272040302267,
+                    "win_games": [
+                        {
+                            "game_id": "0041800142",
+                            "game_date": "2019-04-15",
+                            "game_summary": "LAC(11th/0.585) @ GSW(3rd/0.695): 135-131"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0041700231",
+                            "game_date": "2018-04-28",
+                            "game_summary": "NOP(8th/0.593) @ GSW(3rd/0.704): 101-123"
+                        },
+                        {
+                            "game_id": "0021800439",
+                            "game_date": "2018-12-16",
+                            "game_summary": "LAL(20th/0.451) @ WAS(25th/0.390): 110-128"
+                        },
+                        {
+                            "game_id": "0021800699",
+                            "game_date": "2019-01-21",
+                            "game_summary": "HOU(5th/0.646) @ PHI(7th/0.622): 93-121"
+                        },
+                        {
+                            "game_id": "0021801225",
+                            "game_date": "2019-04-10",
+                            "game_summary": "GSW(3rd/0.695) @ MEM(22nd/0.402): 117-132"
+                        },
+                        {
+                            "game_id": "0021900578",
+                            "game_date": "2020-01-11",
+                            "game_summary": "NOP(21st/0.417) @ BOS(5th/0.667): 105-140"
+                        },
+                        {
+                            "game_id": "0021901313",
+                            "game_date": "2020-08-13",
+                            "game_summary": "DAL(13th/0.573) @ PHX(16th/0.466): 102-128"
+                        },
+                        {
+                            "game_id": "0022100945",
+                            "game_date": "2022-03-03",
+                            "game_summary": "LAL(23rd/0.402) @ LAC(18th/0.512): 111-132"
+                        },
+                        {
+                            "game_id": "0022200436",
+                            "game_date": "2022-12-16",
+                            "game_summary": "POR(26th/0.402) @ DAL(21st/0.463): 110-130"
+                        },
+                        {
+                            "game_id": "0022300798",
+                            "game_date": "2024-02-22",
+                            "game_summary": "HOU(19th/0.500) @ NOP(9th/0.598): 105-127"
+                        },
+                        {
+                            "game_id": "0022400961",
+                            "game_date": "2025-03-14",
+                            "game_summary": "DAL(16th/0.479) @ HOU(4th/0.648): 96-133"
+                        }
+                    ],
+                    "x_value": 17,
+                    "y_value": -25,
+                    "y_fit_value": -25.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 22,
+                    "win_plus_loss_count": 23.0,
+                    "game_count": 23.0,
+                    "point_margin_occurs_percent": 0.0023173803526448365,
+                    "win_games": [
+                        {
+                            "game_id": "0021801063",
+                            "game_date": "2019-03-19",
+                            "game_summary": "BKN(14th/0.512) @ SAC(17th/0.476): 123-121"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021800488",
+                            "game_date": "2018-12-23",
+                            "game_summary": "CHA(17th/0.476) @ BOS(9th/0.598): 103-119"
+                        },
+                        {
+                            "game_id": "0021900403",
+                            "game_date": "2019-12-17",
+                            "game_summary": "ATL(27th/0.299) @ NYK(25th/0.318): 120-143"
+                        },
+                        {
+                            "game_id": "0021900843",
+                            "game_date": "2020-02-23",
+                            "game_summary": "IND(7th/0.616) @ TOR(2nd/0.736): 81-127"
+                        },
+                        {
+                            "game_id": "0041900401",
+                            "game_date": "2020-09-30",
+                            "game_summary": "MIA(11th/0.603) @ LAL(3rd/0.732): 98-116"
+                        },
+                        {
+                            "game_id": "0022000321",
+                            "game_date": "2021-04-06",
+                            "game_summary": "DET(29th/0.278) @ DEN(5th/0.653): 119-134"
+                        },
+                        {
+                            "game_id": "0022101019",
+                            "game_date": "2022-03-13",
+                            "game_summary": "LAL(23rd/0.402) @ PHX(1st/0.780): 111-140"
+                        },
+                        {
+                            "game_id": "0022200034",
+                            "game_date": "2022-10-22",
+                            "game_summary": "MEM(5th/0.622) @ DAL(21st/0.463): 96-137"
+                        },
+                        {
+                            "game_id": "0022200125",
+                            "game_date": "2022-11-04",
+                            "game_summary": "CHA(27th/0.329) @ MEM(5th/0.622): 99-130"
+                        },
+                        {
+                            "game_id": "0022300166",
+                            "game_date": "2023-11-08",
+                            "game_summary": "NOP(9th/0.598) @ MIN(4th/0.683): 101-122"
+                        },
+                        {
+                            "game_id": "0022301213",
+                            "game_date": "2023-12-06",
+                            "game_summary": "UTA(23rd/0.378) @ DAL(6th/0.610): 97-147"
+                        }
+                    ],
+                    "x_value": 16,
+                    "y_value": -28,
+                    "y_fit_value": -28.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 30,
+                    "win_plus_loss_count": 31.0,
+                    "game_count": 31.0,
+                    "point_margin_occurs_percent": 0.003123425692695214,
+                    "win_games": [
+                        {
+                            "game_id": "0021801063",
+                            "game_date": "2019-03-19",
+                            "game_summary": "BKN(14th/0.512) @ SAC(17th/0.476): 123-121"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021800240",
+                            "game_date": "2018-11-19",
+                            "game_summary": "CLE(28th/0.232) @ DET(16th/0.500): 102-113"
+                        },
+                        {
+                            "game_id": "0021900577",
+                            "game_date": "2020-01-11",
+                            "game_summary": "MIN(28th/0.297) @ HOU(8th/0.611): 109-139"
+                        },
+                        {
+                            "game_id": "0041900401",
+                            "game_date": "2020-09-30",
+                            "game_summary": "MIA(11th/0.603) @ LAL(3rd/0.732): 98-116"
+                        },
+                        {
+                            "game_id": "0022000297",
+                            "game_date": "2021-01-29",
+                            "game_summary": "DAL(8th/0.583) @ UTA(1st/0.722): 101-120"
+                        },
+                        {
+                            "game_id": "0022000732",
+                            "game_date": "2021-04-01",
+                            "game_summary": "CHA(19th/0.458) @ BKN(4th/0.667): 89-111"
+                        },
+                        {
+                            "game_id": "0022200034",
+                            "game_date": "2022-10-22",
+                            "game_summary": "MEM(5th/0.622) @ DAL(21st/0.463): 96-137"
+                        },
+                        {
+                            "game_id": "0022200247",
+                            "game_date": "2022-11-20",
+                            "game_summary": "SAS(28th/0.268) @ LAL(14th/0.524): 92-123"
+                        },
+                        {
+                            "game_id": "0022200550",
+                            "game_date": "2023-01-02",
+                            "game_summary": "PHX(9th/0.549) @ NYK(8th/0.573): 83-102"
+                        },
+                        {
+                            "game_id": "0042300105",
+                            "game_date": "2024-05-01",
+                            "game_summary": "MIA(17th/0.561) @ BOS(1st/0.780): 84-118"
+                        },
+                        {
+                            "game_id": "0022400420",
+                            "game_date": "2024-12-27",
+                            "game_summary": "IND(10th/0.580) @ BOS(3rd/0.729): 105-142"
+                        }
+                    ],
+                    "x_value": 15,
+                    "y_value": -28,
+                    "y_fit_value": -28.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 41,
+                    "win_plus_loss_count": 42.0,
+                    "game_count": 42.0,
+                    "point_margin_occurs_percent": 0.004231738035264484,
+                    "win_games": [
+                        {
+                            "game_id": "0021801063",
+                            "game_date": "2019-03-19",
+                            "game_summary": "BKN(14th/0.512) @ SAC(17th/0.476): 123-121"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021800687",
+                            "game_date": "2019-01-19",
+                            "game_summary": "CLE(28th/0.232) @ DEN(4th/0.659): 102-124"
+                        },
+                        {
+                            "game_id": "0021900561",
+                            "game_date": "2020-01-08",
+                            "game_summary": "NYK(25th/0.318) @ UTA(9th/0.611): 104-128"
+                        },
+                        {
+                            "game_id": "0021900843",
+                            "game_date": "2020-02-23",
+                            "game_summary": "IND(7th/0.616) @ TOR(2nd/0.736): 81-127"
+                        },
+                        {
+                            "game_id": "0041900163",
+                            "game_date": "2020-08-21",
+                            "game_summary": "DEN(6th/0.630) @ UTA(9th/0.611): 87-124"
+                        },
+                        {
+                            "game_id": "0022000530",
+                            "game_date": "2021-03-01",
+                            "game_summary": "IND(17th/0.472) @ PHI(3rd/0.681): 114-130"
+                        },
+                        {
+                            "game_id": "0022200340",
+                            "game_date": "2022-12-03",
+                            "game_summary": "ORL(25th/0.415) @ TOR(17th/0.500): 108-121"
+                        },
+                        {
+                            "game_id": "0022200391",
+                            "game_date": "2022-12-10",
+                            "game_summary": "DAL(21st/0.463) @ CHI(19th/0.488): 115-144"
+                        },
+                        {
+                            "game_id": "0022300692",
+                            "game_date": "2024-02-02",
+                            "game_summary": "TOR(25th/0.305) @ HOU(19th/0.500): 106-135"
+                        },
+                        {
+                            "game_id": "0022301024",
+                            "game_date": "2024-03-23",
+                            "game_summary": "UTA(23rd/0.378) @ HOU(19th/0.500): 119-147"
+                        },
+                        {
+                            "game_id": "0022400293",
+                            "game_date": "2024-11-27",
+                            "game_summary": "DET(14th/0.549) @ MEM(8th/0.606): 111-131"
+                        }
+                    ],
+                    "x_value": 14,
+                    "y_value": -28,
+                    "y_fit_value": -28.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 66,
+                    "win_plus_loss_count": 67.0,
+                    "game_count": 67.0,
+                    "point_margin_occurs_percent": 0.006750629722921914,
+                    "win_games": [
+                        {
+                            "game_id": "0021801063",
+                            "game_date": "2019-03-19",
+                            "game_summary": "BKN(14th/0.512) @ SAC(17th/0.476): 123-121"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0041700313",
+                            "game_date": "2018-05-20",
+                            "game_summary": "HOU(1st/0.793) @ GSW(3rd/0.704): 85-126"
+                        },
+                        {
+                            "game_id": "0022000624",
+                            "game_date": "2021-03-17",
+                            "game_summary": "CHA(19th/0.458) @ DEN(5th/0.653): 104-129"
+                        },
+                        {
+                            "game_id": "0022100409",
+                            "game_date": "2021-12-13",
+                            "game_summary": "PHI(6th/0.622) @ MEM(2nd/0.683): 91-126"
+                        },
+                        {
+                            "game_id": "0022100957",
+                            "game_date": "2022-03-05",
+                            "game_summary": "ORL(29th/0.268) @ MEM(2nd/0.683): 96-124"
+                        },
+                        {
+                            "game_id": "0042200217",
+                            "game_date": "2023-05-14",
+                            "game_summary": "PHI(3rd/0.659) @ BOS(2nd/0.695): 88-112"
+                        },
+                        {
+                            "game_id": "0022300022",
+                            "game_date": "2023-11-14",
+                            "game_summary": "DAL(6th/0.610) @ NOP(9th/0.598): 110-131"
+                        },
+                        {
+                            "game_id": "0022300197",
+                            "game_date": "2023-11-15",
+                            "game_summary": "MIN(4th/0.683) @ PHX(8th/0.598): 115-133"
+                        },
+                        {
+                            "game_id": "0022300967",
+                            "game_date": "2024-03-16",
+                            "game_summary": "CLE(11th/0.585) @ HOU(19th/0.500): 103-117"
+                        },
+                        {
+                            "game_id": "0022400012",
+                            "game_date": "2024-11-15",
+                            "game_summary": "WAS(30th/0.217) @ ATL(18th/0.478): 117-129"
+                        },
+                        {
+                            "game_id": "0022400624",
+                            "game_date": "2025-01-23",
+                            "game_summary": "MIA(23rd/0.414) @ MIL(13th/0.565): 96-125"
+                        }
+                    ],
+                    "x_value": 13,
+                    "y_value": -25,
+                    "y_fit_value": -25.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 84,
+                    "win_plus_loss_count": 85.0,
+                    "game_count": 85.0,
+                    "point_margin_occurs_percent": 0.008564231738035265,
+                    "win_games": [
+                        {
+                            "game_id": "0021801063",
+                            "game_date": "2019-03-19",
+                            "game_summary": "BKN(14th/0.512) @ SAC(17th/0.476): 123-121"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021800307",
+                            "game_date": "2018-11-28",
+                            "game_summary": "NYK(30th/0.207) @ PHI(7th/0.622): 91-117"
+                        },
+                        {
+                            "game_id": "0021900846",
+                            "game_date": "2020-02-23",
+                            "game_summary": "SAS(19th/0.451) @ OKC(8th/0.611): 103-131"
+                        },
+                        {
+                            "game_id": "0021901313",
+                            "game_date": "2020-08-13",
+                            "game_summary": "DAL(13th/0.573) @ PHX(16th/0.466): 102-128"
+                        },
+                        {
+                            "game_id": "0042000304",
+                            "game_date": "2021-06-29",
+                            "game_summary": "MIL(7th/0.639) @ ATL(11th/0.569): 88-110"
+                        },
+                        {
+                            "game_id": "0022200436",
+                            "game_date": "2022-12-16",
+                            "game_summary": "POR(26th/0.402) @ DAL(21st/0.463): 110-130"
+                        },
+                        {
+                            "game_id": "0022200624",
+                            "game_date": "2023-01-11",
+                            "game_summary": "PHX(9th/0.549) @ DEN(4th/0.646): 97-126"
+                        },
+                        {
+                            "game_id": "0022200814",
+                            "game_date": "2023-02-06",
+                            "game_summary": "OKC(19th/0.488) @ GSW(11th/0.537): 114-141"
+                        },
+                        {
+                            "game_id": "0022400327",
+                            "game_date": "2024-12-05",
+                            "game_summary": "CHA(28th/0.257) @ NYK(5th/0.623): 101-125"
+                        },
+                        {
+                            "game_id": "0022400657",
+                            "game_date": "2025-01-27",
+                            "game_summary": "WAS(30th/0.217) @ DAL(16th/0.479): 108-130"
+                        },
+                        {
+                            "game_id": "0022401016",
+                            "game_date": "2025-03-21",
+                            "game_summary": "NOP(27th/0.268) @ MIN(12th/0.569): 93-134"
+                        }
+                    ],
+                    "x_value": 12,
+                    "y_value": -25,
+                    "y_fit_value": -25.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 84,
+                    "win_plus_loss_count": 85.0,
+                    "game_count": 85.0,
+                    "point_margin_occurs_percent": 0.008564231738035265,
+                    "win_games": [
+                        {
+                            "game_id": "0021801063",
+                            "game_date": "2019-03-19",
+                            "game_summary": "BKN(14th/0.512) @ SAC(17th/0.476): 123-121"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021800728",
+                            "game_date": "2019-01-25",
+                            "game_summary": "PHX(28th/0.232) @ DEN(4th/0.659): 95-132"
+                        },
+                        {
+                            "game_id": "0021800981",
+                            "game_date": "2019-03-08",
+                            "game_summary": "PHI(7th/0.622) @ HOU(5th/0.646): 91-107"
+                        },
+                        {
+                            "game_id": "0021900189",
+                            "game_date": "2019-11-18",
+                            "game_summary": "CLE(29th/0.292) @ NYK(25th/0.318): 105-123"
+                        },
+                        {
+                            "game_id": "0021900385",
+                            "game_date": "2019-12-14",
+                            "game_summary": "CLE(29th/0.292) @ MIL(1st/0.767): 108-125"
+                        },
+                        {
+                            "game_id": "0022000322",
+                            "game_date": "2021-02-02",
+                            "game_summary": "MEM(15th/0.528) @ IND(17th/0.472): 116-134"
+                        },
+                        {
+                            "game_id": "0022000612",
+                            "game_date": "2021-03-16",
+                            "game_summary": "OKC(26th/0.306) @ CHI(21st/0.431): 102-123"
+                        },
+                        {
+                            "game_id": "0022200806",
+                            "game_date": "2023-02-05",
+                            "game_summary": "DEN(4th/0.646) @ MIN(15th/0.512): 98-128"
+                        },
+                        {
+                            "game_id": "0042200217",
+                            "game_date": "2023-05-14",
+                            "game_summary": "PHI(3rd/0.659) @ BOS(2nd/0.695): 88-112"
+                        },
+                        {
+                            "game_id": "0022400595",
+                            "game_date": "2025-01-19",
+                            "game_summary": "BKN(25th/0.329) @ OKC(1st/0.829): 101-127"
+                        },
+                        {
+                            "game_id": "0022400626",
+                            "game_date": "2025-01-23",
+                            "game_summary": "SAC(15th/0.507) @ DEN(7th/0.620): 123-132"
+                        }
+                    ],
+                    "x_value": 11,
+                    "y_value": -23,
+                    "y_fit_value": -23.2
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 110,
+                    "win_plus_loss_count": 112.0,
+                    "game_count": 112.0,
+                    "point_margin_occurs_percent": 0.01128463476070529,
+                    "win_games": [
+                        {
+                            "game_id": "0021801063",
+                            "game_date": "2019-03-19",
+                            "game_summary": "BKN(14th/0.512) @ SAC(17th/0.476): 123-121"
+                        },
+                        {
+                            "game_id": "0022400826",
+                            "game_date": "2025-02-24",
+                            "game_summary": "MIN(12th/0.569) @ OKC(1st/0.829): 131-128"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700141",
+                            "game_date": "2017-11-05",
+                            "game_summary": "PHX(30th/0.256) @ SAS(12th/0.573): 95-112"
+                        },
+                        {
+                            "game_id": "0021801158",
+                            "game_date": "2019-04-01",
+                            "game_summary": "PHI(7th/0.622) @ DAL(22nd/0.402): 102-122"
+                        },
+                        {
+                            "game_id": "0021901292",
+                            "game_date": "2020-08-10",
+                            "game_summary": "OKC(8th/0.611) @ PHX(16th/0.466): 101-128"
+                        },
+                        {
+                            "game_id": "0022100604",
+                            "game_date": "2022-01-09",
+                            "game_summary": "CLE(14th/0.537) @ GSW(3rd/0.646): 82-96"
+                        },
+                        {
+                            "game_id": "0022100725",
+                            "game_date": "2022-01-26",
+                            "game_summary": "SAC(24th/0.366) @ ATL(16th/0.524): 104-121"
+                        },
+                        {
+                            "game_id": "0042100233",
+                            "game_date": "2022-05-07",
+                            "game_summary": "MEM(2nd/0.683) @ GSW(3rd/0.646): 112-142"
+                        },
+                        {
+                            "game_id": "0022200137",
+                            "game_date": "2022-11-05",
+                            "game_summary": "HOU(28th/0.268) @ MIN(15th/0.512): 117-129"
+                        },
+                        {
+                            "game_id": "0042200153",
+                            "game_date": "2023-04-22",
+                            "game_summary": "MEM(5th/0.622) @ LAL(14th/0.524): 101-111"
+                        },
+                        {
+                            "game_id": "0042300201",
+                            "game_date": "2024-05-07",
+                            "game_summary": "CLE(11th/0.585) @ BOS(1st/0.780): 95-120"
+                        },
+                        {
+                            "game_id": "0022400941",
+                            "game_date": "2025-03-11",
+                            "game_summary": "WAS(30th/0.217) @ DET(14th/0.549): 103-123"
+                        }
+                    ],
+                    "x_value": 10,
+                    "y_value": -20,
+                    "y_fit_value": -20.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 97,
+                    "win_plus_loss_count": 98.0,
+                    "game_count": 98.0,
+                    "point_margin_occurs_percent": 0.009874055415617129,
+                    "win_games": [
+                        {
+                            "game_id": "0022400826",
+                            "game_date": "2025-02-24",
+                            "game_summary": "MIN(12th/0.569) @ OKC(1st/0.829): 131-128"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700141",
+                            "game_date": "2017-11-05",
+                            "game_summary": "PHX(30th/0.256) @ SAS(12th/0.573): 95-112"
+                        },
+                        {
+                            "game_id": "0021700816",
+                            "game_date": "2018-02-08",
+                            "game_summary": "OKC(9th/0.585) @ LAL(21st/0.427): 81-106"
+                        },
+                        {
+                            "game_id": "0021701071",
+                            "game_date": "2018-03-21",
+                            "game_summary": "WAS(17th/0.524) @ SAS(12th/0.573): 90-98"
+                        },
+                        {
+                            "game_id": "0021701229",
+                            "game_date": "2018-04-11",
+                            "game_summary": "UTA(9th/0.585) @ POR(7th/0.598): 93-102"
+                        },
+                        {
+                            "game_id": "0021800203",
+                            "game_date": "2018-11-14",
+                            "game_summary": "CLE(28th/0.232) @ WAS(25th/0.390): 95-119"
+                        },
+                        {
+                            "game_id": "0021800620",
+                            "game_date": "2019-01-10",
+                            "game_summary": "DET(16th/0.500) @ SAC(17th/0.476): 102-112"
+                        },
+                        {
+                            "game_id": "0021900677",
+                            "game_date": "2020-01-24",
+                            "game_summary": "ATL(27th/0.299) @ OKC(8th/0.611): 111-140"
+                        },
+                        {
+                            "game_id": "0022000756",
+                            "game_date": "2021-04-04",
+                            "game_summary": "LAL(8th/0.583) @ LAC(5th/0.653): 86-104"
+                        },
+                        {
+                            "game_id": "0022100563",
+                            "game_date": "2022-01-04",
+                            "game_summary": "SAS(22nd/0.415) @ TOR(10th/0.585): 104-129"
+                        },
+                        {
+                            "game_id": "0022300577",
+                            "game_date": "2024-01-17",
+                            "game_summary": "DAL(6th/0.610) @ LAL(13th/0.573): 110-127"
+                        }
+                    ],
+                    "x_value": 9,
+                    "y_value": -20,
+                    "y_fit_value": -20.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 120,
+                    "win_plus_loss_count": 121.0,
+                    "game_count": 121.0,
+                    "point_margin_occurs_percent": 0.012191435768261965,
+                    "win_games": [
+                        {
+                            "game_id": "0021900696",
+                            "game_date": "2020-01-27",
+                            "game_summary": "SAC(20th/0.431) @ MIN(28th/0.297): 133-129"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700498",
+                            "game_date": "2017-12-26",
+                            "game_summary": "IND(10th/0.585) @ DET(19th/0.476): 83-107"
+                        },
+                        {
+                            "game_id": "0021800981",
+                            "game_date": "2019-03-08",
+                            "game_summary": "PHI(7th/0.622) @ HOU(5th/0.646): 91-107"
+                        },
+                        {
+                            "game_id": "0041800235",
+                            "game_date": "2019-05-07",
+                            "game_summary": "POR(5th/0.646) @ DEN(4th/0.659): 98-124"
+                        },
+                        {
+                            "game_id": "0022000607",
+                            "game_date": "2021-03-15",
+                            "game_summary": "MEM(15th/0.528) @ PHX(2nd/0.708): 99-122"
+                        },
+                        {
+                            "game_id": "0022100256",
+                            "game_date": "2021-11-22",
+                            "game_summary": "HOU(30th/0.244) @ BOS(6th/0.622): 90-108"
+                        },
+                        {
+                            "game_id": "0022100317",
+                            "game_date": "2021-11-30",
+                            "game_summary": "DET(28th/0.280) @ POR(25th/0.329): 92-110"
+                        },
+                        {
+                            "game_id": "0022100650",
+                            "game_date": "2022-01-15",
+                            "game_summary": "ORL(29th/0.268) @ DAL(5th/0.634): 92-108"
+                        },
+                        {
+                            "game_id": "0022201169",
+                            "game_date": "2023-04-02",
+                            "game_summary": "DET(30th/0.207) @ ORL(25th/0.415): 102-128"
+                        },
+                        {
+                            "game_id": "0022400783",
+                            "game_date": "2025-02-12",
+                            "game_summary": "MEM(8th/0.606) @ LAC(11th/0.571): 114-128"
+                        },
+                        {
+                            "game_id": "0022400877",
+                            "game_date": "2025-03-03",
+                            "game_summary": "WAS(30th/0.217) @ MIA(23rd/0.414): 90-106"
+                        }
+                    ],
+                    "x_value": 8,
+                    "y_value": -21,
+                    "y_fit_value": -21.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 112,
+                    "win_plus_loss_count": 113.0,
+                    "game_count": 113.0,
+                    "point_margin_occurs_percent": 0.011385390428211586,
+                    "win_games": [
+                        {
+                            "game_id": "0021900696",
+                            "game_date": "2020-01-27",
+                            "game_summary": "SAC(20th/0.431) @ MIN(28th/0.297): 133-129"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021801158",
+                            "game_date": "2019-04-01",
+                            "game_summary": "PHI(7th/0.622) @ DAL(22nd/0.402): 102-122"
+                        },
+                        {
+                            "game_id": "0021900060",
+                            "game_date": "2019-10-30",
+                            "game_summary": "DET(26th/0.303) @ TOR(2nd/0.736): 113-125"
+                        },
+                        {
+                            "game_id": "0022000583",
+                            "game_date": "2021-03-12",
+                            "game_summary": "ORL(28th/0.292) @ SAS(19th/0.458): 77-104"
+                        },
+                        {
+                            "game_id": "0022000626",
+                            "game_date": "2021-03-18",
+                            "game_summary": "OKC(26th/0.306) @ ATL(11th/0.569): 93-116"
+                        },
+                        {
+                            "game_id": "0022100394",
+                            "game_date": "2021-12-11",
+                            "game_summary": "CHI(12th/0.561) @ MIA(3rd/0.646): 92-118"
+                        },
+                        {
+                            "game_id": "0022100746",
+                            "game_date": "2022-01-29",
+                            "game_summary": "IND(26th/0.305) @ DAL(5th/0.634): 105-132"
+                        },
+                        {
+                            "game_id": "0022200320",
+                            "game_date": "2022-11-30",
+                            "game_summary": "HOU(28th/0.268) @ DEN(4th/0.646): 100-120"
+                        },
+                        {
+                            "game_id": "0022300261",
+                            "game_date": "2023-11-29",
+                            "game_summary": "UTA(23rd/0.378) @ MEM(24th/0.329): 91-105"
+                        },
+                        {
+                            "game_id": "0022300577",
+                            "game_date": "2024-01-17",
+                            "game_summary": "DAL(6th/0.610) @ LAL(13th/0.573): 110-127"
+                        },
+                        {
+                            "game_id": "0022400174",
+                            "game_date": "2024-11-06",
+                            "game_summary": "LAL(5th/0.623) @ MEM(8th/0.606): 114-131"
+                        }
+                    ],
+                    "x_value": 7,
+                    "y_value": -22,
+                    "y_fit_value": -22.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 116,
+                    "win_plus_loss_count": 117.0,
+                    "game_count": 117.0,
+                    "point_margin_occurs_percent": 0.011788413098236776,
+                    "win_games": [
+                        {
+                            "game_id": "0021900696",
+                            "game_date": "2020-01-27",
+                            "game_summary": "SAC(20th/0.431) @ MIN(28th/0.297): 133-129"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0041700316",
+                            "game_date": "2018-05-26",
+                            "game_summary": "HOU(1st/0.793) @ GSW(3rd/0.704): 86-115"
+                        },
+                        {
+                            "game_id": "0021800475",
+                            "game_date": "2018-12-21",
+                            "game_summary": "MIN(21st/0.439) @ SAS(12th/0.585): 98-124"
+                        },
+                        {
+                            "game_id": "0021800566",
+                            "game_date": "2019-01-04",
+                            "game_summary": "DAL(22nd/0.402) @ BOS(9th/0.598): 93-114"
+                        },
+                        {
+                            "game_id": "0021800966",
+                            "game_date": "2019-03-06",
+                            "game_summary": "MIN(21st/0.439) @ DET(16th/0.500): 114-131"
+                        },
+                        {
+                            "game_id": "0021900383",
+                            "game_date": "2019-12-14",
+                            "game_summary": "WAS(23rd/0.347) @ MEM(16th/0.466): 111-128"
+                        },
+                        {
+                            "game_id": "0021901275",
+                            "game_date": "2020-08-07",
+                            "game_summary": "OKC(8th/0.611) @ MEM(16th/0.466): 92-121"
+                        },
+                        {
+                            "game_id": "0022200711",
+                            "game_date": "2023-01-23",
+                            "game_summary": "SAS(28th/0.268) @ POR(26th/0.402): 127-147"
+                        },
+                        {
+                            "game_id": "0022300884",
+                            "game_date": "2024-03-04",
+                            "game_summary": "OKC(2nd/0.695) @ LAL(13th/0.573): 104-116"
+                        },
+                        {
+                            "game_id": "0022400204",
+                            "game_date": "2024-11-10",
+                            "game_summary": "WAS(30th/0.217) @ ORL(19th/0.465): 94-121"
+                        },
+                        {
+                            "game_id": "0022400402",
+                            "game_date": "2024-12-23",
+                            "game_summary": "PHX(16th/0.479) @ DEN(7th/0.620): 90-117"
+                        }
+                    ],
+                    "x_value": 6,
+                    "y_value": -22,
+                    "y_fit_value": -22.2
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 168,
+                    "win_plus_loss_count": 170.0,
+                    "game_count": 170.0,
+                    "point_margin_occurs_percent": 0.01712846347607053,
+                    "win_games": [
+                        {
+                            "game_id": "0021900696",
+                            "game_date": "2020-01-27",
+                            "game_summary": "SAC(20th/0.431) @ MIN(28th/0.297): 133-129"
+                        },
+                        {
+                            "game_id": "0022200086",
+                            "game_date": "2022-10-29",
+                            "game_summary": "OKC(19th/0.488) @ DAL(21st/0.463): 117-111"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700269",
+                            "game_date": "2017-11-24",
+                            "game_summary": "ORL(26th/0.305) @ BOS(4th/0.671): 103-118"
+                        },
+                        {
+                            "game_id": "0021800656",
+                            "game_date": "2019-01-15",
+                            "game_summary": "CHI(27th/0.268) @ LAL(20th/0.451): 100-107"
+                        },
+                        {
+                            "game_id": "0021801111",
+                            "game_date": "2019-03-26",
+                            "game_summary": "HOU(5th/0.646) @ MIL(1st/0.732): 94-108"
+                        },
+                        {
+                            "game_id": "0042000202",
+                            "game_date": "2021-06-08",
+                            "game_summary": "ATL(11th/0.569) @ PHI(3rd/0.681): 102-118"
+                        },
+                        {
+                            "game_id": "0022100757",
+                            "game_date": "2022-01-30",
+                            "game_summary": "UTA(9th/0.598) @ MIN(12th/0.561): 106-126"
+                        },
+                        {
+                            "game_id": "0022100804",
+                            "game_date": "2022-02-06",
+                            "game_summary": "BKN(14th/0.537) @ DEN(10th/0.585): 104-124"
+                        },
+                        {
+                            "game_id": "0022101175",
+                            "game_date": "2022-04-03",
+                            "game_summary": "POR(25th/0.329) @ SAS(22nd/0.415): 92-113"
+                        },
+                        {
+                            "game_id": "0022201183",
+                            "game_date": "2023-04-04",
+                            "game_summary": "DEN(4th/0.646) @ HOU(28th/0.268): 103-124"
+                        },
+                        {
+                            "game_id": "0022300048",
+                            "game_date": "2023-11-24",
+                            "game_summary": "DEN(2nd/0.695) @ HOU(19th/0.500): 86-105"
+                        },
+                        {
+                            "game_id": "0022300669",
+                            "game_date": "2024-01-30",
+                            "game_summary": "LAL(13th/0.573) @ ATL(21st/0.439): 122-138"
+                        }
+                    ],
+                    "x_value": 5,
+                    "y_value": -16,
+                    "y_fit_value": -16.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 155,
+                    "win_plus_loss_count": 156.0,
+                    "game_count": 156.0,
+                    "point_margin_occurs_percent": 0.01571788413098237,
+                    "win_games": [
+                        {
+                            "game_id": "0022200086",
+                            "game_date": "2022-10-29",
+                            "game_summary": "OKC(19th/0.488) @ DAL(21st/0.463): 117-111"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021800743",
+                            "game_date": "2019-01-27",
+                            "game_summary": "PHX(28th/0.232) @ LAL(20th/0.451): 102-116"
+                        },
+                        {
+                            "game_id": "0022100519",
+                            "game_date": "2021-12-29",
+                            "game_summary": "ATL(16th/0.524) @ CHI(12th/0.561): 117-131"
+                        },
+                        {
+                            "game_id": "0022200033",
+                            "game_date": "2022-10-22",
+                            "game_summary": "HOU(28th/0.268) @ MIL(1st/0.707): 105-125"
+                        },
+                        {
+                            "game_id": "0022200233",
+                            "game_date": "2022-11-18",
+                            "game_summary": "NYK(8th/0.573) @ GSW(11th/0.537): 101-111"
+                        },
+                        {
+                            "game_id": "0022200240",
+                            "game_date": "2022-11-20",
+                            "game_summary": "NYK(8th/0.573) @ PHX(9th/0.549): 95-116"
+                        },
+                        {
+                            "game_id": "0022300134",
+                            "game_date": "2023-11-04",
+                            "game_summary": "LAL(13th/0.573) @ ORL(12th/0.573): 101-120"
+                        },
+                        {
+                            "game_id": "0022300232",
+                            "game_date": "2023-11-22",
+                            "game_summary": "PHI(12th/0.573) @ MIN(4th/0.683): 99-112"
+                        },
+                        {
+                            "game_id": "0022300866",
+                            "game_date": "2024-03-02",
+                            "game_summary": "ATL(21st/0.439) @ BKN(22nd/0.390): 102-114"
+                        },
+                        {
+                            "game_id": "0022300967",
+                            "game_date": "2024-03-16",
+                            "game_summary": "CLE(11th/0.585) @ HOU(19th/0.500): 103-117"
+                        },
+                        {
+                            "game_id": "0022400049",
+                            "game_date": "2024-11-29",
+                            "game_summary": "SAC(15th/0.507) @ POR(20th/0.451): 106-115"
+                        }
+                    ],
+                    "x_value": 4,
+                    "y_value": -16,
+                    "y_fit_value": -16.2
+                },
+                {
+                    "win_count": 2,
+                    "loss_count": 168,
+                    "win_plus_loss_count": 170.0,
+                    "game_count": 170.0,
+                    "point_margin_occurs_percent": 0.01712846347607053,
+                    "win_games": [
+                        {
+                            "game_id": "0021900696",
+                            "game_date": "2020-01-27",
+                            "game_summary": "SAC(20th/0.431) @ MIN(28th/0.297): 133-129"
+                        },
+                        {
+                            "game_id": "0022200499",
+                            "game_date": "2022-12-26",
+                            "game_summary": "LAC(12th/0.537) @ DET(30th/0.207): 142-131"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700963",
+                            "game_date": "2018-03-06",
+                            "game_summary": "BKN(23rd/0.341) @ GSW(3rd/0.704): 101-114"
+                        },
+                        {
+                            "game_id": "0021701001",
+                            "game_date": "2018-03-12",
+                            "game_summary": "SAS(12th/0.573) @ HOU(1st/0.793): 93-109"
+                        },
+                        {
+                            "game_id": "0021801127",
+                            "game_date": "2019-03-28",
+                            "game_summary": "LAC(11th/0.585) @ MIL(1st/0.732): 118-128"
+                        },
+                        {
+                            "game_id": "0021900715",
+                            "game_date": "2020-01-30",
+                            "game_summary": "CHA(22nd/0.354) @ WAS(23rd/0.347): 107-121"
+                        },
+                        {
+                            "game_id": "0022000251",
+                            "game_date": "2021-01-24",
+                            "game_summary": "OKC(26th/0.306) @ LAC(5th/0.653): 100-108"
+                        },
+                        {
+                            "game_id": "0022100097",
+                            "game_date": "2021-11-01",
+                            "game_summary": "WAS(21st/0.427) @ ATL(16th/0.524): 111-118"
+                        },
+                        {
+                            "game_id": "0022100351",
+                            "game_date": "2021-12-05",
+                            "game_summary": "WAS(21st/0.427) @ TOR(10th/0.585): 90-102"
+                        },
+                        {
+                            "game_id": "0022200503",
+                            "game_date": "2022-12-26",
+                            "game_summary": "UTA(22nd/0.451) @ SAS(28th/0.268): 122-126"
+                        },
+                        {
+                            "game_id": "0022300188",
+                            "game_date": "2023-11-13",
+                            "game_summary": "NYK(6th/0.610) @ BOS(1st/0.780): 98-114"
+                        },
+                        {
+                            "game_id": "0022400319",
+                            "game_date": "2024-12-04",
+                            "game_summary": "DET(14th/0.549) @ BOS(3rd/0.729): 120-130"
+                        }
+                    ],
+                    "x_value": 3,
+                    "y_value": -14,
+                    "y_fit_value": -14.2
+                },
+                {
+                    "win_count": 1,
+                    "loss_count": 193,
+                    "win_plus_loss_count": 194.0,
+                    "game_count": 194.0,
+                    "point_margin_occurs_percent": 0.019546599496221662,
+                    "win_games": [
+                        {
+                            "game_id": "0021900696",
+                            "game_date": "2020-01-27",
+                            "game_summary": "SAC(20th/0.431) @ MIN(28th/0.297): 133-129"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021700283",
+                            "game_date": "2017-11-25",
+                            "game_summary": "OKC(9th/0.585) @ DAL(27th/0.293): 81-97"
+                        },
+                        {
+                            "game_id": "0021700963",
+                            "game_date": "2018-03-06",
+                            "game_summary": "BKN(23rd/0.341) @ GSW(3rd/0.704): 101-114"
+                        },
+                        {
+                            "game_id": "0021800102",
+                            "game_date": "2018-10-30",
+                            "game_summary": "WAS(25th/0.390) @ MEM(22nd/0.402): 95-107"
+                        },
+                        {
+                            "game_id": "0021800776",
+                            "game_date": "2019-02-02",
+                            "game_summary": "CHI(27th/0.268) @ CHA(17th/0.476): 118-125"
+                        },
+                        {
+                            "game_id": "0021801061",
+                            "game_date": "2019-03-19",
+                            "game_summary": "LAL(20th/0.451) @ MIL(1st/0.732): 101-115"
+                        },
+                        {
+                            "game_id": "0021900435",
+                            "game_date": "2019-12-21",
+                            "game_summary": "SAC(20th/0.431) @ MEM(16th/0.466): 115-119"
+                        },
+                        {
+                            "game_id": "0022100088",
+                            "game_date": "2021-10-30",
+                            "game_summary": "CLE(14th/0.537) @ PHX(1st/0.780): 92-101"
+                        },
+                        {
+                            "game_id": "0022100801",
+                            "game_date": "2022-02-05",
+                            "game_summary": "OKC(27th/0.293) @ SAC(24th/0.366): 103-113"
+                        },
+                        {
+                            "game_id": "0022200091",
+                            "game_date": "2022-10-30",
+                            "game_summary": "GSW(11th/0.537) @ DET(30th/0.207): 114-128"
+                        },
+                        {
+                            "game_id": "0022300560",
+                            "game_date": "2024-01-15",
+                            "game_summary": "GSW(16th/0.561) @ MEM(24th/0.329): 107-116"
+                        }
+                    ],
+                    "x_value": 2,
+                    "y_value": -12,
+                    "y_fit_value": -12.2
+                },
+                {
+                    "win_count": 3,
+                    "loss_count": 197,
+                    "win_plus_loss_count": 200.0,
+                    "game_count": 200.0,
+                    "point_margin_occurs_percent": 0.020151133501259445,
+                    "win_games": [
+                        {
+                            "game_id": "0021900696",
+                            "game_date": "2020-01-27",
+                            "game_summary": "SAC(20th/0.431) @ MIN(28th/0.297): 133-129"
+                        },
+                        {
+                            "game_id": "0022101220",
+                            "game_date": "2022-04-10",
+                            "game_summary": "LAL(23rd/0.402) @ DEN(10th/0.585): 146-141"
+                        },
+                        {
+                            "game_id": "0022201052",
+                            "game_date": "2023-03-17",
+                            "game_summary": "MEM(5th/0.622) @ SAS(28th/0.268): 126-120"
+                        }
+                    ],
+                    "loss_games": [
+                        {
+                            "game_id": "0021800145",
+                            "game_date": "2018-11-05",
+                            "game_summary": "BOS(9th/0.598) @ DEN(4th/0.659): 107-115"
+                        },
+                        {
+                            "game_id": "0021800331",
+                            "game_date": "2018-12-01",
+                            "game_summary": "GSW(3rd/0.695) @ DET(16th/0.500): 102-111"
+                        },
+                        {
+                            "game_id": "0021800402",
+                            "game_date": "2018-12-11",
+                            "game_summary": "POR(5th/0.646) @ HOU(5th/0.646): 104-111"
+                        },
+                        {
+                            "game_id": "0021800545",
+                            "game_date": "2018-12-31",
+                            "game_summary": "BOS(9th/0.598) @ SAS(12th/0.585): 111-120"
+                        },
+                        {
+                            "game_id": "0021800846",
+                            "game_date": "2019-02-11",
+                            "game_summary": "POR(5th/0.646) @ OKC(9th/0.598): 111-120"
+                        },
+                        {
+                            "game_id": "0021801073",
+                            "game_date": "2019-03-20",
+                            "game_summary": "DAL(22nd/0.402) @ POR(5th/0.646): 118-126"
+                        },
+                        {
+                            "game_id": "0021801156",
+                            "game_date": "2019-04-01",
+                            "game_summary": "ORL(14th/0.512) @ TOR(2nd/0.707): 109-121"
+                        },
+                        {
+                            "game_id": "0022000166",
+                            "game_date": "2021-03-18",
+                            "game_summary": "UTA(1st/0.722) @ WAS(17th/0.472): 122-131"
+                        },
+                        {
+                            "game_id": "0022100908",
+                            "game_date": "2022-02-26",
+                            "game_summary": "SAS(22nd/0.415) @ MIA(3rd/0.646): 129-133"
+                        },
+                        {
+                            "game_id": "0022400741",
+                            "game_date": "2025-02-08",
+                            "game_summary": "HOU(4th/0.648) @ DAL(16th/0.479): 105-116"
+                        }
+                    ],
+                    "x_value": 1,
+                    "y_value": -9,
+                    "y_fit_value": -9.2
+                }
+            ]
+        }
+    ]
+}
