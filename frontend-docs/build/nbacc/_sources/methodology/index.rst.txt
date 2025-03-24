@@ -1,0 +1,10 @@
+
+***********
+methodology
+***********
+
+.. toctree::
+   :maxdepth: 1
+
+   plotting_game_data_on_a_normal_axis
+

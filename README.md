@@ -87,8 +87,13 @@ cd nba-comeback-calculator
 pip install -r requirements.txt
 
 # Build documentation
-cd docs/frontend
+cd frontend-docs
 make html
+
+# Note: We use an unorthodox docs folder structure to work with GitHub Pages limitations.
+# The Sphinx Makefile is configured to build output directly to the /docs folder
+# This allows the site to be served from nba-comeback-calculator.github.io without a subdirectory.
+# See: https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
 ```
 
 ## License

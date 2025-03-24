@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" data-theme="light">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>20 is the New 18 &#8212; nba comeback calculator  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/css/nbacc.css?v=b845c6e9" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://www.googletagmanager.com/gtag/js?id=G-6Q6K588YXL"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){ dataLayer.push(arguments); }
+                gtag('js', new Date());
+                gtag('config', 'G-6Q6K588YXL');
+            </script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'analysis/20_is_new_18';</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/2.2.0/chartjs-plugin-zoom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.js"></script>
+    <script src="../_static/js/nbacc_utils.js?v=c3261937"></script>
+    <script src="../_static/js/nbacc_saveas_image_dialog.js?v=e8366de8"></script>
+    <script src="../_static/js/nbacc_plotter_plugins.js?v=d5efc5cd"></script>
+    <script src="../_static/js/nbacc_plotter_data.js?v=18aa39b4"></script>
+    <script src="../_static/js/nbacc_plotter_core.js?v=d64f3ed5"></script>
+    <script src="../_static/js/nbacc_plotter_ui.js?v=5c1e6a37"></script>
+    <script src="../_static/js/nbacc_chart_loader.js?v=edb8292c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Breaking Down The Eras" href="breaking_down_the_eras.html" />
+    <link rel="prev" title="Analysis" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="light">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">nba comeback calculator</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Analysis
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../methodology/index.html">
+    methodology
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../plots/index.html">
+    Plots
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    Analysis
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../methodology/index.html">
+    methodology
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../plots/index.html">
+    Plots
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">Analysis</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">20 is the New 18</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="is-the-new-18">
+<h1>20 is the New 18<a class="headerlink" href="#is-the-new-18" title="Link to this heading">#</a></h1>
+<section id="are-big-leads-no-longer-safe">
+<span id="id1"></span><h2>Are Big Leads No Longer Safe?<a class="headerlink" href="#are-big-leads-no-longer-safe" title="Link to this heading">#</a></h2>
+<p>There’s a sense that, in recent times, teams are busting out of big holes more often
+than ever. Just as <a class="reference external" href="https://www.espn.com/nba/story/_/id/26725776/this-season-massive-comeback-nba">Kevin Pelton and Baxter Holmes noted in 2019</a> , in
+<a class="reference external" href="https://www.espn.com/nba/story/_/id/39698420/no-lead-safe-nba-big-comebacks-blown-leads">‘20 is the old 12’: Why no lead is safe in the NBA anymore</a>
+ESPN reporter Andrew Lopez explains that 2023-24 has already seen the most 20-point
+victories in a single season since 1996-97 and continues with analysis by Steve Kerr:</p>
+<blockquote class="pull-quote">
+<div><p>“Way more early possession 3s now. It just feels like you are up 12 and the
+other team gets two quick stops on you and they race down, they throw it ahead
+and they hit two 3s. It’s a six-point game now. So 20 is the old 12; 12 is the
+old seven. I mean, there’s definitely an awareness from everybody that leads are
+not safe.”</p>
+</div></blockquote>
+<p>But is this true? In short … not really.</p>
+<p><span class="xref std std-doc">Comparing the regular and playoff seasons</span> from:</p>
+<ul class="simple">
+<li><p>1996-97 to 2016-17 (old-school) versus:</p></li>
+<li><p>2017-18 to 2024-25 (modern)</p></li>
+</ul>
+<p><a class="reference internal" href="down_down_down.html"><span class="doc">There’s lots of ways to break this down</span></a>, but roughly there’s a 2
+point shift on average, which <span class="xref std std-ref">decreases as the time counts down</span>.  So while there’s about 1.8x times as many 20 points-or-more
+comebacks comparing the eras, the <em>chance</em> of coming back from 20 points-or-more down
+(<code class="docutils literal notranslate"><span class="pre">5.31%</span></code>) is about the same as coming back from 18 points-or-more down (<code class="docutils literal notranslate"><span class="pre">4.88%</span></code>)
+back in the day.</p>
+<p>Meaning leads are <em>roughly</em> as safe as they have been, maybe at most needing an extra
+bucket.</p>
+</section>
+<section id="win-percentages-when-max-deficit-is-n-or-more-points">
+<span id="id2"></span><h2>Win Percentages When Max Deficit is N <em>Or More</em> Points<a class="headerlink" href="#win-percentages-when-max-deficit-is-n-or-more-points" title="Link to this heading">#</a></h2>
+<p>Looking at the % chance of coming back from down N point <em>or more</em> over an entire game
+we get:</p>
+<div id="nbacc_max_or_more_48_eras_0" class="nbacc-chart"></div><p>You can <a class="reference internal" href="#understanding-the-points-down-charts"><span class="std std-ref">interact with this chart</span></a> and
+compare at different point margins, but to focus on a few we get:</p>
+<div class="pst-scrollable-table-container"><table class="table" id="id7">
+<caption><span class="caption-text">Win % Increases When Comparing Modern Versus Old School Eras</span><a class="headerlink" href="#id7" title="Link to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Point Margin</p></th>
+<th class="head"><p>1996-2016 Win %</p></th>
+<th class="head"><p>2017-2024 Win %</p></th>
+<th class="head"><p>Total Win % Increase</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-30</p></td>
+<td><p>0.15 %</p></td>
+<td><p>0.42 %</p></td>
+<td><p>2.8x (180% increase)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-20</p></td>
+<td><p>2.89 %</p></td>
+<td><p>5.31 %</p></td>
+<td><p>1.83x (80% increase)</p></td>
+</tr>
+<tr class="row-even"><td><p>-18</p></td>
+<td><p>4.88 %</p></td>
+<td><p>7.93 %</p></td>
+<td><p>1.59x (60% increase)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-15</p></td>
+<td><p>9.22 %</p></td>
+<td><p>12.82 %</p></td>
+<td><p>1.39x (39% increase)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>So while coming back from down 30 or more happens 2.8 times more than in the past, it’s
+still very unlikely. In fact, you need to move over a little less than one three-pointer
+to get about the same chance: in the old school era, if you were down -27 or more there
+was about a 0.48% chance of winning.</p>
+<aside class="topic">
+<p class="topic-title">Note</p>
+<p>This is using the raw data points, which is a little more intuitive. You can
+also do this using the trend line in the chart, which cleans up the noise in
+the data and is statistically more accurate. Overall, either way draws the same
+conclusion.</p>
+</aside>
+<p>As time dwindles, this shift is slightly smaller. Looking at biggest 4th quarter
+comebacks we get:</p>
+<div id="nbacc_max_or_more_12_eras_0" class="nbacc-chart"></div><p>Now, the shift is about 1.5 points, an even smaller shift.</p>
+<p>To me at least, looking at the point shift gives me a better feel for how dramatically
+(or not) the game has changed. I can be convinced you could look at it both ways (Win %
+Increase is more dramatic, point shift is more modest) but as a fan watching your team
+sink into a 20 point hole, I don’t think the data is telling you to say “20 points,
+that’s nothing anymore”.</p>
+</section>
+<section id="win-percentages-when-teams-are-down-n-points-with-so-much-time-left">
+<span id="id3"></span><h2>Win Percentages When Teams Are Down N Points With So Much Time Left<a class="headerlink" href="#win-percentages-when-teams-are-down-n-points-with-so-much-time-left" title="Link to this heading">#</a></h2>
+<p>Another way to look at it and the more natural way to think about it while you are
+watching a game live (as opposed to describing a game after the fact) is to look at the
+win percentages when teams are down <em>exactly</em> N points with so much time left. Here’s a
+chart for the start of the 2nd half:</p>
+<div id="nbacc_point_at_final_24_eras_0" class="nbacc-chart"></div><p>The data is a bit noisier here, because we are not accumulating the games as we move
+from left to right like we did when looking at points down <em>or more</em>. Here, for the old
+school era, we have the case that there was one game (<code class="docutils literal notranslate"><span class="pre">11/27/1996</span> <span class="pre">DEN</span> <span class="pre">&#64;</span> <span class="pre">UTA:</span> <span class="pre">103-107</span></code>)
+where UTA was down -34 at the half and won. But no team in that era won when down -33,
+-32, -31, -30 or -29 at the half.</p>
+<p>But overall, the same basic trends hold. Looking at starting the 4th quarter we have:</p>
+<div id="nbacc_point_at_final_12_eras_0" class="nbacc-chart"></div><p>And entering the final 6 minutes:</p>
+<div id="nbacc_point_at_final_6_eras_0" class="nbacc-chart"></div><p>As time marches on, the point shift between the eras lessens, but gives you a good feel
+for the comebacks that are possible.</p>
+</section>
+<section id="win-versus-time">
+<span id="is-18-win-versus-time"></span><h2>Win % Versus Time<a class="headerlink" href="#win-versus-time" title="Link to this heading">#</a></h2>
+<div id="nbacc_max_or_more_48_eras_0_test" class="nbacc-chart"></div><div id="nbacc_points_versus_time_all_eras" class="nbacc-chart"></div></section>
+<section id="occurrence-frequencies">
+<span id="id4"></span><h2>Occurrence Frequencies<a class="headerlink" href="#occurrence-frequencies" title="Link to this heading">#</a></h2>
+<div id="nbacc_max_or_more_48_occurs_eras_0" class="nbacc-chart"></div><div id="nbacc_down_or_more_at_12_occurs_eras_0" class="nbacc-chart"></div></section>
+<section id="tldr">
+<span id="id5"></span><h2>TLDR;<a class="headerlink" href="#tldr" title="Link to this heading">#</a></h2>
+<section id="motivation">
+<span id="id6"></span><h3>Motivation<a class="headerlink" href="#motivation" title="Link to this heading">#</a></h3>
+<p>For a while, I have been wanting to create a “comeback calculator” where, when
+watching a game, you can input the current score and time left, and get a sense of how
+likely a comeback for your team is (or how likely of a collapse, ahem Timberwolves).</p>
+<p>I downloaded all the games since play-by-play has been recorded from stats.nba.com (for
+some reason, the back of the 1998 season is missing). In doing so, I ran across these
+articles and, while squaring my data, decided to also delve into this question of
+whether - because of the rise of the 3-pointer and increased pace of play – there are
+way more comebacks or not.</p>
+</section>
+<section id="breaking-down-the-eras">
+<span id="understanding-the-points-down-charts"></span><h3>Breaking Down The Eras<a class="headerlink" href="#breaking-down-the-eras" title="Link to this heading">#</a></h3>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#are-big-leads-no-longer-safe">Are Big Leads No Longer Safe?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#win-percentages-when-max-deficit-is-n-or-more-points">Win Percentages When Max Deficit is N <em>Or More</em> Points</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#win-percentages-when-teams-are-down-n-points-with-so-much-time-left">Win Percentages When Teams Are Down N Points With So Much Time Left</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#win-versus-time">Win % Versus Time</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#occurrence-frequencies">Occurrence Frequencies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tldr">TLDR;</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#motivation">Motivation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#breaking-down-the-eras">Breaking Down The Eras</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025, Andrew Carter.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

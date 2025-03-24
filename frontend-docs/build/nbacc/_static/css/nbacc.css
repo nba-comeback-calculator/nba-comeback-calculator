@@ -1,0 +1,427 @@
+/* https://pydata-sphinx-theme.readthedocs.io/en/v0.8.1/user_guide/customizing.html */
+
+:root {
+    --pst-font-size-base: 16px;
+    /* heading font sizes */
+    --pst-font-size-h1: 27px;
+    --pst-font-size-h2: 23px;
+    --pst-font-size-h3: 19px;
+    --pst-font-size-h4: 17px;
+    --pst-font-size-h5: 15px;
+    --pst-font-size-h6: 15px;
+}
+
+h1:hover > a.headerlink, h2:hover > a.headerlink, h3:hover > a.headerlink, h4:hover > a.headerlink, h5:hover > a.headerlink, h6:hover > a.headerlink, dt:hover > a.headerlink, caption:hover > a.headerlink, p.caption:hover > a.headerlink, div.code-block-caption:hover > a.headerlink {
+  visibility: hidden;
+}
+
+.ui-button {
+  background: #638ea7; /* Green background */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  font-weight: normal;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 18px;
+  border-radius: 5px; /* Rounded corners */
+}
+
+.ui-button:hover {
+  background-color: #b5c8dc;
+}
+
+.ui-button:active {
+    background-color: #638ea7;
+}
+.chartJsCanvas {
+    padding: 10px;
+}
+
+/*** Chart container and layout styles ***/
+.chart-container-parent {
+    width: 100%;
+}
+
+.chart-container {
+    position: relative !important;
+    padding: 5px;
+    max-width: 100%;
+    max-height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    box-sizing: border-box;
+    background-color: white; 
+    border-radius: 3px;
+    width: 100%;
+    height: 600px;
+}
+
+/* Canvas specific styling - simplified */
+.chart-container canvas, .chart-canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    outline: none !important; /* Remove the focus outline */
+}
+
+/* Also remove focus outline from the canvas when focused */
+.chart-container canvas:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* Critical fix for Chart.js canvas rendering */
+canvas {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Chart controls now outside chart container */
+.chart-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 5px;
+}
+
+/* Chart loading indicator */
+.chart-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #666;
+    font-style: italic;
+    height: 400px;
+    background-color: #f8f9fa;
+    color: #495057;
+    font-size: 18px;
+    border-radius: 4px;
+}
+
+/* Chart button styles */
+.chart-btn {
+    padding: 0px;
+    background-color: rgba(0, 0, 0, 0); /* Completely transparent background */
+    border: 1px solid rgba(222, 226, 230, 0.3); /* More transparent border */
+    border-radius: 1px;
+    cursor: pointer; 
+    transition: all 0.2s ease;
+    width: 24px; /* Reduced from 32px */
+    height: 24px; /* Reduced from 32px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Required for custom tooltip */
+    opacity: 0.50; /* Set all buttons to 0.85 alpha to match container */
+    margin: 0 2px; /* Tighter spacing */
+    font-size: 14px;
+}
+
+.chart-btn:hover {
+    background-color: #e9ecef;
+    border-color: rgba(206, 212, 218, 0.7); /* More visible border on hover */
+    opacity: 1.0; /* Fully opaque on hover */
+}
+
+/* Custom tooltip for chart buttons */
+.chart-btn::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 2000;
+}
+
+.chart-btn:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Chart icon styles */
+.chart-icon {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    transform: scale(0.675); /* Reduced size by 25% + 10% */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Full screen toggle button */
+.full-screen-btn {
+    background-color: rgba(0, 0, 0, 0); /* Completely transparent */
+    border-color: rgba(116, 192, 252, 0.3); /* More transparent border */
+}
+
+.full-screen-btn:hover {
+    background-color: rgba(208, 235, 255, 0.15); /* Very subtle hover background */
+    border-color: rgba(51, 154, 240, 0.6); /* More visible on hover but still transparent */
+}
+
+/* Chart error message */
+.chart-error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: #d32f2f;
+    text-align: center;
+    padding: 20px;
+    background-color: #ffebee;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+/* Full screen chart styles */
+.lightbox-chart-container {
+    position: relative;
+}
+
+.nba-fullscreen-lightbox.basicLightbox {
+    position: fixed;
+    z-index: 10000 !important; /* Ultra-high z-index to override everything */
+    background-color: rgba(225, 225, 225, 0.90); /* Nearly white background */
+}
+
+.nba-fullscreen-lightbox .basicLightbox__placeholder {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+.lightbox-chart {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure chart container takes up almost the entire screen in fullscreen mode */
+.lightbox-chart .chart-container {
+    max-width: 95% !important;
+    max-height: 90vh !important; 
+    width: 95% !important;
+    height: 90vh !important;
+    margin: 0 auto;
+}
+
+/*** Tooltip Styles ***/
+#chartjs-tooltip {
+    opacity: 0;
+    position: absolute;
+    background: rgba(29, 53, 87, 0.95);
+    color: #f2f2f2;
+    border-radius: 10px;
+    transition: opacity 0.3s ease;
+    transform: translate(-50%, 0);
+    z-index: 20000;
+    pointer-events: all !important;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    letter-spacing: 0.1px;
+    line-height: 1.2;
+    font-size: 12px;
+    border: 6px solid transparent;
+    transition: border-color 0.2s ease-in-out;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.3);
+    border-style: solid;
+    text-align: left;
+    display: inline-block;
+}
+
+#chartjs-tooltip.visible {
+    opacity: 1;
+}
+
+#chartjs-tooltip table {
+    width: max-content; /* Size to content */
+    white-space: nowrap; /* Prevent wrapping by default */
+}
+
+#chartjs-tooltip th {
+    color: #f2f2f2;
+    font-weight: bold;
+    padding: 5px 45px 5px 5px;
+    position: relative;
+    line-height: 1.3;
+    text-align: left;
+    font-size: 15px;
+    word-wrap: break-word; /* Allow long words to break */
+    overflow-wrap: break-word; /* Modern browsers */
+}
+
+#chartjs-tooltip .tooltip-close {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    color: #f2f2f2;
+    background: rgba(255,255,255,0.25);
+    border-radius: 50%;
+    font-size: 14px;
+}
+
+#chartjs-tooltip td {
+    padding: 3px 5px;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.4;
+    white-space: nowrap; /* Keep everything on one line */
+}
+
+#chartjs-tooltip .header-text {
+    padding: 3px 5px 1px;
+}
+
+#chartjs-tooltip .header-text b {
+    font-size: 13px;
+}
+
+#chartjs-tooltip .game-link {
+    padding: 0px 5px;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    letter-spacing: 0.1px;
+    line-height: 1.3;
+    font-size: 12px;
+    white-space: nowrap; /* Keep on one line */
+}
+
+#chartjs-tooltip a {
+    color: #78c6ff;
+    text-decoration: underline;
+    padding: 1px 0;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    transition: all 0.2s ease;
+    position: relative;
+    z-index: 20001;
+    white-space: nowrap; /* Keep on one line */
+}
+
+#chartjs-tooltip a:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #a8daff;
+}
+
+#chartjs-tooltip .color-indicator {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 8px;
+    border-radius: 2px;
+}
+
+#chartjs-tooltip .legend-text {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#chartjs-tooltip .more-text {
+    padding: 0px 5px 3px;
+    font-size: 10px;
+}
+
+/* Position Reset Zoom button but keep it below tooltips */
+.chart-btn.reset-zoom-btn {
+    position: relative;
+    z-index: 10000; 
+}
+
+/* Chart buttons container */
+.chart-buttons {
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+/* Icon styles with background image paths set by JavaScript */
+.zoom-reset-icon {
+    /* Background image set in JavaScript */
+}
+
+.full-screen-icon {
+    /* Background image set in JavaScript */
+}
+
+.exit-full-screen-icon {
+    /* Background image set in JavaScript */
+}
+
+.save-png-icon {
+    /* Background image set in JavaScript */
+}
+
+/*** Responsive styles ***/
+@media only screen and (max-width: 768px) {
+    
+    #chartjs-tooltip th {
+        font-size: 11px;
+    }
+    
+    #chartjs-tooltip .tooltip-close {
+        width: 16px;
+        height: 16px;
+        line-height: 16px;
+        font-size: 11px;
+    }
+    
+    #chartjs-tooltip .header-text b {
+        font-size: 10px;
+    }
+    
+    #chartjs-tooltip .game-link {
+        font-size: 9px;
+        white-space: normal; /* Allow text to wrap if needed */
+    }
+    
+    #chartjs-tooltip .color-indicator {
+        width: 10px;
+        height: 10px;
+    }
+    
+    #chartjs-tooltip .legend-text {
+        font-size: 10.5px;
+    }
+    
+    #chartjs-tooltip .more-text {
+        font-size: 8px;
+    }
+    
+    .chart-icon {
+        transform: scale(0.54); /* Smaller scale for small screens (0.6 * 0.9 = 0.54) */
+    }
+}
+
+
+
+

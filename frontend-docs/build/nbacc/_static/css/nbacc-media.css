@@ -1,0 +1,50 @@
+@media only screen and (max-device-width: 480px) {
+    :root {
+        --pst-font-size-base: 15px;
+
+         /* heading font sizes */
+         --pst-font-size-h1: 24px;
+         --pst-font-size-h2: 20px;
+         --pst-font-size-h3: 16px;
+         --pst-font-size-h4: 15px;
+         --pst-font-size-h5: 15px;
+         --pst-font-size-h6: 15px;
+    }
+}
+
+
+/* Responsive adjustments for screens*/
+@media only screen {
+    .chart-container {
+        height: 400px; /* Increased from 400px to 500px */
+    }
+    
+    .chart-button {
+        padding: 6px 12px;
+        font-size: 13px;
+    }
+    
+    .chart-buttons {
+        bottom: 65px; /* Back to previous position */
+        right: 70px; /* Right position for mobile */
+        padding: 3px;
+    }
+    
+    .chart-btn {
+        width: 22px; /* Smaller than desktop version */
+        height: 22px; /* Smaller than desktop version */
+        padding: 2px;
+    }
+    
+    .chart-icon {
+        transform: scale(0.6075); /* Smaller scale for mobile (0.675 * 0.9 = 0.6075) */
+    }
+}
+
+/* Add a new media query for larger screens to maintain a more square aspect ratio */
+@media only screen {
+    .chart-container {
+        width: 90%;
+        max-width: 900px; /* Limit the width on large screens for a more square shape */
+    }
+}

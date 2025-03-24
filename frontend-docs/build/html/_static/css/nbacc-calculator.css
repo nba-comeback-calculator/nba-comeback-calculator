@@ -1,0 +1,687 @@
+/* Styles for NBA Charts Calculator */
+
+.nbacc-calculator-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+    margin: 20px 0;
+    background-color: #f8f9fa;
+    font-size: 16px;
+    color: #6c757d;
+}
+
+/* Calculator UI in Lightbox */
+.calculator-ui {
+    background-color: #fff;
+    padding: 20px 30px;
+    color: #333;
+    max-width: 1500px;
+    width: 95vw;
+    margin: 0 auto;
+    border-radius: 8px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.calculator-header {
+    border-bottom: 1px solid #eee;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+}
+
+.calculator-header h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.calculator-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.form-group.inline-form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.form-group.inline-form label {
+    margin-bottom: 0;
+    margin-right: 5px;
+    white-space: nowrap;
+    min-width: 55px;
+    font-size: 13px;
+}
+
+.form-group.inline-form .form-control {
+    flex: 1;
+    min-height: 32px; /* Ensure consistent height for all form controls */
+}
+
+/* Top controls row layout */
+.top-controls-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.plot-type-container {
+    flex: 1 1 auto;
+    min-width: 200px;
+}
+
+.time-container {
+    flex: 0 0 auto;
+    width: 100px;
+}
+
+.percent-container {
+    flex: 0 0 auto;
+    width: 170px;
+}
+
+/* Dropdown checklist styling */
+.dropdown-check-list {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+}
+
+.dropdown-check-list .anchor {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
+    border-radius: 4px;
+    transition: border-color .15s ease-in-out;
+}
+
+.dropdown-check-list ul.items {
+    padding: 0;
+    display: none;
+    margin: 0;
+    border: 1px solid rgba(240, 240, 240, 0.5);
+    border-radius: 0 0 4px 4px;
+    background-color: rgba(100, 110, 120, 0.75);
+    position: absolute;
+    z-index: 1000;
+    width: 170px; /* Wider to accommodate "Calculated Guides" */
+    /* Fixed height instead of max-height to show all options */
+    height: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-check-list ul.items li {
+    list-style: none;
+    padding: 1px 5px;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-check-list ul.items li label {
+    margin-bottom: 0;
+    padding-left: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    color: white;
+    line-height: 20px;
+}
+
+.dropdown-check-list ul.items li input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.dropdown-check-list.active .items {
+    display: block;
+}
+
+/* Match the form-control styling for all dropdowns */
+.form-control,
+select,
+#start-time-minutes, 
+.dropdown-check-list .anchor,
+.year-select,
+.min-year-select, 
+.max-year-select {
+    color: white !important;
+    background-color: rgba(100, 110, 120, 0.75) !important;
+    border: 1px solid rgba(240, 240, 240, 0.5) !important;
+    border-radius: 4px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+    appearance: none !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    padding: 6px 10px !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    box-sizing: border-box !important;
+    text-align: left !important;
+}
+
+/* Selected items summary */
+.selected-items-summary {
+    font-style: italic;
+    color: #6c757d;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -10px;
+    margin-left: -10px;
+}
+
+.col-md-3 {
+    flex: 0 0 25%;
+    max-width: 25%;
+    padding-right: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding-right: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding-right: 10px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    border-radius: 4px;
+    transition: border-color .15s ease-in-out;
+}
+
+.form-check {
+    padding-left: 1.2rem;
+    margin-bottom: 4px;
+}
+
+.form-check.d-inline-block {
+    margin-right: 12px;
+}
+
+.form-check-input {
+    position: absolute;
+    margin-top: .2rem;
+    margin-left: -1.2rem;
+}
+
+.form-check-label {
+    margin-bottom: 0;
+    font-size: 12px;
+    color: white;
+}
+
+/* Override for checkboxes in white containers - 
+   BUT Regular Season and Playoffs checkboxes stay white on dark */
+.year-groups-container .form-check-label,
+.game-filters-container .form-check-label {
+    color: #333;
+}
+
+/* Special handling for Regular Season and Playoffs checkboxes */
+.season-checkboxes {
+    display: flex;
+    gap: 15px; /* Increased gap between Regular Season and Playoffs fields */
+    margin-top: 0;
+    align-items: center;
+}
+
+.season-checkbox-container {
+    display: flex;
+    align-items: center;
+    background-color: rgba(100, 110, 120, 0.75);
+    border: 1px solid rgba(240, 240, 240, 0.5);
+    border-radius: 4px;
+    padding: 0 8px 0 12px; /* Left padding: 12px, Right padding handled by specific rules below */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    position: relative;
+    height: 32px;
+    line-height: 32px; /* Match container height for vertical centering */
+    padding-top: 2px; /* Shift content down slightly */
+}
+
+/* Set different widths for each container to prevent wrapping */
+.season-checkbox-container:first-child {
+    width: 150px; /* For "Regular Season" */
+    padding-right: 25px; /* Extra right padding */
+}
+
+.season-checkbox-container:nth-child(2) {
+    width: 110px; /* For "Playoffs" */
+    padding-right: 25px; /* Extra right padding */
+}
+
+.season-checkbox-container label {
+    color: white;
+    font-size: 13px;
+    margin-left: 5px;
+    margin-top: 3px; /* Shift text down more */
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-block; /* Ensure vertical positioning works */
+}
+
+.season-checkbox {
+    margin-right: 3px;
+    position: relative;
+    top: 1px; /* Fine-tune vertical alignment with the label */
+}
+
+.time-input-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.time-input {
+    width: 70px;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    padding: 0 12px;
+    font-size: 14px;
+    line-height: 30px;
+    border-radius: 4px;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    height: 32px;
+    box-sizing: border-box;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: rgba(0, 123, 255, 0.8);
+    border: 1px solid rgba(240, 240, 240, 0.5);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary:hover {
+    background-color: rgba(0, 105, 217, 0.9);
+    border-color: rgba(240, 240, 240, 0.8);
+}
+
+.btn-secondary {
+    color: #fff;
+    background-color: rgba(108, 117, 125, 0.8);
+    border: 1px solid rgba(240, 240, 240, 0.5);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-secondary:hover {
+    background-color: rgba(90, 98, 104, 0.9);
+    border-color: rgba(240, 240, 240, 0.8);
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: rgba(108, 117, 125, 0.8);
+    border: 1px solid rgba(240, 240, 240, 0.5);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-danger:hover {
+    background-color: rgba(90, 98, 104, 0.9);
+    border-color: rgba(240, 240, 240, 0.8);
+}
+
+.btn-sm {
+    padding: 2px 6px;
+    font-size: 11px;
+    line-height: 1.2;
+}
+
+.year-groups-container,
+.game-filters-container {
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Container layout and padding */
+.year-groups-container,
+.game-filters-container {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/* Add container styling */
+.year-groups-container > button,
+.game-filters-container > button {
+    margin-top: 8px;
+    margin-left: 0;
+    height: 32px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 30px;
+    width: auto;
+    min-width: 140px;
+}
+
+.year-groups-container h3,
+.game-filters-container h3 {
+    margin-top: 0;
+    margin-bottom: 6px;
+    font-size: 16px;
+    color: #333;
+    font-weight: 500;
+    margin-left: 0;
+    padding-left: 0;
+    text-align: left;
+}
+
+.year-group,
+.game-filter {
+    position: relative;
+    margin-bottom: 5px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+/* Year selection styling */
+.year-select-row {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 2px;
+    margin-left: 0;
+    padding-left: 0;
+}
+
+.year-select-group {
+    flex: 0 0 auto;
+    padding: 0;
+    margin: 0;
+}
+
+.year-select {
+    width: 80px;
+    height: 32px;
+    box-sizing: border-box;
+}
+
+.year-to-text {
+    font-size: 13px;
+    margin: 0 4px;
+    color: #333;
+    line-height: 32px; /* Match the height of form controls */
+    vertical-align: middle;
+}
+
+.season-type-group {
+    flex: 1;
+    margin-left: 10px;
+    margin-bottom: 0;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* This class is now replaced by season-checkboxes */
+
+.single-line-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-left: 0;
+    padding-left: 0;
+    min-height: 32px;
+}
+
+.col-filter-label {
+    flex: 0 0 auto;
+}
+
+.filter-label {
+    color: #333;
+    font-size: 13px;
+    line-height: 32px;
+    height: 32px;
+    padding: 0 8px;
+    display: inline-block;
+    white-space: nowrap;
+    font-weight: 500;
+}
+
+/* Special case for vs label */
+.filter-label-vs {
+    padding: 0 5px;
+}
+
+.col-filter-combined {
+    flex: 0 0 120px;
+    min-width: 120px;
+    width: 120px;
+}
+
+.col-filter-location {
+    flex: 0 0 145px;
+    min-width: 145px;
+    width: 145px;
+}
+
+/* Consistent styling for all dropdowns and selects */
+.col-filter-combined select,
+.col-filter-location select {
+    min-height: 32px;
+}
+
+/* Ensure options are left-aligned */
+select option, 
+select optgroup {
+    text-align: left !important;
+    padding-left: 10px !important;
+}
+
+select option {
+    padding: 4px 10px !important;
+    text-align: left !important;
+}
+
+/* Fix team options display */
+optgroup[label="Teams"] option {
+    text-align: left !important;
+    display: block !important;
+    padding-left: 10px !important;
+}
+
+.col-filter-button {
+    flex: 0 0 auto;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    height: 32px;
+}
+
+.btn.btn-danger.remove-game-filter {
+    height: 32px !important;
+    padding: 0 10px !important;
+    line-height: 30px !important;
+    vertical-align: middle !important;
+    font-size: 13px !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+/* Make all form groups align properly */
+.form-row.single-line-filter > div {
+    display: flex;
+    align-items: center;
+    height: 32px;
+}
+
+.form-group.inline-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0;
+}
+
+.form-group.inline-form label {
+    margin-bottom: 0;
+    white-space: nowrap;
+    font-size: 0.85rem;
+}
+
+.form-group.inline-form .form-control {
+    flex: 1;
+}
+
+.remove-button-container {
+    display: inline-block;
+    margin-left: 0; /* Minimal space between Remove button and Playoffs field */
+}
+
+.remove-year-group {
+    height: 32px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 30px;
+    min-width: 80px;
+}
+
+.remove-game-filter {
+    position: static;
+    margin-bottom: 8px;
+    height: 32px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    font-size: 13px;
+    line-height: 30px;
+    min-width: 80px;
+}
+
+.d-inline-block {
+    display: inline-block;
+}
+
+.mr-3 {
+    margin-right: 12px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(240, 240, 240, 0.2);
+}
+
+.loading,
+.error {
+    text-align: center;
+    padding: 40px;
+    font-size: 16px;
+}
+
+.error {
+    color: #dc3545;
+}
+
+/* Chart Container - only override height, not margins */
+.chart-container {
+    height: 500px;
+    position: relative;
+}
+
+/* Add space to BasicLightbox */
+.basicLightbox {
+    overflow-y: auto;
+    padding: 20px 0;
+}
+
+.basicLightbox__placeholder {
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 95vw;
+    max-width: 1400px;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 768px) {
+    .col-md-4, .col-md-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    
+    .calculator-ui {
+        padding: 15px;
+    }
+    
+    .single-line-filter {
+        flex-wrap: wrap;
+    }
+    
+    .col-filter-team, 
+    .col-filter-rank, 
+    .col-filter-location {
+        flex: 1 1 45%;
+        min-width: 130px;
+        margin-bottom: 5px;
+    }
+    
+    .col-filter-button {
+        margin-left: 0;
+        margin-top: 5px;
+        width: 100%;
+        justify-content: flex-end;
+    }
+}

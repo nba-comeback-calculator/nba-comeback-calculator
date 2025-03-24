@@ -26,14 +26,15 @@ The site is published at: [nba-comeback-calculator.github.io](https://nba-comeba
       - `plot_nba_game_data_analysis_create_plots_page.py`: Creates chart data for all Sphinx pages
       - `plot_nba_game_data_analysis_thumb.py`: Creates thumbnails
 
-- **JavaScript Frontend**: Located in `/docs/frontend/source/_static/`
+- **JavaScript Frontend**: Located in `/frontend-docs/source/_static/`
   - `js/`: Frontend JavaScript modules
   - `css/`: Styling files
   - `json/`: Chart and season data files
 
 - **Documentation**:
-  - `docs/frontend/`: Sphinx project for the public-facing website/app
-  - `docs/developer/`: (Future) Developer documentation for the codebase
+  - `frontend-docs/`: Sphinx project for the public-facing website/app
+  - `developer-docs/`: (Future) Developer documentation for the codebase
+  - `docs/`: Contains the built HTML output directly served by GitHub Pages
 
 ## Data Flow
 
@@ -118,8 +119,15 @@ Key features include:
 - Naming: camelCase for variables/functions
 
 ### Documentation Structure
-- `docs/frontend/`: The Sphinx documentation project for the public-facing website
-- `docs/developer/`: (Future) Developer documentation for the codebase
+- `frontend-docs/`: The Sphinx documentation project for the public-facing website
+- `developer-docs/`: (Future) Developer documentation for the codebase
+- `docs/`: Contains the built HTML output directly served by GitHub Pages
+
+Note: We use an unorthodox docs structure to work with GitHub Pages limitations.
+The Sphinx Makefile in `frontend-docs/` is configured to build output directly to the `/docs` folder 
+rather than the standard `frontend-docs/build/html/`. This allows the site to be served from 
+nba-comeback-calculator.github.io without a subdirectory.
+See: https://stackoverflow.com/questions/36782467/set-subdirectory-as-website-root-on-github-pages
 
 ## Main Functions
 
