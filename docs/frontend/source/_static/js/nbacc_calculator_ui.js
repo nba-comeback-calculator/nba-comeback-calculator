@@ -97,9 +97,63 @@ const nbacc_calculator_ui = (() => {
             const savedState = nbacc_calculator_state.loadStateFromLocalStorage();
             if (savedState) {
                 // Update the state with saved state
-                state = savedState;
+                applyState(savedState);
             }
         }
+    }
+    
+    /**
+     * Apply external state to the calculator, handling proper instantiation of objects
+     * @param {Object} loadedState - The state to apply
+     * @return {Object} - The current state after applying changes
+     */
+    function applyState(loadedState) {
+        if (!loadedState) return state;
+        
+        console.log("Applying state:", loadedState);
+        
+        // Copy simple properties
+        state.plotType = loadedState.plotType || state.plotType;
+        state.startTime = loadedState.startTime || state.startTime;
+        state.endTime = loadedState.endTime || state.endTime;
+        state.specificTime = loadedState.specificTime || state.specificTime;
+        state.targetChartId = loadedState.targetChartId || state.targetChartId;
+        state.selectedPercents = loadedState.selectedPercents || state.selectedPercents;
+        state.plotGuides = (loadedState.plotGuides !== undefined) ? loadedState.plotGuides : state.plotGuides;
+        state.plotCalculatedGuides = (loadedState.plotCalculatedGuides !== undefined) ? 
+            loadedState.plotCalculatedGuides : state.plotCalculatedGuides;
+        
+        // Copy year groups (these are simple objects)
+        if (loadedState.yearGroups && loadedState.yearGroups.length > 0) {
+            state.yearGroups = loadedState.yearGroups;
+        }
+        
+        // Handle game filters - need to create proper GameFilter instances
+        if (loadedState.gameFilters && loadedState.gameFilters.length > 0 && typeof nbacc_calculator_api !== 'undefined') {
+            state.gameFilters = loadedState.gameFilters.map(filterParams => {
+                if (!filterParams) return null;
+                
+                // Create a new GameFilter instance with the parameters
+                try {
+                    return new nbacc_calculator_api.GameFilter(filterParams);
+                } catch (error) {
+                    console.error("Error creating GameFilter:", error);
+                    return null;
+                }
+            });
+        }
+        
+        console.log("State applied successfully");
+        return state;
+    }
+    
+    /**
+     * Get a copy of the current calculator state
+     * @return {Object} - Copy of the current state
+     */
+    function getState() {
+        // Return a deep copy to prevent unintended modifications
+        return JSON.parse(JSON.stringify(state));
     }
 
     // Show calculator UI in a lightbox
@@ -176,7 +230,6 @@ const nbacc_calculator_ui = (() => {
                     
                     <div class="form-actions">
                         <button id="calculate-btn" class="btn btn-primary">Calculate</button>
-                        <button id="share-btn" class="btn btn-info">Share</button>
                         <button id="cancel-btn" class="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
@@ -506,6 +559,17 @@ const nbacc_calculator_ui = (() => {
         // Calculate button
         const calculateBtn = document.getElementById("calculate-btn");
         calculateBtn.addEventListener("click", function () {
+            // Make sure year groups and game filters are up to date before rendering
+            updateYearGroupsState();
+            updateGameFiltersState();
+            
+            // Save state to localStorage
+            if (typeof nbacc_calculator_state !== 'undefined') {
+                nbacc_calculator_state.saveStateToLocalStorage(state);
+                nbacc_calculator_state.updateBrowserUrl(state);
+                console.log("Saved state to localStorage and updated URL");
+            }
+            
             if (state.targetChartId) {
                 // We're configuring an existing chart
                 calculateAndRenderChartForTarget(state.targetChartId);
@@ -515,32 +579,6 @@ const nbacc_calculator_ui = (() => {
             }
             lightboxInstance.close();
             isCalculatorOpen = false;
-        });
-
-        // Share button
-        const shareBtn = document.getElementById("share-btn");
-        shareBtn.addEventListener("click", function() {
-            // Make sure all state is up to date
-            updateYearGroupsState();
-            updateGameFiltersState();
-            
-            // Create a shareable URL
-            if (typeof nbacc_calculator_state !== 'undefined') {
-                const shareableUrl = nbacc_calculator_state.createShareableUrl(state);
-                
-                // Create a temporary input to copy the URL
-                const tempInput = document.createElement("input");
-                document.body.appendChild(tempInput);
-                tempInput.value = shareableUrl;
-                tempInput.select();
-                document.execCommand("copy");
-                document.body.removeChild(tempInput);
-                
-                // Show feedback that URL was copied
-                alert("Shareable URL copied to clipboard! Share this link to show others your exact calculator configuration.");
-            } else {
-                alert("Sharing functionality is unavailable. The nbacc_calculator_state module is not loaded.");
-            }
         });
         
         // Cancel button
@@ -910,9 +948,10 @@ const nbacc_calculator_ui = (() => {
 
     // Calculate and render chart based on current state
     async function calculateAndRenderChart() {
-        // Save state to localStorage
+        // Save state to localStorage and update URL
         if (typeof nbacc_calculator_state !== 'undefined') {
             nbacc_calculator_state.saveStateToLocalStorage(state);
+            nbacc_calculator_state.updateBrowserUrl(state);
         }
 
         const chartContainer = document.getElementById("nbacc_chart_container");
@@ -1396,7 +1435,9 @@ const nbacc_calculator_ui = (() => {
         initUI,
         showCalculatorUI,
         calculateAndRenderChart,
-        calculateAndRenderChartForTarget
+        calculateAndRenderChartForTarget,
+        applyState,
+        getState
     };
 })();
 
