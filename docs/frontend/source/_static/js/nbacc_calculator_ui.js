@@ -25,6 +25,7 @@ const nbacc_calculator_ui = (() => {
         selectedPercents: ["20", "10", "5", "1"], // Default percents to track for Percent Chance: Time Vs. Points Down
         plotGuides: false, // Whether to plot guide lines (2x, 4x, 6x)
         plotCalculatedGuides: false, // Whether to plot calculated guide lines
+        maxPointMargin: null, // Default to Auto (null)
     };
 
     // State to track if calculator lightbox is open
@@ -210,10 +211,10 @@ const nbacc_calculator_ui = (() => {
                     <div class="top-controls-row">
                         <div class="plot-type-container">
                             <select id="plot-type" class="form-control">
-                                <option value="Percent Chance: Time Vs. Points Down">Percent Chance: Time Vs. Points Down</option>
-                                <option value="Max Points Down Or More">Max Points Down Or More</option>
-                                <option value="Max Points Down">Max Points Down</option>
-                                <option value="Points Down At Time">Points Down At Time</option>
+                                <option value="Percent Chance: Time Vs. Points Down">Chart Type: Percent Chance -- Time v Points Down</option>
+                                <option value="Max Points Down Or More">Chart Type: Max Points Down Or More</option>
+                                <option value="Max Points Down">Chart Type: Max Points Down</option>
+                                <option value="Points Down At Time">Chart Type: Points Down At Time</option>
                             </select>
                         </div>
                         

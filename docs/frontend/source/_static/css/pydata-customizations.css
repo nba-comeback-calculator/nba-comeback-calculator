@@ -3,10 +3,13 @@
 h1, h2, h3, h4, h5, h6 {
     color: #555555; /* Lighter grey */
     font-weight: 700; /* Less bold */
+    margin-top: 2em; /* More padding above */
+    margin-bottom: 0.7em; /* Little more padding below */
 }
 
 h1 {
     font-size: calc(1.8rem - 4px);
+    margin-top: 0; /* Override the margin-top for h1 */
 }
 
 h2 {

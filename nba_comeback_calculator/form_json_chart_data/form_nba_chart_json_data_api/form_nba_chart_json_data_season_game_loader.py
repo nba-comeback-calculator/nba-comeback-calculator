@@ -10,11 +10,7 @@ along with utility functions for filtering and analyzing game data.
 # Standard library imports
 import json
 import os
-
-# Global variable for base path to JSON files
-json_base_path = (
-    "/Users/ajcarter/workspace/GIT_TOOLS/nba_data/docs/source/_static/json/seasons"
-)
+import gzip
 
 
 class Season:
@@ -32,15 +28,19 @@ class Season:
     def __init__(self, year):
         """Initialize a season by loading its JSON data."""
         self.year = year
-        self.filename = f"{json_base_path}/nba_season_{year}.json"
+        self.filename = f"{json_base_path}/nba_season_{year}.json.gz"
 
         # Verify the file exists
         if not os.path.exists(self.filename):
             raise FileNotFoundError(f"Season data file not found: {self.filename}")
 
         # Load the season data
-        with open(self.filename, "r") as f:
-            self.data = json.load(f)
+        if self.filename.endswith(".gz"):
+            with gzip.open(self.filename, "rt") as f:  # 'rt' for text mode
+                self.data = json.load(f)
+        else:
+            with open(self.filename, "r") as f:
+                self.data = json.load(f)
 
         # Extract season metadata
         self.season_year = self.data["season_year"]
@@ -89,7 +89,6 @@ class Games:
 
             for game_id, game in season.games.items():
                 if season_type != "all" and game.season_type != season_type:
-                    print(game.__dict__)
                     continue
                 self.games[game_id] = game
 

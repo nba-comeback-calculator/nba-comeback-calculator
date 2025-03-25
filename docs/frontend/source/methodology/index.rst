@@ -6,10 +6,17 @@ Methodology
 .. toctree::
    :maxdepth: 1
 
-   understanding_the_plots
+   understanding_and_using_the_plots
    how_trend_lines_were_formed
    using_claude_code
    about
+
+
+
+.. _this-is-a-title:
+
+This is a title
+===============
 
 ..
 
