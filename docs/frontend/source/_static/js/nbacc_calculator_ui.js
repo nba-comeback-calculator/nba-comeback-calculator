@@ -17,7 +17,7 @@ const nbacc_calculator_ui = (() => {
     let state = {
         plotType: "Percent Chance: Time Vs. Points Down",
         yearGroups: [],
-        gameFilters: [],
+        gameFilters: [], // Empty array - no default filters
         startTime: 24, // 24 minutes default for Percent Chance: Time Vs. Points Down
         endTime: 0, // 0 minutes default (end of game),
         specificTime: 12, // Used for Points Down At Time
@@ -75,29 +75,17 @@ const nbacc_calculator_ui = (() => {
             `;
         }
         
-        // Check for URL parameters
+        // Check for URL parameters - URL is the single source of truth
         if (typeof nbacc_calculator_state !== 'undefined' && nbacc_calculator_state.hasStateInUrl()) {
+            console.log('URL parameters detected, initializing calculator with URL state');
             const urlState = nbacc_calculator_state.getStateFromUrl();
             if (urlState) {
+                console.log('URL state found, applying and rendering');
                 // Update the state with URL parameters
-                state = urlState;
+                applyState(urlState);
                 
                 // Calculate and render the chart immediately
                 calculateAndRenderChart();
-            }
-        } else {
-            // Load state from localStorage if no URL parameters
-            loadSavedState();
-        }
-    }
-    
-    // Load saved state from localStorage
-    function loadSavedState() {
-        if (typeof nbacc_calculator_state !== 'undefined') {
-            const savedState = nbacc_calculator_state.loadStateFromLocalStorage();
-            if (savedState) {
-                // Update the state with saved state
-                applyState(savedState);
             }
         }
     }
@@ -125,22 +113,45 @@ const nbacc_calculator_ui = (() => {
         
         // Copy year groups (these are simple objects)
         if (loadedState.yearGroups && loadedState.yearGroups.length > 0) {
+            console.log(`Applying ${loadedState.yearGroups.length} year groups from loaded state`);
             state.yearGroups = loadedState.yearGroups;
+        } else {
+            // Ensure we have at least one year group
+            state.yearGroups = [{
+                minYear: 2017,
+                maxYear: 2024,
+                regularSeason: true,
+                playoffs: true,
+                label: '2017-2024'
+            }];
         }
         
         // Handle game filters - need to create proper GameFilter instances
         if (loadedState.gameFilters && loadedState.gameFilters.length > 0 && typeof nbacc_calculator_api !== 'undefined') {
+            console.log(`Applying ${loadedState.gameFilters.length} game filters from loaded state`);
+            
             state.gameFilters = loadedState.gameFilters.map(filterParams => {
+                // Handle null or empty filter (keep it in the array to preserve game filter rows)
                 if (!filterParams) return null;
+                
+                // If filter is empty (ANY-e-ANY), represent it as an empty object
+                if (Object.keys(filterParams).length === 0) {
+                    return {}; // Return empty object instead of null
+                }
                 
                 // Create a new GameFilter instance with the parameters
                 try {
                     return new nbacc_calculator_api.GameFilter(filterParams);
                 } catch (error) {
                     console.error("Error creating GameFilter:", error);
-                    return null;
+                    return {}; // Return empty object on error
                 }
             });
+            
+            console.log("Applied game filters:", state.gameFilters);
+        } else {
+            // No game filters in loaded state, set to empty array (not [null])
+            state.gameFilters = [];
         }
         
         console.log("State applied successfully");
@@ -163,8 +174,16 @@ const nbacc_calculator_ui = (() => {
         
         // Set the target chart ID if provided
         state.targetChartId = targetChartId;
+        
+        // If URL parameters exist, ensure state is loaded from them
+        if (typeof nbacc_calculator_state !== 'undefined' && nbacc_calculator_state.hasStateInUrl()) {
+            const urlState = nbacc_calculator_state.getStateFromUrl();
+            if (urlState) {
+                applyState(urlState);
+            }
+        }
 
-        // Generate options for dropdown selects - default to Max Points Down Or More
+        // Generate options for dropdown selects
         const defaultPlotType = "Max Points Down Or More";
         
         // Use appropriate time default based on plot type
@@ -339,6 +358,8 @@ const nbacc_calculator_ui = (() => {
         // Clear previous year groups and load from state
         document.getElementById("year-groups-list").innerHTML = "";
         if (state.yearGroups && state.yearGroups.length > 0) {
+            console.log(`Setting up ${state.yearGroups.length} year groups from state`);
+            
             // Load year groups from state
             state.yearGroups.forEach(() => {
                 addYearGroup(false); // Add UI elements without updating state
@@ -363,7 +384,9 @@ const nbacc_calculator_ui = (() => {
         // Clear previous game filters and load from state
         document.getElementById("game-filters-list").innerHTML = "";
         if (state.gameFilters && state.gameFilters.length > 0) {
-            // Load game filters from state
+            console.log(`Setting up ${state.gameFilters.length} game filters from state`);
+            
+            // Load game filters from state - create one UI element for each filter in the state
             state.gameFilters.forEach(() => {
                 addGameFilter(false); // Add UI elements without updating state
             });
@@ -371,8 +394,16 @@ const nbacc_calculator_ui = (() => {
             // Now set values from state
             const gameFilterElements = document.querySelectorAll('.game-filter');
             state.gameFilters.forEach((filter, index) => {
-                if (index < gameFilterElements.length && filter !== null) {
+                if (index < gameFilterElements.length) {
                     const element = gameFilterElements[index];
+                    
+                    // Handle null or empty filter objects
+                    if (!filter || Object.keys(filter).length === 0) {
+                        element.querySelector('.team-location-select').value = 'any';
+                        element.querySelector('.home-team-select').value = '';
+                        element.querySelector('.away-team-select').value = '';
+                        return;
+                    }
                     
                     // Set team location value
                     if (filter.for_at_home === true) {
@@ -380,7 +411,7 @@ const nbacc_calculator_ui = (() => {
                     } else if (filter.for_at_home === false) {
                         element.querySelector('.team-location-select').value = 'away';
                     } else {
-                        element.querySelector('.team-location-select').value = 'any';
+                        element.querySelector('.team-location-select').value = 'any'; // 'e' in the URL
                     }
                     
                     // Set for team or rank
@@ -419,7 +450,8 @@ const nbacc_calculator_ui = (() => {
                 }
             });
         } else {
-            // Don't add default game filter - it's optional
+            // Don't add a default game filter - it's optional
+            // User will add filters as needed
         }
         
         plotTypeSelect.addEventListener("change", function () {
@@ -549,36 +581,35 @@ const nbacc_calculator_ui = (() => {
             addGameFilter();
         });
 
-        // Clear existing year groups list and game filters
-        document.getElementById("year-groups-list").innerHTML = "";
-        document.getElementById("game-filters-list").innerHTML = "";
-
-        // Add at least one year group initially
-        addYearGroup();
+        // Don't automatically add any game filters
+        // Let the user add them using the "Add Game Filter" button
 
         // Calculate button
         const calculateBtn = document.getElementById("calculate-btn");
         calculateBtn.addEventListener("click", function () {
-            // Make sure year groups and game filters are up to date before rendering
-            updateYearGroupsState();
-            updateGameFiltersState();
-            
-            // Save state to localStorage
-            if (typeof nbacc_calculator_state !== 'undefined') {
-                nbacc_calculator_state.saveStateToLocalStorage(state);
-                nbacc_calculator_state.updateBrowserUrl(state);
-                console.log("Saved state to localStorage and updated URL");
+            try {
+                // Make sure year groups and game filters are up to date before rendering
+                updateYearGroupsState();
+                updateGameFiltersState();
+                
+                // Update URL only - this is now our single source of truth for state
+                if (typeof nbacc_calculator_state !== 'undefined') {
+                    const urlParams = nbacc_calculator_state.updateBrowserUrl(state);
+                    console.log("Updated URL with state:", urlParams);
+                }
+                
+                if (state.targetChartId) {
+                    // We're configuring an existing chart
+                    calculateAndRenderChartForTarget(state.targetChartId);
+                } else {
+                    // Traditional calculator mode
+                    calculateAndRenderChart();
+                }
+                lightboxInstance.close();
+                isCalculatorOpen = false;
+            } catch (error) {
+                console.error("Error during calculation:", error);
             }
-            
-            if (state.targetChartId) {
-                // We're configuring an existing chart
-                calculateAndRenderChartForTarget(state.targetChartId);
-            } else {
-                // Traditional calculator mode
-                calculateAndRenderChart();
-            }
-            lightboxInstance.close();
-            isCalculatorOpen = false;
         });
         
         // Cancel button
@@ -864,32 +895,34 @@ const nbacc_calculator_ui = (() => {
 
     // Update game filters state from UI
     function updateGameFiltersState() {
+        // Start with empty array
         state.gameFilters = [];
 
+        // Get all game filter elements
         const filters = document.querySelectorAll(".game-filter");
+        
+        // If no filter elements, return with empty array
+        if (filters.length === 0) {
+            console.log("No game filter elements found, using empty array");
+            return;
+        }
         filters.forEach((filter) => {
             const homeTeamSelect = filter.querySelector(".home-team-select");
             const awayTeamSelect = filter.querySelector(".away-team-select");
             const teamLocationSelect = filter.querySelector(".team-location-select");
 
-            // Get the "for" team location (the team making the comeback)
-            let forAtHome = null;
-
-            if (teamLocationSelect && teamLocationSelect.value !== "any") {
-                // Set for_at_home based on team location
-                if (teamLocationSelect.value === "home") {
-                    forAtHome = true;
-                } else if (teamLocationSelect.value === "away") {
-                    forAtHome = false;
-                }
-            }
-
             // Convert UI parameters to the format expected by GameFilter
             const filterParams = {};
 
-            // Handle "for" team location
-            if (forAtHome !== null) {
-                filterParams.for_at_home = forAtHome;
+            // Get the "for" team location (the team making the comeback)
+            // Maps to h/a/e in the URL
+            if (teamLocationSelect) {
+                if (teamLocationSelect.value === "home") {
+                    filterParams.for_at_home = true; // Will be 'h' in URL
+                } else if (teamLocationSelect.value === "away") {
+                    filterParams.for_at_home = false; // Will be 'a' in URL
+                }
+                // For "any", we leave for_at_home undefined (will be 'e' in URL)
             }
 
             // Handle the combined home team / rank selector
@@ -948,9 +981,8 @@ const nbacc_calculator_ui = (() => {
 
     // Calculate and render chart based on current state
     async function calculateAndRenderChart() {
-        // Save state to localStorage and update URL
+        // Update URL only (no localStorage)
         if (typeof nbacc_calculator_state !== 'undefined') {
-            nbacc_calculator_state.saveStateToLocalStorage(state);
             nbacc_calculator_state.updateBrowserUrl(state);
         }
 
@@ -1257,6 +1289,11 @@ const nbacc_calculator_ui = (() => {
 
     // Calculate and render chart for a specific target chart div
     async function calculateAndRenderChartForTarget(targetChartId) {
+        // Update URL with state - this is the single source of truth
+        if (typeof nbacc_calculator_state !== 'undefined') {
+            nbacc_calculator_state.updateBrowserUrl(state);
+        }
+        
         // Get the target chart div
         const targetDiv = document.getElementById(targetChartId);
         if (!targetDiv) {

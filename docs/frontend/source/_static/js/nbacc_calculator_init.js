@@ -41,7 +41,7 @@ function initializeCalculator() {
     }
     
     try {
-        // Check if there are URL parameters
+        // Always check for URL parameters first
         if (nbacc_calculator_state.hasStateInUrl()) {
             console.log('URL parameters detected, processing...');
             
@@ -53,7 +53,7 @@ function initializeCalculator() {
             const urlState = nbacc_calculator_state.getStateFromUrl();
             
             if (urlState) {
-                console.log('Successfully parsed URL state');
+                console.log('Successfully parsed URL state:', urlState);
                 
                 // Wait for DOM to be ready
                 setTimeout(function() {
@@ -91,7 +91,7 @@ function initializeCalculator() {
                 console.error('Failed to parse URL parameters');
             }
         } else {
-            console.log('No calculator parameters in URL');
+            console.log('No calculator parameters in URL, initializing with default state');
         }
     } catch (error) {
         console.error('Error initializing calculator:', error);
@@ -99,7 +99,10 @@ function initializeCalculator() {
 }
 
 // First try on DOM ready event
-document.addEventListener('DOMContentLoaded', initializeCalculator);
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - initializing calculator');
+    initializeCalculator();
+});
 
 // Also try after window.load as a backup
 window.addEventListener('load', function() {
@@ -108,7 +111,9 @@ window.addEventListener('load', function() {
     const hasTarget = document.querySelector('.nbacc-calculator canvas');
     if (!hasChart && !hasTarget && typeof nbacc_calculator_state !== 'undefined' && 
         nbacc_calculator_state.hasStateInUrl()) {
-        console.log('Trying initialization again after window load');
+        console.log('Window loaded - trying initialization again');
         initializeCalculator();
+    } else {
+        console.log('Window loaded - chart already initialized or no URL parameters');
     }
 });

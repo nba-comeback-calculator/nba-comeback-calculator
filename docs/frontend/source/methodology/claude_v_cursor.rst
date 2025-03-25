@@ -418,3 +418,29 @@ Many! of these:
     'Calculate' button is doing.  Use the same logic path.  When you get a      │
     URL, parse the state and just act like the form has been populated, then call
     the same code the Calculate button calls.
+
+.. code::
+
+   > OK, we had a major refactor of the calculator URL building and state of the form that did not work.  We are going to carefully try and get it back   │
+    working.  First, the code is working OK right now, just we want some of the behavior of the old files.  First, there are three files that you        │
+    created js/nbacc_calculator_init_NOT_WORKING.js js/nbacc_calculator_UI_NOT_WORKING.js and js/nbacc_calculator_NOT_WORKING.js.  This has a new URL    │
+    encoding scheme that we want to leverage.  So our first task is, read the .md files in this project, read the _NOT_WORKING.js files, and copy over   │
+    the parts that did the URL encoding scheme to the regular files.  So copy what you need out of js/nbacc_calculator_UI_NOT_WORKING.js to              │
+    js/nbacc_calculator_ui.js etc.                                                                                                                       │
+                                                                                                                                                          │
+    Also, get rid of the share button.  We just want to encode the url like is in the _NOT_WORKING file.  Then we will move on to the next steps.
+
+.. code::
+
+    OK that worked very well.  Now, we have a url -- that will be the sole state of the system.  Get rid of the other state mechanisms and simply store  │
+    that string somewhere accessiable once formed.  Now, when we load the form, the form needs to parse the url string and setup the form accordingly    │
+    . It needs to add a row for every season range in the url and the game file, setup the plot types, minutes, set the percent box, etc.  If there is   │
+    a url string (either created by us or the user game us a url string) we need to parse it and set the form up when we hit 'Calculate' -- the sole     │
+    state should be this url string.
+
+.. code::
+  
+    > There is a problem with the g= game filter spec. Currently we have H-T:BOS-any~N-R:mid_10-R:bot_10~N-T:ATL-T:BKN
+    It should be simplier, just g={for_team_field}-{home_away_field}-{vs-team_field}~{for_team_field}-{home_away_field}-{vs-team_field}\ that example
+    shows two filters.   Also it should be 'e', 'h', or 'a' for the home away field.  So for example, if we had Bos at home playing any, we would have
+    BOS-H-ANY that's it.  that's one game filter.

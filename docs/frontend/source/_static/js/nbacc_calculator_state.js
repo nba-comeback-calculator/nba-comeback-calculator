@@ -1,62 +1,30 @@
 /**
  * nbacc_calculator_state.js
  *
- * Manages calculator state persistence and URL encoding/decoding for the NBA Comeback Calculator.
+ * Manages calculator state through URL parameters for the NBA Comeback Calculator.
  * This module provides functions to:
- * 1. Save calculator state to localStorage for persistence between sessions
- * 2. Load calculator state from localStorage
- * 3. Encode calculator state as URL parameters
- * 4. Parse URL parameters to restore calculator state
+ * 1. Encode calculator state as URL parameters
+ * 2. Parse URL parameters to restore calculator state
  */
 
 const nbacc_calculator_state = (() => {
-    // Constants
-    const LOCAL_STORAGE_KEY = 'nbacc_calculator_state';
+    // Variable to store the current URL state string
+    let currentUrlString = '';
     
     /**
-     * Saves the current calculator state to localStorage
-     * @param {Object} state - The current calculator state
+     * Gets the current URL state string
+     * @returns {string} The current URL state string
      */
-    function saveStateToLocalStorage(state) {
-        try {
-            // Clone the state object to avoid reference issues
-            const clonedState = JSON.parse(JSON.stringify(state));
-            
-            // Special handling for gameFilters - convert GameFilter objects to plain objects
-            if (clonedState.gameFilters) {
-                clonedState.gameFilters = clonedState.gameFilters.map(filter => {
-                    if (!filter) return null;
-                    
-                    // Extract only the properties we need
-                    return {
-                        for_at_home: filter.for_at_home,
-                        for_rank: filter.for_rank,
-                        for_team_abbr: filter.for_team_abbr,
-                        vs_rank: filter.vs_rank,
-                        vs_team_abbr: filter.vs_team_abbr
-                    };
-                });
-            }
-            
-            // Save to localStorage
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(clonedState));
-        } catch (error) {
-            console.error('Failed to save calculator state to localStorage:', error);
-        }
+    function getCurrentUrlString() {
+        return currentUrlString;
     }
     
     /**
-     * Loads the calculator state from localStorage
-     * @returns {Object|null} The saved calculator state, or null if no state is saved
+     * Sets the current URL state string
+     * @param {string} urlString - The URL state string to set
      */
-    function loadStateFromLocalStorage() {
-        try {
-            const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
-            return savedState ? JSON.parse(savedState) : null;
-        } catch (error) {
-            console.error('Failed to load calculator state from localStorage:', error);
-            return null;
-        }
+    function setCurrentUrlString(urlString) {
+        currentUrlString = urlString;
     }
     
     /**
@@ -109,34 +77,33 @@ const nbacc_calculator_state = (() => {
             let gParam = '';
             if (state.gameFilters && state.gameFilters.length > 0) {
                 gParam = state.gameFilters.map(filter => {
-                    if (!filter) return 'all';
+                    // Handle null filter or empty filter object (ANY-e-ANY)
+                    if (!filter || Object.keys(filter).length === 0) return 'ANY-e-ANY';
                     
-                    let parts = [];
-                    
-                    // Home status: H=Home, A=Away, N=Neutral/Any
-                    let homeStatus = 'N';
-                    if (filter.for_at_home === true) homeStatus = 'H';
-                    if (filter.for_at_home === false) homeStatus = 'A';
-                    
-                    // Team or rank for "for" team
-                    let forTeamOrRank = 'any';
+                    // For team field (team abbreviation or rank)
+                    let forTeamField = 'ANY';
                     if (filter.for_rank) {
-                        forTeamOrRank = `R:${filter.for_rank}`;
+                        forTeamField = filter.for_rank.toUpperCase();
                     } else if (filter.for_team_abbr) {
-                        forTeamOrRank = `T:${Array.isArray(filter.for_team_abbr) ? 
-                            filter.for_team_abbr.join('_') : filter.for_team_abbr}`;
+                        forTeamField = Array.isArray(filter.for_team_abbr) ? 
+                            filter.for_team_abbr[0].toUpperCase() : filter.for_team_abbr.toUpperCase();
                     }
                     
-                    // Team or rank for "vs" team
-                    let vsTeamOrRank = 'any';
+                    // Home/Away field: e=either, h=home, a=away
+                    let homeAwayField = 'e';
+                    if (filter.for_at_home === true) homeAwayField = 'h';
+                    if (filter.for_at_home === false) homeAwayField = 'a';
+                    
+                    // Vs team field
+                    let vsTeamField = 'ANY';
                     if (filter.vs_rank) {
-                        vsTeamOrRank = `R:${filter.vs_rank}`;
+                        vsTeamField = filter.vs_rank.toUpperCase();
                     } else if (filter.vs_team_abbr) {
-                        vsTeamOrRank = `T:${Array.isArray(filter.vs_team_abbr) ? 
-                            filter.vs_team_abbr.join('_') : filter.vs_team_abbr}`;
+                        vsTeamField = Array.isArray(filter.vs_team_abbr) ? 
+                            filter.vs_team_abbr[0].toUpperCase() : filter.vs_team_abbr.toUpperCase();
                     }
                     
-                    return `${homeStatus}-${forTeamOrRank}-${vsTeamOrRank}`;
+                    return `${forTeamField}-${homeAwayField}-${vsTeamField}`;
                 }).join('~');
             }
             
@@ -307,7 +274,7 @@ const nbacc_calculator_state = (() => {
                         };
                     }).filter(group => group !== null);
                     
-                    console.log('Set year groups to:', state.yearGroups);
+                    console.log(`Set ${state.yearGroups.length} year groups from URL parameters:`, state.yearGroups);
                 }
                 
                 // If no valid year groups were parsed, add a default one
@@ -343,58 +310,60 @@ const nbacc_calculator_state = (() => {
                 if (filterArray.length > 0) {
                     // We'll collect the game filter param objects first
                     const filterParams = filterArray.map(filterStr => {
-                        if (filterStr === 'all') return null;
-                        
                         const parts = filterStr.split('-');
                         if (parts.length !== 3) {
                             console.warn('Invalid filter format:', filterStr);
                             return null;
                         }
                         
-                        const homeStatus = parts[0];
-                        const forTeamOrRank = parts[1];
-                        const vsTeamOrRank = parts[2];
+                        const forTeamField = parts[0].toUpperCase();
+                        const homeAwayField = parts[1].toLowerCase(); // e, h, or a
+                        const vsTeamField = parts[2].toUpperCase();
                         
                         // Create filter parameters
                         const params = {};
                         
-                        // Home status
-                        if (homeStatus === 'H') {
+                        // Home/Away status: e=either, h=home, a=away
+                        if (homeAwayField === 'h') {
                             params.for_at_home = true;
-                        } else if (homeStatus === 'A') {
+                        } else if (homeAwayField === 'a') {
                             params.for_at_home = false;
-                        } else if (homeStatus !== 'N') {
-                            console.warn('Invalid home status:', homeStatus, 'using default (any)');
-                        }
+                        } // else keep as undefined for 'e' (either)
                         
-                        // For team or rank
-                        if (forTeamOrRank && forTeamOrRank !== 'any') {
-                            if (forTeamOrRank.startsWith('R:')) {
-                                params.for_rank = forTeamOrRank.substring(2);
-                            } else if (forTeamOrRank.startsWith('T:')) {
-                                const teams = forTeamOrRank.substring(2).split('_');
-                                params.for_team_abbr = teams.length === 1 ? teams[0] : teams;
+                        // For team field
+                        if (forTeamField && forTeamField !== 'ANY') {
+                            // Check if it's a team rank
+                            if (['TOP_5', 'TOP_10', 'MID_10', 'BOT_10', 'BOT_5'].includes(forTeamField)) {
+                                params.for_rank = forTeamField.toLowerCase();
                             } else {
-                                console.warn('Invalid for team/rank format:', forTeamOrRank);
+                                // It's a team abbreviation
+                                params.for_team_abbr = forTeamField;
                             }
                         }
                         
-                        // Vs team or rank
-                        if (vsTeamOrRank && vsTeamOrRank !== 'any') {
-                            if (vsTeamOrRank.startsWith('R:')) {
-                                params.vs_rank = vsTeamOrRank.substring(2);
-                            } else if (vsTeamOrRank.startsWith('T:')) {
-                                const teams = vsTeamOrRank.substring(2).split('_');
-                                params.vs_team_abbr = teams.length === 1 ? teams[0] : teams;
+                        // Vs team field
+                        if (vsTeamField && vsTeamField !== 'ANY') {
+                            // Check if it's a team rank
+                            if (['TOP_5', 'TOP_10', 'MID_10', 'BOT_10', 'BOT_5'].includes(vsTeamField)) {
+                                params.vs_rank = vsTeamField.toLowerCase();
                             } else {
-                                console.warn('Invalid vs team/rank format:', vsTeamOrRank);
+                                // It's a team abbreviation
+                                params.vs_team_abbr = vsTeamField;
                             }
                         }
                         
-                        // Check if we have any real filters
+                        // If we have an ANY-e-ANY filter, still return it as an empty object, not null
+                        // This allows the UI to create the right number of filter rows
+                        if (forTeamField === 'ANY' && homeAwayField === 'e' && vsTeamField === 'ANY') {
+                            console.log('ANY-e-ANY filter found, keeping as empty filter');
+                            // Return an empty object to preserve the filter row
+                            return params;
+                        }
+                        
+                        // If all params are empty for other cases, return empty object to preserve the row
                         if (Object.keys(params).length === 0) {
-                            console.warn('Empty filter params, using null filter');
-                            return null;
+                            console.log('Empty filter params, keeping as empty filter');
+                            return params;
                         }
                         
                         return params;
@@ -402,18 +371,18 @@ const nbacc_calculator_state = (() => {
                     
                     console.log('Parsed filter parameters:', filterParams);
                     
-                    // Store filter params in the state for later instantiation
-                    // We do this instead of creating GameFilter instances directly
-                    // because applyState() will handle instantiation properly
-                    state.gameFilters = filterParams.length > 0 ? filterParams : [null];
+                    // Store filter params in the state - may be an empty array
+                    state.gameFilters = filterParams;
+                    console.log(`Parsed ${state.gameFilters.length} game filters from URL parameters`);
                 } else {
-                    state.gameFilters = [null];
-                    console.log('No valid filters in parameter, using default');
+                    // No valid filters in parameter, use empty array
+                    state.gameFilters = [];
+                    console.log('No valid filters in parameter, using empty array');
                 }
             } else {
-                // Default to a single null filter if none provided
-                state.gameFilters = [null];
-                console.log('No game filters parameter, using default');
+                // No game filters parameter, use empty array
+                state.gameFilters = [];
+                console.log('No game filters parameter, using empty array');
             }
             
             console.log('Decoded state:', state);
@@ -443,7 +412,18 @@ const nbacc_calculator_state = (() => {
     function getStateFromUrl() {
         if (!hasStateInUrl()) return null;
         
-        return decodeUrlParamsToState(window.location.search.substring(1));
+        const urlString = window.location.search.substring(1);
+        console.log("Loading state from URL parameters:", urlString);
+        setCurrentUrlString(urlString);
+        
+        const state = decodeUrlParamsToState(urlString);
+        if (state) {
+            console.log("Successfully loaded state with:", 
+                state.yearGroups?.length || 0, "year groups and", 
+                state.gameFilters?.length || 0, "game filters");
+        }
+        
+        return state;
     }
     
     /**
@@ -457,18 +437,25 @@ const nbacc_calculator_state = (() => {
             let params = encodeStateToUrlParams(state);
             if (!params) return;
             
+            // Store the URL string for future reference
+            setCurrentUrlString(params);
+            
             // Update URL without triggering a page reload - don't include targetChartId
             const url = `${window.location.pathname}?${params}${window.location.hash}`;
             window.history.replaceState({}, '', url);
+            
+            console.log('URL state updated:', params);
+            return params;
         } catch (error) {
             console.error('Failed to update browser URL:', error);
+            return '';
         }
     }
     
     // Return public API
     return {
-        saveStateToLocalStorage,
-        loadStateFromLocalStorage,
+        getCurrentUrlString,
+        setCurrentUrlString,
         encodeStateToUrlParams,
         decodeUrlParamsToState,
         hasStateInUrl,
