@@ -256,8 +256,10 @@ const nbacc_utils = (() => {
      * @returns {object} Zoom configuration object for Chart.js
      */
     function createZoomOptions(updateButtonPositionsCallback) {
-        // If callback is not provided, use an empty function
-        updateButtonPositionsCallback = updateButtonPositionsCallback || function () {};
+        // Default to global updateButtonPositions function if callback not provided
+        updateButtonPositionsCallback = updateButtonPositionsCallback || 
+            (typeof window.updateButtonPositions === 'function' ? window.updateButtonPositions : function() {});
+            
         return {
             zoom: {
                 drag: {
@@ -281,10 +283,23 @@ const nbacc_utils = (() => {
                 onZoom: function ({ chart }) {
                     // Update buttons during zoom (not just after completion)
                     updateButtonPositionsCallback(chart);
+                    
+                    // Always try the global function too for better reliability
+                    if (typeof window.updateButtonPositions === 'function') {
+                        window.updateButtonPositions(chart);
+                    }
                 },
                 onZoomComplete: function ({ chart }) {
                     // Update button positions after zoom
                     updateButtonPositionsCallback(chart);
+                    
+                    // Always try the global function too for better reliability
+                    if (typeof window.updateButtonPositions === 'function') {
+                        window.updateButtonPositions(chart);
+                    }
+                    
+                    // Setup a continuous check to ensure buttons stay in position
+                    setupContinuousButtonCheck(chart);
                 },
             },
             pan: {
@@ -295,13 +310,49 @@ const nbacc_utils = (() => {
                 onPan: function ({ chart }) {
                     // Update buttons during panning (not just after completion)
                     updateButtonPositionsCallback(chart);
+                    
+                    // Always try the global function too for better reliability
+                    if (typeof window.updateButtonPositions === 'function') {
+                        window.updateButtonPositions(chart);
+                    }
                 },
                 onPanComplete: function ({ chart }) {
                     // Update button positions after panning completes
                     updateButtonPositionsCallback(chart);
+                    
+                    // Always try the global function too for better reliability
+                    if (typeof window.updateButtonPositions === 'function') {
+                        window.updateButtonPositions(chart);
+                    }
+                    
+                    // Setup a continuous check to ensure buttons stay in position
+                    setupContinuousButtonCheck(chart);
                 },
             },
         };
+        
+        // Helper function to continuously check button position during zoom/pan interactions
+        function setupContinuousButtonCheck(chart) {
+            // Store the interval ID on the chart to avoid multiple intervals
+            if (chart._buttonCheckInterval) {
+                clearInterval(chart._buttonCheckInterval);
+            }
+            
+            // Set up interval to continue updating button positions
+            chart._buttonCheckInterval = setInterval(() => {
+                if (typeof window.updateButtonPositions === 'function') {
+                    window.updateButtonPositions(chart);
+                }
+            }, 100); // Check every 100ms
+            
+            // Clear the interval after 2 seconds (when user is likely done interacting)
+            setTimeout(() => {
+                if (chart._buttonCheckInterval) {
+                    clearInterval(chart._buttonCheckInterval);
+                    chart._buttonCheckInterval = null;
+                }
+            }, 2000);
+        }
     }
 
     /**

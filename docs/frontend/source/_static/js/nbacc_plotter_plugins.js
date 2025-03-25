@@ -177,6 +177,10 @@ window.updateButtonPositions = function(chart) {
 
         // Most important: position relative to the actual chart area
         const chartArea = chart.chartArea;
+        
+        // Get the actual chart container (not the canvas)
+        const chartContainer = chart.canvas.parentElement;
+        if (!chartContainer) return;
 
         // Calculate the button dimensions - force a reflow if needed
         let buttonContainerWidth = buttonContainer.offsetWidth;
@@ -228,20 +232,16 @@ window.updateButtonPositions = function(chart) {
                 : 20;
             const marginBottom = isFullscreen ? 20 : 10;
 
-            // Always position the buttons inside the chart area, regardless of zoom/pan level
+            // Always position the buttons inside the chart area, regardless of zoom level
             buttonContainer.style.position = "absolute";
-
+            
             // Position from the right edge of the chart area
-            buttonContainer.style.left = `${
-                chartArea.right - buttonContainerWidth - marginRight
-            }px`;
-
+            buttonContainer.style.left = `${chartArea.right - buttonContainerWidth - marginRight}px`;
+            
             // Position from the bottom edge of the chart area
-            buttonContainer.style.top = `${
-                chartArea.bottom - buttonContainerHeight - marginBottom
-            }px`;
-
-            // Remove bottom and right positioning which could conflict
+            buttonContainer.style.top = `${chartArea.bottom - buttonContainerHeight - marginBottom}px`;
+            
+            // Remove bottom and right positioning to avoid conflicts
             buttonContainer.style.bottom = "auto";
             buttonContainer.style.right = "auto";
 

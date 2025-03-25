@@ -12,34 +12,13 @@
 
 // Use a module pattern and make it available globally for other modules
 const nbacc_plotter_core = (() => {
-    // Import from utils with fallback mechanism
-    let getColorWheel, isMobile, createZoomOptions, createPlotBackgroundPlugin;
-
-    try {
-        // Try to access nbacc_utils as a global variable
-        if (typeof nbacc_utils !== "undefined") {
-            ({
-                getColorWheel,
-                isMobile,
-                createZoomOptions,
-                createPlotBackgroundPlugin,
-            } = nbacc_utils);
-        } else {
-            // Fallback with dummy functions if utils is not available
-            console.error("nbacc_utils is not available, using fallbacks");
-            getColorWheel = (opacity) => ["rgba(0,0,255," + opacity + ")"];
-            isMobile = () => false;
-            createZoomOptions = () => ({});
-            createPlotBackgroundPlugin = () => ({});
-        }
-    } catch (e) {
-        console.error("Error importing from nbacc_utils:", e);
-        // Same fallbacks as above
-        getColorWheel = (opacity) => ["rgba(0,0,255," + opacity + ")"];
-        isMobile = () => false;
-        createZoomOptions = () => ({});
-        createPlotBackgroundPlugin = () => ({});
-    }
+    // Import from utils - assuming nbacc_utils is always available
+    const { 
+        getColorWheel, 
+        isMobile, 
+        createZoomOptions, 
+        createPlotBackgroundPlugin 
+    } = nbacc_utils;
 
     // Set up the CSS for icons using the staticDir variable for consistent paths
     function setupIconPaths() {
@@ -105,12 +84,7 @@ const nbacc_plotter_core = (() => {
         // Chart creation complete with all required properties set
 
         // Add buttons to chart area after initialization
-        // Check if nbacc_plotter_ui is available before calling it
-        if (typeof nbacc_plotter_ui !== 'undefined' && nbacc_plotter_ui.addControlsToChartArea) {
-            nbacc_plotter_ui.addControlsToChartArea(canvas, chart);
-        } else {
-            console.error("nbacc_plotter_ui module not loaded or addControlsToChartArea function not available");
-        }
+        nbacc_plotter_ui.addControlsToChartArea(canvas, chart);
 
         return chart;
     }
@@ -244,7 +218,7 @@ const nbacc_plotter_core = (() => {
             backgroundColor: "transparent",
             borderWidth: isMobile() ? 4 : 5, // Thinner line on mobile
             pointRadius: isMobile() ? 3 : 4, // Smaller points on mobile
-            pointHoverRadius: isMobile() ? 3 : 3, // Smaller hover radius on mobile
+            pointHoverRadius: isMobile() ? 2 : 2, // Minimal hover radius for trend line dots
             pointStyle: "circle", // Round points
             pointBackgroundColor: color,
             pointBorderColor: color, // Same color as the point to remove white border
@@ -262,9 +236,9 @@ const nbacc_plotter_core = (() => {
                 mode: "nearest",
                 intersect: true, // Require direct intersection
                 axis: "xy",
-                hoverRadius: 3, // Smaller hover detection radius
+                hoverRadius: 2, // Smaller hover detection radius for trend line points
             },
-            hitRadius: 10, // Reduced by 50% to require closer hover
+            hitRadius: 5, // Smaller hit area for trend lines to prioritize scatter points
             // For occurrence plots we want to disable hover/tooltip on trend lines
             hoverEnabled: !calculateOccurrences,
         };
@@ -307,7 +281,7 @@ const nbacc_plotter_core = (() => {
             backgroundColor: color.replace("0.5", "0.7"),
             pointStyle: "rectRounded",
             pointRadius: isMobile() ? 5.6 : 8, // Reduced size by ~30% on mobile
-            pointHoverRadius: isMobile() ? 8 : 12, // Larger on hover to show interaction
+            pointHoverRadius: isMobile() ? 10 : 14, // Increased hover radius for scatter points
             showLine: false, // Ensure no line is drawn
             label: legend,
             // Hover behavior for scatter points
@@ -315,9 +289,9 @@ const nbacc_plotter_core = (() => {
                 mode: "nearest",
                 intersect: true, // Require direct intersection
                 axis: "xy",
-                hoverRadius: 6, // Increased hover detection radius
+                hoverRadius: 10, // Increased hover detection radius for scatter points
             },
-            hitRadius: 10, // Slightly larger hit area
+            hitRadius: 15, // Larger hit area for scatter points
             // Ensure hover styles don't have white borders
             hoverBorderColor: color.replace("0.5", "0.7"), // Same color as background
             hoverBackgroundColor: color.replace("0.5", "0.9"), // Slightly more opaque on hover
@@ -416,25 +390,19 @@ const nbacc_plotter_core = (() => {
     });
 
     // Create module-level variables for the zoom options and plot background plugin
-    let coreZoomOptions, corePlotBackgroundPlugin;
-
-    try {
-        // Just use a dummy function for the callback to avoid the reference error
-        const dummyCallback = function (chart) {
-            console.log("Dummy update button positions called");
-        };
-        coreZoomOptions = createZoomOptions(dummyCallback);
-        corePlotBackgroundPlugin = createPlotBackgroundPlugin();
-
-        // Also keep global references for backward compatibility
-        zoomOptions = coreZoomOptions;
-        plotBackgroundPlugin = corePlotBackgroundPlugin;
-    } catch (e) {
-        console.error("Error creating zoom options or plot background plugin:", e);
-        // Create empty objects as fallbacks
-        coreZoomOptions = {};
-        corePlotBackgroundPlugin = {};
-    }
+    // Use window.updateButtonPositions directly if available, otherwise use a simple function
+    const buttonPositionsCallback = window.updateButtonPositions || function(chart) {
+        // This will be replaced by the global function when it's available
+        if (window.updateButtonPositions) window.updateButtonPositions(chart);
+    };
+    
+    // Create the zoom options and plot background plugin
+    const coreZoomOptions = createZoomOptions(buttonPositionsCallback);
+    const corePlotBackgroundPlugin = createPlotBackgroundPlugin();
+    
+    // Also keep global references for backward compatibility
+    window.zoomOptions = coreZoomOptions;
+    window.plotBackgroundPlugin = corePlotBackgroundPlugin;
 
     // Return the public API
     return {

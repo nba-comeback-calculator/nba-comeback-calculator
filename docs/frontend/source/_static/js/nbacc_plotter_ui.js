@@ -442,10 +442,19 @@ function addControlsToChartArea(canvas, chart) {
     // Prevent text selection on buttons
     buttonContainer.style.userSelect = "none";
 
+    // Initial positioning in case updateButtonPositions fails
+    buttonContainer.style.right = "20px";
+    buttonContainer.style.bottom = "10px";
+
     // Wait for the chart to be fully rendered before positioning
     setTimeout(() => {
         window.updateButtonPositions(chart); // Global function from nbacc_plotter_plugins.js
     }, 100);
+    
+    // Double-check positioning after a longer delay to ensure proper placement
+    setTimeout(() => {
+        window.updateButtonPositions(chart);
+    }, 500);
 
     // Also update button positions whenever the window is resized
     window.addEventListener("resize", () => {

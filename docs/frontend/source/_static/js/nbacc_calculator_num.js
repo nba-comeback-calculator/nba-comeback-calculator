@@ -4,19 +4,9 @@
  * Mathematical utility functions equivalent to NumPy/SciPy operations.
  * This file provides JavaScript implementations of various numerical and
  * statistical functions needed for NBA chart calculations.
+ * 
+ * Uses fmin for optimization functions
  */
-
-// Ensure numeric.js is loaded since we depend on it
-(function () {
-    if (typeof numeric === "undefined") {
-        console.log("Loading numeric.js dependency");
-        const script = document.createElement("script");
-        script.src =
-            "https://cdnjs.cloudflare.com/ajax/libs/numeric/1.2.6/numeric.min.js";
-        script.async = false; // We need this to load before continuing
-        document.head.appendChild(script);
-    }
-})();
 
 // Define the Num class that provides equivalents to numpy/scipy functions
 class Num {

@@ -131,12 +131,15 @@ const nbacc_calculator_ui = (() => {
             console.log(`Applying ${loadedState.gameFilters.length} game filters from loaded state`);
             
             state.gameFilters = loadedState.gameFilters.map(filterParams => {
-                // Handle null or empty filter (keep it in the array to preserve game filter rows)
-                if (!filterParams) return null;
-                
-                // If filter is empty (ANY-e-ANY), represent it as an empty object
-                if (Object.keys(filterParams).length === 0) {
-                    return {}; // Return empty object instead of null
+                // Handle null or empty filter - always create a GameFilter instance
+                if (!filterParams || Object.keys(filterParams).length === 0) {
+                    // Create a new empty GameFilter instance
+                    try {
+                        return new nbacc_calculator_api.GameFilter({});
+                    } catch (error) {
+                        console.error("Error creating empty GameFilter:", error);
+                        return null; // Return null if we can't create a GameFilter
+                    }
                 }
                 
                 // Create a new GameFilter instance with the parameters
@@ -144,9 +147,14 @@ const nbacc_calculator_ui = (() => {
                     return new nbacc_calculator_api.GameFilter(filterParams);
                 } catch (error) {
                     console.error("Error creating GameFilter:", error);
-                    return {}; // Return empty object on error
+                    // Try to create an empty filter as fallback
+                    try {
+                        return new nbacc_calculator_api.GameFilter({});
+                    } catch (err) {
+                        return null;
+                    }
                 }
-            });
+            }).filter(filter => filter !== null); // Remove any null filters
             
             console.log("Applied game filters:", state.gameFilters);
         } else {
@@ -973,9 +981,21 @@ const nbacc_calculator_ui = (() => {
                 }
             }
 
-            const gameFilter = new nbacc_calculator_api.GameFilter(filterParams);
-
-            state.gameFilters.push(gameFilter);
+            try {
+                // Create a proper GameFilter instance
+                const gameFilter = new nbacc_calculator_api.GameFilter(filterParams);
+                state.gameFilters.push(gameFilter);
+            } catch (error) {
+                console.error("Error creating GameFilter from UI:", error);
+                // Try to create an empty filter as fallback
+                try {
+                    const emptyFilter = new nbacc_calculator_api.GameFilter({});
+                    state.gameFilters.push(emptyFilter);
+                } catch (err) {
+                    console.error("Failed to create fallback empty filter:", err);
+                    // Don't add anything if we can't create a valid filter
+                }
+            }
         });
     }
 
@@ -1102,13 +1122,17 @@ const nbacc_calculator_ui = (() => {
                     p === "Record" ? p : p + "%"
                 );
                 
+                // Handle empty game filter array - use null when empty
+                const gameFilters = state.gameFilters && state.gameFilters.length > 0 ? 
+                    state.gameFilters : null;
+                
                 // Use plot_percent_versus_time function for this plot type
                 chartData = nbacc_calculator_api.plot_percent_versus_time(
                     state.yearGroups,
                     state.startTime,
                     state.endTime || 0,
                     formattedPercents, // Use selected percents
-                    state.gameFilters,
+                    gameFilters, // Use null if no filters
                     state.plotGuides, // plot_2x_guide
                     state.plotGuides, // plot_4x_guide
                     state.plotGuides, // plot_6x_guide
@@ -1128,6 +1152,10 @@ const nbacc_calculator_ui = (() => {
                         ? null
                         : state.endTime || 0;
 
+                // Handle empty game filter array - use null when empty
+                const gameFilters = state.gameFilters && state.gameFilters.length > 0 ? 
+                    state.gameFilters : null;
+                
                 chartData = nbacc_calculator_api.plot_biggest_deficit(
                     state.yearGroups,
                     state.startTime,
@@ -1137,7 +1165,7 @@ const nbacc_calculator_ui = (() => {
                     null, // max_point_margin
                     null, // fit_min_win_game_count
                     null, // fit_max_points
-                    state.gameFilters,
+                    gameFilters, // Use null if no filters
                     false, // use_normal_labels
                     false, // calculate_occurrences
                     seasonData
@@ -1378,12 +1406,16 @@ const nbacc_calculator_ui = (() => {
                     p === "Record" ? p : p + "%"
                 );
                 
+                // Handle empty game filter array - use null when empty
+                const gameFilters = state.gameFilters && state.gameFilters.length > 0 ? 
+                    state.gameFilters : null;
+                
                 chartData = nbacc_calculator_api.plot_percent_versus_time(
                     state.yearGroups,
                     state.startTime,
                     state.endTime || 0,
                     formattedPercents, // Use selected percents
-                    state.gameFilters,
+                    gameFilters, // Use null if no filters
                     state.plotGuides, // plot_2x_guide
                     state.plotGuides, // plot_4x_guide
                     state.plotGuides, // plot_6x_guide
@@ -1399,6 +1431,10 @@ const nbacc_calculator_ui = (() => {
                         ? null
                         : state.endTime || 0;
                 
+                // Handle empty game filter array - use null when empty
+                const gameFilters = state.gameFilters && state.gameFilters.length > 0 ? 
+                    state.gameFilters : null;
+                
                 chartData = nbacc_calculator_api.plot_biggest_deficit(
                     state.yearGroups,
                     state.startTime,
@@ -1408,7 +1444,7 @@ const nbacc_calculator_ui = (() => {
                     null, // max_point_margin
                     null, // fit_min_win_game_count
                     null, // fit_max_points
-                    state.gameFilters,
+                    gameFilters, // Use null if no filters
                     false, // use_normal_labels
                     false, // calculate_occurrences
                     seasonData

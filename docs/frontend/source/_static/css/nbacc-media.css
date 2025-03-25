@@ -31,13 +31,13 @@
     }
     
     .chart-btn {
-        width: 22px; /* Smaller than desktop version */
-        height: 22px; /* Smaller than desktop version */
+        width: 25px; /* Adjusted to be between original 22px and larger 28px */
+        height: 25px; /* Adjusted to be between original 22px and larger 28px */
         padding: 2px;
     }
     
     .chart-icon {
-        transform: scale(0.6075); /* Smaller scale for mobile (0.675 * 0.9 = 0.6075) */
+        transform: scale(0.8); /* Adjusted to be between original 0.6075 and larger 0.9 */
     }
 }
 

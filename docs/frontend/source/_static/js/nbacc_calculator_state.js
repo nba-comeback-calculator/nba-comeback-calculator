@@ -371,8 +371,33 @@ const nbacc_calculator_state = (() => {
                     
                     console.log('Parsed filter parameters:', filterParams);
                     
-                    // Store filter params in the state - may be an empty array
-                    state.gameFilters = filterParams;
+                    // Convert filter params to GameFilter instances
+                    if (typeof nbacc_calculator_api !== 'undefined') {
+                        try {
+                            // Create GameFilter instances for all the params
+                            state.gameFilters = filterParams.map(params => {
+                                try {
+                                    // Create a GameFilter instance from the parameters
+                                    return new nbacc_calculator_api.GameFilter(params);
+                                } catch (error) {
+                                    console.error("Error creating GameFilter from params:", error, params);
+                                    // Try to create an empty filter as fallback
+                                    try {
+                                        return new nbacc_calculator_api.GameFilter({});
+                                    } catch (err) {
+                                        console.error("Failed to create fallback empty filter:", err);
+                                        return null;
+                                    }
+                                }
+                            }).filter(filter => filter !== null); // Remove any null filters
+                        } catch (error) {
+                            console.error("Error creating GameFilter instances:", error);
+                            state.gameFilters = [];
+                        }
+                    } else {
+                        // Store filter params in the state to be processed later
+                        state.gameFilters = filterParams;
+                    }
                     console.log(`Parsed ${state.gameFilters.length} game filters from URL parameters`);
                 } else {
                     // No valid filters in parameter, use empty array
