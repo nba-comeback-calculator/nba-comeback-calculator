@@ -171,6 +171,10 @@ nbacc_plotter_data = (() => {
                 const y = line.m * x + line.b;
 
                 // Calculate win percentage using normalCDF
+                // Where the trend line Win % number is coming from.
+                // if (x == -20) {
+                //     console.log(line.legend, x, y, Num.CDF(y));
+                // }
                 const winPercentage = (100.0 * Num.CDF(y)).toFixed(2);
 
                 // Store the data using legend as key
@@ -275,13 +279,13 @@ nbacc_plotter_data = (() => {
          */
         function createTitleConfig(chartData) {
             let titleText = chartData.title;
-            
+
             // Check if the title contains the | character and split on the first occurrence
-            if (titleText && titleText.includes('|')) {
-                const parts = titleText.split('|');
-                titleText = [parts[0].trim(), parts.slice(1).join('|').trim()];
+            if (titleText && titleText.includes("|")) {
+                const parts = titleText.split("|");
+                titleText = [parts[0].trim(), parts.slice(1).join("|").trim()];
             }
-            
+
             return {
                 display: true,
                 text: titleText,
