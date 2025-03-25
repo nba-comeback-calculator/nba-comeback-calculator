@@ -243,6 +243,20 @@ const nbacc_calculator_ui = (() => {
                                 </ul>
                             </div>
                         </div>
+                        
+                        <div id="max-point-margin-container" class="max-point-margin-container" style="display: none;">
+                            <select id="max-point-margin" class="form-control">
+                                <option value="auto">Show Max Point Margin: Auto</option>
+                                <option value="-10">Show Max Point Margin: -10</option>
+                                <option value="-8">Show Max Point Margin: -8</option>
+                                <option value="-6">Show Max Point Margin: -6</option>
+                                <option value="-4">Show Max Point Margin: -4</option>
+                                <option value="-2">Show Max Point Margin: -2</option>
+                                <option value="0">Show Max Point Margin: 0</option>
+                                <option value="2">Show Max Point Margin: 2</option>
+                                <option value="1000">Show Max Point Margin: All</option>
+                            </select>
+                        </div>
                     </div>
                     
                     
@@ -324,11 +338,27 @@ const nbacc_calculator_ui = (() => {
         // Apply the current state to the form elements
         plotTypeSelect.value = state.plotType;
         
-        // Set initial visibility of percent options based on selected plot type
+        // Set initial visibility of percent options and max point margin selector based on selected plot type
+        const maxPointMarginContainer = document.getElementById("max-point-margin-container");
+        
         if (plotTypeSelect.value === "Percent Chance: Time Vs. Points Down") {
             percentOptionsContainer.style.display = "block";
+            maxPointMarginContainer.style.display = "none";
         } else {
             percentOptionsContainer.style.display = "none";
+            maxPointMarginContainer.style.display = "block";
+            
+            // Set the max point margin value from state
+            const maxPointMarginSelect = document.getElementById("max-point-margin");
+            if (maxPointMarginSelect) {
+                if (state.maxPointMargin === null) {
+                    maxPointMarginSelect.value = "auto";
+                } else if (state.maxPointMargin === 1000) {
+                    maxPointMarginSelect.value = "1000";
+                } else if (state.maxPointMargin !== undefined) {
+                    maxPointMarginSelect.value = state.maxPointMargin.toString();
+                }
+            }
         }
         
         // Initialize dropdown checklist
@@ -366,6 +396,30 @@ const nbacc_calculator_ui = (() => {
         
         // Apply time selection from state
         timeSelect.innerHTML = generateTimeOptions(state.startTime, state.plotType);
+        
+        // Setup max point margin selector
+        const maxPointMarginSelect = document.getElementById("max-point-margin");
+        if (maxPointMarginSelect) {
+            // Set value from state
+            if (state.maxPointMargin === null) {
+                maxPointMarginSelect.value = "auto";
+            } else if (state.maxPointMargin === 1000) {
+                maxPointMarginSelect.value = "1000";
+            } else if (state.maxPointMargin !== undefined) {
+                maxPointMarginSelect.value = state.maxPointMargin.toString();
+            }
+            
+            // Add change handler
+            maxPointMarginSelect.addEventListener("change", function() {
+                if (this.value === "auto") {
+                    state.maxPointMargin = null;
+                } else if (this.value === "1000") {
+                    state.maxPointMargin = 1000; // All
+                } else {
+                    state.maxPointMargin = parseInt(this.value, 10);
+                }
+            });
+        }
         
         // Clear previous year groups and load from state
         document.getElementById("year-groups-list").innerHTML = "";
@@ -483,17 +537,22 @@ const nbacc_calculator_ui = (() => {
                 newPlotType === "Max Points Down Or More" || 
                 newPlotType === "Max Points Down";
             
+            // Get max point margin container
+            const maxPointMarginContainer = document.getElementById("max-point-margin-container");
+            
             // Default time for Percent Chance: Time Vs. Points Down is 24
             if (newPlotType === "Percent Chance: Time Vs. Points Down") {
                 state.startTime = 24;
-                // Show percent options
+                // Show percent options, hide max point margin selector
                 percentOptionsContainer.style.display = "block";
+                maxPointMarginContainer.style.display = "none";
                 
                 // Update percent selections text
                 updateSelectedPercentText();
             } else {
-                // Hide percent options for other plot types
+                // Hide percent options, show max point margin selector for other plot types
                 percentOptionsContainer.style.display = "none";
+                maxPointMarginContainer.style.display = "block";
             }
             
             // If switching to a plot type that doesn't allow 48 minutes and currently at 48
@@ -655,6 +714,7 @@ const nbacc_calculator_ui = (() => {
                 selectedPercents: ["20", "10", "5", "1"],
                 plotGuides: false,
                 plotCalculatedGuides: false,
+                maxPointMargin: null, // Default to Auto (null)
             };
             
             // Clear URL parameters if possible
@@ -1516,7 +1576,7 @@ const nbacc_calculator_ui = (() => {
                     stopTime,
                     cumulate,
                     null, // min_point_margin
-                    null, // max_point_margin
+                    state.maxPointMargin, // max_point_margin
                     null, // fit_min_win_game_count
                     null, // fit_max_points
                     gameFilters, // Use null if no filters

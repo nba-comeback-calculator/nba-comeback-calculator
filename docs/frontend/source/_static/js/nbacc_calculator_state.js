@@ -107,10 +107,23 @@ const nbacc_calculator_state = (() => {
                 }).join('~');
             }
             
+            // Add m parameter for max point margin (for non-percent charts)
+            let mParam = '';
+            if (plotTypeIndex !== 0) {
+                if (state.maxPointMargin === null) {
+                    mParam = 'auto';
+                } else if (state.maxPointMargin === 1000) {
+                    mParam = 'all';
+                } else {
+                    mParam = state.maxPointMargin.toString();
+                }
+            }
+            
             // Combine all parameters
             let params = [`p=${pParam}`];
             if (sParam) params.push(`s=${sParam}`);
             if (gParam) params.push(`g=${gParam}`);
+            if (mParam) params.push(`m=${mParam}`);
             
             return params.join('&');
             
@@ -146,9 +159,25 @@ const nbacc_calculator_state = (() => {
                 selectedPercents: ["20", "10", "5", "1"],
                 plotGuides: false,
                 plotCalculatedGuides: false,
+                maxPointMargin: null, // Auto by default
                 yearGroups: [],
                 gameFilters: []
             };
+            
+            // Check for max point margin parameter
+            const mParam = params.get('m');
+            if (mParam) {
+                if (mParam === 'auto') {
+                    state.maxPointMargin = null;
+                } else if (mParam === 'all') {
+                    state.maxPointMargin = 1000;
+                } else {
+                    state.maxPointMargin = parseInt(mParam, 10);
+                    if (isNaN(state.maxPointMargin)) {
+                        state.maxPointMargin = null; // Default to auto if invalid
+                    }
+                }
+            }
             
             // Plot type mapping
             const plotTypes = [
@@ -425,7 +454,7 @@ const nbacc_calculator_state = (() => {
      */
     function hasStateInUrl() {
         const urlParams = new URLSearchParams(window.location.search);
-        const hasParams = urlParams.has('p') || urlParams.has('s') || urlParams.has('g');
+        const hasParams = urlParams.has('p') || urlParams.has('s') || urlParams.has('g') || urlParams.has('m');
         console.log('Checking URL parameters:', window.location.search, 'Has params:', hasParams);
         return hasParams;
     }
