@@ -444,3 +444,59 @@ Many! of these:
     It should be simplier, just g={for_team_field}-{home_away_field}-{vs-team_field}~{for_team_field}-{home_away_field}-{vs-team_field}\ that example
     shows two filters.   Also it should be 'e', 'h', or 'a' for the home away field.  So for example, if we had Bos at home playing any, we would have
     BOS-H-ANY that's it.  that's one game filter.
+
+
+Sphinx formatter
+================
+
+..code::    
+    > OK, we are going to write a sphinx rst formatter tool.  Let's first write the CLAUDE.md file which will describe the         │
+   project.  Let's go a little bit at a time, updating the CLAUDE.md as we go.  We are not writing code now, just writing the   │
+   CLAUDE.md file, ok?
+
+..code::
+
+    > OK, we are going to write a sphinx rst formatter tool.  Let's first write the CLAUDE.md file which will describe the         │
+│   project.  Let's go a little bit at a time, updating the CLAUDE.md as we go.  We are not writing code now, just writing the   │
+│   CLAUDE.md file, ok?
+
+    OK, this project is to write a python project in a standard open source python project way with docs and tests using pytest
+      and a setup.py etc.  A full open source python project.  The goal of this project is to write a sphinx rst file formatter
+      in the spirit of black for python or prettier for json etc.  The most major goal of this project is that it automatically
+      wraps lines that are larger than 88 characters.  However, it must not wrap lines for certain blocks like::
+      .. code
+      .. toctree
+      .. raw
+      And others.
+      However, for most other directives it should wrap lines, but respect the indendation of the current block, so * or 1.
+      lists, we respect the indenataion but still wrap.
+
+      Also, it should not wrap header lines.  Header lines are lines that are like
+
+      ********
+      Header 1
+      ********
+
+      Or:
+
+      Header
+      ======
+
+      Or
+
+      Header
+      ------
+
+.. code::
+
+  │ > Also, there should be a .. stop-rst-format and .. start-rst-format which overloads sphinx/rst comments to turn on off the    │
+│   formatter.                                                                                                                   │
+│                                                                                                                                │
+│   Now, we also want a bin/run-sphinx-formatter.sh script which will load the python library using knowledge of where that      │
+│   bash script lives to import the necessary python files.                                                                      │
+│                                                                                                                                │
+│                                                                                                                                │
+│   The tests should use pytest.  the bin script should use #!/usr/bin/env python3 to execute it's function on a rst file.       │
+│   Update the claude.md, make a doc area that uses pydate sphinx theme, and make some tests that use pytest to test and make    │
+│   all necessary python files and a cli script.  Keep the cli script options to a minmum.  Update the CLAUDE.md file as         │
+│   necessary to reflect this request.inde

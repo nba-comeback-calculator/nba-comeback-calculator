@@ -6,7 +6,8 @@
 SPHINXOPTS    ?=
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = source
-BUILDDIR      = ../../../GIT_NBACC_GITHUB_IO/docs
+#BUILDDIR      = ../../../GIT_NBACC_GITHUB_IO/docs
+BUILDDIR = build
 ALLSPHINXOPTS = -b html
 
 # Put it first so that "make" without argument is like "make help".
@@ -20,7 +21,7 @@ help:
 %: Makefile
 	rm -rf $(BUILDDIR)/*
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
-	rm -rf $(BUILDDIR)/doctrees
-	mv $(BUILDDIR)/html/* $(BUILDDIR)
-	rm -rf $(BUILDDIR)/html
-	touch $(BUILDDIR)/.nojekyll
+	#rm -rf $(BUILDDIR)/doctrees
+	#mv $(BUILDDIR)/html/* $(BUILDDIR)
+	#rm -rf $(BUILDDIR)/html
+	#touch $(BUILDDIR)/.nojekyll
