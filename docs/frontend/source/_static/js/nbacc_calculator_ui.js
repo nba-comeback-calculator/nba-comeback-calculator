@@ -111,6 +111,8 @@ const nbacc_calculator_ui = (() => {
         state.plotGuides = (loadedState.plotGuides !== undefined) ? loadedState.plotGuides : state.plotGuides;
         state.plotCalculatedGuides = (loadedState.plotCalculatedGuides !== undefined) ? 
             loadedState.plotCalculatedGuides : state.plotCalculatedGuides;
+        state.maxPointMargin = (loadedState.maxPointMargin !== undefined) ?
+            loadedState.maxPointMargin : state.maxPointMargin;
         
         // Copy year groups (these are simple objects)
         if (loadedState.yearGroups && loadedState.yearGroups.length > 0) {
