@@ -1,0 +1,37 @@
+/* Styling for colored box directives */
+
+.box-container {
+    margin: 1.5em 0;
+    border-radius: 5px;
+    color: #666666; /* Grey text */
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    
+    /* Create inner box for content with padding */
+    padding: 1.5em 0; /* Vertical padding only */
+}
+
+.green-box {
+    background-color: #d7edda; /* Lighter green */
+}
+
+.blue-box {
+    background-color: #d1e8fd; /* Lighter blue */
+}
+
+/* Apply padding to all direct children */
+.box-container > * {
+    padding-left: 1.8em !important; /* Reduced left padding to 1.8em */
+    padding-right: 1.8em !important; /* Reduced right padding to 1.8em */
+    box-sizing: border-box;
+}
+
+/* Ensure proper spacing of content within boxes */
+.box-container > p:first-child {
+    margin-top: 0;
+}
+
+.box-container > p:last-child {
+    margin-bottom: 0;
+}

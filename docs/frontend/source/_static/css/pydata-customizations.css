@@ -1,0 +1,33 @@
+/* Custom styles for pydata sphinx theme to make headers smaller and dark grey */
+
+h1, h2, h3, h4, h5, h6 {
+    color: #555555; /* Lighter grey */
+    font-weight: 700; /* Less bold */
+}
+
+h1 {
+    font-size: calc(1.8rem - 4px);
+}
+
+h2 {
+    font-size: calc(1.5rem - 4px);
+}
+
+h3 {
+    font-size: calc(1.25rem - 3px);
+}
+
+h4 {
+    font-size: calc(1.1rem - 3px);
+}
+
+h5, h6 {
+    font-size: calc(1rem - 2px);
+}
+
+/* Make the navbar header smaller too */
+.navbar-brand {
+    font-size: calc(1.1rem - 3px);
+    color: #555555;
+    font-weight: 700;
+}
