@@ -3,6 +3,12 @@
 # For the full list of built-in configuration values, see the documentation:
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
+import os
+import sys
+
+# Add _ext directory to the path so the custom extensions can be found
+sys.path.append(os.path.abspath('_ext'))
+
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
@@ -14,8 +20,8 @@ author = "Andrew Carter"
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
 extensions = [
-    #     'ablog',
-    "sphinx.ext.intersphinx"
+    "sphinx.ext.intersphinx",
+    "colored_boxes"
 ]
 
 templates_path = ["_templates"]
@@ -35,6 +41,8 @@ html_css_files = [
     "https://cdnjs.cloudflare.com/ajax/libs/basicLightbox/5.0.0/basicLightbox.min.css",
     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
     "https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css",
+    "css/colored_boxes.css",
+    "css/pydata-customizations.css",
 ]
 
 
@@ -52,28 +60,28 @@ html_js_files = [
     "https://code.jquery.com/jquery-3.6.4.min.js",
     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js",
     "https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js",
-    
+
     # Local JS in dependency order
     # 1. Base utilities
     "js/nbacc_utils.js",
     "js/nbacc_saveas_image_dialog.js",
     "js/nbacc_plotter_plugins.js",
-    
+
     # 2. Numerical functions
     "js/nbacc_calculator_num.js",
-    
+
     # 3. Core modules
     "js/nbacc_plotter_data.js",
     "js/nbacc_plotter_core.js",
     "js/nbacc_plotter_ui.js",
     "js/nbacc_chart_loader.js",
-    
+
     # 4. Calculator modules
     "js/nbacc_calculator_season_game_loader.js",
     "js/nbacc_calculator_plot_primitives.js",
     "js/nbacc_calculator_api.js",
     "js/nbacc_calculator_state.js",
-    
+
     # 5. UI module
     "js/nbacc_calculator_ui.js",
     "js/nbacc_calculator_init.js",

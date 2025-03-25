@@ -12,6 +12,14 @@ nba comeback calculator
    methodology/index 
    calculator/index
 
+.. blue-box::
+
+   *Game data last updated: 2025-03-25.  Best viewed on a computer.*
+
+.. green-box::
+
+   Game data last updated: 2025-03-25.  Best viewed on a computer.
+
 
 To examine this question, I downloaded all games from when play-by-play data was
 available (from the 1996-1997 season to now) and looked at the percentage of times

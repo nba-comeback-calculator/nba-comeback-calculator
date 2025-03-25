@@ -274,9 +274,17 @@ nbacc_plotter_data = (() => {
          * @returns {Object} Title configuration object
          */
         function createTitleConfig(chartData) {
+            let titleText = chartData.title;
+            
+            // Check if the title contains the | character and split on the first occurrence
+            if (titleText && titleText.includes('|')) {
+                const parts = titleText.split('|');
+                titleText = [parts[0].trim(), parts.slice(1).join('|').trim()];
+            }
+            
             return {
                 display: true,
-                text: chartData.title,
+                text: titleText,
                 font: {
                     size: nbacc_utils.isMobile() ? 12 : 18, // Smaller title on mobile
                     weight: "bold",
