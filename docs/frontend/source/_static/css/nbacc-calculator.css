@@ -348,6 +348,19 @@ select,
     border-color: rgba(240, 240, 240, 0.8);
 }
 
+.btn-info {
+    color: #fff;
+    background-color: rgba(23, 162, 184, 0.8);
+    border: 1px solid rgba(240, 240, 240, 0.5);
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.btn-info:hover {
+    background-color: rgba(17, 142, 164, 0.9);
+    border-color: rgba(240, 240, 240, 0.8);
+}
+
 .btn-secondary {
     color: #fff;
     background-color: rgba(108, 117, 125, 0.8);

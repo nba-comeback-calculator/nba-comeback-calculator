@@ -385,3 +385,36 @@ Many! of these:
       </div>
 
       Which was taken from https://stackoverflow.com/questions/19206919/how-to-create-checkbox-inside-dropdown
+
+.. code::
+    Prompt 1:
+    On the calculator page two related things:
+    1. We need to remember the state of the form so that when we bring the form up again, the last values are there.
+    2. We need to come up with an encoding scheme to encode the state of the form in the url so if you send someone that url, that exact plot comes up.
+      We need to register if there are additional arguements on the url, and, if so, setup the state object the form sets up and call the same method
+      as the "Calculate" button.  If you need a third party cdn, that's ok or you can code it yourself.
+
+  Prompt 2: This is not working right.  The Season Ranges and the Game Filters are not
+  persisting.  If we add Season Ranges or Game Filters they need to persist.
+
+  Also, don't have a share button, just update the url in the browser once the
+  Calculate button or cancel button is pressed.  We need to store the state of the
+  form whether we press calculate or cancel, the form values and url always persist.
+  Finally, let's come up with a simplier url encondig scheme.  Let's do:
+
+  p=<plot_type:values
+  0-4>,<time>,<percent_one>_<percent_two>_...&s={season_one}+{season_two}&g={game_filter_one}+{game_filter_two}
+  where season_one is of the form {year0},{year1},{B|R|P} for both or regular season
+  or playoff.  The game filter is (Team|Rank|HomeStatus),(Team|Rank)
+
+  Clean up this logic and make a system that works.  If our parser cannot parse the
+  URL we get do a blank URL and like there was not url.  Update the
+   CALCULATOR.md with the exact logic of the url parsing so we can correct it if
+   needed.
+
+  Prompt N:
+
+    > You dont' need to analyze the web page.  You need to do exactly what the
+    'Calculate' button is doing.  Use the same logic path.  When you get a      │
+    URL, parse the state and just act like the form has been populated, then call
+    the same code the Calculate button calls.

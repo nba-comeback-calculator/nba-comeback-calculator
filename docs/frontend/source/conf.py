@@ -72,9 +72,11 @@ html_js_files = [
     "js/nbacc_calculator_season_game_loader.js",
     "js/nbacc_calculator_plot_primitives.js",
     "js/nbacc_calculator_api.js",
+    "js/nbacc_calculator_state.js",
     
     # 5. UI module
     "js/nbacc_calculator_ui.js",
+    "js/nbacc_calculator_init.js",
 ]
 
 html_context = {

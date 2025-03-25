@@ -2,6 +2,18 @@
 
 **NOTE**: For calculator-specific details and usage, refer to [CALCULATOR.md](CALCULATOR.md) which describes the in-memory JSON data handling approach and calculator implementation.
 
+## Calculator State Management
+
+The calculator now includes state management features:
+
+1. **State Persistence**: Calculator settings are saved to localStorage and restored when reopening
+2. **URL Encoding**: Calculator state can be shared via URL parameters
+3. **State Initialization**: The calculator automatically initializes from URL parameters if present
+
+These features are implemented in the following files:
+- `nbacc_calculator_state.js`: Handles state persistence and URL encoding/decoding
+- `nbacc_calculator_init.js`: Initializes calculator from URL parameters
+
 ## Development & Testing
 
 - **Run Test Page**: Open `/test/nba_test.html` in browser
@@ -12,6 +24,24 @@
 ## Working Guidelines
 
 - **Git Commits**: NEVER commit changes unless explicitly instructed with the phrase "commit changes"
+
+## JavaScript Module Loading Order
+
+JavaScript files must be loaded in the correct order to ensure proper dependencies:
+
+1. **External dependencies**: Chart.js, Bootstrap, etc.
+2. **Base utilities**: nbacc_utils.js, nbacc_saveas_image_dialog.js, nbacc_plotter_plugins.js
+3. **Numerical functions**: nbacc_calculator_num.js
+4. **Core modules**: nbacc_plotter_data.js, nbacc_plotter_core.js, nbacc_plotter_ui.js, nbacc_chart_loader.js
+5. **Calculator modules**:
+   - nbacc_calculator_season_game_loader.js
+   - nbacc_calculator_plot_primitives.js
+   - nbacc_calculator_api.js
+   - nbacc_calculator_state.js
+   - nbacc_calculator_ui.js
+   - nbacc_calculator_init.js
+
+This loading order is defined in the `conf.py` file and should be maintained when adding new modules.
 
 ## Code Style Guidelines
 
