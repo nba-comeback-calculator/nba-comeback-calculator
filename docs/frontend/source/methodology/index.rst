@@ -6,7 +6,10 @@ Methodology
 .. toctree::
    :maxdepth: 1
 
-   plotting_game_data_on_a_normal_axis
+   understanding_the_plots
+   how_trend_lines_were_formed
+   using_claude_code
+   about
 
 ..
 

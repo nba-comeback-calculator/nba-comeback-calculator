@@ -20,7 +20,7 @@ const nbacc_calculator_ui = (() => {
         gameFilters: [], // Empty array - no default filters
         startTime: 24, // 24 minutes default for Percent Chance: Time Vs. Points Down
         endTime: 0, // 0 minutes default (end of game),
-        specificTime: 12, // Used for Points Down At Time
+        specificTime: 24, // Used for Points Down At Time (default to 24)
         targetChartId: null, // Used when configuring an existing chart
         selectedPercents: ["20", "10", "5", "1"], // Default percents to track for Percent Chance: Time Vs. Points Down
         plotGuides: false, // Whether to plot guide lines (2x, 4x, 6x)
@@ -257,6 +257,7 @@ const nbacc_calculator_ui = (() => {
                     
                     <div class="form-actions">
                         <button id="calculate-btn" class="btn btn-primary">Calculate</button>
+                        <button id="reset-btn" class="btn btn-secondary">Reset</button>
                         <button id="cancel-btn" class="btn btn-secondary">Cancel</button>
                     </div>
                 </div>
@@ -501,6 +502,16 @@ const nbacc_calculator_ui = (() => {
             // If switching to a plot type that allows 48 minutes and current value is valid, keep it
             // Otherwise, regenerate the options with the appropriate default
             
+            // Set appropriate defaults based on plot type
+            if (newPlotType === "Max Points Down" || newPlotType === "Max Points Down Or More") {
+                state.startTime = 48; // Default to 48 minutes for Max Down charts
+            } else if (newPlotType === "Points Down At Time") {
+                state.startTime = 24; // Default to 24 minutes for Points Down At Time
+                state.specificTime = 24; // Set specificTime to match
+            } else if (newPlotType === "Percent Chance: Time Vs. Points Down") {
+                state.startTime = 24; // Default to 24 minutes for Percent charts
+            }
+            
             // Regenerate time options based on the new plot type
             timeSelect.innerHTML = generateTimeOptions(
                 state.startTime,
@@ -617,6 +628,67 @@ const nbacc_calculator_ui = (() => {
                 isCalculatorOpen = false;
             } catch (error) {
                 console.error("Error during calculation:", error);
+            }
+        });
+        
+        // Reset button - resets to default settings
+        const resetBtn = document.getElementById("reset-btn");
+        resetBtn.addEventListener("click", function () {
+            // Reset state to default values
+            state = {
+                plotType: "Percent Chance: Time Vs. Points Down",
+                yearGroups: [{
+                    minYear: 2017,
+                    maxYear: 2024,
+                    regularSeason: true,
+                    playoffs: true,
+                    label: '2017-2024'
+                }],
+                gameFilters: [],
+                startTime: 24,
+                endTime: 0,
+                specificTime: 24,
+                targetChartId: state.targetChartId, // Keep target chart ID
+                selectedPercents: ["20", "10", "5", "1"],
+                plotGuides: false,
+                plotCalculatedGuides: false,
+            };
+            
+            // Clear URL parameters if possible
+            if (typeof nbacc_calculator_state !== 'undefined' && nbacc_calculator_state.clearUrlState) {
+                nbacc_calculator_state.clearUrlState();
+            } else if (typeof history !== 'undefined') {
+                // Fallback method to clear URL
+                const urlWithoutParams = window.location.href.split('?')[0];
+                history.replaceState({}, document.title, urlWithoutParams);
+            }
+            
+            // Reset form elements to match the default state
+            document.getElementById("plot-type").value = state.plotType;
+            document.getElementById("start-time-minutes").innerHTML = generateTimeOptions(state.startTime, state.plotType);
+            
+            // Reset percent checkboxes
+            document.querySelectorAll('#percent-options-list ul.items input[type="checkbox"]').forEach(checkbox => {
+                checkbox.checked = state.selectedPercents.includes(checkbox.value) || 
+                                  (checkbox.id === 'percent-guides' && state.plotGuides) || 
+                                  (checkbox.id === 'percent-calculated-guides' && state.plotCalculatedGuides);
+            });
+            
+            // Update percent selection display
+            updateSelectedPercentText();
+            
+            // Reset year groups
+            document.getElementById("year-groups-list").innerHTML = "";
+            addYearGroup(true);
+            
+            // Reset game filters
+            document.getElementById("game-filters-list").innerHTML = "";
+            
+            // Show the percent options container if needed
+            if (state.plotType === "Percent Chance: Time Vs. Points Down") {
+                document.getElementById("percent-options-container").style.display = "block";
+            } else {
+                document.getElementById("percent-options-container").style.display = "none";
             }
         });
         

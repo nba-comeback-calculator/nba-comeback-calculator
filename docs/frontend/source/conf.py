@@ -13,8 +13,8 @@ sys.path.append(os.path.abspath('_ext'))
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
 project = "nba comeback calculator"
-copyright = "2025, Andrew Carter"
-author = "Andrew Carter"
+copyright = "2025"
+author = ""
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

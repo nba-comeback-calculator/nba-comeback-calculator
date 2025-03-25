@@ -477,6 +477,26 @@ const nbacc_calculator_state = (() => {
         }
     }
     
+    /**
+     * Clear URL state parameters by removing them from the URL
+     */
+    function clearUrlState() {
+        try {
+            // Clear the stored URL string
+            setCurrentUrlString('');
+            
+            // Update browser URL to remove parameters
+            const url = window.location.pathname + window.location.hash;
+            window.history.replaceState({}, '', url);
+            
+            console.log('URL state cleared');
+            return true;
+        } catch (error) {
+            console.error('Failed to clear URL state:', error);
+            return false;
+        }
+    }
+    
     // Return public API
     return {
         getCurrentUrlString,
@@ -485,6 +505,7 @@ const nbacc_calculator_state = (() => {
         decodeUrlParamsToState,
         hasStateInUrl,
         getStateFromUrl,
-        updateBrowserUrl
+        updateBrowserUrl,
+        clearUrlState
     };
 })();

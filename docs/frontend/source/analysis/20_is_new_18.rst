@@ -17,11 +17,10 @@ victories in a single season since 1996-97 and continues with analysis by Steve 
 
 .. pull-quote::
 
-    "Way more early possession 3s now. It just feels like you are up 12 and the
-    other team gets two quick stops on you and they race down, they throw it ahead
-    and they hit two 3s. It's a six-point game now. So 20 is the old 12; 12 is the
-    old seven. I mean, there's definitely an awareness from everybody that leads are
-    not safe."
+    "Way more early possession 3s now. It just feels like you are up 12 and the other
+    team gets two quick stops on you and they race down, they throw it ahead and they
+    hit two 3s. It's a six-point game now. So 20 is the old 12; 12 is the old seven. I
+    mean, there's definitely an awareness from everybody that leads are not safe."
 
 
 But is this true? In short ... not really.
@@ -31,8 +30,8 @@ But is this true? In short ... not really.
 * 1996-97 to 2016-17 (old-school) versus:
 * 2017-18 to 2024-25 (modern)
 
-:doc:`There's lots of ways to break this down <down_down_down>`, but roughly there's a 2
-point shift on average, which :ref:`decreases as the time counts down
+:doc:`There's lots of ways to break this down <down_down_down>`, but roughly there's a
+2 point shift on average, which :ref:`decreases as the time counts down
 <point-percent-plots>`.  So while there's about 1.8x times as many 20 points-or-more
 comebacks comparing the eras, the *chance* of coming back from 20 points-or-more down
 (``5.31%``) is about the same as coming back from 18 points-or-more down (``4.88%``)
@@ -41,10 +40,12 @@ back in the day.
 Meaning leads are *roughly* as safe as they have been, maybe at most needing an extra
 bucket.
 
+
 .. _win-percentages-when-max-deficit-is-n-or-more-points:
 
 Win Percentages When Max Deficit is N *Or More* Points
 ======================================================
+
 
 Looking at the % chance of coming back from down N point *or more* over an entire game
 we get:
@@ -82,16 +83,15 @@ compare at different point margins, but to focus on a few we get:
      - 1.39x (39% increase)
 
 So while coming back from down 30 or more happens 2.8 times more than in the past, it's
-still very unlikely. In fact, you need to move over a little less than one three-pointer
-to get about the same chance: in the old school era, if you were down -27 or more there
-was about a 0.48% chance of winning.
+still very unlikely. In fact, you need to move over a little less than one
+three-pointer to get about the same chance: in the old school era, if you were down -27
+or more there was about a 0.48% chance of winning.
 
 .. topic:: Note
 
-    This is using the raw data points, which is a little more intuitive. You can
-    also do this using the trend line in the chart, which cleans up the noise in
-    the data and is statistically more accurate. Overall, either way draws the same
-    conclusion.
+    This is using the raw data points, which is a little more intuitive. You can also
+    do this using the trend line in the chart, which cleans up the noise in the data
+    and is statistically more accurate. Overall, either way draws the same conclusion.
 
 As time dwindles, this shift is slightly smaller. Looking at biggest 4th quarter
 comebacks we get:
@@ -125,9 +125,9 @@ chart for the start of the 2nd half:
 
 The data is a bit noisier here, because we are not accumulating the games as we move
 from left to right like we did when looking at points down *or more*. Here, for the old
-school era, we have the case that there was one game (``11/27/1996 DEN @ UTA: 103-107``)
-where UTA was down -34 at the half and won. But no team in that era won when down -33,
--32, -31, -30 or -29 at the half.
+school era, we have the case that there was one game (``11/27/1996 DEN @ UTA:
+103-107``) where UTA was down -34 at the half and won. But no team in that era won when
+down -33, -32, -31, -30 or -29 at the half.
 
 But overall, the same basic trends hold. Looking at starting the 4th quarter we have:
 
@@ -189,9 +189,9 @@ TLDR;
 
 Motivation
 ----------
-For a while, I have been wanting to create a "comeback calculator" where, when
-watching a game, you can input the current score and time left, and get a sense of how
-likely a comeback for your team is (or how likely of a collapse, ahem Timberwolves).
+For a while, I have been wanting to create a "comeback calculator" where, when watching
+a game, you can input the current score and time left, and get a sense of how likely a
+comeback for your team is (or how likely of a collapse, ahem Timberwolves).
 
 I downloaded all the games since play-by-play has been recorded from stats.nba.com (for
 some reason, the back of the 1998 season is missing). In doing so, I ran across these
@@ -208,30 +208,28 @@ Breaking Down The Eras
 
 .. ::
 
-    :ref:`There are many ways to break up the eras <breaking-down-the-eras>`, but
-    I've settled on:
+    :ref:`There are many ways to break up the eras <breaking-down-the-eras>`, but I've
+    settled on:
 
-    1. Old school era from 1996-2016 versus 
+    1. Old school era from 1996-2016 versus
     2. Modern era 2017-2024.
 
     So, comparing these eras, while the odds of coming back may have increased by
-    significant margins, being down 20 points in the modern era starting the 2nd
-    half is just about as bad now as it always was.
+    significant margins, being down 20 points in the modern era starting the 2nd half
+    is just about as bad now as it always was.
 
-    Overall, I find there's about a 2 point shift -- so 20 is the new 18. What I
-    mean by that is the odds of coming back from 20 down is about the same as coming
-    back from 18 down when comparing the modern era to the old school one. Notably,
-    this two point shift roughly holds across different conditions: for example, for
-    the last seven seasons being down 15 points starting the 2nd half has about the
-    same win percentage (12.8%) as being down 13 points in the seasons 1996-2016
-    before that.
+    Overall, I find there's about a 2 point shift -- so 20 is the new 18. What I mean
+    by that is the odds of coming back from 20 down is about the same as coming back
+    from 18 down when comparing the modern era to the old school one. Notably, this two
+    point shift roughly holds across different conditions: for example, for the last
+    seven seasons being down 15 points starting the 2nd half has about the same win
+    percentage (12.8%) as being down 13 points in the seasons 1996-2016 before that.
 
     There is **a lot** of data to look at to come to this conclusion, so I'll try to
     break it down as simply as I can and link when possible to more detailed
     discussions.
 
-    To start, there are several ways people commonly talk about comebacks: being
-    down *max N points or more* over some time, being down *exactly* N points over
-    some time, or being down *exactly* N points *starting* at some time. Each one
-    has a slightly different flavor, so we will look at them all to get a complete
-    sense.
+    To start, there are several ways people commonly talk about comebacks: being down
+    *max N points or more* over some time, being down *exactly* N points over some
+    time, or being down *exactly* N points *starting* at some time. Each one has a
+    slightly different flavor, so we will look at them all to get a complete sense.

@@ -1,6 +1,6 @@
-***********************************
-Plotting Game Data on a Normal Axis
-***********************************
+***************************
+How Trend Lines Were Formed
+***************************
 
 `transform <https://stattrek.com/regression/transformations-in-regression>`_
 
@@ -9,70 +9,67 @@ Plotting Game Data on a Normal Axis
 Normal Probability Plots
 ========================
 
-As briefly as possible, when you collect statistical data, that data is often
-normally distributed. This appears to be the case with the NBA data we've 
-collected. This is very helpful because it means that we can simply plot the 
-data on a `normal probability plot 
-<https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and the data will mostly 
+As briefly as possible, when you collect statistical data, that data is often normally
+distributed. This appears to be the case with the NBA data we've collected. This is
+very helpful because it means that we can simply plot the data on a `normal probability
+plot <https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and the data will mostly
 -- except for outliers -- fall on a straight line.
 
-Then, a trend line through that data can be found using simple linear regression 
-(this is not as accurate as fitting the data using maximum likelihood estimation, 
-but it's more than good enough for our purposes). Having this trend line allows 
-us to compare probabilities of events more easily and cuts out the noise of the 
-actual data. This of course only works if the trend line is actually a good fit 
-for the data, `and thankfully we can use the R² value to tell us this 
-<https://statisticsbyjim.com/regression/interpret-r-squared-regression/>`_. Most of
-the trend line R values used in this analysis are 0.95 with many in the 
-large game data set about 0.98 or higher. Of course, the smaller the number of games,
-the more outliers and the worse the fit, driving us to consider larger 
-periods of time to see the trends (always making recent trend analysis more difficult).
+Then, a trend line through that data can be found using simple linear regression (this
+is not as accurate as fitting the data using maximum likelihood estimation, but it's
+more than good enough for our purposes). Having this trend line allows us to compare
+probabilities of events more easily and cuts out the noise of the actual data. This of
+course only works if the trend line is actually a good fit for the data, `and
+thankfully we can use the R² value to tell us this
+<https://statisticsbyjim.com/regression/interpret-r-squared-regression/>`_. Most of the
+trend line R values used in this analysis are 0.95 with many in the large game data set
+about 0.98 or higher. Of course, the smaller the number of games, the more outliers and
+the worse the fit, driving us to consider larger periods of time to see the trends
+(always making recent trend analysis more difficult).
 
-So to tell if you have normal data, you convert the cumulative probabilities of the 
-event happening from percentages to how many normal standard deviations they are 
-from the mean (using 
-`a unit normal's ppf function 
+So to tell if you have normal data, you convert the cumulative probabilities of the
+event happening from percentages to how many normal standard deviations they are from
+the mean (using `a unit normal's ppf function
 <https://medium.com/@rathibala96/probability-distributions-a-comprehensive-guide-to-pmf-pdf-and-cdf-ppf-297fbb2f6803>`_
 ). Then you plot it and see if you can fit a straight line to it.
 
-For the problem of "what is the chance of winning when down N points starting at X time", 
-the data is very normal, from large negative point margins to very high ones.
-Take this plot here showing the win probability of a team down 24 points at the
-half on all the data I have from 1996. The data is very normal, and the trend line 
-is a very good fit:
+For the problem of "what is the chance of winning when down N points starting at X
+time", the data is very normal, from large negative point margins to very high ones.
+Take this plot here showing the win probability of a team down 24 points at the half on
+all the data I have from 1996. The data is very normal, and the trend line is a very
+good fit:
 
 .. raw:: html
 
     <div id="nbacc_point_final_24_mirror_eras_all" class="nbacc-chart"></div>
 
-Note, the mean is simply a tie at the half, and everything to the right is by 
-construction a mirror of everything to the left (the team that came back from 34 down 
-at the half beat the only team that gave up a 34 point lead at the half: 
-11/27/1996 DEN @ UTA: 103-107).
+Note, the mean is simply a tie at the half, and everything to the right is by
+construction a mirror of everything to the left (the team that came back from 34 down
+at the half beat the only team that gave up a 34 point lead at the half: 11/27/1996 DEN
+@ UTA: 103-107).
 
-Here, the actual y values are the number of standard deviations (or sigmas) from the 
-mean, both positive and negative. I've simply changed the y-axis labels to be the 
+Here, the actual y values are the number of standard deviations (or sigmas) from the
+mean, both positive and negative. I've simply changed the y-axis labels to be the
 standard probabilities that we are used to talking about.
 
-If I didn't change the axis, the plot would look like this: where -1 is one
-standard deviation to the left of the mean (or about a 16% chance of winning) and
--2 is two standard deviations to the left of the mean (or about a 2% chance of
-winning), etc.
+If I didn't change the axis, the plot would look like this: where -1 is one standard
+deviation to the left of the mean (or about a 16% chance of winning) and -2 is two
+standard deviations to the left of the mean (or about a 2% chance of winning), etc.
 
 .. raw:: html
 
     <div id="nbacc_point_final_24_mirror_normal_labels_eras_all" class="nbacc-chart"></div>
 
-The data forms almost a perfectly straight line, making fitting
-a good trend line possible. In fact, to check the R² value, you can simply
-press the 'R' key when hovering over a trend line data point and it will show you
-the value. For this case, R² is 0.98, meaning a very good fit.
+The data forms almost a perfectly straight line, making fitting a good trend line
+possible. In fact, to check the R² value, you can simply press the 'R' key when
+hovering over a trend line data point and it will show you the value. For this case, R²
+is 0.98, meaning a very good fit.
 
-Note, on all regression fits, I throw out all points with only 1 or 2 wins of 
-data to reduce the 'overfitting' of outliers. Again, this could have been 
-mitigated by using maximum likelihood estimation, something I may look into 
-later (some technical details about that as well). Overall, I'm happy with the
-trend lines and think they are a very good representation of the data.
+Note, on all regression fits, I throw out all points with only 1 or 2 wins of data to
+reduce the 'overfitting' of outliers. Again, this could have been mitigated by using
+maximum likelihood estimation, something I may look into later (some technical details
+about that as well). Overall, I'm happy with the trend lines and think they are a very
+good representation of the data.
 
 
 Down Max or More Points
