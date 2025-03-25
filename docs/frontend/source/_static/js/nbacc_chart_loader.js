@@ -46,7 +46,7 @@ async function loadAndPlotChart(chartDiv) {
 
     // Mark this chart as loaded to avoid duplicate processing
     if (loadedCharts.has(divId)) {
-        throw new AssertionError(`Chart with ID ${divId} has already been loaded`);
+        throw new Error(`Chart with ID ${divId} has already been loaded`);
     }
     loadedCharts.add(divId);
 
@@ -103,6 +103,55 @@ async function loadAndPlotChart(chartDiv) {
         // Append the button container to the chart-container-parent instead of the chart div
         // This ensures it's properly centered with the chart
         chartContainerParent.appendChild(buttonContainer);
+    }
+
+    // Check if URL parameters exist and this is a calculator-enabled chart
+    if (isCalculatorChart && 
+        typeof nbacc_calculator_state !== 'undefined' && 
+        nbacc_calculator_state.hasStateInUrl()) {
+        
+        console.log(`Calculator chart with URL parameters detected for ${divId}, using URL data instead of JSON file`);
+        
+        // Show loading indicator while calculator processes the URL data
+        chartContainer.innerHTML = '<div class="chart-loading">Processing calculator data from URL...</div>';
+        
+        // Create canvas with proper size attributes
+        const canvas = document.createElement("canvas");
+        canvas.id = `${divId}-canvas`;
+        canvas.className = "chart-canvas";
+
+        // Set initial dimensions for the canvas
+        const containerWidth = chartContainer.clientWidth || 600;
+        canvas.width = containerWidth;
+        canvas.height = chartHeight;
+
+        // Clear the container and add canvas
+        chartContainer.innerHTML = "";
+        chartContainer.appendChild(canvas);
+        
+        // Use the calculator to generate the chart based on URL parameters
+        if (typeof nbacc_calculator_ui !== 'undefined' && 
+            typeof nbacc_calculator_ui.calculateAndRenderChartForTarget === 'function') {
+            
+            // Set this chart as the target and process the URL parameters
+            const urlState = nbacc_calculator_state.getStateFromUrl();
+            if (urlState) {
+                // Apply state to calculator with this chart as target
+                urlState.targetChartId = divId;
+                
+                // Apply state then render for target
+                if (typeof nbacc_calculator_ui.applyState === 'function') {
+                    nbacc_calculator_ui.applyState(urlState);
+                    
+                    // Short delay to ensure DOM is ready
+                    setTimeout(() => {
+                        nbacc_calculator_ui.calculateAndRenderChartForTarget(divId);
+                    }, 50);
+                }
+            }
+        }
+        
+        return; // Skip the standard JSON loading
     }
 
     // Show loading indicator within the chart container
