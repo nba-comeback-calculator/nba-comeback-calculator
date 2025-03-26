@@ -231,12 +231,14 @@ nbacc_plotter_data = (() => {
                     animation: false, // Disable animations
                     responsive: true,
                     maintainAspectRatio: false, // Better control over dimensions
+                    // Global interactions setting
+                    events: ['mousemove', 'click', 'mouseout'], // Include mousemove for hover effects, click for tooltips
                     interaction: {
                         mode: "nearest",
                         intersect: true, // Require direct intersection
                         axis: "xy", // Consider both axes for finding nearest element
                         includeInvisible: false, // Only detect visible elements
-                        hoverRadius: 3, // Smaller hover detection radius (default is 10)
+                        hoverRadius: 5, // Moderate hover detection radius (default is 10)
                     },
                     plugins: createPluginsConfig(
                         chartData,
@@ -331,7 +333,8 @@ nbacc_plotter_data = (() => {
                 mode: "nearest", // Show tooltip for nearest point
                 intersect: true, // Require direct intersection
                 axis: "xy", // Consider both axes for nearest point
-                hoverRadius: 3, // Reduced hover sensitivity by 50%
+                hoverRadius: 8, // Balanced hover sensitivity for growing effect
+                events: ['click'], // CRITICAL: Only trigger tooltip on click, not on mousemove
                 callbacks: {
                     // Title callback still used by external handler
                     title: function (tooltipItems) {

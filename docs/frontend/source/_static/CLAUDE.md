@@ -123,6 +123,17 @@ Each plot type has specific visualization requirements handled by the plotter ba
 
 When you see "Add the important comment X", it means to add a comment in the code and also add it to this section for future reference.
 
+- **POINT_HOVER_BEHAVIOR**: Chart points grow in size on hover but tooltips only appear on click. This is controlled by:
+  - Global chart options: `events: ['mousemove', 'click', 'mouseout']` in createChartJSConfig
+  - Dataset options: Both scatter and trend line datasets have `events: ['mousemove', 'click']`
+  - Point size changes: 
+    - Scatter points: `pointRadius: isMobile() ? 5.6 : 8` growing to `pointHoverRadius: isMobile() ? 11 : 14` on hover
+    - Trend line points: `pointRadius: isMobile() ? 3 : 4` growing to `pointHoverRadius: isMobile() ? 8 : 11` on hover
+  - Hover detection areas: 
+    - Scatter points: `hoverRadius: 8` in interaction settings
+    - Trend line points: `hoverRadius: 6` in interaction settings
+  - The external tooltip handler checks for click events and only shows tooltips on actual clicks
+
 - **CHART_BACKGROUND_COLOR**: Chart plot area background color and opacity setting in plotBackgroundPlugin
 - **FULL_SCREEN_FUNCTIONS**: Full screen and exit full screen functionality for all devices including mobile; disables page scrolling while in full screen mode; on mobile: enables zooming, disables normal page pinch-zooming to prevent interference with chart zoom functionality, adds reset zoom button, shows smaller win count numbers, and enables tooltip hover boxes during full screen mode only; automatically resets zoom when exiting full screen; uses global currentFullscreenChart variable to track active chart; implements ESC key handler to exit fullscreen mode when ESC key is pressed; properly restores chart to original dimensions when exiting fullscreen
 - **CHART_BUTTON_VISIBILITY**: Chart control buttons (Full Screen, Reset Zoom, Save As PNG) require multiple layers of defensive programming to ensure visibility:

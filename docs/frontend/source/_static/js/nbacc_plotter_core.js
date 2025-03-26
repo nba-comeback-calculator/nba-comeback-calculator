@@ -234,7 +234,7 @@ const nbacc_plotter_core = (() => {
             backgroundColor: "transparent",
             borderWidth: isMobile() ? 4 : 5, // Thinner line on mobile
             pointRadius: isMobile() ? 3 : 4, // Smaller points on mobile
-            pointHoverRadius: isMobile() ? 2 : 2, // Minimal hover radius for trend line dots
+            pointHoverRadius: isMobile() ? 8 : 11, // Larger hover radius for trend line points
             pointStyle: "circle", // Round points
             pointBackgroundColor: color,
             pointBorderColor: color, // Same color as the point to remove white border
@@ -252,8 +252,11 @@ const nbacc_plotter_core = (() => {
                 mode: "nearest",
                 intersect: true, // Require direct intersection
                 axis: "xy",
-                hoverRadius: 2, // Smaller hover detection radius for trend line points
+                hoverRadius: 6, // Increased hover detection radius for trend line points
             },
+            // Allow hover effects but show tooltips only on click
+            events: ['mousemove', 'click'],
+            hoverEvents: ['mousemove'], // Enable hover events for point growth
             hitRadius: 5, // Smaller hit area for trend lines to prioritize scatter points
             // For occurrence plots we want to disable hover/tooltip on trend lines
             hoverEnabled: !calculateOccurrences,
@@ -297,7 +300,7 @@ const nbacc_plotter_core = (() => {
             backgroundColor: color.replace("0.5", "0.7"),
             pointStyle: "rectRounded",
             pointRadius: isMobile() ? 5.6 : 8, // Reduced size by ~30% on mobile
-            pointHoverRadius: isMobile() ? 10 : 14, // Increased hover radius for scatter points
+            pointHoverRadius: isMobile() ? 11 : 14, // Medium increased hover radius for scatter points
             showLine: false, // Ensure no line is drawn
             label: legend,
             // Hover behavior for scatter points
@@ -305,8 +308,11 @@ const nbacc_plotter_core = (() => {
                 mode: "nearest",
                 intersect: true, // Require direct intersection
                 axis: "xy",
-                hoverRadius: 10, // Increased hover detection radius for scatter points
+                hoverRadius: 8, // Moderate hover detection radius for scatter points
             },
+            // Allow hover effects but show tooltips only on click
+            events: ['mousemove', 'click'],
+            hoverEvents: ['mousemove'], // Enable hover events for point growth
             hitRadius: 15, // Larger hit area for scatter points
             // Ensure hover styles don't have white borders
             hoverBorderColor: color.replace("0.5", "0.7"), // Same color as background
@@ -416,7 +422,26 @@ const nbacc_plotter_core = (() => {
     const coreZoomOptions = createZoomOptions(buttonPositionsCallback);
     const corePlotBackgroundPlugin = createPlotBackgroundPlugin();
     
-    // Also keep global references for backward compatibility
+    // Track click events on charts to determine if tooltip should be shown
+document.addEventListener('click', function(event) {
+    // Check if the click was on a chart canvas
+    if (event.target.tagName.toLowerCase() === 'canvas') {
+        // Find the canvas that was clicked
+        const canvasElements = document.querySelectorAll('canvas.chartjs-render-monitor');
+        for (let i = 0; i < canvasElements.length; i++) {
+            const canvas = canvasElements[i];
+            if (canvas.contains(event.target)) {
+                const chartInstance = Chart.getChart(canvas);
+                if (chartInstance) {
+                    // Set last click timestamp
+                    chartInstance.lastClickEvent = new Date().getTime();
+                }
+            }
+        }
+    }
+});
+
+// Also keep global references for backward compatibility
     window.zoomOptions = coreZoomOptions;
     window.plotBackgroundPlugin = corePlotBackgroundPlugin;
 

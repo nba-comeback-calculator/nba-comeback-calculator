@@ -175,11 +175,11 @@ Occurrence Frequencies
 
 .. raw:: html
 
-    <div id="nbacc_max_or_more_48_occurs_eras_0" class="nbacc-chart"></div>
+    <div id="plots/old_school_v_modern/occurs_down_or_more_48" class="nbacc-chart"></div>
 
 .. raw:: html
 
-    <div id="nbacc_down_or_more_at_12_occurs_eras_0" class="nbacc-chart"></div>
+    <div id="plots/old_school_v_modern/occurs_down_or_more_12" class="nbacc-chart"></div>
 
 
 .. _deciding-on-eras-breakdown:

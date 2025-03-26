@@ -286,6 +286,17 @@ window.externalTooltipHandler = (context) => {
             return;
         }
         
+        // We've configured chart.js to allow hover effects but only show tooltips on click
+        // Check if this is a mousemove/hover event (not a click) and tooltip isn't sticky
+        const eventType = context.event?.type || '';
+        if ((eventType === 'mousemove' || eventType !== 'click') && 
+            tooltipEl.getAttribute("data-sticky") !== "true") {
+            // Hide any existing tooltip immediately on hover events
+            tooltipEl.style.opacity = 0;
+            tooltipEl.style.display = 'none';
+            return; // Exit without showing tooltip for hover events
+        }
+        
         // Handle tooltip visibility based on model state and stickiness
         if (!handleTooltipVisibility(tooltipEl, tooltipModel)) {
             return; // Exit if tooltip should be hidden
