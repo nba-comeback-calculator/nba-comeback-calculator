@@ -65,7 +65,6 @@ for the old school era. What this is saying is that, on average, the winning tea
 down about 10 points at some point in the game -- and comes back! So if your team is
 down 10 points, don't sweat it too hard, it's totally average.
 
-
 .. _points-down-at-time:
 
 Points Down At Time

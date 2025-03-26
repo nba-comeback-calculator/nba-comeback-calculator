@@ -23,7 +23,7 @@ victories in a single season since 1996-97 and continues with analysis by Steve 
     mean, there's definitely an awareness from everybody that leads are not safe."
 
 
-But is this true? In short ... not really.
+But is this true that no lead is safe? In short ... not really.
 
 :ref:`To frame this, I decided to break up the available play-by-play
 data<deciding-on-eras-breakdown>` into:
