@@ -9,6 +9,10 @@ The NBA Comeback Calculator analyzes NBA game data to determine the probability 
 
 The site is published at: [nba-comeback-calculator.github.io](https://nba-comeback-calculator.github.io)
 
+## AI-Assisted Development
+
+This project uses Claude Code to assist with the JavaScript frontend development. The `/docs/frontend/source/analysis/using_claude_code.rst` page is dedicated to documenting how AI was used in this project and serves as a case study for AI assistance in modern web development while maintaining high code quality standards.
+
 ## Repository Structure
 
 - **Python Backend**: Located in `/nba_comeback_calculator/`
