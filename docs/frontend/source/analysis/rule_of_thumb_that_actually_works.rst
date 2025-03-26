@@ -10,7 +10,7 @@ A Rule Of Thumb That Actually Works If Your Thumb Is Good At Math
 
 A Rule Of Thumb
 ===============
-:doc:`What started all of this </methodology/about>` is, I had this rule of thumb about
+:doc:`What started all of this </analysis/about>` is, I had this rule of thumb about
 whether my team's lead was "safe":
 
 * 2 times the number of minutes remaining = pretty safe
@@ -43,8 +43,8 @@ stumbled on this explanation <https://messymatters.com/moneyball/>`_:
 
 This turns out to be very close, no matter the era you look at.  In fact, leveraging
 the :doc:`observation that win probabilities versus point deficit are normally
-distributed </methodology/forming_the_plot_trend_lines>`, we can actually come up with
-the multiplier for any given win probability:
+distributed </analysis/forming_the_plot_trend_lines>`, we can actually come up with the
+multiplier for any given win probability:
 
 .. math::
  

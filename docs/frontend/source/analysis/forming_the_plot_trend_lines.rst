@@ -70,9 +70,9 @@ How to Fit The Line
 ===================
 
 Now, the goal is simply to find the slope and y-intercept for our trend line in a way
-that is statistically valid. This is a classic binary prediction problem where our
-descriptor variable (the point margin) determines the probability of an outcome
-(winning the game).
+that is statistically valid. This is a `standard logistic / probit regression problem
+<https://en.wikipedia.org/wiki/Logistic_regression>`_  where our descriptor variable
+(the point margin) determines the probability of an outcome (winning the game).
 
 For probit regression, this means:
 
@@ -80,11 +80,11 @@ For probit regression, this means:
         
     P(\text{win} \mid \text{point_margin}) = \Phi(\beta_0 + \beta_1 \times \text{point_margin})
 
-Where the link function :math:`\Phi` is the normal cumulative distribution function.
-For logit regression, we would use the logit as the link function.  To find the
-:math:`\beta_0` and :math:`\beta_1` we use standard maximum likelihood estimation
-(MLE), which gives us the most sound way of finding our model (as opposed to, say,
-linear regression) .
+For probit, the link function :math:`\Phi` is the normal cumulative distribution
+function. For logit regression, we would use the logit as the link function.  To find
+the :math:`\beta_0` and :math:`\beta_1` we use standard maximum likelihood estimation
+(MLE), which gives us the most statistically sound way of finding our model (as opposed
+to, say, linear regression) .
 
 The major question is whether to use logit or probit.  And the answer is probit because
 the the inverse CDF function does a better job of linearizing our data, meaning it is

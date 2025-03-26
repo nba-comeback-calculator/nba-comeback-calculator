@@ -22,7 +22,7 @@ const nbacc_calculator_ui = (() => {
         endTime: 0, // 0 minutes default (end of game),
         specificTime: 24, // Used for Points Down At Time (default to 24)
         targetChartId: null, // Used when configuring an existing chart
-        selectedPercents: ["20", "10", "5", "1"], // Default percents to track for Percent Chance: Time Vs. Points Down
+        selectedPercents: ["20", "10", "5", "1", "Record"], // Default percents to track for Percent Chance: Time Vs. Points Down
         plotGuides: false, // Whether to plot guide lines (2x, 4x, 6x)
         plotCalculatedGuides: false, // Whether to plot calculated guide lines
         maxPointMargin: null, // Default to Auto (null)
@@ -711,7 +711,7 @@ const nbacc_calculator_ui = (() => {
                 endTime: 0,
                 specificTime: 24,
                 targetChartId: state.targetChartId, // Keep target chart ID
-                selectedPercents: ["20", "10", "5", "1"],
+                selectedPercents: ["20", "10", "5", "1", "Record"],
                 plotGuides: false,
                 plotCalculatedGuides: false,
                 maxPointMargin: null, // Default to Auto (null)

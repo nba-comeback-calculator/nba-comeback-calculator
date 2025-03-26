@@ -39,10 +39,10 @@ That leads to this chart:
 You can see the -10 point margin point lines up with his statistics exactly.
 
 It's important to note here that every point contains all the wins and losses for the
-previous point margin. So the -10 point includes all the games at the -11 point and
-beyond.
-
-
+previous point margin. As we move from left to right, we are accumulating all the
+games.  This means that a given point margin (say -10) is getting weighted down with
+all of the previous (and lower chance) probabilities, because the -10 point also
+includes the wins/losses from -11, -12, -13, .., -20, .., -30, and on and on.
 
 .. _max-points-down:
 
@@ -62,7 +62,7 @@ leads to these type of plots:
 
 So here we see the raw data for the -10 points down is 53% for the modern era and 48%
 for the old school era. What this is saying is that, on average, the winning team goes
-down about 10 points at some point in the game -- and comes back! So if your team is
+down at most 10 points at some point in the game -- and comes back! So if your team is
 down 10 points, don't sweat it too hard, it's totally average.
 
 .. _points-down-at-time:
@@ -95,10 +95,10 @@ Now, it's a little inconvenient to have to look at a different chart for every p
 time. So what you can further do is, behind the scenes:
 
 1. Pick a percent chance you want to focus on, say 20% or 1%.
-2. Calculate a `points down at time`_ for every minute and invert the :ref:`trend lines`
-   to figure out what point deficit matches your percentage. By using the trend line we
-   filter out the statistical noise and get the most accurate point deficit for our
-   given probability.
+2. Calculate a `points down at time`_ for every minute and invert the :doc:`trend lines
+   </analysis/forming_the_plot_trend_lines>` to figure out what point deficit matches
+   your percentage. By using the trend line we filter out the statistical noise and get
+   the most accurate point deficit for our given probability.
 
 Then you can make plots like this:
    
@@ -115,19 +115,24 @@ deficit at that time and provide that point with game data.
 Plot Controls
 =============
 
-For any of the first 3 plots, you can hover over either:
+For the plots you can hover over and then click on either:
 
-1. Actual data taken from NBA games. Here you can look at the # Wins / # Games,
-   the calculated Win %, how often this point deficit occurs (win or lose), and a few
-   of the games that make up this point. These games are clickable if you want to go to
-   NBA.com and view the play-by-play report.
+1. Actual data taken from NBA games. This comes up when you click on the scatter plot
+   points.  Here you can look at the # Wins / # Games, the calculated Win %, how often
+   this point deficit occurs (win or lose), and a few of the games that make up this
+   point. The reported games are also hyperlinks, so if you want to go to NBA.com and
+   view the play-by-play report and media coverage if available.
    
 2. The trend line data points -- this shows you the "best" Win % chance for this
-   point deficit since the trend line filters out much of the statistical noise.
+   point deficit :doc:`since the trend line filters out much of the statistical
+   noise</analysis/forming_the_plot_trend_lines>`.
    
 You can also zoom in or even go full screen to make it easier to hover over a point of
-interest.
+interest and if you want, save your current plot as an image.
 
+On the :doc:`calculator page</calculator/index>`, once you form a chart for the
+specific conditions you're after, you'll notice that a unique URL is formed which you
+can copy and paste and share it how you see fit.
 
 .. _how-win--is-calculated:
 

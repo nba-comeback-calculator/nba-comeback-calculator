@@ -156,7 +156,7 @@ const nbacc_calculator_state = (() => {
                 startTime: 24,
                 endTime: 0,
                 specificTime: 12,
-                selectedPercents: ["20", "10", "5", "1"],
+                selectedPercents: ["20", "10", "5", "1", "Record"],
                 plotGuides: false,
                 plotCalculatedGuides: false,
                 maxPointMargin: null, // Auto by default

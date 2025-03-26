@@ -16,8 +16,9 @@ But when examining the data, it doesn't appear to be true:
 In fact, if you are down 20 points or more against the Wolves, your odds of coming back
 (``4.90%``) are actually worse than the league average (``5.24%``). And the
 Timberwolves are actually better than average at coming back from 20 points down
-(``7.46%``). (Note: this is using the :ref:`trend lines` rather than raw data points,
-which eliminates much of the statistical noise and is a little more accurate.)
+(``7.46%``). (Note: this is using the :doc:`trend
+lines</analysis/forming_the_plot_trend_lines>` rather than raw data points, which
+eliminates much of the statistical noise and is a little more accurate.)
 
 :doc:`There are many ways to analyze this </plots/recent_min_versus>` and they all tell
 a slightly different but similar story: the recent Timberwolves are not much different

@@ -26,7 +26,7 @@ victories in a single season since 1996-97 and continues with analysis by Steve 
 But is this true? In short ... not really.
 
 :ref:`To frame this, I decided to break up the available play-by-play
-data<deciding-on-eras-breakdown>`into:
+data<deciding-on-eras-breakdown>` into:
 
 * 1996-97 to 2016-17 (old-school) versus:
 * 2017-18 to 2024-25 (modern)
@@ -51,8 +51,10 @@ we get:
 
     <div id="plots/old_school_v_modern/max_down_or_more_48" class="nbacc-chart"></div>
 
-You can :ref:`interact with this chart <using-the-plot-controls>` and compare at
-different point margins, but to focus on a few we get:
+You can :ref:`interact with this chart <using-the-plot-controls>` and click on either
+the scatter points (actual game data) or the trend line points (a statistcal model fit
+used to filter out noise) and compare at different point margins.  To focus on a few we
+get:
 
 .. list-table:: Win % Increases When Comparing Modern Versus Old School Eras
    :header-rows: 1
