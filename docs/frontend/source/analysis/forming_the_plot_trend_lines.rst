@@ -9,7 +9,7 @@ Trend Lines Help Reduce Statistical Noise
 =========================================
 
 The purpose of the trend lines is to fit a statistically valid model to the data.  The
-real data will have flucuations, especially as you reduce the number of games in
+real data will have fluctuations, especially as you reduce the number of games in
 whatever set you are looking at.  For example, look at the points down at half chart
 for regular season and playoffs games for 2017-2024 (~10k games) versus just the
 playoff games (~600 games).
@@ -18,8 +18,8 @@ playoff games (~600 games).
 
     <div id="trend/nbacc_at_24_compare_eras" class="nbacc-chart"></div>
 
-As you can see, the smaller data set is "noiser", but the trend lines help cut thru the
-noise so we can compare two datasets as best we can.
+As you can see, the smaller data set is "noisier", but the trend lines help cut through
+the noise so we can compare two datasets as best we can.
 
 .. _how-to-form-the-trend-lines:
 
@@ -34,12 +34,15 @@ years when plotted on a linear y axis:
 
     <div id="trend/nbacc_at_24_linear_axis" class="nbacc-chart"></div>
 
-What we can do, however, is find a function which will convert our non linear linear
-data to a linear domain.  For example, often people with use the :math:`ln` function
-`when dealing with exponetial data
+As is, this is not very useful, as all the events we care about are smooshed down
+together at the bottom of the y-axis.
+
+What we can do, however, is find a function which will convert our non-linear data to a
+linear domain.  For example, often people will use the :math:`ln` function `when
+dealing with exponential data
 <https://leancrew.com/all-this/2020/03/exponential-growth-and-log-scales/>`_.
 
-With statistical data, the first goto is the inverse of a unit guassian / normal
+With statistical data, the first go-to is the inverse of a unit Gaussian / normal
 distribution, which is denoted Φ⁻¹.
 
 Applying that function to our data, we get this chart:
@@ -49,16 +52,16 @@ Applying that function to our data, we get this chart:
     <div id="trend/nbacc_at_24_normal_labels" class="nbacc-chart"></div>
 
 
-And as you can see, now the data looks very linear.  Doing this transformation, we have
-now created a `normal probability plot
-<https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and is often used to get a
-sense of how normal your data is.  This is what all of our 'Max Points Down' or 'Points
-Down at Time' are: normally probability plot.
+As you can see, now the data looks very linear. By applying this transformation, we
+have created a `normal probability plot
+<https://en.wikipedia.org/wiki/Normal_probability_plot>`_, which is often used to get a
+sense of how normal your data is. This is what all of our 'Max Points Down' or 'Points
+Down at Time' charts are: normal probability plots.
 
-Usually, these plots are shown with the y axis in std deviations from the mean (or
-sigmas).  I've simply changed the y-axis labels to be the standard probabilities that
-we are used to talking about: for example, -1 maps to about 15.8%, -2 to 2.2%, and -3
-to 0.13%, etc.
+Usually, these plots are shown with the y-axis in standard deviations from the mean (or
+sigmas). I've simply changed the y-axis labels to show the standard probabilities that
+we are used to talking about: for example, -1 sigma maps to about 15.8%, -2 to 2.2%,
+and -3 to 0.13%, etc.
 
 
 .. _how-to-fit-the-line:
@@ -108,8 +111,8 @@ And using logit logistical regression we get:
 
     <div id="trend/nbacc_at_24_logit" class="nbacc-chart"></div>
 
-Getting a poor fit in the tail region, especially bad because the low probabity events
-are the ones we are most concerned.
+Getting a poor fit in the tail region, especially bad because the low probability
+events are the ones with which we are most concerned.
 
 
 
