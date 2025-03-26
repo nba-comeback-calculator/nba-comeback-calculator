@@ -85,8 +85,8 @@ to focus on a few we get:
 So while coming back from down 30 or more happens 2.8 times more than in the past, it's
 still very unlikely. In fact, you need to move over a little less than one
 three-pointer to get about the same chance: in the old school era, if you were down -27
-or more there was about a 0.48% chance of winning.  And being down 20 is just about the
-same chance as being down 18 back the day (``~5.0%``).
+or more there was about a 0.48% chance of winning.  And being down 20 has just about
+the same chance of winning as being down 18 back the day (``~5.0%``).
 
 .. green-box::
 
