@@ -1,0 +1,162 @@
+*******************************************
+Understanding and Using The Comeback Charts
+*******************************************
+
+What do we mean by "comeback" and what's the best way to view the "chances" of a
+comeback?  It seems like a simple question, but there's a little nuance to it as there
+are slightly different ways of defining it, so let's jump in and talk about the four
+plot types used in this project:
+
+* `Max Points Down Or More`_
+* `Max Points Down`_
+* `Points Down At Time`_
+* `Percent Chance of Winning: Time v. Points Down`_
+
+.. _max-points-down-or-more:
+
+Max Points Down Or More
+=======================
+
+The first, maybe most common way people talk about comebacks is found in a line `taken
+from this ESPN article
+<https://www.espn.com/nba/story/_/id/39698420/no-lead-safe-nba-big-comebacks-blown-leads>`_:
+
+.. pull-quote::
+
+    The frequency of 10-point and 15-point comebacks has increased as well. In 1997-98,
+    teams that fell behind by double digits had an .181 winning percentage. That
+    climbed to .250 a season ago and is at .229 this season, meaning nearly one in
+    every four games in which a team takes a double-digit lead ends with
+    the-other-team-winning.
+
+
+That leads to this chart:
+
+.. raw:: html
+
+    <div id="understand/nbacc_max_or_more_48_espn_0" class="nbacc-chart"></div>
+
+You can see the -10 point margin point lines up with his statistics exactly.
+
+It's important to note here that every point contains all the wins and losses for the
+previous point margin. So the -10 point includes all the games at the -11 point and
+beyond.
+
+
+
+.. _max-points-down:
+
+Max Points Down
+===============
+
+Even though this is a common way of talking about comebacks, it's a little unfair in a
+sense. For the -10 point, the odds of coming back are weighted by all the other more
+unlikely comebacks.
+
+A somewhat more fair way to look at it is: the max point you are down *at most* -- that
+leads to these type of plots:
+
+.. raw:: html
+
+    <div id="understand/nbacc_max_48_eras_1" class="nbacc-chart"></div>
+
+So here we see the raw data for the -10 points down is 53% for the modern era and 48%
+for the old school era. What this is saying is that, on average, the winning team goes
+down about 10 points at some point in the game -- and comes back! So if your team is
+down 10 points, don't sweat it too hard, it's totally average.
+
+.. _points-down-at-time:
+
+Points Down At Time
+===================
+
+But what about when you're watching a game and don't have the benefit of hindsight to
+know what your max point deficit is going to be? As a fan, the most natural way to
+think of it -- I am down this many points right now, what are the odds? In this case,
+you pick a certain point in time and collect all the point margins at that time and
+determine the chance of winning, leading to plots like this:
+
+.. raw:: html
+
+    <div id="understand/nbacc_down_at_24_eras_1" class="nbacc-chart"></div>
+
+So that chart says things like: if your team is down 20 points at the half, they have a
+5% chance of winning on average. You can use the :doc:`calculator
+<../calculator/index>` to try as many different times as you want.
+
+
+
+.. _percent-chance-of-winning-time-v-points-down:
+
+Percent Chance of Winning: Time v. Points Down
+==============================================
+
+Now, it's a little inconvenient to have to look at a different chart for every point in
+time. So what you can further do is, behind the scenes:
+
+1. Pick a percent chance you want to focus on, say 20% or 1%.
+2. Calculate a `points down at time`_ for every minute and invert the :ref:`trend lines`
+   to figure out what point deficit matches your percentage. By using the trend line we
+   filter out the statistical noise and get the most accurate point deficit for our
+   given probability.
+
+Then you can make plots like this:
+   
+.. raw:: html
+
+    <div id="plots/all_time_v_modern/percent_plot_group_0" class="nbacc-chart"></div>
+
+Here, we also find the "Record" game -- that is, the game that overcame the largest
+deficit at that time and provide that point with game data.
+
+
+.. _using-the-plot-controls:
+
+Plot Controls
+=============
+
+For any of the first 3 plots, you can hover over either:
+
+1. Actual data taken from NBA games. Here you can look at the # Wins / # Games,
+   the calculated Win %, how often this point deficit occurs (win or lose), and a few
+   of the games that make up this point. These games are clickable if you want to go to
+   NBA.com and view the play-by-play report.
+   
+2. The trend line data points -- this shows you the "best" Win % chance for this
+   point deficit since the trend line filters out much of the statistical noise.
+   
+You can also zoom in or even go full screen to make it easier to hover over a point of
+interest.
+
+
+.. _how-win--is-calculated:
+
+How Win % Is Calculated
+=======================
+
+
+The Win % number in the plots is calculated as:
+
+.. math::
+
+    \text{Win %} = \frac{\text{# of Wins @ Point Deficit}}{\text{# of Wins @ Point Deficit} + \text{# of Losses @ Point Deficit}}
+
+This is a little unintuitive, because you might think it should be:
+
+.. math::
+
+    \text{Win %} = \frac{\text{# of Wins @ Point Deficit}}{\text{# of Games @ Point Deficit}}
+
+
+For many cases, this is the same thing. Consider, however, the Win % for the case where
+the score is tied at halftime. Let's say there are 1,000 such games in your set. Well,
+there are 1,000 wins and 1,000 losses in these cases, so if you used the second formula
+you would get a Win % = 100%, which is clearly not right.
+
+The same thing happens with the Max Down Or More plots, where some of the same games
+are both wins and losses, so we use the first formula which matches with how the
+statistic is generally reported.
+
+Just note that in the hover boxes, the "Wins X out of Y Games" is using the total
+number of games for the Y. So if you divide X/Y you might get a different number than
+the Win %. Normally, the numbers are almost the same.
