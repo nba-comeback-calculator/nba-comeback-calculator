@@ -9,7 +9,6 @@ nba comeback calculator
 
    analysis/index 
    plots/index 
-   methodology/index 
    calculator/index
 
 .. blue-box::

@@ -15,6 +15,7 @@ from form_nba_chart_json_data_plot_primitives import (
 )
 from form_nba_chart_json_data_num import Num
 
+__LINEAR_Y_AXIS__ = False
 
 def parse_season_type(year):
     """
@@ -305,8 +306,11 @@ def plot_biggest_deficit(
     fit_max_points=None,
     game_filters=None,
     plot=False,
-    use_normal_labels=False,
     calculate_occurrences=False,
+    use_normal_labels=False,
+    linear_y_axis=False,
+    use_logit=False,
+    
 ):
     """
     Generate plots and JSON data showing win probability based on point deficit.
@@ -338,6 +342,23 @@ def plot_biggest_deficit(
     calculate_occurrences : bool
         Whether to calculate occurrence percentages
     """
+    
+    global __LINEAR_Y_AXIS__
+    if linear_y_axis:
+        __LINEAR_Y_AXIS__ = True
+        Num.CDF = lambda x: x
+        Num.PPF = lambda x: x
+    else:
+        __LINEAR_Y_AXIS__ = False
+        
+    if use_logit:
+        from scipy.special import logit, expit
+        Num.CDF = expit
+        Num.PPF = logit
+        
+                 
+                 
+                 
     if start_time == 48:
         time_desc = "Entire Game"
     elif start_time == 36:
@@ -507,35 +528,50 @@ def get_points_down_normally_spaced_y_ticks(plot_lines, bound_x=float("inf")):
             next_min_y = min(next_min_y, Num.CDF(Num.min(y_fit)))
             next_max_y = max(next_max_y, Num.CDF(Num.max(y_fit)))
 
-    y_ticks = {
-        1 / 100000.0: "1/100000",
-        1 / 10000.0: "1/10000",
-        1 / 1000.0: "1/1000",
-        1 / 500.0: "1/500",
-        1 / 200.0: "1/200",
-        0.01: "1%",
-        0.025: "2.5%",
-        0.05: "5%",
-        0.10: "10%",
-        0.20: "20%",
-        0.30: "30%",
-        0.40: "40%",
-        0.50: "50%",
-        0.60: "60%",
-        0.70: "70%",
-        0.80: "80%",
-        0.90: "90%",
-        0.95: "95%",
-        0.975: "97.5%",
-        0.99: "99.0%",
-        0.995: "99.5%",
-        0.998: "99.8%",
-        0.999: "99.9%",
-        0.9999: "99.99%",
-        0.99999: "99.999%",
-        0.999999: "99.9999%",
-        0.9999999: "99.99999%",
-    }
+    if __LINEAR_Y_AXIS__:
+        y_ticks = {
+            0.001: "0%",
+            0.10: "10%",
+            0.20: "20%",
+            0.30: "30%",
+            0.40: "40%",
+            0.50: "50%",
+            0.60: "60%",
+            0.70: "70%",
+            0.80: "80%",
+            0.90: "90%",
+            0.999: "100%",
+        }
+    else:
+        y_ticks = {
+            1 / 100000.0: "1/100000",
+            1 / 10000.0: "1/10000",
+            1 / 1000.0: "1/1000",
+            1 / 500.0: "1/500",
+            1 / 200.0: "1/200",
+            0.01: "1%",
+            0.025: "2.5%",
+            0.05: "5%",
+            0.10: "10%",
+            0.20: "20%",
+            0.30: "30%",
+            0.40: "40%",
+            0.50: "50%",
+            0.60: "60%",
+            0.70: "70%",
+            0.80: "80%",
+            0.90: "90%",
+            0.95: "95%",
+            0.975: "97.5%",
+            0.99: "99.0%",
+            0.995: "99.5%",
+            0.998: "99.8%",
+            0.999: "99.9%",
+            0.9999: "99.99%",
+            0.99999: "99.999%",
+            0.999999: "99.9999%",
+            0.9999999: "99.99999%",
+        }
     y_tick_indicies = [
         index for index, key in enumerate(y_ticks) if next_min_y <= key <= next_max_y
     ]
