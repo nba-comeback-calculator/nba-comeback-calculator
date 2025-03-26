@@ -145,11 +145,23 @@ class PointsDownLine(PlotLine):
         result = linregress(x, yyy)
         m1, b1, r_value, p_value, std_err = result
         print(r_value**2)
-        pylab.plot(x, yy, "g-o", alpha=0.5, markersize=4, linewidth=4)
-        pylab.plot(x, x * m0 + b0, "g", alpha=0.5, linewidth=4)
-        pylab.plot(x, yyy, "r-o", alpha=0.5, markersize=4, linewidth=4)
-        pylab.plot(x, x * m1 + b1, "r", alpha=0.5, linewidth=4)
-        pylab.grid()
+        fig, (ax1, ax2) = pylab.subplots(1, 2, figsize=(12, 5))
+
+        # Left subplot - logit transformation
+        ax1.plot(x, yy, "g-o", alpha=0.5, markersize=4, linewidth=4)
+        ax1.plot(x, x * m0 + b0, "g", alpha=0.5, linewidth=4)
+        ax1.set_xlabel("Point Margin")
+        ax1.set_ylabel("Logit Transform -- R2 Value: " + str(r_value**2))
+        ax1.grid()
+
+        # Right subplot - norm.ppf transformation
+        ax2.plot(x, yyy, "r-o", alpha=0.5, markersize=4, linewidth=4)
+        ax2.plot(x, x * m1 + b1, "r", alpha=0.5, linewidth=4)
+        ax2.set_xlabel("Point Margin")
+        ax2.set_ylabel("Norm PPF Transform -- R2 Value: " + str(r_value**2))
+        ax2.grid()
+
+        fig.tight_layout()
         pylab.xlabel("Point Margin")
         pylab.ylabel("Win % Chance")
         pylab.show()
