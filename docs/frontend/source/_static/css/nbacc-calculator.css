@@ -1,5 +1,26 @@
 /* Styles for NBA Charts Calculator */
 
+/* Info box styling */
+.calculator-ui .info-box.alert-info {
+    background-color: #d1ecf1;
+    color: #6c98a3;
+    border: 1px solid #bee5eb;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.calculator-ui .info-box a {
+    color: #82b5c0;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.calculator-ui .info-box a:hover {
+    color: #5a98a5;
+}
+
 .nbacc-calculator-placeholder {
     display: flex;
     justify-content: center;
