@@ -119,6 +119,41 @@ class PointsDownLine(PlotLine):
         self.point_margin_map = point_margin_map = self.setup_point_margin_map(
             games, game_filter, start_time, stop_time
         )
+        x = [(x, y.odds[0])[0] for x, y in sorted(point_margin_map.items())]
+        y = [(x, y.odds[0])[1] for x, y in sorted(point_margin_map.items())]
+
+        import pylab
+
+        from scipy.stats import norm
+        from numpy import log
+        import numpy as np
+
+        x = np.array(x)
+        y = np.array(y)
+        from scipy.special import logit, expit
+
+        x = x[19:45]
+        y = y[19:45]
+        yy = 0.63 * logit(np.clip(y, 1e-10, 1 - 1e-10))
+        yyy = norm().ppf(y)
+        # Perform linear regression on the data
+        from scipy.stats import linregress
+
+        result = linregress(x, yy)
+        m0, b0, r_value, p_value, std_err = result
+        print(r_value**2)
+        result = linregress(x, yyy)
+        m1, b1, r_value, p_value, std_err = result
+        print(r_value**2)
+        pylab.plot(x, yy, "g-o", alpha=0.5, markersize=4, linewidth=4)
+        pylab.plot(x, x * m0 + b0, "g", alpha=0.5, linewidth=4)
+        pylab.plot(x, yyy, "r-o", alpha=0.5, markersize=4, linewidth=4)
+        pylab.plot(x, x * m1 + b1, "r", alpha=0.5, linewidth=4)
+        pylab.grid()
+        pylab.xlabel("Point Margin")
+        pylab.ylabel("Win % Chance")
+        pylab.show()
+        exit()
 
         all_game_ids = self.get_all_game_ids()
         self.number_of_games = len(all_game_ids)
@@ -127,6 +162,8 @@ class PointsDownLine(PlotLine):
 
         if cumulate:
             self.cumulate_point_totals(point_margin_map)
+
+        import form_nba_chart_json_data_season_game_loader as loader
 
         self.clean_point_margin_map_end_points(point_margin_map)
 
