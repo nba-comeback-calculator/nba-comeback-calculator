@@ -27,8 +27,8 @@ How To Form The Trend Lines
 ===========================
 
 Usually, the best model is a line.  However, our data is not linear with respect to
-probability.  For example, look at the points down at the half plot for the last 8
-years when plotted on a linear y axis:
+probability.  For example, look at the points down at the half when plotted on a linear
+y axis:
 
 .. raw:: html
 
@@ -87,9 +87,9 @@ the :math:`\beta_0` and :math:`\beta_1` we use standard maximum likelihood estim
 to, say, linear regression) .
 
 The major question is whether to use logit or probit.  And the answer is probit because
-the inverse CDF function does a better job of linearizing our data, meaning it is
-more likely to be the correct underlying model.  Looking at the tail using the two
-methods we get:
+the inverse CDF function does a better job of linearizing our data, meaning it is more
+likely to be the correct underlying model.  Looking at the tail using the two methods
+we get:
 
 .. image:: probit_v_logit.png
    :scale: 33%
