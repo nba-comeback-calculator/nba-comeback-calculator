@@ -124,7 +124,7 @@ For any of the first 3 plots, you can hover over either:
    NBA.com and view the play-by-play report.
    
 2. The trend line data points -- this shows you the "best" Win % chance for this
-   point deficit since the trend line filters out most of the statistical noise.
+   point deficit since the trend line filters out much of the statistical noise.
    
 You can also zoom in or even go full screen to make it easier to hover over a point of
 interest.
