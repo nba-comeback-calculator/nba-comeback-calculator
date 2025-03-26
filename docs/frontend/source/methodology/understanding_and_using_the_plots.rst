@@ -17,8 +17,8 @@ plot types used in this project:
 Max Points Down Or More
 =======================
 
-The first, maybe most common way people talk about comebacks is like a line `taken from
-this ESPN article
+The first, maybe most common way people talk about comebacks is found in a line `taken
+from this ESPN article
 <https://www.espn.com/nba/story/_/id/39698420/no-lead-safe-nba-big-comebacks-blown-leads>`_:
 
 .. pull-quote::

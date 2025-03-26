@@ -51,33 +51,36 @@ game:
 
     <div id="plots/old_school_v_modern/max_down_or_more_48" class="nbacc-chart"></div>
 
-Adding :doc:`trend lines to the statisitical data
-</methodology/forming_the_plot_trend_lines>` and plotting it on a `normal probablity
+Adding :doc:`trend lines to the statistical data
+</methodology/forming_the_plot_trend_lines>` and plotting it on a `normal probability
 plot <https://en.wikipedia.org/wiki/Normal_probability_plot>`_, we can see a fairly
-constant shift of about 2 points to the left for the modern era. You can :ref:`interact
-with this chart <using-the-plot-controls>` and compare at different point margins, but
-to focus on a few we get:
+constant shift of about 2 points to the left for the modern era.
+
+You can :ref:`interact with this chart <using-the-plot-controls>` and hover over the
+raw data points to see which games compose a point (and compare it with a `list of
+biggest comebacks <https://en.wikipedia.org/wiki/Comeback_(sports)#NBA>`_ if so
+inclined).  To focus on a few we get:
 
 .. list-table:: Win % Increases When Comparing Modern Versus Old School Eras
    :header-rows: 1
 
-   * - Point Margin
+   * - Points Down Or More
      - 1996-2016 Win %
      - 2017-2024 Win %
      - Total Win % Increase
-   * - -30
+   * - 30
      -  0.15 %
      -  0.42 %
      - 2.8x (180% increase)
-   * - -20
+   * - 20
      - 2.89 %
      - 5.31 %
      - 1.83x (80% increase)
-   * - -18
+   * - 18
      - 4.88 %
      - 7.93 %
      - 1.59x (60% increase)
-   * - -15
+   * - 15
      -  9.22 %
      - 12.82 %
      - 1.39x (39% increase)
@@ -85,8 +88,9 @@ to focus on a few we get:
 So while coming back from down 30 or more happens 2.8 times more than in the past, it's
 still very unlikely. In fact, you need to move over a little less than one
 three-pointer to get about the same chance: in the old school era, if you were down -27
-or more there was about a 0.48% chance of winning.  And being down 20 has just about
-the same chance of winning as being down 18 back the day (``~5.0%``).
+or more there was about a ``0.48%`` chance of winning.  And being down 20 or more now
+has just about the same chance of winning as being down 18 or more back the day
+(``~5.0%``).
 
 .. green-box::
 
@@ -183,7 +187,7 @@ In a certain sense, the fact the teams can score more quickly does not automatic
 lead to the conclusion that big comebacks should be more probable: I mean, if you are
 down and can score quick, so can your opponent and keep you down.
 
-So a related question is: are there simply more games with large deficits. Plotting the
+So a related question is: are there simply more games with large deficits? Plotting the
 occurrence rate between the eras we see:
 
 .. raw:: html

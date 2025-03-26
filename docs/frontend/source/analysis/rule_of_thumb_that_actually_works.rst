@@ -10,14 +10,15 @@ A Rule Of Thumb That Actually Works If Your Thumb Is Good At Math
 
 A Rule Of Thumb
 ===============
-:doc:`What started all of this </methodology/about>`` is, I had this rule of thumb
-about whether my team's lead was "safe":
+:doc:`What started all of this </methodology/about>` is, I had this rule of thumb about
+whether my team's lead was "safe":
 
 * 2 times the number of minutes remaining = pretty safe
 * 3 times the number of minutes remaining = very safe
 
-And I wanted to see how well it held up against real data:  So now, after much effort,
-we can plot the :ref:`percent point plots <ref-two>` like this one:
+And I wanted to see how well it held up against real data. So now, after some effort,
+we can plot the :ref:`percent point plots
+<percent-chance-of-winning-time-v-points-down>` like this one:
 
 .. raw:: html
 
@@ -31,8 +32,8 @@ And then plot those 2x and 3x guides on top of it and we get:
 
 So, in short, a very bad rule of thumb.
 
-So I was delighted `to have stumbled on this explanation
-<https://messymatters.com/moneyball/>`_:
+So -- in googling about to see if someone had a better one -- I was delighted `to have
+stumbled on this explanation <https://messymatters.com/moneyball/>`_:
 
 .. pull-quote::
 
@@ -41,9 +42,9 @@ So I was delighted `to have stumbled on this explanation
 
 
 This turns out to be very close, no matter the era you look at.  In fact, leveraging
-the :ref:`observation that win probabilities versus point deficit are normally
-distributed <ref-area>`, we can actually come up with the multiplier for any given win
-probability:
+the :doc:`observation that win probabilities versus point deficit are normally
+distributed </methodology/forming_the_plot_trend_lines>`, we can actually come up with
+the multiplier for any given win probability:
 
 .. math::
  
@@ -52,8 +53,9 @@ probability:
 
 Where :math:`\Phi^{-1}` is the inverse of the standard normal cumulative distribution
 function and the ``2.49`` constant is when you look at all data from 1996 to now (if
-you change the conditions, that number changes, usually slightly).  This leads to the
-following chart:
+you change the conditions, that number changes, usually slightly :ref:`as explained
+below<best-fit-guides>`).  This allows us to expand this rule for the (more
+interesting) 5% and close to snow ball in hell chance of 1%:
 
 .. list-table::
     :header-rows: 1 
@@ -74,8 +76,8 @@ Looking at all the years from 1996 to 2024 we get:
 
     <div id="thumb/nbacc_points_versus_time_with_guides_all_eras" class="nbacc-chart"></div>
 
-Which you can see holds up very nicely.  (In fact, even later, found `which is another
-example of the square root rule
+Which you can see holds up very nicely.  (In fact, even later on, I stumbled upon this
+`which is another example of the square root rule
 <https://www.slate.com/articles/sports/sports_nut/2015/06/golden_state_warriors_championship_a_new_formula_for_predicting_lead_changes.html>`_
 but for the 90% probability case).
 
@@ -107,7 +109,6 @@ and 1 it's easy:
       - 6 * √1 = 6 Points
 
 
-
 .. _best-fit-guides:
 
 Best Fit Guides
@@ -122,7 +123,7 @@ for all eras you get:
     <div id="thumb/nbacc_points_versus_time_with_calculated_guides_all_eras" class="nbacc-chart"></div>
 
 Which is very close to the 2, 4, 6 times the square root of minutes remaining number,
-but fits a little better.
+but fits a little bit better.
 
 As you change conditions, the constant changes, but usually just slightly.  For
 example, if we look at just at the "old school" era (1996-2016), we get:
@@ -148,8 +149,10 @@ Which is this plot:
     <div id="thumb/nbacc_points_versus_time_with_guides_modern_era" class="nbacc-chart"></div>
 
 Showing there is a slight difference in the constants.  But the rule of thumb is still
-very close.  You can use the :doc:`calculator page </calculator/index>` to see how it
-works for any given situation and add the 'Calculated Guides' to your conditions.
-Normally, the 2, 4, 6 times the square root of minutes remaining guides are very close,
-unless the conditions are "A top 10 team playing a bottom 10 team" -- then it's very
-different.
+very close.
+
+You can use the :doc:`calculator page </calculator/index>` to see how it works for any
+given situation and add the 'Calculated Guides' to your conditions. Normally, the 2, 4,
+6 times the square root of minutes remaining guides are very close.  But for some
+conditions -- like a top 10 team playing a bottom 10 team -- then this rule of thumb
+does not hold up at all.

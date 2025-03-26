@@ -75,10 +75,26 @@ const nbacc_plotter_core = (() => {
 
         // Store the original chart data in the chart object for tooltip access
         chart.chartData = chartData;
+        
+        // Store pointMarginData in the chart object for tooltip access
+        if (chartConfig && chartConfig.pointMarginData) {
+            chart.pointMarginData = chartConfig.pointMarginData;
+        }
+        
+        // Store lineCoefficients in the chart object for tooltip access
+        if (chartConfig && chartConfig.lineCoefficients) {
+            chart.lineCoefficients = chartConfig.lineCoefficients;
+        }
 
         // Ensure the chartData is also available in chart options for another fallback path
         if (chartConfig && chartConfig.options) {
             chartConfig.options.chartData = chartData;
+            if (chartConfig.pointMarginData) {
+                chartConfig.options.pointMarginData = chartConfig.pointMarginData;
+            }
+            if (chartConfig.lineCoefficients) {
+                chartConfig.options.lineCoefficients = chartConfig.lineCoefficients;
+            }
         }
 
         // Chart creation complete with all required properties set

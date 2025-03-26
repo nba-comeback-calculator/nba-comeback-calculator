@@ -509,12 +509,29 @@ function generateTooltipContent(
         
         if (datasetIndex % 2 === 0 && !isCalculateOccurrences) {
             // This is a regression line - show all regression data for this x-value
-            innerHtml += generateRegressionLineTooltipBody(
-                context,
-                dataset,
-                index,
-                pointMarginData || {}
-            );
+            // Make sure we have access to the chart's specific pointMarginData and lineCoefficients
+            const chartPointMarginData = context.chart.pointMarginData || 
+                                       (context.chart.options && context.chart.options.pointMarginData) || 
+                                       {};
+            
+            try {
+                // Always use nbacc_plotter_data.generateRegressionLineTooltipBody if available
+                if (typeof nbacc_plotter_data !== 'undefined' && 
+                    typeof nbacc_plotter_data.generateRegressionLineTooltipBody === 'function') {
+                    innerHtml += nbacc_plotter_data.generateRegressionLineTooltipBody(
+                        context,
+                        dataset,
+                        index,
+                        chartPointMarginData
+                    );
+                } else {
+                    // No fallback - must have the primary function available
+                    throw new Error("nbacc_plotter_data.generateRegressionLineTooltipBody function is not available");
+                }
+            } catch (error) {
+                console.error("Error generating tooltip content:", error);
+                innerHtml += `<tr><td>Error generating tooltip: ${error.message}</td></tr>`;
+            }
         } else if (dataset && dataset.type === "scatter") {
             // This is a scatter point - show game examples
             innerHtml += generateScatterPointTooltipBody(
