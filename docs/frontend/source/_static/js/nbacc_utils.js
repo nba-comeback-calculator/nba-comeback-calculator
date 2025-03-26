@@ -10,6 +10,10 @@ const nbacc_utils = (() => {
     /* SET THIS FIRST */
     // Get the static directory path from chart_loader
     var staticDir = "/_static";
+    
+    // Configuration for chart loading behavior
+    // If true, all charts load immediately; if false, charts load when scrolled into viewport
+    var __LOAD_CHART_ON_PAGE_LOAD__ = true;
 
     /**
      * Reads and decompresses a gzipped JSON file from a URL or Response object
@@ -753,5 +757,6 @@ const nbacc_utils = (() => {
         renderGameExamples,
         createGameLink,
         formatGameDate,
+        __LOAD_CHART_ON_PAGE_LOAD__
     };
 })();

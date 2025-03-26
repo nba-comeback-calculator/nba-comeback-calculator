@@ -2,6 +2,16 @@
 
 **NOTE**: For calculator-specific details and usage, refer to [CALCULATOR.md](CALCULATOR.md) which describes the in-memory JSON data handling approach and calculator implementation.
 
+## Chart Loading Configuration
+
+The chart loading behavior can be configured with a top-level variable:
+
+- `nbacc_utils.__LOAD_CHART_ON_PAGE_LOAD__`: Controls how charts are loaded
+  - When `true` (default): All charts load immediately on page load
+  - When `false`: Charts load lazily when scrolled into viewport (better for pages with many charts)
+
+This setting is defined in `nbacc_utils.js` and used by `nbacc_chart_loader.js`.
+
 ## Calculator State Management
 
 The calculator now includes state management features:

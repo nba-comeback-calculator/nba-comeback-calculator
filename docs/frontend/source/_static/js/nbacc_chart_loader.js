@@ -305,21 +305,51 @@ function checkChartsInViewport() {
     });
 }
 
+// Function to load all charts immediately
+function loadAllCharts() {
+    const chartDivs = document.querySelectorAll("div.nbacc-chart");
+    
+    if (chartDivs.length === 0) {
+        console.log("No chart divs found with class 'nbacc-chart'");
+    }
+    
+    chartDivs.forEach((div) => {
+        const divId = div.id;
+        
+        if (!divId) {
+            console.warn("Found chart div without ID - skipping");
+            return;
+        }
+        
+        // Skip if this chart has already been loaded
+        if (loadedCharts.has(divId)) return;
+        
+        // Load chart immediately
+        loadAndPlotChart(div);
+    });
+}
+
 // Set up the scroll event listener
 document.addEventListener("DOMContentLoaded", () => {
-    // Initial check for charts in viewport
-    checkChartsInViewport();
+    // Check loading configuration from nbacc_utils
+    if (nbacc_utils.__LOAD_CHART_ON_PAGE_LOAD__) {
+        // Load all charts immediately
+        loadAllCharts();
+    } else {
+        // Initial check for charts in viewport only
+        checkChartsInViewport();
+        
+        // Check for charts when scrolling
+        window.addEventListener("scroll", () => {
+            // Debounce the scroll event to improve performance
+            if (window.scrollTimeout) {
+                clearTimeout(window.scrollTimeout);
+            }
+            window.scrollTimeout = setTimeout(checkChartsInViewport, 100);
+        });
+    }
 
-    // Check for charts when scrolling
-    window.addEventListener("scroll", () => {
-        // Debounce the scroll event to improve performance
-        if (window.scrollTimeout) {
-            clearTimeout(window.scrollTimeout);
-        }
-        window.scrollTimeout = setTimeout(checkChartsInViewport, 100);
-    });
-
-    // Also check when window is resized
+    // Always check when window is resized
     window.addEventListener("resize", () => {
         if (window.resizeTimeout) {
             clearTimeout(window.resizeTimeout);

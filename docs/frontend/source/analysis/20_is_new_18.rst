@@ -174,20 +174,36 @@ characterization.
 Occurrence Frequencies
 ======================
 
-Another question is: are they more games with big comebacks than there used to be. 
-Here, we mean the number of games when a team is down N or more points divided by the
-numbers of total games in that set.  Looking at both the entire game and biggest 2nd
-meltdowns we get:
+In a certain sense, the fact the teams can score more quickly does not automatically
+lead to the conclusion that big comebacks should be more probable: I mean, if you are
+down and can score quick, so can your opponent and keep you down.
+
+So a related question is: are there simply more games with large deficits. Plotting the
+occurence rate between the eras we see:
 
 .. raw:: html
 
     <div id="plots/old_school_v_modern/occurs_down_or_more_48" class="nbacc-chart"></div>
 
+Now, teams fall down 30 points or more ``12.09%`` of the time now as compared to
+``7.61`` percent in the past, a notable 1.59x increase (or about 59% more frequently).
+
+
+.. _what-would-be-dramatic:
+
+What *Would* Be Dramatic
+========================
+
+Just to get a sense of what an 8 point shift looks like, if we look at top 10 teams
+(out of 30) vs. bottom 10 team we get:
+
 .. raw:: html
 
-    <div id="plots/old_school_v_modern/occurs_down_or_more_12" class="nbacc-chart"></div>
+    <div id="20_18/dramatic" class="nbacc-chart"></div>
 
-
+Here, the chance of top ten team playing a bottom 10 team coming back from a
+20-points-or-more deficit (``20.39%``) is about the same for the average team coming
+back from 12 or more down.
 
 .. _deciding-on-eras-breakdown:
 
