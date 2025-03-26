@@ -55,7 +55,7 @@ Where :math:`\Phi^{-1}` is the inverse of the standard normal cumulative distrib
 function and the ``2.49`` constant is when you look at all data from 1996 to now (if
 you change the conditions, that number changes, usually slightly :ref:`as explained
 below<best-fit-guides>`).  This allows us to expand this rule for the (more
-interesting) 5% and close to snow ball in hell chance of 1%:
+interesting) 5% and close to snowball's chance in hell of 1%:
 
 .. list-table::
     :header-rows: 1 
@@ -103,7 +103,7 @@ and 1 it's easy:
       - 2 * √4 = 4 Points
       - 4 * √4 = 8 Points
       - 6 * √4 = 12 Points
-    * - 1 Minutes
+    * - 1 Minute
       - 2 * √1 = 2 Points
       - 4 * √1 = 4 Points
       - 6 * √1 = 6 Points
@@ -149,10 +149,10 @@ Which is this plot:
     <div id="thumb/nbacc_points_versus_time_with_guides_modern_era" class="nbacc-chart"></div>
 
 Showing there is a slight difference in the constants.  But the rule of thumb is still
-very close.
+very close to accurate.
 
 You can use the :doc:`calculator page </calculator/index>` to see how it works for any
 given situation and add the 'Calculated Guides' to your conditions. Normally, the 2, 4,
-6 times the square root of minutes remaining guides are very close.  But for some
+6 times the square root of minutes remaining guides are very close to optimal.  But for some
 conditions -- like a top 10 team playing a bottom 10 team -- then this rule of thumb
 does not hold up at all.

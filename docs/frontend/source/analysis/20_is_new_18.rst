@@ -26,7 +26,7 @@ victories in a single season since 1996-97 and continues with analysis by Steve 
 But is this true? In short ... not really.
 
 :ref:`To frame this, I decided to break up the available play-by-play
-data<deciding-on-eras-breakdown>` into:
+data <deciding-on-eras-breakdown>` into:
 
 * 1996-97 to 2016-17 (old-school) versus:
 * 2017-18 to 2024-25 (modern)
@@ -43,7 +43,7 @@ bucket.
 Win Percentages When Max Deficit is N *Or More* Points
 ======================================================
 
-:ref:`A very common way of looking looking at comebacks<max-points-down-or-more>` is
+:ref:`A very common way of looking at comebacks <max-points-down-or-more>` is
 calculating the % chance of coming back from down N point *or more* over an entire game
 we get:
 
@@ -52,7 +52,7 @@ we get:
     <div id="plots/old_school_v_modern/max_down_or_more_48" class="nbacc-chart"></div>
 
 You can :ref:`interact with this chart <using-the-plot-controls>` and click on either
-the scatter points (actual game data) or the trend line points (a statistcal model fit
+the scatter points (actual game data) or the trend line points (a statistical model fit
 used to filter out noise) and compare at different point margins.  To focus on a few we
 get:
 
@@ -130,7 +130,7 @@ down -33, -32, -31, -30 or -29 at the half.
 Now, the divide here is a little larger: being down -20 in the modern era is about the
 same as being done 16.5 points in the old school era (3.5 point shift).
 
-But as time decreases it tigthens up -- looking at starting the 4th quarter we have
+But as time decreases it tightens up -- looking at starting the 4th quarter we have
 being 20 points down (``0.17%``) being about the same as 17.8 points down new to old:
 
 .. raw:: html
@@ -167,7 +167,7 @@ And doing it for 1% we get:
     <div id="plots/old_school_v_modern/percent_plot_1_percent" class="nbacc-chart"></div>
 
 The point spread changes over time, but between 2 - 3 points is a fairly good
-charaterization.
+characterization.
 
 
 .. _occurrence-frequencies:

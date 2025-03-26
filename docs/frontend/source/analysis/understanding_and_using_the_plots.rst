@@ -95,7 +95,7 @@ Now, it's a little inconvenient to have to look at a different chart for every p
 time. So what you can further do is, behind the scenes:
 
 1. Pick a percent chance you want to focus on, say 20% or 1%.
-2. Calculate a `points down at time`_ for every minute and invert the :doc:`trend lines
+2. Calculate a `Points Down At Time`_ for every minute and invert the :doc:`trend lines
    </analysis/forming_the_plot_trend_lines>` to figure out what point deficit matches
    your percentage. By using the trend line we filter out the statistical noise and get
    the most accurate point deficit for our given probability.
@@ -125,7 +125,7 @@ For the plots you can hover over and then click on either:
    
 2. The trend line data points -- this shows you the "best" Win % chance for this
    point deficit :doc:`since the trend line filters out much of the statistical
-   noise</analysis/forming_the_plot_trend_lines>`.
+   noise </analysis/forming_the_plot_trend_lines>`.
    
 You can also zoom in or even go full screen to make it easier to hover over a point of
 interest and if you want, save your current plot as an image.
@@ -154,9 +154,9 @@ This is a little unintuitive, because you might think it should be:
 
 
 For many cases, this is the same thing. Consider, however, the Win % for the case where
-the score is tied at halftime. Let's say there are 1,000 such games in your set. Well,
+the score is tied at halftime. Let us say there are 1,000 such games in your set. Well,
 there are 1,000 wins and 1,000 losses in these cases, so if you used the second formula
-you would get a Win % = 100%, which is clearly not right.
+you would get a Win % = 50%, which is correct.
 
 The same thing happens with the Max Down Or More plots, where some of the same games
 are both wins and losses, so we use the first formula which matches with how the

@@ -87,8 +87,8 @@ the :math:`\beta_0` and :math:`\beta_1` we use standard maximum likelihood estim
 to, say, linear regression) .
 
 The major question is whether to use logit or probit.  And the answer is probit because
-the the inverse CDF function does a better job of linearizing our data, meaning it is
-more likely to be the correct underlying model.  Looking at the tail using the the two
+the inverse CDF function does a better job of linearizing our data, meaning it is
+more likely to be the correct underlying model.  Looking at the tail using the two
 methods we get:
 
 .. image:: probit_v_logit.png
@@ -113,13 +113,3 @@ And using logit logistical regression we get:
 
 Getting a poor fit in the tail region, especially bad because the low probability
 events are the ones with which we are most concerned.
-
-
-
-
-
-
-
-
-
-
