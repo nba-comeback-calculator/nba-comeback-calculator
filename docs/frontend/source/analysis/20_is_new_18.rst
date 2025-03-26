@@ -26,7 +26,7 @@ victories in a single season since 1996-97 and continues with analysis by Steve 
 But is this true? In short ... not really.
 
 :ref:`To frame this, I decided to break up the available play-by-play
-data<deciding-on-eras-breakdown>`into:
+data<deciding-on-eras-breakdown>` into:
 
 * 1996-97 to 2016-17 (old-school) versus:
 * 2017-18 to 2024-25 (modern)
@@ -43,16 +43,20 @@ bucket.
 Win Percentages When Max Deficit is N *Or More* Points
 ======================================================
 
-:ref:`A very common way of looking looking at comebacks<max-points-down-or-more>` is
-calculating the % chance of coming back from down N point *or more* over an entire game
-we get:
+:ref:`A very common way of looking at comebacks<max-points-down-or-more>` is
+calculating the % chance of coming back from down N points *or more* over an entire
+game:
 
 .. raw:: html
 
     <div id="plots/old_school_v_modern/max_down_or_more_48" class="nbacc-chart"></div>
 
-You can :ref:`interact with this chart <using-the-plot-controls>` and compare at
-different point margins, but to focus on a few we get:
+Adding :doc:`trend lines to the statisitical data
+</methodology/forming_the_plot_trend_lines>` and plotting it on a `normal probablity
+plot <https://en.wikipedia.org/wiki/Normal_probability_plot>`_, we can see a fairly
+constant shift of about 2 points to the left for the modern era. You can :ref:`interact
+with this chart <using-the-plot-controls>` and compare at different point margins, but
+to focus on a few we get:
 
 .. list-table:: Win % Increases When Comparing Modern Versus Old School Eras
    :header-rows: 1
@@ -81,7 +85,8 @@ different point margins, but to focus on a few we get:
 So while coming back from down 30 or more happens 2.8 times more than in the past, it's
 still very unlikely. In fact, you need to move over a little less than one
 three-pointer to get about the same chance: in the old school era, if you were down -27
-or more there was about a 0.48% chance of winning.
+or more there was about a 0.48% chance of winning.  And being down 20 is just about the
+same chance as being down 18 back the day (``~5.0%``).
 
 .. green-box::
 
@@ -179,7 +184,7 @@ lead to the conclusion that big comebacks should be more probable: I mean, if yo
 down and can score quick, so can your opponent and keep you down.
 
 So a related question is: are there simply more games with large deficits. Plotting the
-occurence rate between the eras we see:
+occurrence rate between the eras we see:
 
 .. raw:: html
 
@@ -220,7 +225,7 @@ If you:
   chunks of 2017-2020 v 2021-2024 </plots/new_school_v_new_new_school>` you again see
   very little difference.
 
-So -- always wanting as many games as possible to reduce the statisitical noise -- I
+So -- always wanting as many games as possible to reduce the statistical noise -- I
 felt that was the fairest breakdown: :doc:`1996-2016 v
 2017-2024</plots/old_school_v_modern>`.
 
