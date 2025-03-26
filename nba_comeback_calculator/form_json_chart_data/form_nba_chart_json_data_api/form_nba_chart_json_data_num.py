@@ -101,11 +101,17 @@ class Num:
     @staticmethod
     def CDF(x):
         """Compute normal CDF."""
+        # from scipy.special import expit
+
+        # return expit(x)
         return Num.norm.cdf(x)
 
     @staticmethod
     def PPF(x):
         """Compute normal PPF."""
+        # from scipy.special import logit
+
+        # return logit(x)
         return Num.norm.ppf(x)
 
     @staticmethod
@@ -228,7 +234,7 @@ class Num:
         if model == "logit":
             prob = expit(z)
         elif model == "probit":
-            prob = Num.norm.cdf(z)
+            prob = Num.CDF(z)
         else:
             raise NotImplementedError
 

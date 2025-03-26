@@ -6,6 +6,10 @@ Forming the Plot Trend Lines
 
 `transform2 <https://online.stat.psu.edu/stat501/book/export/html/956>`_
 
+.. raw:: html
+
+    <div id="trend/nbacc_max_or_more_48_logit" class="nbacc-chart"></div>
+
 
 .. _normal-probability-plots:
 

@@ -7,7 +7,7 @@ Methodology
    :maxdepth: 1
 
    understanding_and_using_the_plots
-   how_trend_lines_were_formed
+   forming_the_plot_trend_lines
    using_claude_code
    about
 

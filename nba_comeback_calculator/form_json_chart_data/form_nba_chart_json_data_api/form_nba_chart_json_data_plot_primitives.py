@@ -122,51 +122,6 @@ class PointsDownLine(PlotLine):
         x = [(x, y.odds[0])[0] for x, y in sorted(point_margin_map.items())]
         y = [(x, y.odds[0])[1] for x, y in sorted(point_margin_map.items())]
 
-        import pylab
-
-        from scipy.stats import norm
-        from numpy import log
-        import numpy as np
-
-        x = np.array(x)
-        y = np.array(y)
-        from scipy.special import logit, expit
-
-        x = x[19:45]
-        y = y[19:45]
-        yy = 0.63 * logit(np.clip(y, 1e-10, 1 - 1e-10))
-        yyy = norm().ppf(y)
-        # Perform linear regression on the data
-        from scipy.stats import linregress
-
-        result = linregress(x, yy)
-        m0, b0, r_value, p_value, std_err = result
-        print(r_value**2)
-        result = linregress(x, yyy)
-        m1, b1, r_value, p_value, std_err = result
-        print(r_value**2)
-        fig, (ax1, ax2) = pylab.subplots(1, 2, figsize=(12, 5))
-
-        # Left subplot - logit transformation
-        ax1.plot(x, yy, "g-o", alpha=0.5, markersize=4, linewidth=4)
-        ax1.plot(x, x * m0 + b0, "g", alpha=0.5, linewidth=4)
-        ax1.set_xlabel("Point Margin")
-        ax1.set_ylabel("Logit Transform -- R2 Value: " + str(r_value**2))
-        ax1.grid()
-
-        # Right subplot - norm.ppf transformation
-        ax2.plot(x, yyy, "r-o", alpha=0.5, markersize=4, linewidth=4)
-        ax2.plot(x, x * m1 + b1, "r", alpha=0.5, linewidth=4)
-        ax2.set_xlabel("Point Margin")
-        ax2.set_ylabel("Norm PPF Transform -- R2 Value: " + str(r_value**2))
-        ax2.grid()
-
-        fig.tight_layout()
-        pylab.xlabel("Point Margin")
-        pylab.ylabel("Win % Chance")
-        pylab.show()
-        exit()
-
         all_game_ids = self.get_all_game_ids()
         self.number_of_games = len(all_game_ids)
         if self.legend:
