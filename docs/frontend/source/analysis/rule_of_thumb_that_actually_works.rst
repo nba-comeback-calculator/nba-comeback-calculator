@@ -24,7 +24,7 @@ we can plot the :ref:`percent point plots
 
     <div id="thumb/nbacc_points_versus_time_all_eras" class="nbacc-chart"></div>
   
-And then plot those 2x and 3x guides on top of it and we get:
+And then we can plot those 2x and 3x guides on top of it and we get:
 
 .. raw:: html
 
@@ -153,6 +153,6 @@ very close to accurate.
 
 You can use the :doc:`calculator page </calculator/index>` to see how it works for any
 given situation and add the 'Calculated Guides' to your conditions. Normally, the 2, 4,
-6 times the square root of minutes remaining guides are very close to optimal. But for some
-conditions -- like a top 10 team playing a bottom 10 team -- this rule of thumb
+6 times the square root of minutes remaining guides are very close to optimal. But for
+some conditions -- like a top 10 team playing a bottom 10 team -- this rule of thumb
 does not hold up at all.
