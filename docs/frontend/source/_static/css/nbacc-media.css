@@ -104,29 +104,23 @@
         margin-right: 3px;
     }
     
-    /* Completely redesign season checkboxes for mobile */
-    .season-checkboxes {
-        gap: 8px;
-        flex-wrap: wrap;
+    /* Season type selector for mobile */
+    .season-type-select {
+        font-size: 10px !important;
     }
     
-    .season-checkbox-container {
-        height: 28px;
-        line-height: 28px;
-        padding: 0 5px;
-        width: auto !important;
-        min-width: auto !important;
-        flex: 0 0 auto;
-    }
-    
-    .season-checkbox-container:first-child,
-    .season-checkbox-container:nth-child(2) {
-        width: auto !important;
-        padding-right: 8px;
-    }
-    
-    .season-checkbox-container label {
-        font-size: 10px;
+    /* Use shorter text for Regular Season on mobile */
+    @media screen and (max-width: 480px) {
+        .season-type-select option[value="regular"] {
+            text-indent: -9999px;
+            line-height: 0;
+        }
+        .season-type-select option[value="regular"]::after {
+            content: "Reg. Season";
+            text-indent: 0;
+            display: block;
+            line-height: initial;
+        }
     }
     
     /* Optimize year groups and filter layouts */

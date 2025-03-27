@@ -441,8 +441,21 @@ const nbacc_calculator_ui = (() => {
                     const element = yearGroupElements[index];
                     element.querySelector('.min-year-select').value = group.minYear;
                     element.querySelector('.max-year-select').value = group.maxYear;
-                    element.querySelector('.regular-season-check').checked = group.regularSeason;
-                    element.querySelector('.playoffs-check').checked = group.playoffs;
+                    
+                    // Set the season type dropdown based on regularSeason and playoffs values
+                    const seasonTypeSelect = element.querySelector('.season-type-select');
+                    if (seasonTypeSelect) {
+                        if (group.regularSeason && group.playoffs) {
+                            seasonTypeSelect.value = 'all';
+                        } else if (group.regularSeason) {
+                            seasonTypeSelect.value = 'regular';
+                        } else if (group.playoffs) {
+                            seasonTypeSelect.value = 'playoffs';
+                        } else {
+                            // Default to all if somehow both are false
+                            seasonTypeSelect.value = 'all';
+                        }
+                    }
                 }
             });
         } else {
@@ -801,22 +814,17 @@ const nbacc_calculator_ui = (() => {
                         </select>
                     </div>
                     <div class="form-group season-type-group">
-                        <div class="season-checkboxes">
-                            <div class="season-checkbox-container">
-                                <input type="checkbox" id="${yearGroupId}-regular" class="season-checkbox regular-season-check" checked>
-                                <label for="${yearGroupId}-regular">Reg.</label>
-                            </div>
-                            <div class="season-checkbox-container">
-                                <input type="checkbox" id="${yearGroupId}-playoffs" class="season-checkbox playoffs-check" checked>
-                                <label for="${yearGroupId}-playoffs">Playoffs</label>
-                            </div>
-                            ${
-                                !isFirstGroup
-                                    ? '<div class="remove-button-container"><button class="btn btn-danger remove-year-group trash-icon-btn" title="Remove"><i class="trash-icon"></i></button></div>'
-                                    : ""
-                            }
-                        </div>
+                        <select id="${yearGroupId}-season-type" class="form-control season-type-select">
+                            <option value="all" selected>All Games</option>
+                            <option value="regular">Regular Season</option>
+                            <option value="playoffs">Playoffs</option>
+                        </select>
                     </div>
+                    ${
+                        !isFirstGroup
+                            ? '<div class="form-group remove-button-container"><button class="btn btn-danger remove-year-group trash-icon-btn" title="Remove"><i class="trash-icon"></i></button></div>'
+                            : ""
+                    }
                 </div>
             </div>
         `;
@@ -1015,14 +1023,31 @@ const nbacc_calculator_ui = (() => {
                 let minYear = parseInt(minYearSelect.value, 10);
                 let maxYear = parseInt(maxYearSelect.value, 10);
 
+                // Get the season type from the dropdown
+                const seasonTypeSelect = group.querySelector(".season-type-select");
+                const seasonType = seasonTypeSelect ? seasonTypeSelect.value : "all";
+                
+                // Set regularSeason and playoffs based on dropdown selection
+                let regularSeason = true;
+                let playoffs = true;
+                
+                if (seasonType === "regular") {
+                    regularSeason = true;
+                    playoffs = false;
+                } else if (seasonType === "playoffs") {
+                    regularSeason = false;
+                    playoffs = true;
+                } // else "all" - both true by default
+                
+                // Create label based on selection
                 let label;
-                if (regularSeasonCheck.checked && playoffsCheck.checked) {
+                if (regularSeason && playoffs) {
                     // Both regular season and playoffs selected
                     label = `${minYear}-${maxYear}`;
-                } else if (regularSeasonCheck.checked) {
+                } else if (regularSeason) {
                     // Only regular season
                     label = `R${minYear}-${maxYear}`;
-                } else if (playoffsCheck.checked) {
+                } else if (playoffs) {
                     // Only playoffs
                     label = `P${minYear}-${maxYear}`;
                 } else {
@@ -1034,8 +1059,8 @@ const nbacc_calculator_ui = (() => {
                     minYear: minYear,
                     maxYear: maxYear,
                     label: label,
-                    regularSeason: regularSeasonCheck.checked,
-                    playoffs: playoffsCheck.checked,
+                    regularSeason: regularSeason,
+                    playoffs: playoffs,
                 });
             }
         });
