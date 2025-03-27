@@ -41,7 +41,7 @@ const nbacc_plotter_core = (() => {
             background-image: url("${nbacc_utils.staticDir}/save_disk_drive_icon.svg");
         }
         .trash-icon {
-            background-image: url("${nbacc_utils.staticDir}/trash_can_icon.svg");
+            background-image: url("${nbacc_utils.staticDir}/trash_can_light.svg");
             display: inline-block;
             width: 18px;
             height: 18px;
