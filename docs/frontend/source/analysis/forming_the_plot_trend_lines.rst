@@ -38,7 +38,7 @@ As is, this is not very useful, as all the events we care about are smooshed dow
 together at the bottom of the y-axis.
 
 What we can do, however, is find a function which will convert our non-linear data to a
-linear domain.  For example, often people will use the :math:`ln` function `when
+linear domain. For example, people often use the :math:`ln` function `when
 dealing with exponential data
 <https://leancrew.com/all-this/2020/03/exponential-growth-and-log-scales/>`_.
 

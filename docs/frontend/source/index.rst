@@ -1,6 +1,6 @@
 
 *********************** 
-nba comeback calculator 
+NBA Comeback Calculator 
 ***********************
 
 .. toctree::
@@ -19,13 +19,13 @@ nba comeback calculator
 
 :doc:`Looking to answer a long-held question </analysis/about>`, I downloaded all games
 from when play-by-play data was available (from the 1996-1997 season to now) and looked
-at the percentage of times games were won versus varying conditions.
+at the percentage of times games were won under varying conditions.
 
 * :doc:`./analysis/index`: Looks at some trends in the data and tries to answer "Are
   big comebacks just much more common nowadays?" and other questions and a few notes on
   how this project was put together.
 
-* :doc:`./plots/index`: Provides an auto generated scrollable webpage of many different
+* :doc:`./plots/index`: Provides an auto-generated scrollable webpage of many different
   comeback plots (including ones for our Minnesota Timberwolves!).
 
 * :doc:`./calculator/index`: Provides a configurable plotting tool so you can slice and

@@ -9,7 +9,7 @@ Are Big Leads No Longer Safe?
 
 There's a sense that, in recent times, teams are busting out of big holes more often
 than ever. Just as `Kevin Pelton and Baxter Holmes noted in 2019
-<https://www.espn.com/nba/story/_/id/26725776/this-season-massive-comeback-nba>`_ , in
+<https://www.espn.com/nba/story/_/id/26725776/this-season-massive-comeback-nba>`_, in
 `'20 is the old 12': Why no lead is safe in the NBA anymore
 <https://www.espn.com/nba/story/_/id/39698420/no-lead-safe-nba-big-comebacks-blown-leads>`_
 ESPN reporter Andrew Lopez explains that 2023-24 has already seen the most 20-point
@@ -28,7 +28,7 @@ But is this true? In short ... not really.
 :ref:`To frame this, I decided to break up the available play-by-play data
 <deciding-on-eras-breakdown>` into:
 
-* 1996-97 to 2016-17 (old-school) versus:
+* 1996-97 to 2016-17 (old-school) versus
 * 2017-18 to 2024-25 (modern)
 
 So while there's about 1.8x times as many 20 points-or-more comebacks comparing the
@@ -194,8 +194,8 @@ occurrence rate between the eras we see:
 
     <div id="plots/old_school_v_modern/occurs_down_or_more_48" class="nbacc-chart"></div>
 
-Now, teams fall down 30 points or more ``12.09%`` of the time now as compared to
-``7.61`` percent in the past, a notable 1.59x increase (or about 59% more frequently).
+Now, teams fall down 30 points or more ``12.09%`` of the time compared to
+``7.61%`` in the past, a notable 1.59x increase (or about 59% more frequently).
 
 
 .. _what-would-be-dramatic:

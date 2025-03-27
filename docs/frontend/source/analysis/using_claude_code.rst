@@ -19,7 +19,7 @@ Using Claude Code for Development
 =================================
 
 Like most devs these days, I've been aware of AI for some time. Probably also like most
-devs I've never used it for anything large scale. We are allowed to use AI at work,
+devs, I've never used it for anything large scale. We are allowed to use AI at work,
 just not with any of our codebase or any company data -- so basically, not much to work
 with. So I've had my time kicking Copilot around the block a bit, but always for fairly
 small things, functions that do specific scientific or statistical functions that you
@@ -130,10 +130,10 @@ Some Initial Thoughts and Observations
   the charm.
 
 * `Watch Out For Needless Error Handling`_: Often, Claude inserts needless
-  error handling / fallback implementation behavior that creates more subtle, harder to
-  track down bugs.
+  error handling / fallback implementation behavior that creates more subtle, harder-to-
+  track-down bugs.
 
-* `Using The Devil You Know`_: Writing code in your goto language and having Claude
+* `Using The Devil You Know`_: Writing code in your go-to language and having Claude
   translate your complex logic into other domains you don't know as well works well.
 
 * `The More You Use It, The More Ways You See How You Can Use It`_: So many places
@@ -202,10 +202,10 @@ in this project and other supplemental .md files (like the `CALCULATOR.md
 But writing good specifications takes time and effort and, knowing that being `lazy is
 one of the 3 virtues of being a good dev <https://thethreevirtues.com/>`_, I found
 myself starting to use Claude more and more to write the CLAUDE.md file and other
-requirements.  I would just paste in text that I would be embarrassed for people to see
+requirements. I would just paste in text that I would be embarrassed for people to see
 and ask it to clean it up, read the CLAUDE.md, ask it to tweak it again, mash my hand
 against the keyboard a few more times, and then, voilà, a working spec it could then
-use to write code against.  (For example, :ref:`the spec I fed into it to do the form
+use to write code against. (For example, :ref:`the spec I fed into it to do the form
 URL encoding was barely English <url-mashup>`).
 
 .. _commit-ask-for-small-features:
@@ -621,7 +621,7 @@ One thing I noticed was, as I got more used to using Claude Code, I started to s
 I could use it in many different places.
 
 For example, I had a test.html site to test my JavaScript front end and had set up
-JavaScript and CSS CDN links. Pretty soon I was asking Claude to strip through this
+JavaScript and CSS CDN links. Pretty soon I was asking Claude to parse through this
 document and auto-update my Sphinx conf.py file I needed to build the final site.
 
 Also, I wanted a different Sphinx directive than the pylab ``.. note::`` was giving me,

@@ -30,16 +30,16 @@ from this ESPN article
     the-other-team-winning.
 
 
-That leads to this chart:
+This leads to this chart:
 
 .. raw:: html
 
     <div id="understand/nbacc_max_or_more_48_espn_0" class="nbacc-chart"></div>
 
-You can see the -10 point margin point lines up with his statistics exactly.
+You can see the -10 point margin point lines up with these statistics exactly.
 
 It's important to note here that every point contains all the wins and losses for the
-previous point margin. As we move from left to right, we are accumulating all the
+previous point margins. As we move from left to right, we are accumulating all the
 games. This means that a given point margin (say -10) is getting weighted down with
 all of the previous (and lower chance) probabilities, because the -10 point also
 includes the wins/losses from -11, -12, -13, ..., -20, ..., -30, and on and on.
@@ -50,11 +50,11 @@ Max Points Down
 ===============
 
 Even though this is a common way of talking about comebacks, it's a little unfair in a
-sense. For the -10 point, the odds of coming back are weighted by all the other more
+sense. For the -10 point, the odds of coming back are weighted down by all the other more
 unlikely comebacks.
 
 A somewhat more fair way to look at it is: the max point you are down *at most* -- that
-leads to these type of plots:
+leads to these types of plots:
 
 .. raw:: html
 
@@ -72,7 +72,7 @@ Points Down At Time
 
 But what about when you're watching a game and don't have the benefit of hindsight to
 know what your max point deficit is going to be? As a fan, the most natural way to
-think of it -- I am down this many points right now, what are the odds? In this case,
+think of it is -- I am down this many points right now, what are the odds? In this case,
 you pick a certain point in time and collect all the point margins at that time and
 determine the chance of winning, leading to plots like this:
 
@@ -115,12 +115,12 @@ deficit at that time and provide that point with game data.
 Plot Controls
 =============
 
-For the plots you can hover over and then click on either:
+For the plots, you can hover over and then click on either:
 
 1. Actual data taken from NBA games. This comes up when you click on the scatter plot
-   points.  Here you can look at the # Wins / # Games, the calculated Win %, how often
+   points. Here you can look at the # Wins / # Games, the calculated Win %, how often
    this point deficit occurs (win or lose), and a few of the games that make up this
-   point. The reported games are also hyperlinks, so if you want to go to NBA.com and
+   point. The reported games are also hyperlinks, so you can go to NBA.com and
    view the play-by-play report and media coverage if available.
    
 2. The trend line data points -- this shows you the "best" Win % chance for this

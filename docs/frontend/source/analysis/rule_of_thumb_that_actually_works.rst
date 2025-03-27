@@ -41,7 +41,7 @@ stumbled on this explanation <https://messymatters.com/moneyball/>`_:
     80% chance of winning.”
 
 
-This turns out to be very close, no matter the era you look at.  In fact, leveraging
+This turns out to be very close, no matter which era you look at. In fact, leveraging
 the :doc:`observation that win probabilities versus point deficit are normally
 distributed </analysis/forming_the_plot_trend_lines>`, we can actually come up with the
 multiplier for any given win probability:
@@ -53,8 +53,8 @@ multiplier for any given win probability:
 
 Where :math:`\Phi^{-1}` is the inverse of the standard normal cumulative distribution
 function and the ``2.49`` constant is when you look at all data from 1996 to now (if
-you change the conditions, that number changes, usually slightly :ref:`as explained
-below<best-fit-guides>`).  This allows us to expand this rule for the (more
+you change the conditions, that number changes, usually slightly, :ref:`as explained
+below<best-fit-guides>`). This allows us to expand this rule for the (more
 interesting) 5% and close to snowball's chance in hell of 1%:
 
 .. list-table::
