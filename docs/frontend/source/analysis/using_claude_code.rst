@@ -578,7 +578,7 @@ For example it created this code:
         times.push(t);
     }
 
-when the equivalent Python code was ```range(start_time, stop_time, -1)``.  This is off
+when the equivalent Python code was ``range(start_time, stop_time, -1)``.  This is off
 by 1, leading to t being 0 in the javascript case, creating a really hard to pin down
 bug.
 
