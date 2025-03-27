@@ -120,11 +120,11 @@
         flex-wrap: wrap;
     }
     
-    /* Make remove buttons more compact and move to end */
+    /* Make remove buttons more compact and narrower on mobile */
     .btn.btn-danger.remove-game-filter,
     .btn.btn-danger.remove-year-group {
         height: 28px !important;
-        width: 28px !important;
+        width: 20px !important;
         padding: 0 !important;
         display: flex !important;
         align-items: center !important;
