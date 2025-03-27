@@ -580,3 +580,9 @@ About the cost ....
 Yes, Claude code is *a lot* more expensive than, say, Cursor, I am into this 
 well over $100 USD right now.  But still, cheap in the scheme when you think of what 
 it does for you and how much time you saved. 
+
+
+> Great.  Now, on mobile, the calulator form is a little crowded, -- on mobile do you think you can come up with a
+  strategy to make it a little cleaner.  For example, on a computer, we have one line per season filter or game
+  filter.  However, on mobile the lines get wrapped and sort of get ugly.  Can you maybe lower font size or think of
+   some other way to reduce it on mobile and get the calculator form to fit better?

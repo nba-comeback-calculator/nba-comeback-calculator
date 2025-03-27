@@ -12,6 +12,109 @@
     }
 }
 
+/* Calculator mobile optimizations */
+@media only screen and (max-width: 768px) {
+    /* Reduce font sizes for better spacing */
+    .calculator-ui {
+        padding: 10px;
+    }
+    
+    .calculator-ui h2 {
+        font-size: 20px;
+    }
+    
+    .calculator-ui h3 {
+        font-size: 14px;
+    }
+    
+    /* Reduce sizes of form elements */
+    .form-control, 
+    select,
+    .dropdown-check-list .anchor,
+    .year-select,
+    .min-year-select, 
+    .max-year-select {
+        font-size: 11px !important;
+        padding: 4px 8px !important;
+        height: 30px !important;
+        min-height: 30px !important;
+    }
+    
+    /* Make filter labels smaller and more compact */
+    .filter-label {
+        font-size: 11px;
+        padding: 0 4px;
+        height: 30px;
+        line-height: 30px;
+    }
+    
+    /* Adjust form group spacing */
+    .form-group.inline-form label {
+        font-size: 11px;
+        min-width: 45px;
+    }
+    
+    /* Make season checkboxes more compact */
+    .season-checkbox-container {
+        height: 30px;
+        line-height: 30px;
+        padding: 0 5px 0 8px;
+    }
+    
+    .season-checkbox-container:first-child {
+        width: 140px;
+        padding-right: 20px;
+    }
+    
+    .season-checkbox-container:nth-child(2) {
+        width: 100px;
+        padding-right: 20px;
+    }
+    
+    .season-checkbox-container label {
+        font-size: 11px;
+    }
+    
+    /* Optimize year groups and filter layouts */
+    .single-line-filter {
+        gap: 5px;
+        min-height: 30px;
+    }
+    
+    /* Adjust column widths for filters */
+    .col-filter-combined {
+        flex: 0 0 110px;
+        min-width: 110px;
+        width: 110px;
+    }
+    
+    .col-filter-location {
+        flex: 0 0 130px;
+        min-width: 130px;
+        width: 130px;
+    }
+    
+    /* Make remove buttons more compact */
+    .btn.btn-danger.remove-game-filter,
+    .btn.btn-danger.remove-year-group {
+        height: 30px !important;
+        font-size: 11px !important;
+        padding: 0 8px !important;
+    }
+    
+    /* Make "To" text smaller */
+    .year-to-text {
+        font-size: 11px;
+        margin: 0 2px;
+        line-height: 30px;
+    }
+    
+    /* Make year selects narrower */
+    .year-select {
+        width: 70px;
+    }
+}
+
 
 /* Responsive adjustments for screens*/
 @media only screen {

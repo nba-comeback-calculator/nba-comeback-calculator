@@ -739,4 +739,39 @@ optgroup[label="Teams"] option {
         width: 100%;
         justify-content: flex-end;
     }
+    
+    /* Optimized label positioning */
+    .filter-label-vs {
+        padding: 0 2px;
+    }
+    
+    /* More compact containers */
+    .year-groups-container,
+    .game-filters-container {
+        padding: 6px 8px;
+        margin-bottom: 6px;
+    }
+    
+    /* More compact buttons */
+    .year-groups-container > button,
+    .game-filters-container > button {
+        margin-top: 5px;
+        height: 30px;
+        padding: 0 8px;
+        font-size: 11px;
+        line-height: 28px;
+        min-width: 120px;
+    }
+    
+    /* More compact action buttons */
+    .form-actions {
+        gap: 8px;
+        margin-top: 10px;
+        padding-top: 8px;
+    }
+    
+    .form-actions .btn {
+        height: 34px;
+        font-size: 12px;
+    }
 }
