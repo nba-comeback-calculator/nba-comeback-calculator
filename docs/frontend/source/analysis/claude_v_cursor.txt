@@ -2,6 +2,12 @@
 Using Claude Code To Build This Calculator
 ******************************************
 
+************ GOOD LINKS ********************************
+
+**** TALK ABOUT HOW I TRIED COPILOT USING CLAUDE 3.7 and CURSOR FIRST WITH both 
+**** THE CLAUDE SONNET 3.5 and 3.7 models.  I found them not nearly as good, like 
+**** THE THREE LINKS BELOW STATE.  LIST THOSE LINKS IN BULLET FORMAT WITH SOME VERBAGE
+
 https://www.reddit.com/r/cursor/comments/1j21lo8/cursor_vs_claude_code/
 
 https://www.haihai.ai/cursor-vs-claude-code/
@@ -9,6 +15,11 @@ https://www.haihai.ai/cursor-vs-claude-code/
 https://waleedk.medium.com/claude-code-top-tips-lessons-from-the-first-20-hours-246032b943b4
 
 
+ ******* NOTE HOW THE CODE IS LOCATED AT https://github.com/nba-comeback-calculator/nba-comeback-calculator
+ ******* AND IT MATCHES THE CODE FOUND IN ../_static/
+
+
+************ SKIP THIS ********************************* 
 
 ⏺ I've implemented the NBA Charts Calculator feature as requested. Here's what I've
 added:
@@ -108,6 +119,9 @@ around at the top and bottom.  Also use more width if you can.
    the 'Calculate' button
 
 
+************ SECOND ATTEMPT OF CONVERTING THE MAIN PYTHON ANALYSIS / STATS SOFTWARE TO JAVACRIPT  ********************************* 
+
+
 .. code::
 
     Let's try this python to javascript translation again.
@@ -198,7 +212,29 @@ around at the top and bottom.  Also use more width if you can.
       1. Re-read the CALCULATOR.md and the Section ## 3/23 Python to Javascript Translation                                                                
       2. Re-write the CALCULATOR.md to reflect this change and get rid of the ## 3/23 Python to Javascript Translation section once you have incorporated all of it's logic.
       3. Do what it is asking you to do: translate the 4 python files to javascript, connect the calculator ui to this calculator logic and then call our plotting libraries to actually plot the chart.js plot.
+
+
+
+**** HAD TO TELL CLAUDE CODE TO DO AN *EXACT* TRANSLATION, THIS SEEMED TO REALLY HELP. 
+
+*****  BUT NOTE HOW CLAUDE FOR SOME REASON MADE JAVASCRIPT NAMESPACE AND SHOW .. code::
+*****  OF SAID JAVASCRIPT NAME SPACES BUT FOR SOME REASON DID NOT USE THEM, 
+*****  SEVERAL HARD TO DEBUG BUGS. 
+
+***** TALK ABOUT HOW IT (CLAUDE CODE) WROTE A FMIN MINIMIZE ALGROTHIM BUT IT DID NOT 
+***** work.  Link to this rant about https://robertleeread.medium.com/a-brief-bad-ignorant-review-of-existing-numerical-optimization-software-in-javascript-further-c70f68641fda
+***** which led me to this https://github.com/benfred/fmin, which actually worked. 
+
+***** TALK ABOUT HOW THERE WERE MANY BUGS, WHICH I HAD TO STEP THRU THE DEBUGGER TO SOLVE. 
+***** TALK ABOUT HOW THE CODE IN API.js made this code:
+
+        const times = [];
+        for (let t = start_time; t >= stop_time; t--) {
+            times.push(t);
+        }
+***** WHICH HAD A VERY HARD TO FIND BUG (the original python was range(start_time, 0, -1))
    
+
 .. code::
 
     We want an *exact* translation of the python files in ../../../nba_python_data/form_plots/form_nba_chart_json_data/.  Re-read them and check that
@@ -386,6 +422,9 @@ Many! of these:
 
       Which was taken from https://stackoverflow.com/questions/19206919/how-to-create-checkbox-inside-dropdown
 
+************ URL ENCODING SCHEME  ********************************* 
+
+
 .. code::
     Prompt 1:
     On the calculator page two related things:
@@ -419,6 +458,10 @@ Many! of these:
     URL, parse the state and just act like the form has been populated, then call
     the same code the Calculate button calls.
 
+*** HAD TO BACK OUT CODE THAT BROKE THE WEB PAGE AND DO THIS.  REMEMBER TO COMMIT
+*** OFTEN AND ASK FOR SMALL FEATURES, ONE AT A TIME AND DIFF CHANGES, COMMIT, ASK 
+*** FOR NEXT CHANGE
+
 .. code::
 
    > OK, we had a major refactor of the calculator URL building and state of the form that did not work.  We are going to carefully try and get it back   
@@ -445,6 +488,8 @@ Many! of these:
     shows two filters.   Also it should be 'e', 'h', or 'a' for the home away field.  So for example, if we had Bos at home playing any, we would have
     BOS-H-ANY that's it.  that's one game filter.
 
+
+***** THE SPHINX FORMATTER PROJECT -- DON'T WORRY ABOUT THIS RIGHT NOW. 
 
 Sphinx formatter
 ================
@@ -513,3 +558,25 @@ Sphinx formatter
    Then, if we have url data, don't load the chart json or pass it to the chart.js plotter code.  Just skip    
    reading that json file.  However, we still want to make the canvas etc.  Then we process the url code and   
    calculate the new chart.
+
+The More You Use It, The More Ways You See How You Can Use It
+=============================================================
+
+Just a final note, one thing I noticed was, as I got more and more used to using
+Claude Code, I started to more easily see how I could use it in many different places. 
+
+For example, I had a test.html site to test my javascript front end and there
+would setup javascript and css cdn sites.  Pretty soon I was asking Claude to 
+strip though this document and auto update my sphinx conf.py file I needed 
+to build the final site. 
+
+Also, I wanted a different sphinx directive than the pylab ``.. note::`` was giving me, 
+so I asked Claude to write a ``.. blue-box::`` directive and it did it first time,
+made the sphinx extension, cost me about 50 cents and I was on my way. 
+
+About the cost ....
+===================
+
+Yes, Claude code is *a lot* more expensive than, say, Cursor, I am into this 
+well over $100 USD right now.  But still, cheap in the scheme when you think of what 
+it does for you and how much time you saved. 
