@@ -984,18 +984,20 @@ nbacc_plotter_data = (() => {
 
     // Custom external tooltip handler that supports HTML and sticky behavior
     const externalTooltipHandler = function (context) {
-        // Skip tooltips on mobile unless in fullscreen mode or it's a click event
+        // Check if this is a click event
         const isClick = context.chart && 
                        context.chart.lastClickEvent && 
                        (new Date().getTime() - context.chart.lastClickEvent) < 500;
-                       
-        if (
-            typeof isMobile === "function" &&
-            isMobile() &&
-            !context.chart.isFullscreen &&
-            !isClick
-        ) {
-            return;
+        
+        // Get the event type from context if available
+        const eventType = context.tooltip && context.tooltip.opacity === 1 ? 'click' : 'mousemove';
+        
+        // On mobile, only show tooltips on click (regardless of fullscreen mode)
+        if (typeof isMobile === "function" && isMobile()) {
+            // If it's not a click event, don't show the tooltip
+            if (!isClick && eventType !== 'click') {
+                return;
+            }
         }
 
         // Get or create tooltip element and handle its lifecycle

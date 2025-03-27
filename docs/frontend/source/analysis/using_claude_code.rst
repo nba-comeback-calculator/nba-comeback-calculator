@@ -9,8 +9,8 @@ Using Claude Code To AI Auto Generate This Site
     Having used Claude Code to put together this fairly complex website, I thought it
     might be useful to jot down some notes. Being a total AI coding novice, I thought
     the better of this a few times for fear of putting out bad info, but nevertheless I
-    thought these notes might be useful, especially for someone in a similar starting place
-    to myself.
+    thought these notes might be useful, especially for someone in a similar starting
+    place to myself.
 
 
 .. _using-claude-code-for-development:
@@ -18,17 +18,17 @@ Using Claude Code To AI Auto Generate This Site
 Using Claude Code for Development
 =================================
 
-Like most devs these days, I've been aware of AI for some time. Probably also like
-most devs I've never used it for anything large scale. We are allowed to use AI at
-work, just not with any of our codebase or any company data -- so basically, not much
-to work with. So I've had my time kicking Copilot around the block a bit, but always
-for fairly small things, functions that do specific scientific or statistical functions
-that you might find in the SciPy or scikit-learn library but are not there. File
-parsing functions, etc.
+Like most devs these days, I've been aware of AI for some time. Probably also like most
+devs I've never used it for anything large scale. We are allowed to use AI at work,
+just not with any of our codebase or any company data -- so basically, not much to work
+with. So I've had my time kicking Copilot around the block a bit, but always for fairly
+small things, functions that do specific scientific or statistical functions that you
+might find in the SciPy or scikit-learn library but are not there. File parsing
+functions, etc.
 
 But I've had this feeling that you couldn't really use AI for big things, for major
-pieces of code. Surely, it couldn't work on codebases of the size *I* work on
-[adjusts monocle].
+pieces of code. Surely, it couldn't work on codebases of the size *I* work on [adjusts
+monocle].
 
 So when I got talking to another programmer friend about downloading this NBA data and
 running some quick one-off Python scripts against it, he had the idea of using AI to
@@ -58,9 +58,9 @@ It didn't take me long to find posts like these:
 Among many others.
 
 To boot, I really like the decision they made to make the tool a REPL as opposed to
-having it integrated in an IDE. I find that just suits me better, and I can more
-easily separate my editing functions from "now I'm AIing" brain mode (even though I
-still mostly use VSCode with Copilot or Cursor to do my editing).
+having it integrated in an IDE. I find that just suits me better, and I can more easily
+separate my editing functions from "now I'm AIing" brain mode (even though I still
+mostly use VSCode with Copilot or Cursor to do my editing).
 
 .. green-box::
 
@@ -70,8 +70,8 @@ still mostly use VSCode with Copilot or Cursor to do my editing).
   for complicated edits, even though on smaller things they can perform at a similar
   level.
 
-  Often, the output was close or just as good. But many times it was not workable and
-  I tended to just use Claude Code more and more often.
+  Often, the output was close or just as good. But many times it was not workable and I
+  tended to just use Claude Code more and more often.
 
 
 .. _basic-scope-of-work:
@@ -110,7 +110,7 @@ directory.
 Some Initial Thoughts and Observations
 ======================================
 
-* `The Moments Of Wonder Are Often`: I said "No Freaking Way" more than a few times.
+* `The Moments Of Wonder Are Often`_: I said "No Freaking Way" more than a few times.
 
 * `Requirements Are Key, But It's OK To Be Lazy`_: Let Claude clarify your thinking.
 
@@ -616,8 +616,8 @@ One thing I noticed was, as I got more used to using Claude Code, I started to s
 I could use it in many different places.
 
 For example, I had a test.html site to test my JavaScript front end and had set up
-JavaScript and CSS CDN links. Pretty soon I was asking Claude to strip through
-this document and auto-update my Sphinx conf.py file I needed to build the final site.
+JavaScript and CSS CDN links. Pretty soon I was asking Claude to strip through this
+document and auto-update my Sphinx conf.py file I needed to build the final site.
 
 Also, I wanted a different Sphinx directive than the pylab ``.. note::`` was giving me,
 so I asked Claude to write a ``.. green-box::`` directive and it did it first time,
@@ -637,9 +637,10 @@ About the Cost
 ==============
 
 Yes, Claude Code is *a lot* more expensive than, say, Cursor. I am into this well over
-$100 USD right now. But still, it's cheap in the grand scheme when you think of what it does for
-you and how much time you saved. Obviously, compared to dev costs, so cheap. Plus, I
-learned a lot about many things along the way, more than I would have if not using it.
+$100 USD right now. But still, it's cheap in the grand scheme when you think of what it
+does for you and how much time you saved. Obviously, compared to dev costs, so cheap.
+Plus, I learned a lot about many things along the way, more than I would have if not
+using it.
 
 
 .. _and-the-verdict-is-:
@@ -647,13 +648,13 @@ learned a lot about many things along the way, more than I would have if not usi
 And the Verdict Is ...
 ======================
 
-Pretty much wow. I mean, it's not like you tell it "build me a website" and you're
-done -- it's still a lot of work and takes a lot of iterations, debugging, missteps,
-and backtracking just like any coding project.
+Pretty much wow. I mean, it's not like you tell it "build me a website" and you're done
+-- it's still a lot of work and takes a lot of iterations, debugging, missteps, and
+backtracking just like any coding project.
 
 But it's way faster and most often the code is better code than I would have written
-myself. It just takes care of all those dotting i's and crossing t's type stuff that
-as a project winds on you find yourself skipping.
+myself. It just takes care of all those dotting i's and crossing t's type stuff that as
+a project winds on you find yourself skipping.
 
 And after a while I found (say, after the Calculator form was stable), I could ask for
 updates and with the context it had from the CLAUDE.md and code comments, it would get
@@ -668,8 +669,8 @@ Or maybe not! Maybe just fire and forget!
 But one thing stood out: I found it required much less cognitive load than having to
 type in everything yourself, check your curly braces, and a million other details,
 Google for the umpteenth time about some stupid CSS rule you never ever wanted to know
-about, and on and on. When Claude runs, it can take time. But then your mind is free
-to think about the next architecture steps or what you want the next feature to do.
+about, and on and on. When Claude runs, it can take time. But then your mind is free to
+think about the next architecture steps or what you want the next feature to do.
 
 
 
