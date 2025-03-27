@@ -25,8 +25,8 @@ victories in a single season since 1996-97 and continues with analysis by Steve 
 
 But is this true? In short ... not really.
 
-:ref:`To frame this, I decided to break up the available play-by-play
-data <deciding-on-eras-breakdown>` into:
+:ref:`To frame this, I decided to break up the available play-by-play data
+<deciding-on-eras-breakdown>` into:
 
 * 1996-97 to 2016-17 (old-school) versus:
 * 2017-18 to 2024-25 (modern)
@@ -44,8 +44,7 @@ Win Percentages When Max Deficit is N *Or More* Points
 ======================================================
 
 :ref:`A very common way of looking at comebacks <max-points-down-or-more>` is
-calculating the % chance of coming back from down N point *or more* over an entire game
-we get:
+calculating the % chance of coming back from down N point *or more* over an entire game:
 
 .. raw:: html
 
