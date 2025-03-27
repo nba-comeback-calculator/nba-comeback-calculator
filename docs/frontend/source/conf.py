@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath('_ext'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "nba comeback calculator"
+project = "NBA comeback calculator"
 copyright = "2025"
 author = ""
 
@@ -99,7 +99,7 @@ html_theme_options = {
     "navbar_end": ["search-button"],
     "show_prev_next": False,
     "logo": {
-        "text": "nba comeback calculator",
+        "text": "NBA comeback calculator",
         # "image_light": "_static/logo-light.png",
     },
     "analytics": {
