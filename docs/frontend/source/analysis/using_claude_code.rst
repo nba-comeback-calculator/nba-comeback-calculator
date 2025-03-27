@@ -623,6 +623,15 @@ Also, I wanted a different Sphinx directive than the pylab ``.. note::`` was giv
 so I asked Claude to write a ``.. green-box::`` directive and it did it first time,
 made the Sphinx extension, cost me about 50 cents and I was on my way.
 
+And when futzing with the Calculator form, I wanted a trash can icon and just asked it:
+
+.. code::
+    > On mobile, make the Regular be Reg. and then remove be a trash can icon svg. 
+    Download a trash can icon and put it where we have our other svg icons.         
+    
+And it got it right first time, named it like the svg icons, and linked it correctly in
+the code.
+
 Finally, I had it help out writing the Sphinx RST pages quite a bit. This page in
 particular I would use it to get me some starting headers and make a bunch of URL links
 and other odds and ends that save a lot of time. Its prose style though is still, well,
