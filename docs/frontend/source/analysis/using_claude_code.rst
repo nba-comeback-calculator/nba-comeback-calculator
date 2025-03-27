@@ -1,5 +1,5 @@
 ***********************************************
-Using Claude Code To AI Auto Generate This Site
+Using Claude Code to AI Auto-Generate This Site
 ***********************************************
 
 .. _using-claude-code:
@@ -10,7 +10,7 @@ Using Claude Code To AI Auto Generate This Site
     might be useful to jot down some notes. Being a total AI coding novice, I thought
     the better of this a few times for fear of putting out bad info, but nevertheless I
     thought these notes might be useful, especially for someone in a similar starting
-    place to myself.
+    place as myself.
 
 
 .. _using-claude-code-for-development:
@@ -110,28 +110,28 @@ directory.
 Some Initial Thoughts and Observations
 ======================================
 
-* `The Moments Of Wonder Are Often`_: I said "No Freaking Way" more than a few times.
+* `The Moments of Wonder Are Often`_: I said "No Freaking Way" more than a few times.
 
-* `Requirements Are Key, But It's OK To Be Lazy`_: Let Claude clarify your thinking.
+* `Requirements Are Key, But It's OK to Be Lazy`_: Let Claude clarify your thinking.
 
-* `Commit, Ask for Small Features, One at a Time, Diff, Test, and Then Commit A Few
-  More Times For Good Measure`_: It's way easier to back out of small changes than big
+* `Commit, Ask for Small Features, One at a Time, Diff, Test, and Then Commit a Few
+  More Times for Good Measure`_: It's way easier to back out of small changes than big
   ones.
 
 * `Don't Throw Good Money After Bad`_: After a few times trying to get it to fix an
   error, you're just going to have to roll up your sleeves and figure out what is
   actually wrong.
 
-* `And Even Worse, Don't Tell It To Fix Things That Are Already Working`_: Screaming
+* `And Even Worse, Don't Tell It to Fix Things That Are Already Working`_: Screaming
   into the void is a very bad strategy.
 
-* `Totally Starting Over Is Also A Good Strategy`_: Sometimes, the second time -- with
+* `Totally Starting Over Is Also a Good Strategy`_: Sometimes, the second time -- with
   the benefit of hindsight guiding your already on-disk CLAUDE.md requirements -- is
   the charm.
 
-* `Watch Out For Needless Error Handling`_: Often, Claude inserts needless
+* `Watch Out for Needless Error Handling`_: Often, Claude inserts needless
   error handling / fallback implementation behavior that creates more subtle,
-  harder-to- track-down bugs.
+  harder-to-track-down bugs.
 
 * `Using The Devil You Know`_: Writing code in your go-to language and having Claude
   translate your complex logic into other domains you don't know as well works well.
@@ -143,7 +143,7 @@ Some Initial Thoughts and Observations
 
 .. _the-moments-of-wonder-are-often:
 
-The Moments Of Wonder Are Often
+The Moments of Wonder Are Often
 ===============================
 After I had my Python scripts churning out my chart json data files, I told Claude to
 help me make a chart.js chart and it took very little time to be up and running.
@@ -188,7 +188,7 @@ minimal or even down-right-bad specification inputs.
 
 .. _requirements-are-key-but-its-ok-to-be-lazy:
 
-Requirements Are Key, But It's OK To Be Lazy
+Requirements Are Key, But It's OK to Be Lazy
 ============================================
 
 As has been noted many times about using AI coding, the cleaner, the clearer, the just
@@ -210,7 +210,7 @@ URL encoding was barely English <url-mashup>`).
 
 .. _commit-ask-for-small-features:
 
-Commit, Ask for Small Features, One at a Time, Diff, Test, and Then Commit A Few More Times For Good Measure
+Commit, Ask for Small Features, One at a Time, Diff, Test, and Then Commit a Few More Times for Good Measure
 ============================================================================================================
 
 
@@ -384,7 +384,7 @@ in the correct place.
 
 .. _and-even-worse-dont-tell-it-to-fix-things-that-are-already-working:
 
-And Even Worse, Don't Tell It To Fix Things That Are Already Working
+And Even Worse, Don't Tell It to Fix Things That Are Already Working
 ====================================================================
 
 Even worse than telling it to repeatedly fix actual bugs is to keep telling it to fix
@@ -399,7 +399,7 @@ that I was testing something else -- which was another "whoa"s moment.
 
 .. _totally-starting-over-is-also-a-good-strategy:
 
-Totally Starting Over Is Also A Good Strategy
+Totally Starting Over Is Also a Good Strategy
 =============================================
 Similar in spirit to the :ref:`point made above<dont-throw-good-money-after-bad>`, one
 thing I did a few times was take the CLAUDE.md file or other requirement files I was
@@ -424,7 +424,7 @@ much to get this new version running.
 
 .. _watch-out-for-needless-error-handling:
 
-Watch Out For Needless Error Handling
+Watch Out for Needless Error Handling
 =====================================
 One thing I noticed Claude do again and again was put in default values, create backup
 implementation functions if it couldn't load certain JavaScript CDNs, and hosts of
