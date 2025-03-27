@@ -89,6 +89,24 @@ const nbacc_calculator_ui = (() => {
                 calculateAndRenderChart();
             }
         }
+        
+        // Add resize listener to update season type text for mobile
+        window.addEventListener('resize', updateSeasonTypeText);
+    }
+    
+    // Function to update season type text for mobile
+    function updateSeasonTypeText() {
+        setTimeout(() => {
+            const isMobile = window.innerWidth <= 480;
+            const seasonTypeSelects = document.querySelectorAll('.season-type-select');
+            
+            seasonTypeSelects.forEach(select => {
+                const regularOption = select.querySelector('option[value="regular"]');
+                if (regularOption) {
+                    regularOption.textContent = isMobile ? 'Reg. Season' : 'Regular Season';
+                }
+            });
+        }, 0);
     }
     
     /**
@@ -290,6 +308,8 @@ const nbacc_calculator_ui = (() => {
                 // Add a slight delay to ensure DOM is ready
                 setTimeout(() => {
                     setupFormHandlers(instance);
+                    // Extra call to update season text after showing the form
+                    updateSeasonTypeText();
                 }, 100);
                 return true;
             },
@@ -332,6 +352,9 @@ const nbacc_calculator_ui = (() => {
     // Set up event handlers for the calculator form
     function setupFormHandlers(lightboxInstance) {
         // Don't reset the state values if we have saved state
+        
+        // Update season type text for mobile
+        updateSeasonTypeText();
         
         // Plot type change handler
         const plotTypeSelect = document.getElementById("plot-type");
@@ -458,6 +481,9 @@ const nbacc_calculator_ui = (() => {
                     }
                 }
             });
+            
+            // After setting values, update season type text
+            updateSeasonTypeText();
         } else {
             // Add default year group
             addYearGroup(true);
@@ -816,7 +842,7 @@ const nbacc_calculator_ui = (() => {
                     <div class="form-group season-type-group">
                         <select id="${yearGroupId}-season-type" class="form-control season-type-select">
                             <option value="all" selected>All Games</option>
-                            <option value="regular">Regular Season</option>
+                            <option value="regular" data-value="Regular Season">Regular Season</option>
                             <option value="playoffs">Playoffs</option>
                         </select>
                     </div>
@@ -849,6 +875,9 @@ const nbacc_calculator_ui = (() => {
         if (updateState) {
             updateYearGroupsState();
         }
+        
+        // Make sure season type text is updated for mobile
+        updateSeasonTypeText();
     }
 
     // Add a game filter UI element

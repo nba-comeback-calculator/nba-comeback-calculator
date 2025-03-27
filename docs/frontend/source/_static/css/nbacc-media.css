@@ -109,18 +109,9 @@
         font-size: 10px !important;
     }
     
-    /* Use shorter text for Regular Season on mobile */
+    /* Use shorter text for Regular Season on mobile handled in JS */
     @media screen and (max-width: 480px) {
-        .season-type-select option[value="regular"] {
-            text-indent: -9999px;
-            line-height: 0;
-        }
-        .season-type-select option[value="regular"]::after {
-            content: "Reg. Season";
-            text-indent: 0;
-            display: block;
-            line-height: initial;
-        }
+        /* No CSS needed - text replacement handled by JavaScript */
     }
     
     /* Optimize year groups and filter layouts */
