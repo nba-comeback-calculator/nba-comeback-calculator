@@ -42,8 +42,8 @@ linear domain.  For example, often people will use the :math:`ln` function `when
 dealing with exponential data
 <https://leancrew.com/all-this/2020/03/exponential-growth-and-log-scales/>`_.
 
-With statistical data, the first go-to is the inverse of a unit Gaussian / normal
-distribution, which is denoted Φ⁻¹.
+With statistical data, the first go-to is the inverse of the unit normal (Gaussian)
+cumulative distribution function (CDF), which is denoted Φ⁻¹.
 
 Applying that function to our data, we get this chart:
 
@@ -111,5 +111,5 @@ And using logit logistical regression we get:
 
     <div id="trend/nbacc_at_24_logit" class="nbacc-chart"></div>
 
-This produces a poor fit in the tail region, which is especially problematic because the low probability
-events are the ones with which we are most concerned.
+This produces a poor fit in the tail region, which is especially problematic because
+the low probability events are the ones with which we are most concerned.
