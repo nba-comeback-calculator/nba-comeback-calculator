@@ -59,8 +59,8 @@ Among many others.
 
 To boot, I really like the decision they made to make the tool a REPL as opposed to
 having it integrated in an IDE. I find that just suits me better, and I can more easily
-separate my editing functions from "now I'm AIing" brain mode (even though I still
-mostly use VSCode with Copilot or Cursor to do my editing).
+separate my editing functions from "now I'm AI-ing" brain mode (even though I still use
+VSCode with Copilot or Cursor to do my editing).
 
 .. green-box::
 
@@ -130,8 +130,8 @@ Some Initial Thoughts and Observations
   the charm.
 
 * `Watch Out For Needless Error Handling`_: Often, Claude inserts needless
-  error handling / fallback implementation behavior that creates more subtle, harder-to-
-  track-down bugs.
+  error handling / fallback implementation behavior that creates more subtle,
+  harder-to- track-down bugs.
 
 * `Using The Devil You Know`_: Writing code in your go-to language and having Claude
   translate your complex logic into other domains you don't know as well works well.
@@ -145,14 +145,14 @@ Some Initial Thoughts and Observations
 
 The Moments Of Wonder Are Often
 ===============================
-After I had my chart data files created by my Python scripts, I told Claude to help me
-make a chart.js chart and it took very little time to be up and running. Claude, unlike
-other AI tools, does things like use grep and other shell commands to figure out what
-it's looking at. I barely sketched out the JSON format to the tool and it figured the
-rest out on its own.
+After I had my Python scripts churning out my chart json data files, I told Claude to
+help me make a chart.js chart and it took very little time to be up and running.
+Claude, unlike other AI tools, does things like use grep and other shell commands to
+figure out what it's looking at. I barely sketched out the JSON format to the tool and
+it figured the rest out on its own.
 
-Then, briefly, I described how I wanted to create hover boxes that appear when the user
-pressed on a datapoint on the line:
+Then after I had a basic plot working I then, briefly, described how I wanted to create
+hover boxes that appear when the user pressed on a datapoint on the line:
 
 .. code::
 
@@ -224,7 +224,7 @@ The most effective workflow I discovered was to break development into small,
 well-defined tasks. This approach produced much better results than requesting large
 features or complex implementations all at once.
 
-When I was my best self, I did:
+When I was my best self, my flow was:
 
 1. Commit current working code to establish a clean baseline
 2. Ask Claude for a specific, focused feature
@@ -233,14 +233,15 @@ When I was my best self, I did:
 5. Commit working code before requesting the next feature
 
 Then, if you get yourself into a bad state you don't want to debug (which happened many
-times) you can easily revert.  For example, futzing with the calculator form for mobile
-devices, I often asked it do adjust something and often the result would be totally
-screwed.  Rather than debug, I just did ``git reset --hard`` and tried a different
-prompting strategy.
+times) you can easily revert.  For example, while futzing with the calculator form for
+mobile devices, I often asked it do adjust something and often the result would be
+totally screwed.  Rather than debug, I just did ``git reset --hard`` and tried a
+different prompting strategy, a process I found very workable.
 
 But over and over again, with my tendency to rush and get sloppy, I stopped doing this
-and just kept talking to Claude, mixing feature requests, not taking the time
-incrementally commit and it caused me a lot of unnecessary pain, as described below.
+and just kept talking to Claude like I've had a few, mixing feature requests, not
+taking the time to incrementally commit and it caused me a lot of unnecessary pain, as
+described below.
 
 .. _dont-throw-good-money-after-bad:
 
@@ -277,11 +278,11 @@ So I started by asking Claude:
 This is in stark violation of my :ref:`rule about asking for isolated, small things
 one-at-a-time <commit-ask-for-small-features>` -- and also I forgot to commit.
 
-So it came back with the multiple changes, but the URL encoding scheme was really ugly
-and second the form was still not storing state, and third, when you entered in a URL
-it was not updating the chart. So I continued, gave it the most slurred half-baked spec
-for a URL encoding scheme, but mixed in about 3 or 4 different requests at the same
-time:
+So it came back with the multiple changes.  I noticed but the URL encoding scheme was
+really ugly and second the form was still not storing state, and third, when you
+entered in a URL it was not updating the chart. So I continued, gave it the most
+slurred half-baked spec for a better URL encoding scheme, but mixed in about 3 or 4
+different requests at the same time:
 
 .. _url-mashup:
 
@@ -364,8 +365,8 @@ logic I wanted, and more specifically guided the tool:
 
   > OK, now a more complicated change. Find where in the code do you process the
   nbacc-chart and, after we've loaded the chart JSON data, pass it to the
-  chart.js code. Because we want to find the point where we've still made the canvas,
-  just locate where we finally call the chart.js code to render the chart.
+  chart.js plotter code. Because we want to find the point where we've still made 
+  the canvas, just locate where we finally call the chart.js code to render the chart.
   
   Then, we need to figure out where we are parsing the URL.
   
@@ -386,11 +387,11 @@ in the correct place.
 And Even Worse, Don't Tell It To Fix Things That Are Already Working
 ====================================================================
 
-Even worse than telling it to repeatedly fix bugs is to keep telling it to fix things
-it has already fixed. More than once, I was looking at a site that didn't reflect the
-recent code and -- over and over again --  saying "no, it's still not working".  All
-the while it's adding more error checking and debug statements and fallback behavior
-and digging a deeper and deeper hole.
+Even worse than telling it to repeatedly fix actual bugs is to keep telling it to fix
+things it has already fixed. More than once, I was looking at a site that didn't
+reflect the recent code and -- over and over again --  saying "no, it's still not
+working".  All the while it's adding more error checking and debug statements and
+fallback behavior and digging a deeper and deeper hole.
 
 It even told me once that I was out to lunch and the most likely thing going on was
 that I was testing something else -- which was another "whoa"s moment.
@@ -409,15 +410,16 @@ style of black or prettier (very minimal and just for the things I needed, mostl
 wrapping among other things).  My initial spec was pretty bad, but nevertheless it set
 up a python project with a ``bin/``, ``docs/``, and ``tests/`` dir and had a runnable
 prototype in no time.  Then, as time went on and I tested more and more cases against
-it, it got buggy in some way I didn't want to debug.
+it, but my thinking was not clear and fully thought out.  So Claude kept making unit
+tests, and running them, but after a while it got buggy in some way I didn't want to
+debug so I gave up.
 
-After trying to tell it to fix some common problems for the nth time, I gave up. Along
-the way I had it update the CLAUDE.md with the full spec, so I simply made a new
+Along the way I had it update the CLAUDE.md with the full spec, so I simply made a new
 folder, and asked it to create the same tool again after cleaning up the CLAUDE.md with
 all the rules and problems I had run into along the way.
 
 This worked like a charm and I had a much smaller, cleaner codebase and it did not cost
-much to get this new version running (which runs much better than the first iteration).
+much to get this new version running.
 
 
 .. _watch-out-for-needless-error-handling:
@@ -427,8 +429,8 @@ Watch Out For Needless Error Handling
 One thing I noticed Claude do again and again was put in default values, create backup
 implementation functions if it couldn't load certain JavaScript CDNs, and hosts of
 other fallback / defaulting behavior. This usually just creates bugs that are much
-harder to find or worse, weird-but-not-total-failure behavior that takes more time to
-diagnose.
+harder to find -- or worse, weird-but-not-total-failure behavior that takes much more
+time to diagnose.
 
 This is not what I wanted -- this is a correct by construction architecture with little
 input from the user -- I wanted it to just plain fail if data was missing in the JSON
@@ -448,9 +450,10 @@ instructions:
   - **No Fallbacks for Missing Dependencies**: Do not implement fallback algorithms 
     when dependencies like numeric.js are missing. If a dependency is required, throw an error and fail explicitly rather than silently degrading to an alternative implementation.
 
-Overall, telling it how you like to code in the CLAUDE.md file is good practice, but I
-was surprised how it would keep doing it over and over.  So I kept telling not to and,
-over time, it seems to do it a lot less now.
+Overall, telling it how you like to code and what patterns you want to use in the
+CLAUDE.md file is good practice.  But something deep in the LLM was forcing it to keep
+doing it over and over.  So I kept telling not to over and over.  It did seem that,
+after a while, it seems to do it a lot less now.
 
 .. _using-the-devil-you-know:
 
