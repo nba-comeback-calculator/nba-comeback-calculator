@@ -116,43 +116,32 @@
     
     /* Optimize year groups and filter layouts */
     .year-select-row {
-        gap: 2px;
-        flex-wrap: nowrap !important;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        white-space: nowrap;
-        overflow: visible;
+        gap: 3px;
+        flex-wrap: wrap;
     }
     
     /* Make remove buttons more compact and move to end */
     .btn.btn-danger.remove-game-filter,
     .btn.btn-danger.remove-year-group {
-        height: 24px !important;
-        width: 24px !important;
+        height: 28px !important;
+        width: 28px !important;
         padding: 0 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        min-width: 24px !important;
-        margin: 0 !important;
     }
     
     /* Make the trash icon smaller on mobile */
     .trash-icon {
-        width: 12px !important;
-        height: 12px !important;
+        width: 14px !important;
+        height: 14px !important;
     }
     
     /* Style Remove buttons to stay within container */
     .remove-button-container {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 !important;
-        padding: 0 !important;
-        width: auto !important;
+        text-align: right;
+        width: 100%;
+        margin-top: 4px;
     }
     
     /* Make "To" text smaller */
@@ -164,30 +153,7 @@
     
     /* Make year selects narrower */
     .year-select {
-        width: 58px;
-        min-width: 58px;
-    }
-    
-    /* Make season type select narrower on mobile */
-    .season-type-select {
-        width: 90px !important;
-        min-width: 90px !important;
-    }
-    
-    /* Adjust season type group on mobile */
-    .season-type-group {
-        margin-left: 0 !important;
-        flex: 0 0 auto;
-        width: auto;
-        margin-right: 2px !important;
-    }
-    
-    /* Simplified trash icon container */
-    .remove-button-container {
-        margin: 0 !important;
-        padding: 0 !important;
-        display: flex;
-        align-items: center;
+        width: 65px;
     }
     
     /* More compact and full-width containers */
@@ -217,43 +183,6 @@
     .game-filter {
         margin-bottom: 2px;
         padding-bottom: 2px;
-    }
-    
-    /* Further optimize year to text on mobile */
-    .year-to-text {
-        margin: 0;
-        padding: 0;
-        font-size: 9px;
-    }
-    
-    /* Tighten up form groups in the year select row for mobile */
-    .year-select-row .form-group {
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-    
-    /* Ensure year selects and icon all stay on one line */
-    @media screen and (max-width: 320px) {
-        .year-select {
-            width: 54px;
-            min-width: 54px;
-        }
-        
-        .season-type-select {
-            width: 85px !important;
-            min-width: 85px !important; 
-        }
-        
-        .trash-icon {
-            width: 10px !important;
-            height: 10px !important;
-        }
-        
-        .btn.btn-danger.remove-year-group {
-            width: 20px !important;
-            height: 20px !important;
-            min-width: 20px !important;
-        }
     }
     
     /* Top controls more stacked */
