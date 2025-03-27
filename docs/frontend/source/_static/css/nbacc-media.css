@@ -16,102 +16,194 @@
 @media only screen and (max-width: 768px) {
     /* Reduce font sizes for better spacing */
     .calculator-ui {
-        padding: 10px;
+        padding: 8px;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow-x: hidden; /* Prevent horizontal scroll */
     }
     
     .calculator-ui h2 {
-        font-size: 20px;
+        font-size: 18px;
+        margin-bottom: 8px;
     }
     
     .calculator-ui h3 {
-        font-size: 14px;
+        font-size: 13px;
+        margin-top: 5px;
+        margin-bottom: 5px;
     }
     
-    /* Reduce sizes of form elements */
+    /* Even smaller form elements */
     .form-control, 
     select,
     .dropdown-check-list .anchor,
     .year-select,
     .min-year-select, 
     .max-year-select {
-        font-size: 11px !important;
-        padding: 4px 8px !important;
-        height: 30px !important;
-        min-height: 30px !important;
+        font-size: 10px !important;
+        padding: 2px 5px !important;
+        height: 28px !important;
+        min-height: 28px !important;
     }
     
-    /* Make filter labels smaller and more compact */
+    /* Stack filter elements vertically instead of horizontally */
+    .single-line-filter {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        min-height: auto;
+        width: 100%;
+    }
+    
+    /* Full width filters */
+    .col-filter-label,
+    .col-filter-combined,
+    .col-filter-location,
+    .col-filter-button {
+        width: 100% !important;
+        min-width: 100% !important;
+        flex: 0 0 100% !important;
+        margin: 0 0 4px 0 !important;
+    }
+    
+    /* Special styles for label row - keep it inline */
+    .col-filter-label {
+        margin-bottom: 0 !important;
+    }
+    
+    /* Smaller filter labels */
     .filter-label {
-        font-size: 11px;
-        padding: 0 4px;
-        height: 30px;
-        line-height: 30px;
+        font-size: 10px;
+        padding: 0;
+        height: 20px;
+        line-height: 20px;
+        display: block;
+        text-align: left;
+    }
+    
+    /* Specially style the VS tag to fit inline */
+    .filter-label-vs {
+        padding: 0;
+        height: 20px;
+        line-height: 20px;
+        display: inline-block;
+        margin: 0 3px;
+    }
+    
+    /* Force For/Vs to be on same line */
+    .filter-for-vs-container {
+        display: flex;
+        align-items: center;
+        width: 100%;
     }
     
     /* Adjust form group spacing */
     .form-group.inline-form label {
-        font-size: 11px;
-        min-width: 45px;
+        font-size: 10px;
+        min-width: 40px;
+        margin-right: 3px;
     }
     
-    /* Make season checkboxes more compact */
+    /* Completely redesign season checkboxes for mobile */
+    .season-checkboxes {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
     .season-checkbox-container {
-        height: 30px;
-        line-height: 30px;
-        padding: 0 5px 0 8px;
+        height: 28px;
+        line-height: 28px;
+        padding: 0 5px;
+        width: auto !important;
+        min-width: auto !important;
+        flex: 0 0 auto;
     }
     
-    .season-checkbox-container:first-child {
-        width: 140px;
-        padding-right: 20px;
-    }
-    
+    .season-checkbox-container:first-child,
     .season-checkbox-container:nth-child(2) {
-        width: 100px;
-        padding-right: 20px;
+        width: auto !important;
+        padding-right: 8px;
     }
     
     .season-checkbox-container label {
-        font-size: 11px;
+        font-size: 10px;
     }
     
     /* Optimize year groups and filter layouts */
-    .single-line-filter {
-        gap: 5px;
-        min-height: 30px;
+    .year-select-row {
+        gap: 3px;
+        flex-wrap: wrap;
     }
     
-    /* Adjust column widths for filters */
-    .col-filter-combined {
-        flex: 0 0 110px;
-        min-width: 110px;
-        width: 110px;
-    }
-    
-    .col-filter-location {
-        flex: 0 0 130px;
-        min-width: 130px;
-        width: 130px;
-    }
-    
-    /* Make remove buttons more compact */
+    /* Make remove buttons more compact and move to end */
     .btn.btn-danger.remove-game-filter,
     .btn.btn-danger.remove-year-group {
-        height: 30px !important;
-        font-size: 11px !important;
-        padding: 0 8px !important;
+        height: 28px !important;
+        font-size: 10px !important;
+        padding: 0 6px !important;
+        width: auto !important;
+    }
+    
+    /* Style Remove buttons to stay within container */
+    .remove-button-container {
+        text-align: right;
+        width: 100%;
+        margin-top: 4px;
     }
     
     /* Make "To" text smaller */
     .year-to-text {
-        font-size: 11px;
-        margin: 0 2px;
-        line-height: 30px;
+        font-size: 10px;
+        margin: 0 1px;
+        line-height: 28px;
     }
     
     /* Make year selects narrower */
     .year-select {
-        width: 70px;
+        width: 65px;
+    }
+    
+    /* More compact and full-width containers */
+    .year-groups-container,
+    .game-filters-container {
+        padding: 5px;
+        margin-bottom: 5px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Action buttons at bottom */
+    .form-actions {
+        gap: 5px;
+        margin-top: 8px;
+        padding-top: 5px;
+    }
+    
+    .form-actions .btn {
+        height: 30px;
+        font-size: 11px;
+        padding: 0 8px;
+    }
+    
+    /* Year group and game filter more compact */
+    .year-group,
+    .game-filter {
+        margin-bottom: 2px;
+        padding-bottom: 2px;
+    }
+    
+    /* Top controls more stacked */
+    .top-controls-row {
+        flex-direction: column;
+        gap: 5px;
+        margin-bottom: 10px;
+    }
+    
+    .plot-type-container,
+    .time-container,
+    .percent-container {
+        width: 100%;
+        min-width: 100%;
     }
 }
 

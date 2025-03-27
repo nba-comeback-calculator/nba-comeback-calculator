@@ -804,7 +804,7 @@ const nbacc_calculator_ui = (() => {
                         <div class="season-checkboxes">
                             <div class="season-checkbox-container">
                                 <input type="checkbox" id="${yearGroupId}-regular" class="season-checkbox regular-season-check" checked>
-                                <label for="${yearGroupId}-regular">Regular Season</label>
+                                <label for="${yearGroupId}-regular">Regular</label>
                             </div>
                             <div class="season-checkbox-container">
                                 <input type="checkbox" id="${yearGroupId}-playoffs" class="season-checkbox playoffs-check" checked>
@@ -851,11 +851,29 @@ const nbacc_calculator_ui = (() => {
         const filterHtml = `
             <div id="${filterId}" class="game-filter">
                 <div class="form-row single-line-filter">
-                    <div class="form-group inline-form col-filter-label">
-                        <span class="filter-label">Comeback Team:</span>
+                    <div class="filter-for-vs-container">
+                        <div class="form-group inline-form col-filter-label">
+                            <span class="filter-label">Team:</span>
+                        </div>
+                        <div class="form-group inline-form col-filter-label" style="margin-left: 5px;">
+                            <span class="filter-label filter-label-vs">vs:</span>
+                        </div>
                     </div>
-                    <div class="form-group inline-form col-filter-combined" style="margin-right: 5px;">
+                    <div class="form-group inline-form col-filter-combined">
                         <select id="${filterId}-home-team" class="form-control home-team-select">
+                            <option value="" data-type="any">Any</option>
+                            <option value="top5" data-type="rank">Top 5</option>
+                            <option value="top10" data-type="rank">Top 10</option>
+                            <option value="mid10" data-type="rank">Mid 10</option>
+                            <option value="bot10" data-type="rank">Bot 10</option>
+                            <option value="bot5" data-type="rank">Bot 5</option>
+                            <optgroup label="Teams">
+                                ${generateTeamOptions()}
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-group inline-form col-filter-combined">
+                        <select id="${filterId}-away-team" class="form-control away-team-select">
                             <option value="" data-type="any">Any</option>
                             <option value="top5" data-type="rank">Top 5</option>
                             <option value="top10" data-type="rank">Top 10</option>
@@ -869,25 +887,9 @@ const nbacc_calculator_ui = (() => {
                     </div>
                     <div class="form-group inline-form col-filter-location">
                         <select id="${filterId}-team-location" class="form-control team-location-select">
-                            <option value="any">Either Home/Away</option>
+                            <option value="any">Home/Away</option>
                             <option value="home">Home</option>
                             <option value="away">Away</option>
-                        </select>
-                    </div>
-                    <div class="form-group inline-form col-filter-label" style="margin-left: 5px;">
-                        <span class="filter-label filter-label-vs">vs:</span>
-                    </div>
-                    <div class="form-group inline-form col-filter-combined" style="margin-left: 5px;">
-                        <select id="${filterId}-away-team" class="form-control away-team-select">
-                            <option value="" data-type="any">Any</option>
-                            <option value="top5" data-type="rank">Top 5</option>
-                            <option value="top10" data-type="rank">Top 10</option>
-                            <option value="mid10" data-type="rank">Mid 10</option>
-                            <option value="bot10" data-type="rank">Bot 10</option>
-                            <option value="bot5" data-type="rank">Bot 5</option>
-                            <optgroup label="Teams">
-                                ${generateTeamOptions()}
-                            </optgroup>
                         </select>
                     </div>
                     <div class="form-group inline-form col-filter-button">
