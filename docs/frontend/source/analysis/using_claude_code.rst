@@ -133,7 +133,7 @@ Some Initial Thoughts and Observations
   error handling / fallback implementation behavior that creates more subtle,
   harder-to-track-down bugs.
 
-* `Using The Devil You Know`_: Writing code in your go-to language and having Claude
+* `Using the Devil You Know`_: Writing code in your go-to language and having Claude
   translate your complex logic into other domains you don't know as well works well.
 
 * `The More You Use It, The More Ways You See How You Can Use It`_: So many places
@@ -183,8 +183,8 @@ freaking way.  After 3 or 4 more prompts, I had it styled, with the outline of t
 hover box matching the line color and other odds and ends.  Didn't even look at the
 html or css once.
 
-There were many things in this project that I was surprised how well it did with
-minimal or even down-right-bad specification inputs.
+There were many things in this project where I was surprised how well it performed with
+minimal or even downright bad specification inputs.
 
 .. _requirements-are-key-but-its-ok-to-be-lazy:
 
@@ -340,7 +340,7 @@ the changes and then asked:
     did the URL encoding scheme to the regular files. So copy what you need out of 
     js/nbacc_calculator_UI_NOT_WORKING.js to js/nbacc_calculator_ui.js etc.
 
-That got me back to the good URL encoding scheme.  But the state of the form was still
+That got me back to the good URL encoding scheme. But the state of the form was still
 not being stored correctly, and Claude had gone off and created a fairly complicated
 storage mechanism. So I guided it with:
 
@@ -356,8 +356,8 @@ storage mechanism. So I guided it with:
     parse it and set the form up when we hit 'Calculate' -- the sole     
     state should be this URL string.
 
-And that worked perfect -- and it clearly updated the CLAUDE.md about the singularity
-of the URL state.  Finally, I just had to solve the problem of the chart showing up in
+And that worked perfectly -- and it clearly updated the CLAUDE.md about the singularity
+of the URL state. Finally, I just had to solve the problem of the chart showing up in
 the right spot (and not being duplicated) so I dug into the code and figured out the
 logic I wanted, and more specifically guided the tool:
 
@@ -378,7 +378,7 @@ logic I wanted, and more specifically guided the tool:
   canvas etc. Then we process the URL code and calculate the new chart.
 
 After those prompts, everything was working great and we had a solid URL encoding
-scheme, the form state was getting persisted, and when you entered in a URL, it came up
+scheme, the form state was being persisted, and when you entered in a URL, it came up
 in the correct place.
 
 
@@ -394,7 +394,7 @@ working".  All the while it's adding more error checking and debug statements an
 fallback behavior and digging a deeper and deeper hole.
 
 It even told me once that I was out to lunch and the most likely thing going on was
-that I was testing something else -- which was another "whoa"s moment.
+that I was testing something else -- which was another "whoa" moment.
 
 
 .. _totally-starting-over-is-also-a-good-strategy:
@@ -415,7 +415,7 @@ tests, and running them, but after a while it got buggy in some way I didn't wan
 debug so I gave up.
 
 Along the way I had it update the CLAUDE.md with the full spec, so I simply made a new
-folder, and asked it to create the same tool again after cleaning up the CLAUDE.md with
+folder and asked it to create the same tool again after cleaning up the CLAUDE.md with
 all the rules and problems I had run into along the way.
 
 This worked like a charm and I had a much smaller, cleaner codebase and it did not cost
@@ -452,12 +452,12 @@ instructions:
 
 Overall, telling it how you like to code and what patterns you want to use in the
 CLAUDE.md file is good practice.  But something deep in the LLM was forcing it to keep
-doing it over and over.  So I kept telling not to over and over.  It did seem that,
-after a while, it seems to do it a lot less now.
+doing it over and over.  So I kept telling it not to over and over.  It did seem that,
+after a while, it started to do it a lot less.
 
 .. _using-the-devil-you-know:
 
-Using The Devil You Know
+Using the Devil You Know
 ========================
 
 A major idea when I started this was to:
