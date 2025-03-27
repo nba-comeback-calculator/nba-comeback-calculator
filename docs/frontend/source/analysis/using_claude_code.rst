@@ -601,7 +601,7 @@ proved a problem.
 
 Initially, Claude created a custom `fmin` minimization algorithm, but it didn't work at
 all. After trying the numeric.js libs and a few others, I finally stumbled across this
-`rant about JavaScript numerical optimization
+`absolute banger of a rant about JavaScript numerical optimization
 <https://robertleeread.medium.com/a-brief-bad-ignorant-review-of-existing-numerical-optimization-software-in-javascript-further-c70f68641fda>`_
 which got me onto the `fmin by Ben Frederickson <https://github.com/benfred/fmin>`_
 library. Once I had that in place, plots finally started popping up on the page.
