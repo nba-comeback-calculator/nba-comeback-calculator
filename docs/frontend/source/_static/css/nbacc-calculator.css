@@ -647,8 +647,10 @@ optgroup[label="Teams"] option {
 }
 
 .remove-button-container {
-    display: inline-block;
-    margin-left: 0; /* Minimal space between Remove button and Playoffs field */
+    display: inline-flex;
+    align-items: center;
+    margin-left: 10px; /* More space between fields and trash button */
+    height: 32px; /* Match the height of other form elements */
 }
 
 .remove-year-group {

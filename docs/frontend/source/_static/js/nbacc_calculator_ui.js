@@ -822,7 +822,7 @@ const nbacc_calculator_ui = (() => {
                     </div>
                     ${
                         !isFirstGroup
-                            ? '<div class="form-group remove-button-container"><button class="btn btn-danger remove-year-group trash-icon-btn" title="Remove"><i class="trash-icon"></i></button></div>'
+                            ? '<div class="remove-button-container"><button class="btn btn-danger remove-year-group trash-icon-btn" title="Remove"><i class="trash-icon"></i></button></div>'
                             : ""
                     }
                 </div>
