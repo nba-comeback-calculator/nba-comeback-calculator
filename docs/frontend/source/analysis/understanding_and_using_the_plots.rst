@@ -124,8 +124,8 @@ For the plots you can hover over and then click on either:
    view the play-by-play report and media coverage if available.
    
 2. The trend line data points -- this shows you the "best" Win % chance for this
-   point deficit :doc:`since the trend line filters out much of the statistical
-   noise </analysis/forming_the_plot_trend_lines>`.
+   point deficit :doc:`since the trend line filters out much of the statistical noise
+   </analysis/forming_the_plot_trend_lines>`.
    
 You can also zoom in or even go full screen to make it easier to hover over a point of
 interest and if you want, save your current plot as an image.
@@ -156,11 +156,11 @@ This is a little unintuitive, because you might think it should be:
 For many cases, this is the same thing. Consider, however, the Win % for the case where
 the score is tied at halftime. Let us say there are 1,000 such games in your set. Well,
 there are 1,000 wins and 1,000 losses in these cases, so if you used the second formula
-you would get a Win % = 50%, which is correct.
+you would get a Win % = 100%, which is incorrect.
 
-The same thing happens with the Max Down Or More plots, where some of the same games
-are both wins and losses, so we use the first formula which matches with how the
-statistic is generally reported.
+The same thing happens with the Max Down Or More plots.  Some of the same games are
+both wins and losses, so we use the first formula which matches with how the statistic
+is generally reported.
 
 Just note that in the hover boxes, the "Wins X out of Y Games" is using the total
 number of games for the Y. So if you divide X/Y you might get a different number than
