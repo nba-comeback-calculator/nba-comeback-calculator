@@ -41,11 +41,13 @@
     .min-year-select, 
     .max-year-select {
         font-size: 10px !important;
-        padding: 2px 3px !important; /* Reduced horizontal padding from 5px to 3px */
+        padding: 2px 4px !important; /* Adjusted horizontal padding to 4px */
         height: 28px !important;
         min-height: 28px !important;
         width: auto !important; /* Make width adapt to content */
         min-width: 0 !important; /* Allow elements to shrink if needed */
+        text-overflow: ellipsis !important; /* Add ellipsis for text overflow */
+        white-space: nowrap !important; /* Prevent text wrapping */
     }
     
     /* Stack filter elements vertically instead of horizontally */
@@ -109,21 +111,26 @@
     /* Season type selector for mobile */
     .season-type-select {
         font-size: 10px !important;
+        width: 110px !important; /* Increased from 90px to 110px */
+        min-width: 110px !important;
+        max-width: 110px !important;
+        padding-left: 4px !important; /* Increased from 3px to 4px */
+        padding-right: 4px !important; /* Increased from 3px to 4px */
     }
     
     /* Use shorter text for Regular Season on mobile handled in JS */
     @media screen and (max-width: 480px) {
         /* Smaller Season containers for mobile */
         .season-checkbox-container:first-child {
-            width: 90px !important; /* Reduced from 150px */
-            padding-left: 5px !important; /* Reduced left padding from 12px */
-            padding-right: 5px !important; /* Reduced right padding from 25px */
+            width: 100px !important; /* Increased from 90px to 100px */
+            padding-left: 6px !important; /* Increased from 5px to 6px */
+            padding-right: 6px !important; /* Increased from 5px to 6px */
         }
         
         .season-checkbox-container:nth-child(2) {
-            width: 70px !important; /* Reduced from 110px */
-            padding-left: 5px !important; /* Reduced left padding from 12px */
-            padding-right: 5px !important; /* Reduced right padding from 25px */
+            width: 80px !important; /* Increased from 70px to 80px */
+            padding-left: 6px !important; /* Increased from 5px to 6px */
+            padding-right: 6px !important; /* Increased from 5px to 6px */
         }
         
         /* Reduce gap between containers */
@@ -134,17 +141,33 @@
     
     /* Optimize year groups and filter layouts */
     .year-select-row {
-        gap: 3px;
-        flex-wrap: wrap;
+        gap: 2px !important; /* Reduced from 3px */
+        flex-wrap: nowrap !important; /* Prevent wrapping */
+        justify-content: flex-start !important; /* Align to the left */
+        width: 100% !important;
+        overflow: visible !important;
+    }
+    
+    /* Ensure the select group doesn't grow */
+    .year-select-group {
+        flex: 0 0 auto !important;
+    }
+    
+    /* Make the season type group smaller */
+    .season-type-group {
+        flex: 0 0 auto !important;
+        margin-left: 4px !important; /* Reduced from 10px */
+        margin-right: 4px !important; /* Reduced from 8px to 4px for balanced spacing */
+        min-width: auto !important;
     }
     
     /* Make remove buttons more compact and narrower on mobile */
     .btn.btn-danger.remove-game-filter,
     .btn.btn-danger.remove-year-group {
-        height: 28px !important;
-        width: 28px !important; /* Increased for better visibility */
-        min-width: 28px !important; /* Fixed width */
-        max-width: 28px !important; /* Fixed width */
+        height: 34px !important; /* Increased from 30px to 34px */
+        width: 34px !important; /* Increased from 30px to 34px */
+        min-width: 34px !important;
+        max-width: 34px !important;
         padding: 0 !important;
         display: flex !important;
         align-items: center !important;
@@ -152,10 +175,10 @@
         overflow: visible !important;
     }
     
-    /* Make the trash icon smaller on mobile */
+    /* Make the trash icon fully visible on mobile */
     .trash-icon {
-        width: 16px !important; /* Increased for better visibility */
-        height: 16px !important;
+        width: 22px !important; /* Increased from 18px to 22px */
+        height: 22px !important; /* Increased from 18px to 22px */
         display: inline-block !important;
         background-image: url('../trash_can_light.svg') !important; /* Ensure icon is showing */
         background-size: contain !important;
@@ -167,7 +190,7 @@
     .remove-button-container {
         text-align: right;
         width: auto !important; /* Changed from 100% to auto */
-        max-width: 28px !important; /* Match button width */
+        max-width: 34px !important; /* Match the new button width */
         margin-top: 0 !important; /* Remove top margin */
         margin-left: 0 !important; /* Remove left margin */
         padding: 0 !important;
@@ -185,8 +208,8 @@
     
     /* Make year selects narrower */
     .year-select {
-        width: 55px !important; /* Reduced from 65px */
-        min-width: 55px !important; /* Ensure minimum width */
+        width: 60px !important; /* Increased from 55px to 60px */
+        min-width: 60px !important; /* Ensure minimum width */
     }
     
     /* More compact and full-width containers */
