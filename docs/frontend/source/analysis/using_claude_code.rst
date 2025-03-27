@@ -626,7 +626,6 @@ made the Sphinx extension, cost me about 50 cents and I was on my way.
 And when futzing with the Calculator form, I wanted a trash can icon and just asked it:
 
 .. code::
-  
     > On mobile, make the Regular be Reg. and then remove be a trash can icon svg. 
     Download a trash can icon and put it where we have our other svg icons.         
     

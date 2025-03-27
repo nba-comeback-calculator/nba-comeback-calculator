@@ -445,17 +445,16 @@ const nbacc_calculator_ui = (() => {
                     // Set the season type dropdown based on regularSeason and playoffs values
                     const seasonTypeSelect = element.querySelector('.season-type-select');
                     if (seasonTypeSelect) {
-                        let value = 'all';
                         if (group.regularSeason && group.playoffs) {
-                            value = 'all';
+                            seasonTypeSelect.value = 'all';
                         } else if (group.regularSeason) {
-                            value = 'regular';
+                            seasonTypeSelect.value = 'regular';
                         } else if (group.playoffs) {
-                            value = 'playoffs';
+                            seasonTypeSelect.value = 'playoffs';
+                        } else {
+                            // Default to all if somehow both are false
+                            seasonTypeSelect.value = 'all';
                         }
-                        // Set the value and the data attribute
-                        seasonTypeSelect.value = value;
-                        seasonTypeSelect.setAttribute('data-value', value);
                     }
                 }
             });
@@ -815,7 +814,7 @@ const nbacc_calculator_ui = (() => {
                         </select>
                     </div>
                     <div class="form-group season-type-group">
-                        <select id="${yearGroupId}-season-type" class="form-control season-type-select" data-value="all" onchange="this.setAttribute('data-value', this.value)">
+                        <select id="${yearGroupId}-season-type" class="form-control season-type-select">
                             <option value="all" selected>All Games</option>
                             <option value="regular">Regular Season</option>
                             <option value="playoffs">Playoffs</option>
