@@ -233,9 +233,14 @@ When I was my best self, I did:
 5. Commit working code before requesting the next feature
 
 Then, if you get yourself into a bad state you don't want to debug (which happened many
-times) you can easily revert.
+times) you can easily revert.  For example, futzing with the calculator form for mobile
+devices, I often asked it do adjust something and often the result would be totally
+screwed.  Rather than debug, I just did ``git reset --hard`` and tried a different
+prompting strategy.
 
-Except when I didn't do this and got into a bit of trouble, as described below.
+But over and over again, with my tendency to rush and get sloppy, I stopped doing this
+and just kept talking to Claude, mixing feature requests, not taking the time
+incrementally commit and it caused me a lot of unnecessary pain, as described below.
 
 .. _dont-throw-good-money-after-bad:
 
