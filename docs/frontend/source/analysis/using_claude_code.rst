@@ -122,7 +122,7 @@ Some Initial Thoughts and Observations
   error, you're just going to have to roll up your sleeves and figure out what is
   actually wrong.
 
-* `And Even Worse, Don't Tell It To Fix Things That Are Already Working`: Screaming
+* `And Even Worse, Don't Tell It To Fix Things That Are Already Working`_: Screaming
   into the void is a very bad strategy.
 
 * `Totally Starting Over Is Also A Good Strategy`_: Sometimes, the second time -- with
