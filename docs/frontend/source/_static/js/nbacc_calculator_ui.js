@@ -225,7 +225,7 @@ const nbacc_calculator_ui = (() => {
         const content = `
             <div class="calculator-ui">
                 <div class="info-box alert alert-info">
-                    <i>Configure <a href="/analysis/understanding_and_using_the_plots.html">different chart types</a> and options to create an interactive plot. Click on data points to examine NBA gamesets and trend line predictions.</i>
+                    <i>Configure <a href="/analysis/understanding_and_using_the_plots.html">different chart types</a> and options to create an interactive plot. ${nbacc_utils.isMobile() ? 'Press full screen and then click on data points' : 'Click on data points'} to examine NBA gamesets and trend line predictions.</i>
                 </div>
                 <div class="calculator-header">
                     <h2>${headerText}</h2>
