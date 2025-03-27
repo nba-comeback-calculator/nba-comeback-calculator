@@ -4,7 +4,7 @@ Using Claude Code To AI Auto Generate This Site
 
 .. _using-claude-code:
 
-.. blue-box::
+.. green-box::
 
     Having used Claude Code to put together this fairly complex website, I thought it
     might be useful to jot down some notes.  Being a total AI coding noob, I thought
@@ -62,7 +62,7 @@ having it integrated in an IDE.  I find that just suits me better, and I can mor
 easily separate my editing functions from "now I'm AIing" brain mode (even though I
 still mostly use vscode with copilot or cursor to do my editing).
 
-.. blue-box::
+.. green-box::
 
   In the beginning of this project I did take the time to carefully commit my code, ask
   Claude to do a fairly complex edit on multiple files, check the results, revert back
@@ -214,7 +214,7 @@ Commit, Ask for Small Features, One at a Time, Diff, Test, and Then Commit A Few
 ============================================================================================================
 
 
-.. blue-box::
+.. green-box::
 
   Just a quick note, claude Code also shines at doing your git commits for you, which I
   did from time to time.  But I found myself being a cheapskate and, this being sort of
@@ -620,8 +620,8 @@ setup JavaScript and CSS CDN sites. Pretty soon I was asking Claude to strip thr
 this document and auto update my sphinx conf.py file I needed to build the final site.
 
 Also, I wanted a different sphinx directive than the pylab ``.. note::`` was giving me,
-so I asked Claude to write a ``.. blue-box::`` directive and it did it first time, made
-the sphinx extension, cost me about 50 cents and I was on my way.
+so I asked Claude to write a ``.. green-box::`` directive and it did it first time,
+made the sphinx extension, cost me about 50 cents and I was on my way.
 
 Finally, I had it help out writing the sphinx rst pages quite a bit.  This page in
 particular I would use it to get me some starting headers and make a bunch or url links

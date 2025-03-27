@@ -571,7 +571,7 @@ strip though this document and auto update my sphinx conf.py file I needed
 to build the final site. 
 
 Also, I wanted a different sphinx directive than the pylab ``.. note::`` was giving me, 
-so I asked Claude to write a ``.. blue-box::`` directive and it did it first time,
+so I asked Claude to write a ``.. green-box::`` directive and it did it first time,
 made the sphinx extension, cost me about 50 cents and I was on my way. 
 
 About the cost ....

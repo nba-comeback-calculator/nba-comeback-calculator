@@ -43,38 +43,44 @@ bucket.
 Win Percentages When Max Deficit is N *Or More* Points
 ======================================================
 
-:ref:`A very common way of looking at comebacks <max-points-down-or-more>` is
-calculating the % chance of coming back from down N point *or more* over an entire game:
+:ref:`A very common way of looking at comebacks<max-points-down-or-more>` is
+calculating the % chance of coming back from down N points *or more* over an entire
+game:
 
 .. raw:: html
 
     <div id="plots/old_school_v_modern/max_down_or_more_48" class="nbacc-chart"></div>
 
-You can :ref:`interact with this chart <using-the-plot-controls>` and click on either
-the scatter points (actual game data) or the trend line points (a statistical model fit
-used to filter out noise) and compare at different point margins.  To focus on a few we
-get:
+Adding :doc:`trend lines to the statistical data
+</analysis/forming_the_plot_trend_lines>` and plotting it on a `normal probability plot
+<https://en.wikipedia.org/wiki/Normal_probability_plot>`_, we can see a fairly constant
+shift of about 2 points to the left for the modern era.
+
+You can :ref:`interact with this chart <using-the-plot-controls>` and hover over the
+raw data points to see which games compose a point (and compare it with a `list of
+biggest comebacks <https://en.wikipedia.org/wiki/Comeback_(sports)#NBA>`_ if so
+inclined).  To focus on a few we get:
 
 .. list-table:: Win % Increases When Comparing Modern Versus Old School Eras
    :header-rows: 1
 
-   * - Point Margin
+   * - Points Down Or More
      - 1996-2016 Win %
      - 2017-2024 Win %
      - Total Win % Increase
-   * - -30
+   * - 30
      -  0.15 %
      -  0.42 %
      - 2.8x (180% increase)
-   * - -20
+   * - 20
      - 2.89 %
      - 5.31 %
      - 1.83x (80% increase)
-   * - -18
+   * - 18
      - 4.88 %
      - 7.93 %
      - 1.59x (60% increase)
-   * - -15
+   * - 15
      -  9.22 %
      - 12.82 %
      - 1.39x (39% increase)
@@ -82,7 +88,9 @@ get:
 So while coming back from down 30 or more happens 2.8 times more than in the past, it's
 still very unlikely. In fact, you need to move over a little less than one
 three-pointer to get about the same chance: in the old school era, if you were down -27
-or more there was about a 0.48% chance of winning.
+or more there was about a ``0.48%`` chance of winning.  And being down 20 or more now
+has just about the same chance of winning as being down 18 or more back the day
+(``~5.0%``).
 
 .. green-box::
 
@@ -124,20 +132,21 @@ The data is a bit noisier here, because we are not accumulating the games as we 
 from left to right like we did when looking at points down *or more*. Here, for the old
 school era, we have the case that there was one game (``11/27/1996 DEN @ UTA:
 103-107``) where UTA was down -34 at the half and won. But no team in that era won when
-down -33, -32, -31, -30 or -29 at the half.
+down *exactly* -33, -32, -31, -30 or -29 at the half.
 
 Now, the divide here is a little larger: being down -20 in the modern era is about the
-same as being done 16.5 points in the old school era (3.5 point shift).
+same as being down 16.5 points in the old school era (3.5 point shift).
 
 But as time decreases it tightens up -- looking at starting the 4th quarter we have
-being 20 points down (``0.17%``) being about the same as 17.8 points down new to old:
+being 20 points down (``0.17%``) being about the same as 17.8 points down when
+comparing new to old:
 
 .. raw:: html
 
     <div id="plots/old_school_v_modern/down_at_12" class="nbacc-chart"></div>
 
 
-And entering the final 6 minutes it gets tigther still:
+And entering the final 6 minutes it gets tighter still:
 
 .. raw:: html
 
@@ -149,8 +158,8 @@ And entering the final 6 minutes it gets tigther still:
 Win % Versus Time
 =================
 
-So, collecting this data for every minute, :ref:`we can focus on a single percentage
-and plot the time v point deficit for that percentage
+Collecting this data for every minute, :ref:`we can focus on a single percentage and
+plot the time v point deficit for that percentage
 <percent-chance-of-winning-time-v-points-down>`.  Doing that for 10% while comparing
 the eras we get:
 
@@ -174,14 +183,36 @@ characterization.
 Occurrence Frequencies
 ======================
 
+In a certain sense, the fact the teams can score more quickly does not automatically
+lead to the conclusion that big comebacks should be more probable: I mean, if you are
+down and can score quick, so can your opponent and keep you down.
+
+So a related question is: are there simply more games with large deficits? Plotting the
+occurrence rate between the eras we see:
+
 .. raw:: html
 
     <div id="plots/old_school_v_modern/occurs_down_or_more_48" class="nbacc-chart"></div>
 
+Now, teams fall down 30 points or more ``12.09%`` of the time now as compared to
+``7.61`` percent in the past, a notable 1.59x increase (or about 59% more frequently).
+
+
+.. _what-would-be-dramatic:
+
+What *Would* Be Dramatic
+========================
+
+Just to get a sense of what an 8 point shift looks like, if we look at top 10 teams
+(out of 30) vs. bottom 10 team we get:
+
 .. raw:: html
 
-    <div id="plots/old_school_v_modern/occurs_down_or_more_12" class="nbacc-chart"></div>
+    <div id="20_18/dramatic" class="nbacc-chart"></div>
 
+Here, the chance of top ten team playing a bottom 10 team coming back from a
+20-points-or-more deficit (``20.39%``) is about the same for the average team coming
+back from 12 or more down.
 
 .. _deciding-on-eras-breakdown:
 

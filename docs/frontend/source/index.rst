@@ -11,7 +11,7 @@ nba comeback calculator
    plots/index 
    calculator/index
 
-.. blue-box::
+.. green-box::
 
    *Game data last updated: 2025-03-25.  Due to large amount of data, charts are best
    viewed on a computer.*
