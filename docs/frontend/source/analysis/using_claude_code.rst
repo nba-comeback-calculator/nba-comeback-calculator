@@ -216,7 +216,7 @@ Commit, Ask for Small Features, One at a Time, Diff, Test, and Then Commit A Few
 
 .. green-box::
 
-  Just a quick note, claude Code also shines at doing your git commits for you, which I
+  Just a quick note, Claude Code also shines at doing your git commits for you, which I
   did from time to time.  But I found myself being a cheapskate and, this being sort of
   a toy project, did that myself most of the time.
 
