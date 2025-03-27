@@ -2,15 +2,25 @@
 
 **NOTE**: For calculator-specific details and usage, refer to [CALCULATOR.md](CALCULATOR.md) which describes the in-memory JSON data handling approach and calculator implementation.
 
-## Chart Loading Configuration
+## Configuration Variables
 
-The chart loading behavior can be configured with a top-level variable:
+The following top-level variables control chart behavior:
+
+### Chart Loading Configuration
 
 - `nbacc_utils.__LOAD_CHART_ON_PAGE_LOAD__`: Controls how charts are loaded
   - When `true` (default): All charts load immediately on page load
   - When `false`: Charts load lazily when scrolled into viewport (better for pages with many charts)
 
 This setting is defined in `nbacc_utils.js` and used by `nbacc_chart_loader.js`.
+
+### Mobile Tooltip Configuration
+
+- `nbacc_utils.__HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__`: Controls tooltip behavior on mobile devices
+  - When `false` (default): Tooltips on mobile only appear in fullscreen mode
+  - When `true`: Tooltips will show on mobile when clicking on data points, even when not in fullscreen mode
+
+This setting was added to address mobile usability. By default, mobile users must enter fullscreen mode to see tooltip data. This preserves the original design where chart tooltips are reserved for fullscreen mode on mobile devices, which provides a cleaner experience for mobile users browsing the charts. When enabled, users can access tooltips by clicking directly on data points without entering fullscreen mode.
 
 ## Calculator State Management
 
@@ -133,6 +143,10 @@ When you see "Add the important comment X", it means to add a comment in the cod
     - Scatter points: `hoverRadius: 8` in interaction settings
     - Trend line points: `hoverRadius: 6` in interaction settings
   - The external tooltip handler checks for click events and only shows tooltips on actual clicks
+  - Mobile behavior:
+    - By default, tooltips are only shown in fullscreen mode on mobile
+    - Click detection uses timestamp tracking via `chart.lastClickEvent`
+    - Configurable with `__HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__` flag
 
 - **CHART_BACKGROUND_COLOR**: Chart plot area background color and opacity setting in plotBackgroundPlugin
 - **FULL_SCREEN_FUNCTIONS**: Full screen and exit full screen functionality for all devices including mobile; disables page scrolling while in full screen mode; on mobile: enables zooming, disables normal page pinch-zooming to prevent interference with chart zoom functionality, adds reset zoom button, shows smaller win count numbers, and enables tooltip hover boxes during full screen mode only; automatically resets zoom when exiting full screen; uses global currentFullscreenChart variable to track active chart; implements ESC key handler to exit fullscreen mode when ESC key is pressed; properly restores chart to original dimensions when exiting fullscreen

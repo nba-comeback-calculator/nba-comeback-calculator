@@ -14,6 +14,11 @@ const nbacc_utils = (() => {
     // Configuration for chart loading behavior
     // If true, all charts load immediately; if false, charts load when scrolled into viewport
     var __LOAD_CHART_ON_PAGE_LOAD__ = true;
+    
+    // Configuration for mobile tooltip behavior
+    // If true, tooltips will show on click even when not in fullscreen mode on mobile
+    // If false (default), tooltips on mobile only appear in fullscreen mode
+    var __HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__ = false;
 
     /**
      * Reads and decompresses a gzipped JSON file from a URL or Response object
@@ -757,6 +762,7 @@ const nbacc_utils = (() => {
         renderGameExamples,
         createGameLink,
         formatGameDate,
-        __LOAD_CHART_ON_PAGE_LOAD__
+        __LOAD_CHART_ON_PAGE_LOAD__,
+        __HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__
     };
 })();

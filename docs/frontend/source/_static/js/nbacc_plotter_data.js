@@ -992,10 +992,18 @@ nbacc_plotter_data = (() => {
         // Get the event type from context if available
         const eventType = context.tooltip && context.tooltip.opacity === 1 ? 'click' : 'mousemove';
         
-        // On mobile, only show tooltips on click (regardless of fullscreen mode)
+        // Handle mobile tooltip behavior
         if (typeof isMobile === "function" && isMobile()) {
-            // If it's not a click event, don't show the tooltip
-            if (!isClick && eventType !== 'click') {
+            // Check if we're in fullscreen mode
+            const isFullscreen = context.chart && context.chart.isFullscreen;
+            
+            // Check the configuration flag
+            const allowClickWhenNotFullscreen = typeof nbacc_utils !== "undefined" && 
+                nbacc_utils.__HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__ === true;
+            
+            // By default, on mobile only show tooltips in fullscreen mode
+            // But if the configuration flag is true, also show on click even when not in fullscreen
+            if (!isFullscreen && !(allowClickWhenNotFullscreen && isClick)) {
                 return;
             }
         }
