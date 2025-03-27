@@ -111,15 +111,24 @@
     
     /* Use shorter text for Regular Season on mobile */
     @media screen and (max-width: 480px) {
-        .season-type-select option[value="regular"] {
-            text-indent: -9999px;
-            line-height: 0;
+        /* Change option text to Reg. Season */
+        select.season-type-select option[value="regular"] {
+            color: transparent;
         }
-        .season-type-select option[value="regular"]::after {
+        select.season-type-select option[value="regular"]::before {
             content: "Reg. Season";
-            text-indent: 0;
-            display: block;
-            line-height: initial;
+            color: white;
+        }
+        
+        /* Make the selected text show Reg. Season in the dropdown */
+        .season-type-select {
+            color: white !important;
+        }
+        .season-type-select[data-value="regular"]::before {
+            content: "Reg. Season";
+            position: absolute;
+            left: 10px;
+            color: white;
         }
     }
     
@@ -160,9 +169,25 @@
         line-height: 28px;
     }
     
-    /* Make year selects narrower */
+    /* Make selects narrower on mobile */
     .year-select {
-        width: 65px;
+        width: 60px !important;
+        min-width: 60px !important;
+    }
+    
+    .season-type-select {
+        width: 100px !important;
+        min-width: 100px !important;
+    }
+    
+    /* Make the year group row more compact */
+    .year-select-row > div {
+        margin-right: 2px !important;
+    }
+    
+    /* Make the remove button container smaller on mobile */
+    .remove-button-container {
+        margin-left: 2px !important;
     }
     
     /* More compact and full-width containers */
