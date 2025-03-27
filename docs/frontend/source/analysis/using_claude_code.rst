@@ -228,7 +228,7 @@ When I was my best self, I did:
 
 1. Commit current working code to establish a clean baseline
 2. Ask Claude for a specific, focused feature
-3. Review the changes with git diff to verify functionality
+3. Review the changes with a diff tool to verify functionality
 4. Test the implementation before moving on
 5. Commit working code before requesting the next feature
 
