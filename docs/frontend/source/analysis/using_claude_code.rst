@@ -199,14 +199,14 @@ For Claude, this is baked in with CLAUDE.md files, and you will see them littere
 in this project and other supplemental .md files (like the `CALCULATOR.md
 <https://github.com/nba-comeback-calculator/nba-comeback-calculator/blob/main/docs/frontend/source/_static/CALCULATOR.md>`_).
 
-But writing good specifications takes time and effort and, being `lazy is one of the 3
-virtues of being a good dev <https://thethreevirtues.com/>`_.  So with that goal in
-mind, I found myself starting to use Claude more and more to write the CLAUDE.md file
-and other requirements.  I would just paste in text I would be embarrassed for people
-to see and ask it to clean it up, read the CLAUDE.md, ask it to tweak it again, mash my
-hand against the keyboard a few more times, and then, voilà, a working spec it could
-then use to write code against.  (For example, :ref:`the spec I fed into it to do the
-form URL encoding was barely English <url-mashup>`).
+But writing good specifications takes time and effort and, knowing that being `lazy is
+one of the 3 virtues of being a good dev <https://thethreevirtues.com/>`_, I found
+myself starting to use Claude more and more to write the CLAUDE.md file and other
+requirements.  I would just paste in text I would be embarrassed for people to see and
+ask it to clean it up, read the CLAUDE.md, ask it to tweak it again, mash my hand
+against the keyboard a few more times, and then, voilà, a working spec it could then
+use to write code against.  (For example, :ref:`the spec I fed into it to do the form
+URL encoding was barely English <url-mashup>`).
 
 .. _commit-ask-for-small-features:
 
