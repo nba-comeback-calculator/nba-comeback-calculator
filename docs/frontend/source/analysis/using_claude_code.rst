@@ -599,7 +599,7 @@ separating out those functions into their own Python file and rewriting some alg
 using primitives I knew were available in Math.js. However, the scipy.optimize.minimize
 proved a problem.
 
-Initially, Claude created a custom `fmin` minimization algorithm, but it didn't work at
+Initially, Claude created a custom fmin minimization algorithm, but it didn't work at
 all. After trying the numeric.js libs and a few others, I finally stumbled across this
 `absolute banger of a rant about JavaScript numerical optimization
 <https://robertleeread.medium.com/a-brief-bad-ignorant-review-of-existing-numerical-optimization-software-in-javascript-further-c70f68641fda>`_
@@ -667,10 +667,10 @@ firmer understanding of what you have before you start adding major new features
 Or maybe not! Maybe just fire and forget!
 
 But one thing stood out: I found it required much less cognitive load than having to
-type in everything yourself, check your curly braces, and a million other details,
-Google for the umpteenth time about some stupid CSS rule you never ever wanted to know
-about, and on and on. When Claude runs, it can take time. But then your mind is free to
-think about the next architecture steps or what you want the next feature to do.
+type in everything yourself, check your curly braces, and a million other details, like
+googling for the umpteenth time about some stupid CSS rule you never ever wanted to
+know about, and on and on. When Claude runs, it can take time. But then your mind is
+free to think about the next architecture steps or what you want the next feature to do.
 
 
 
