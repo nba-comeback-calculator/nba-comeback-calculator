@@ -1,6 +1,6 @@
-*****************
-Using Claude Code
-*****************
+***********************************************
+Using Claude Code To AI Auto Generate This Site
+***********************************************
 
 .. _using-claude-code:
 
@@ -18,22 +18,24 @@ Using Claude Code
 Using Claude Code for Development
 =================================
 
-Like most devs these days, I've been aware of AI for some time.  And maybe like most,
-not sure the stats, I've never used it for anything large scale.  We are allowed to use
-AI at work, just not with any of our codebase or any company data.  So I've had my time
-kicking copilot around the block a bit, but always for *very* small things, functions
-that do specific scientific or statistical functions that you might find in the scipy
-or scikit learn library but are not there.
+Like most devs these days, I've been aware of AI for some time.  Probably also like
+most devs I've never used it for anything large scale.  We are allowed to use AI at
+work, just not with any of our codebase or any company data -- so basically, not much
+to work with. So I've had my time kicking copilot around the block a bit, but always
+for fairly small things, functions that do specific scientific or statistical functions
+that you might find in the scipy or scikit learn library but are not there.  File
+parsing functions, etc.
 
 But I've had this feeling that you couldn't really use AI for big things, for major
 pieces of code.  Surely, it couldn't work on the codebases of the size *I* work on
 [adjusts monocle].
 
-So when I got talking to a friend about downloading this NBA data and running some
-quick one off python scripts against it, he had the idea of using AI to build out a
-front end tool.  Perfect.  Here was a project that was fairly large and involves both
-front end work and :doc:`number crunching</analysis/forming_the_plot_trend_lines>` and
-is totally self contained and won't get me fired for doing it!
+So when I got talking to another programmer friend about downloading this NBA data and
+running some quick one off python scripts against it, he had the idea of using AI to
+build out a front end tool.  Perfect.  Here was a project that was fairly large and
+involves both front end work and :doc:`number
+crunching</analysis/forming_the_plot_trend_lines>` and is totally self contained and
+won't get me fired for doing it!
 
 
 
@@ -49,18 +51,16 @@ It didn't take me long to find posts like these:
 
 - `Lessons from 20 hours with Claude Code
   <https://waleedk.medium.com/claude-code-top-tips-lessons-from-the-first-20-hours-246032b943b4>`_
-- `Cursor vs. Claude Code comparison on Reddit
+- `Some good discussion on Claude Code versus Cursor
   <https://www.reddit.com/r/cursor/comments/1j21lo8/cursor_vs_claude_code/>`_
 - `HaiHai.ai's detailed comparison <https://www.haihai.ai/cursor-vs-claude-code/>`_
 
+Among many others.
 
-Right away, I really like the decision they made to make the tool a CLI as opposed to
+To boot, I really like the decision they made to make the tool a REPL as opposed to
 having it integrated in an IDE.  I find that just suits me better, and I can more
 easily separate my editing functions from "now I'm AIing" brain mode (even though I
 still mostly use vscode with copilot or cursor to do my editing).
-
-It seems pretty clear, at least at the time of this writing in March 2025, Claude Code
-is state of the art.
 
 .. blue-box::
 
@@ -69,6 +69,9 @@ is state of the art.
   and ask Cursor to do the same thing.  It didn't take long before I gave up on Cursor
   for complicated edits, even though on smaller things they can perform at a similar
   level.
+
+  Often, the output was close or just as good.  But many times it was not workable and
+  I tended to just use Claude Code more and more often.
 
 
 .. _basic-scope-of-work:
@@ -79,19 +82,19 @@ Basic Scope Of Work
 In broad strokes, I:
 
 * Wrote the majority of the code that processes the NBA play-by-play game data in
-  python.  This python would, based on various conditions, form the necessary data
-  structures, run the statistical processing code, and then create structured json
+  Python. This Python would, based on various conditions, form the necessary data
+  structures, run the statistical processing code, and then create structured JSON
   files that contained everything needed to make a plot (including titles, axis labels,
   hover point data, etc).
 
-* Used Claude to 1. understand these json blobs and 2. write a
-  `chart.js <https://www.chartjs.org/>`_ front end that could plot these json data
+* Used Claude to 1. understand these JSON blobs and 2. write a
+  `chart.js <https://www.chartjs.org/>`_ front end that could plot these JSON data
   files, add the hover boxes, add the custom full screen (using `basicLightbox
   <https://basiclightbox.electerious.com/>`_) and everything you see when you interact
-  with a chart.  I did jump in now and then to fix things, refactor, etc, but mostly I
+  with a chart. I did jump in now and then to fix things, refactor, etc, but mostly I
   let Claude do the work via prompts.
 
-* Then, asked Claude code :ref:`to convert my analysis python
+* Then, asked Claude code :ref:`to convert my analysis Python
   code<using-the-devil-you-know>` so the game processing could happen in the browser to
   build the :doc:`calculator </calculator/index>`
   
@@ -107,30 +110,81 @@ directory.
 Some Initial Thoughts and Observations
 ======================================
 
+* `The Moments Of Wonder Are Often`: I said "No Freaking Way" more than a few times.
+
 * `Requirements Are Key, But It's OK To Be Lazy`_: Let Claude clarify your thinking.
 
 * `Commit, Ask for Small Features, One at a Time, Diff, Test, and Then Commit A Few
   More Times For Good Measure`_: It's way easier to back out of small changes than big
   ones.
 
-* `Don't Throw Good Money After Bad`_:  After a few times trying to get it to fix an
-  error, you're just going to have to roll up your selves and figure out what is
+* `Don't Throw Good Money After Bad`_: After a few times trying to get it to fix an
+  error, you're just going to have to roll up your sleeves and figure out what is
   actually wrong.
 
+* `And Even Worse, Don't Tell It To Fix Things That Are Already Working`: Screaming
+  into the void is a very bad strategy.
+
 * `Totally Starting Over Is Also A Good Strategy`_: Sometimes, the second time -- with
-  the benefit of hindsight guiding your already on disk CLAUDE.md requirements -- is
+  the benefit of hindsight guiding your already on-disk CLAUDE.md requirements -- is
   the charm.
 
-* `Watch Out For Needless Error Handling`_: Often, Claude insert needless
-   error handling / fallback implementation behavior that creates more subtle, harder
-   to track down bugs.
+* `Watch Out For Needless Error Handling`_: Often, Claude inserts needless
+  error handling / fallback implementation behavior that creates more subtle, harder to
+  track down bugs.
 
 * `Using The Devil You Know`_: Writing code in your goto language and having Claude
-  translate your complex logic into other domains works well.
+  translate your complex logic into other domains you don't know as well works well.
 
-* `The More You Use It, The More Ways You See How You Can Use It`_: so many places
+* `The More You Use It, The More Ways You See How You Can Use It`_: So many places
   to automate.
 
+
+
+.. _the-moments-of-wonder-are-often:
+
+The Moments Of Wonder Are Often
+===============================
+After I had my chart data files created by my Python scripts, I told Claude to help me
+make a chart.js chart and it took very little time to be up and running. Claude, unlike
+other AI tools, does things like use grep and other shell commands to figure out what
+it's looking at. I barely sketched out the JSON format to the tool and it figured the
+rest out on its own.
+
+Then, briefly, I described how I wanted to create hover boxes that appear when the user
+pressed on a datapoint on the line:
+
+.. code::
+
+     > You'll notice in the JSON file that there are Point Margin, Win %, Win Game Count, 
+     Game Count, Occurrence %, and also a list of win games and loss games along with some 
+     data for each game. I want the hover box to look something like (and these are 
+     example numbers):
+
+     Point Margin: -23
+     Wins: 81 out of 3028 Total Games
+     Win %: 2.67
+     Occurs %: 31.81
+      Win examples:
+      04/08/2022 HOU(30th/0.244) @ TOR(10th/0.585): 115-117
+
+      Loss examples:
+      12/22/2017 WAS(17th/0.524) @ BKN(23rd/0.341): 84-119
+
+    Where the 30th is the rank and 0.244 is the team percentage; 115-117 is 
+    the score. 
+
+    But there can be many wins and losses, so only show up to 10 wins and 
+    4 losses. Note, each game data point has a 'game_id' field. Use that 
+    to make the hyperlink that when clicked brings you to www.nba.com/games/{game_id}
+
+And it thought about it for a few minutes and it mostly worked the very first time. No
+freaking way.  After 3 or 4 more prompts, I had it styled, with the outline of the
+hover box matching the line color and other odds and ends.  Didn't even look at the
+html or css once.
+
+There were many things in this project that I was surprised how well it did with
+minimal or even down-right-bad specification inputs.
 
 .. _requirements-are-key-but-its-ok-to-be-lazy:
 
@@ -139,7 +193,7 @@ Requirements Are Key, But It's OK To Be Lazy
 
 As has been noted many times about using AI coding, the cleaner, the clearer, the just
 plain better the requirements are, the better the results.  You need to feed in clearly
-defined rules and goals and lots of people have written and commented on this step.
+defined rules and goals; in the end it's not magic (but it's getting damn near).
 
 For Claude, this is baked in with CLAUDE.md files, and you will see them littered about
 in this project and other supplemental .md files (like the `CALCULATOR.md
@@ -181,10 +235,6 @@ When I was my best self, I did:
 Then, if you get yourself into a bad state you don't want to debug (which happened many
 times) you can easily revert.
 
-For example, when implementing the calculator UI, I started with basic dialog
-functionality, then incrementally added form controls, state management and URL
-encoding with simple, focused requests.
-
 Except when I didn't do this and got into a bit of trouble, as described below.
 
 .. _dont-throw-good-money-after-bad:
@@ -193,14 +243,13 @@ Don't Throw Good Money After Bad
 ================================
 
 One thing I found that once you ask Claude to fix something, if it doesn't fix it,
-asking it to fix it over and over can lead to a bigger mess.  It's better, after one or
-maybe two failures, to jump in with a debugger and figure it out yourself.
+asking it to fix it over and over can lead to a bigger mess as it adds more debug
+statements, error handling, fallback code, and other failing attempts at solving the
+problem.  It's better, after one or maybe two failures (ok, maybe 3), to jump in with a
+debugger and figure it out yourself.
 
 You might not even need to totally fix it yourself, but rather find where the problem
 is and guide it a bit.
-
-I made the mistake of repeatedly asking Claude to fix the issue, which only compounded
-the problem as each attempted fix introduced new complications:
 
 On the :doc:`calculator page </calculator/index>`, the original versions of the
 bootstrap form were not remembering the options when you closed the form and reopened
@@ -261,15 +310,15 @@ time:
 
 Amazingly, it took my ridiculous url encoding scheme and got it very close to right the
 first time -- very close to the current one which is pretty solid and minimal and works
-great.  (It also asked it to update the CLAUDE.md file with this thought out, clean
-spec, another good example of how you can have the tool write its own requirements.)
+great.  (I also asked it to update the CLAUDE.md file as it increasingly cleaned up the
+spec -- another good example of how you can have the tool write its own requirements.)
 
 However, in the course of it doing the other tasks, it totally screwed what happens
-when you enter a URL or hit the "Calculate" Button for that matter: it kept making a
+when you enter a URL or hit the "Calculate" Button.  For that matter: it kept making a
 new chart and putting it under the other one.
 
 I tried, like five times, to tell it to fix it's problems.  But it just got worse.
-Eventually, I had to copy that bad files over to _NOT_WORKING.js files, and then revert
+Eventually, I had to copy the bad files over to _NOT_WORKING.js files, and then revert
 the changes and then asked:
 
 .. code::
@@ -301,9 +350,10 @@ storage mechanism. So I guided it with:
     parse it and set the form up when we hit 'Calculate' -- the sole     
     state should be this URL string.
 
-And that worked perfect.  Finally, I just had to solve the problem of the chart showing
-up in the right spot (and not being duplicated) so I dug into the code and figured out
-the logic I wanted, and more specifically guided the tool:
+And that worked perfect -- and it clearly updated the CLAUDE.md about the singularity
+of the URL state.  Finally, I just had to solve the problem of the chart showing up in
+the right spot (and not being duplicated) so I dug into the code and figured out the
+logic I wanted, and more specifically guided the tool:
 
 .. code::
 
@@ -324,6 +374,21 @@ the logic I wanted, and more specifically guided the tool:
 After those prompts, everything was working great and we had a solid URL encoding
 scheme, the form state was getting persisted, and when you entered in a URL, it came up
 in the correct place.
+
+
+.. _and-even-worse-dont-tell-it-to-fix-things-that-are-already-working:
+
+And Even Worse, Don't Tell It To Fix Things That Are Already Working
+====================================================================
+
+Even worse than telling it to repeatedly fix bugs is to keep telling it to fix things
+it has already fixed. More than once, I was looking at a site that didn't reflect the
+recent code and -- over and over again --  saying "no, it's still not working".  All
+the while it's adding more error checking and debug statements and fallback behavior
+and digging a deeper and deeper hole.
+
+It even told me once that I was out to lunch and the most likely thing going on was
+that I was testing something else -- which was another "whoa"s moment.
 
 
 .. _totally-starting-over-is-also-a-good-strategy:
@@ -354,17 +419,17 @@ much to get this new version running (which runs much better than the first iter
 
 Watch Out For Needless Error Handling
 =====================================
-One thing I noticed Claude do again and again was but in default values, create backup
-implementation functions if it couldn't load certain javascript cdns, and hosts of
-other fallback / defaulting behavior.  This usually just creates bugs that are much
+One thing I noticed Claude do again and again was put in default values, create backup
+implementation functions if it couldn't load certain JavaScript CDNs, and hosts of
+other fallback / defaulting behavior. This usually just creates bugs that are much
 harder to find or worse, weird-but-not-total-failure behavior that takes more time to
 diagnose.
 
 This is not what I wanted -- this is a correct by construction architecture with little
-input from the user -- I wanted it to just plain fail if data was missing in the json
-or a cdn didn't load.
+input from the user -- I wanted it to just plain fail if data was missing in the JSON
+or a CDN didn't load.
 
-In fact, if you look at the main CLAUDE.md file for the javascript, I told it many many
+In fact, if you look at the main CLAUDE.md file for the JavaScript, I told it many many
 times not to do this and told it to update the CLAUDE.md and it added these
 instructions:
 
@@ -389,24 +454,24 @@ Using The Devil You Know
 
 A major idea when I started this was to:
 
-* First create python files that could process all the NBA play-by-play game data, do
-  all the statistical fitting, and make json chart files that could be read in by the
+* First create Python files that could process all the NBA play-by-play game data, do
+  all the statistical fitting, and make JSON chart files that could be read in by the
   chart.js codebase.
 
-* Have Claude convert these files into javascript to implement the :doc:`interactive
+* Have Claude convert these files into JavaScript to implement the :doc:`interactive
   calculator </calculator/index>`.
 
-The core idea being, I know python much much better than javascript, know the numpy/
-scipy libraries well and it will be much easier to work out all the bugs there, and
-have that all worked out rather than trying to prompt claude to do the same thing in
-javascript without a reference.  I think overall, this hunch was very correct.
+The core idea being, I know Python much much better than JavaScript, know the NumPy/
+SciPy libraries well and it will be much easier to work out all the bugs there, and
+have that all worked out rather than trying to prompt Claude to do the same thing in
+JavaScript without a reference. I think overall, this hunch was very correct.
 
 Mostly this worked great and took less than a day to get it all working. There were
 bumps and many missteps though.
 
-My first mistake was the majority of the python code was in one rather largish file and
+My first mistake was the majority of the Python code was in one rather largish file and
 it really could have been cleaned up. So my first naive attempt at translating this
-didn't look great, not to mention Claude didn't even want to read in the python file as
+didn't look great, not to mention Claude didn't even want to read in the Python file as
 a whole due to size.
 
 So, instead, I broke up the file into four smaller files and had Claude cleanup the
@@ -415,7 +480,7 @@ fed these four files into Claude and had it take a crack at it.
 
 .. code::
 
-    > Let's try this python to javascript translation again.
+    > Let's try this Python to JavaScript translation again.
 
     Currently, we have working js/nbacc_chart_loader.js and js/nbacc_plotter_*.js
     files that can load the JSON data from _static/json/charts/* and plot the
@@ -429,7 +494,7 @@ fed these four files into Claude and had it take a crack at it.
     and then feed this JSON data to the chart loader and plotter (instead of reading the
     JSON data from the _static/json/charts/* directory).
 
-    The core python files that need to be translated are located at
+    The core Python files that need to be translated are located at
     ../../../nba_python_data/form_plots/form_nba_chart_json_data/
 
     We need to translate each file here to JavaScript and be named
@@ -450,10 +515,9 @@ fed these four files into Claude and had it take a crack at it.
     
     plot_biggest_down_or_more plot_percent_chance_time_vs_points_down GameFilter
 
-Those results were better, but still not perfect, so I doubled down on the mission again
-with these prompts:
-
-I found the results improved dramatically when I asked for an *exact* translation:
+Those results were better, but still not perfect, so I doubled down on the mission
+again with these prompts.  I found the results improved dramatically when I asked for
+an *exact* translation:
 
 .. code::
 
@@ -502,11 +566,8 @@ The four key Python modules that were translated into equivalent JavaScript file
     * - `form_nba_chart_json_data_season_game_loader.py <https://github.com/nba-comeback-calculator/nba-comeback-calculator/tree/main/nba_comeback_calculator/form_json_chart_data/form_nba_chart_json_data_api/form_nba_chart_json_data_season_game_loader.py>`_
       - `nbacc_calculator_season_game_loader.js <https://github.com/nba-comeback-calculator/nba-comeback-calculator/tree/main/docs/frontend/source/_static/js/nbacc_calculator_season_game_loader.js>`_
 
-This approach worked particularly well for the complex statistical analysis described
-in :doc:`forming_the_plot_trend_lines`, where Python's scipy and numpy libraries needed
-JavaScript equivalents.
-
-To be clear, this still did not work out of the box, *many* bugs to squash one by one.
+To be clear, this still did not work out of the box, *many* bugs (50?) to squash one by
+one using the ``debugger;`` and a Javascript console.
 
 For example it created this code:
 
@@ -517,10 +578,11 @@ For example it created this code:
         times.push(t);
     }
 
-when the equivalent Python code was `range(start_time, stop_time, -1)`.  This is off by
-1, leading to t being 0 in the javascript case, creating a really hard to pin down bug.
+when the equivalent Python code was ```range(start_time, stop_time, -1)``.  This is off
+by 1, leading to t being 0 in the javascript case, creating a really hard to pin down
+bug.
 
-Also, for some reason, it made a bunch of javascript namespaces like this:
+Also, for some reason, it made a bunch of JavaScript namespaces like this:
 
 .. code::
 
@@ -532,18 +594,17 @@ But then it didn't use the namespace in the calls in many random places, leading
 have to figure out one by one which namespace I needed to call (I did also have some
 success getting Claude to fix a few too, but it was a whack-a-mole experience).
 
-Finally I knew the scipy/numpy parts were going to be tricky, so I spent some time
-separating out those functions into their own python file and rewriting some algorithms
-using primitives I knew were available in Math.js.  However, the
-scipy.optimize.minimize proved a problem.  Initially, Claude created a custom `fmin`
-minimization algorithm, but it didn't work at all.  After trying the numeric.js libs
-and a few others, I finally stumbled across this `rant about JavaScript numerical
-optimization
+Finally I knew the SciPy/NumPy parts were going to be tricky, so I spent some time
+separating out those functions into their own Python file and rewriting some algorithms
+using primitives I knew were available in Math.js. However, the scipy.optimize.minimize
+proved a problem.
+
+Initially, Claude created a custom `fmin` minimization algorithm, but it didn't work at
+all. After trying the numeric.js libs and a few others, I finally stumbled across this
+`rant about JavaScript numerical optimization
 <https://robertleeread.medium.com/a-brief-bad-ignorant-review-of-existing-numerical-optimization-software-in-javascript-further-c70f68641fda>`_
 which got me onto the `fmin by Ben Frederickson <https://github.com/benfred/fmin>`_
-library.  Once I had that in place, plots finally started popping up on the page.
-
-
+library. Once I had that in place, plots finally started popping up on the page.
 
 
 .. _the-more-you-use-it-the-more-ways-you-see-how-you-can-use-it:
@@ -551,11 +612,11 @@ library.  Once I had that in place, plots finally started popping up on the page
 The More You Use It, The More Ways You See How You Can Use It
 =============================================================
 
-Just a final note, one thing I noticed was, as I got more and more used to using Claude
-Code, I started to more easily see how I could use it in many different places.
+One thing I noticed was, as I got more used to using Claude Code, I started to see how
+I could use it in many different places.
 
-For example, I had a test.html site to test my javascript front end and there would
-setup javascript and css cdn sites.  Pretty soon I was asking Claude to strip though
+For example, I had a test.html site to test my JavaScript front end and there would
+setup JavaScript and CSS CDN sites. Pretty soon I was asking Claude to strip through
 this document and auto update my sphinx conf.py file I needed to build the final site.
 
 Also, I wanted a different sphinx directive than the pylab ``.. note::`` was giving me,
@@ -572,12 +633,13 @@ pages, add unicode characters and on and on.  Code completion on steriods in a s
 
 .. _about-the-cost:
 
-About the cost ....
-===================
+About the Cost
+==============
 
 Yes, Claude code is *a lot* more expensive than, say, Cursor, I am into this well over
 $100 USD right now.  But still, cheap in the scheme when you think of what it does for
-you and how much time you saved.
+you and how much time you saved.  Obviously, compared to dev costs, so cheap.  Plus, I
+learned a lot about many things along the way, more than I would have not using it.
 
 
 .. _and-the-verdict-is-:
@@ -593,7 +655,7 @@ But it's way faster and most often the code is better code than I would have wri
 myself.  It just takes care of all those dotting I's and crossing T's type stuff that
 as a project winds on you find yourself skipping.
 
-And after a while I found, say after the Calculator form was stable, I could ask for
+And after a while I found (say, after the Calculator form was stable), I could ask for
 updates and with the context it had from the CLAUDE.md and code comments, it would get
 the new features added with very little effort.
 
@@ -601,7 +663,7 @@ For a project not as limited as this one, I think the next major step would be t
 fully understand the code and use Claude to clean up unnecessary bloat, etc.  To get a
 firmer understanding of what you had before you started adding major new features.
 
-Or maybe not!  Just fire and forget!
+Or maybe not!  Maybe just fire and forget!
 
 But one thing stood out: I found it required much less cognitive load than having to
 type in everything yourself, check your curly braces, and a million other details,

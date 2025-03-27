@@ -375,7 +375,8 @@ const nbacc_plotter_core = (() => {
                 }
             });
 
-            // Add a click handler to the document to clear tooltips only when clicking outside the tooltip
+            // Add a click handler to the document to clear tooltips only when clicking outside both
+            // the tooltip and the chart area (not the chart canvas element)
             document.addEventListener("click", function (event) {
                 // If click is outside tooltip and tooltip exists, hide it
                 const tooltipEl = document.getElementById("chartjs-tooltip");
@@ -396,9 +397,25 @@ const nbacc_plotter_core = (() => {
                         }
                     });
 
-                    // Only hide if clicked outside both tooltip and chart
-                    if (!clickedOnChart) {
+                    // Also check if we're clicking within a chart container area
+                    const chartContainers = document.querySelectorAll(
+                        ".chart-container"
+                    );
+                    let clickedInChartArea = false;
+                    
+                    chartContainers.forEach((container) => {
+                        if (container.contains(event.target)) {
+                            // Only consider it a chart area click if it's not on a button
+                            if (!event.target.closest('.chart-btn')) {
+                                clickedInChartArea = true;
+                            }
+                        }
+                    });
+
+                    // Only hide if clicked outside both tooltip and chart area
+                    if (!clickedOnChart && !clickedInChartArea) {
                         tooltipEl.style.opacity = "0";
+                        tooltipEl.setAttribute("data-sticky", "false");
                         setTimeout(function () {
                             const table = tooltipEl.querySelector("table");
                             if (table) {

@@ -676,6 +676,28 @@ nbacc_plotter_data = (() => {
         index,
         pointMarginData
     ) {
+        // When a chart tooltip is shown, disable any auto-hide mechanisms
+        // This ensures tooltips stay visible indefinitely until user interaction
+        const tooltipEl = document.getElementById("chartjs-tooltip");
+        if (tooltipEl) {
+            // Clear any auto-hide mechanisms
+            if (tooltipEl.stickyTimeout) {
+                clearTimeout(tooltipEl.stickyTimeout);
+                tooltipEl.stickyTimeout = null;
+            }
+            if (tooltipEl.hideTimer) {
+                clearTimeout(tooltipEl.hideTimer);
+                tooltipEl.hideTimer = null;
+            }
+            // For any other possible timers
+            if (tooltipEl._hideTimeout) {
+                clearTimeout(tooltipEl._hideTimeout);
+                tooltipEl._hideTimeout = null;
+            }
+            // Make sticky permanently
+            tooltipEl.setAttribute("data-sticky", "true");
+        }
+        
         // Get the point data
         const dataPoint = dataset.data[index];
         if (!dataPoint) return "";
@@ -770,6 +792,28 @@ nbacc_plotter_data = (() => {
      * @returns {string} Tooltip body HTML
      */
     function generateScatterPointTooltipBody(context) {
+        // When a chart tooltip is shown, disable any auto-hide mechanisms
+        // This ensures tooltips stay visible indefinitely until user interaction
+        const tooltipEl = document.getElementById("chartjs-tooltip");
+        if (tooltipEl) {
+            // Clear any auto-hide mechanisms
+            if (tooltipEl.stickyTimeout) {
+                clearTimeout(tooltipEl.stickyTimeout);
+                tooltipEl.stickyTimeout = null;
+            }
+            if (tooltipEl.hideTimer) {
+                clearTimeout(tooltipEl.hideTimer);
+                tooltipEl.hideTimer = null;
+            }
+            // For any other possible timers
+            if (tooltipEl._hideTimeout) {
+                clearTimeout(tooltipEl._hideTimeout);
+                tooltipEl._hideTimeout = null;
+            }
+            // Make sticky permanently
+            tooltipEl.setAttribute("data-sticky", "true");
+        }
+        
         // Ensure we have all required parameters
         if (
             !context ||
@@ -1026,44 +1070,22 @@ nbacc_plotter_data = (() => {
      * @param {HTMLElement} tooltipEl - The tooltip element
      */
     function setupDesktopTooltipBehavior(tooltipEl) {
-        // Add mouse enter event - make tooltip sticky temporarily
+        // Add mouse enter event - make tooltip sticky permanently
         tooltipEl.addEventListener("mouseenter", () => {
             tooltipEl.setAttribute("data-sticky", "true");
-
-            // Auto-hide after delay to prevent tooltips staying open indefinitely
-            const TOOLTIP_AUTO_HIDE_DELAY = 4000; // ms
+            
+            // Clear any auto-hide timeout that may have been set
             if (tooltipEl.stickyTimeout) {
                 clearTimeout(tooltipEl.stickyTimeout);
+                tooltipEl.stickyTimeout = null;
             }
-
-            tooltipEl.stickyTimeout = setTimeout(() => {
-                tooltipEl.setAttribute("data-sticky", "false");
-                tooltipEl.style.opacity = 0;
-            }, TOOLTIP_AUTO_HIDE_DELAY);
         });
 
-        // Add mouse leave event - remove stickiness and hide
+        // Add mouse leave event - but don't hide the tooltip
+        // This allows tooltip to stay visible even if mouse leaves tooltip area
         tooltipEl.addEventListener("mouseleave", (event) => {
-            tooltipEl.setAttribute("data-sticky", "false");
-
-            // Clear any pending timeout
-            if (tooltipEl.stickyTimeout) {
-                clearTimeout(tooltipEl.stickyTimeout);
-            }
-
-            // Hide tooltip immediately
-            tooltipEl.style.opacity = 0;
-
-            // Clean up content after hiding
-            setTimeout(() => {
-                if (tooltipEl.style.opacity === "0") {
-                    const tableRoot = tooltipEl.querySelector("table");
-                    if (tableRoot) {
-                        tableRoot.innerHTML = "";
-                    }
-                    document.body.style.cursor = "default";
-                }
-            }, 300);
+            // Keep the tooltip sticky - don't hide it
+            // We'll rely on the X button or clicking outside to close the tooltip
         });
     }
 
@@ -1077,28 +1099,33 @@ nbacc_plotter_data = (() => {
         // Get current stickiness state
         const isSticky = tooltipEl.getAttribute("data-sticky") === "true";
         const isHovered = tooltipEl.matches(":hover");
-
-        // Prevent hiding when hovering on tooltip (prevents flickering when moving between tooltip and point)
-        if (isHovered) {
-            return true;
-        }
-
-        // Add a small delay in hiding tooltips to prevent flickering
-        if (tooltipModel.opacity === 0 && !isSticky) {
-            // If not sticky and model says to hide, add a small delay before hiding
-            if (!tooltipEl.hideTimer) {
-                tooltipEl.hideTimer = setTimeout(() => {
-                    tooltipEl.style.opacity = 0;
-                    tooltipEl.hideTimer = null;
-                }, 100); // 100ms delay before hiding tooltip
-                return true; // Keep showing during delay
-            }
-        } else {
-            // Cancel hide timer if we're showing the tooltip again
+        
+        // For click events, make the tooltip sticky immediately
+        const event = window.event || {};
+        if (event.type === 'click') {
+            tooltipEl.setAttribute("data-sticky", "true");
+            // Clear any hide timers
             if (tooltipEl.hideTimer) {
                 clearTimeout(tooltipEl.hideTimer);
                 tooltipEl.hideTimer = null;
             }
+            return true;
+        }
+        
+        // Prevent hiding when hovering on tooltip or when sticky is true
+        if (isHovered || isSticky) {
+            return true;
+        }
+        
+        // For mousemove events when not sticky, don't show tooltip
+        if (event.type === 'mousemove' && !isSticky) {
+            return false;
+        }
+        
+        // Cancel any hide timers if we're showing the tooltip
+        if (tooltipEl.hideTimer) {
+            clearTimeout(tooltipEl.hideTimer);
+            tooltipEl.hideTimer = null;
         }
 
         return true;
