@@ -602,6 +602,25 @@ optgroup[label="Teams"] option {
     border-color: rgba(240, 240, 240, 0.8) !important;
 }
 
+/* Trash icon button */
+.trash-icon-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    padding: 0 10px !important;
+}
+
+/* Hide text in trash icon buttons on mobile */
+@media (max-width: 768px) {
+    .trash-icon-btn {
+        width: 32px !important;
+        height: 32px !important;
+        padding: 0 !important;
+        border-radius: 3px !important;
+    }
+}
+
 /* Make all form groups align properly */
 .form-row.single-line-filter > div {
     display: flex;

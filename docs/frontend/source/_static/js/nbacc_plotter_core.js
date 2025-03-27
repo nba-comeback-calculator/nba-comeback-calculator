@@ -40,6 +40,15 @@ const nbacc_plotter_core = (() => {
         .save-png-icon {
             background-image: url("${nbacc_utils.staticDir}/save_disk_drive_icon.svg");
         }
+        .trash-icon {
+            background-image: url("${nbacc_utils.staticDir}/trash_can_icon.svg");
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
     `;
 
         // Add to document head

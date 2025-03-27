@@ -804,7 +804,7 @@ const nbacc_calculator_ui = (() => {
                         <div class="season-checkboxes">
                             <div class="season-checkbox-container">
                                 <input type="checkbox" id="${yearGroupId}-regular" class="season-checkbox regular-season-check" checked>
-                                <label for="${yearGroupId}-regular">Regular</label>
+                                <label for="${yearGroupId}-regular">Reg.</label>
                             </div>
                             <div class="season-checkbox-container">
                                 <input type="checkbox" id="${yearGroupId}-playoffs" class="season-checkbox playoffs-check" checked>
@@ -812,7 +812,7 @@ const nbacc_calculator_ui = (() => {
                             </div>
                             ${
                                 !isFirstGroup
-                                    ? '<div class="remove-button-container"><button class="btn btn-danger remove-year-group">Remove</button></div>'
+                                    ? '<div class="remove-button-container"><button class="btn btn-danger remove-year-group trash-icon-btn" title="Remove"><i class="trash-icon"></i></button></div>'
                                     : ""
                             }
                         </div>
@@ -893,7 +893,7 @@ const nbacc_calculator_ui = (() => {
                         </select>
                     </div>
                     <div class="form-group inline-form col-filter-button">
-                        <button class="btn btn-danger remove-game-filter">Remove</button>
+                        <button class="btn btn-danger remove-game-filter trash-icon-btn" title="Remove"><i class="trash-icon"></i></button>
                     </div>
                 </div>
             </div>

@@ -139,9 +139,17 @@
     .btn.btn-danger.remove-game-filter,
     .btn.btn-danger.remove-year-group {
         height: 28px !important;
-        font-size: 10px !important;
-        padding: 0 6px !important;
-        width: auto !important;
+        width: 28px !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    
+    /* Make the trash icon smaller on mobile */
+    .trash-icon {
+        width: 14px !important;
+        height: 14px !important;
     }
     
     /* Style Remove buttons to stay within container */
