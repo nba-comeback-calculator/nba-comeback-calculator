@@ -76,8 +76,8 @@ Looking at all the years from 1996 to 2024 we get:
 
     <div id="thumb/nbacc_points_versus_time_with_guides_all_eras" class="nbacc-chart"></div>
 
-Which you can see holds up very nicely.  (In fact, even later on, I stumbled upon this
-`which is another example of the square root rule
+Which you can see holds up very nicely. (In fact, even later on, I stumbled upon
+`another example of the square root rule
 <https://www.slate.com/articles/sports/sports_nut/2015/06/golden_state_warriors_championship_a_new_formula_for_predicting_lead_changes.html>`_
 but for the 90% probability case).
 
@@ -153,6 +153,6 @@ very close to accurate.
 
 You can use the :doc:`calculator page </calculator/index>` to see how it works for any
 given situation and add the 'Calculated Guides' to your conditions. Normally, the 2, 4,
-6 times the square root of minutes remaining guides are very close to optimal.  But for some
-conditions -- like a top 10 team playing a bottom 10 team -- then this rule of thumb
+6 times the square root of minutes remaining guides are very close to optimal. But for some
+conditions -- like a top 10 team playing a bottom 10 team -- this rule of thumb
 does not hold up at all.

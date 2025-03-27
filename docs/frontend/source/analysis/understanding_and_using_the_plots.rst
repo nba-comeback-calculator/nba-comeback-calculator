@@ -3,8 +3,8 @@ Understanding and Using The Comeback Charts
 *******************************************
 
 What do we mean by "comeback" and what's the best way to view the "chances" of a
-comeback?  It seems like a simple question, but there's a little nuance to it as there
-are slightly different ways of defining it, so let's jump in and talk about the four
+comeback? It seems like a simple question, but there's some nuance to it as there
+are slightly different ways of defining it. Let's explore the four
 plot types used in this project:
 
 * `Max Points Down Or More`_
@@ -40,9 +40,9 @@ You can see the -10 point margin point lines up with his statistics exactly.
 
 It's important to note here that every point contains all the wins and losses for the
 previous point margin. As we move from left to right, we are accumulating all the
-games.  This means that a given point margin (say -10) is getting weighted down with
+games. This means that a given point margin (say -10) is getting weighted down with
 all of the previous (and lower chance) probabilities, because the -10 point also
-includes the wins/losses from -11, -12, -13, .., -20, .., -30, and on and on.
+includes the wins/losses from -11, -12, -13, ..., -20, ..., -30, and on and on.
 
 .. _max-points-down:
 
@@ -154,11 +154,11 @@ This is a little unintuitive, because you might think it should be:
 
 
 For many cases, this is the same thing. Consider, however, the Win % for the case where
-the score is tied at halftime. Let us say there are 1,000 such games in your set. Well,
+the score is tied at halftime. Let's say there are 1,000 such games in your set. Well,
 there are 1,000 wins and 1,000 losses in these cases, so if you used the second formula
 you would get a Win % = 100%, which is incorrect.
 
-The same thing happens with the Max Down Or More plots.  Some of the same games are
+The same thing happens with the Max Down Or More plots. Some of the same games are
 both wins and losses, so we use the first formula which matches with how the statistic
 is generally reported.
 

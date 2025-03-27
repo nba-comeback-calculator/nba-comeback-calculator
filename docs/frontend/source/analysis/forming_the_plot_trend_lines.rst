@@ -111,5 +111,5 @@ And using logit logistical regression we get:
 
     <div id="trend/nbacc_at_24_logit" class="nbacc-chart"></div>
 
-Getting a poor fit in the tail region, especially bad because the low probability
+This produces a poor fit in the tail region, which is especially problematic because the low probability
 events are the ones with which we are most concerned.
