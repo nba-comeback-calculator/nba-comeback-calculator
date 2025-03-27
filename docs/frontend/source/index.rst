@@ -13,11 +13,11 @@ nba comeback calculator
 
 .. green-box::
 
-   *Game data last updated: 2025-03-25.  Due to large amount of data, charts are best
+   *Game data last updated: 2025-03-25. Due to the large amount of data, charts are best
    viewed on a computer.*
 
 :doc:`Looking to answer a long-held question </analysis/about>`, I downloaded all games
-from when play-by-play data was available (from the 1996-1997 season to now) anlooked
+from when play-by-play data was available (from the 1996-1997 season to now) and looked
 at the percentage of times games were won versus varying conditions.
 
 * :doc:`./analysis/index`: Looks at some trends in the data and tries to answer "Are
