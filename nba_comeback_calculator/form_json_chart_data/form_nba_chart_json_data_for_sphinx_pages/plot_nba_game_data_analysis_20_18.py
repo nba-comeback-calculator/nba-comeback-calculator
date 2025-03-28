@@ -61,3 +61,14 @@ plot_biggest_deficit(
     game_filters=game_filters,
     max_point_margin=-4,
 )
+
+
+# plot_biggest_deficit(
+#     json_name=f"{chart_base_path}/20_18/dramatic.json",
+#     year_groups=eras,
+#     start_time=24,
+#     stop_time=None,
+#     cumulate=False,
+#     max_point_margin=100,
+#     calculate_occurrences=True,
+# )

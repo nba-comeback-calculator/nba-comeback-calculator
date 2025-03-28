@@ -1008,13 +1008,13 @@ nbacc_plotter_data = (() => {
             const allowClickWhenNotFullscreen = typeof nbacc_utils !== "undefined" && 
                 nbacc_utils.__HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__ === true;
             
-            // For mobile fullscreen, always show the tooltip regardless of click
-            // For mobile non-fullscreen, show tooltip only if the flag is enabled
+            // On mobile, only show tooltips in fullscreen mode
+            // Keep the special handling for fullscreen to allow hover effects
             if (isFullscreen) {
-                // In fullscreen mode, treat all events as clicks to show tooltips
+                // In fullscreen mode, treat all events as clicks to show tooltips for better UX
                 context.chart.lastClickEvent = new Date().getTime();
-            } else if (!allowClickWhenNotFullscreen) {
-                // If not in fullscreen and not allowing clicks in non-fullscreen, hide tooltip
+            } else {
+                // Not in fullscreen mode on mobile, don't show tooltip
                 return;
             }
         }

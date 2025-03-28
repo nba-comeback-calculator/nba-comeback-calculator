@@ -238,9 +238,11 @@ const nbacc_calculator_ui = (() => {
                                 <option value="Max Points Down Or More">Chart Type: Max Points Down Or More</option>
                                 <option value="Max Points Down">Chart Type: Max Points Down</option>
                                 <option value="Points Down At Time">Chart Type: Points Down At Time</option>
+                                <!-- Commented out temporarily as they aren't working yet
                                 <option value="Occurrence Max Points Down Or More">Chart Type: Occurrence Max Points Down Or More</option>
                                 <option value="Occurrence Max Points Down">Chart Type: Occurrence Max Points Down</option>
                                 <option value="Occurrence Points Down At Time">Chart Type: Occurrence Points Down At Time</option>
+                                -->
                             </select>
                         </div>
                         
