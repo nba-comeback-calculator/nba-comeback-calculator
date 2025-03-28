@@ -334,7 +334,14 @@ nbacc_plotter_data = (() => {
                 intersect: true, // Require direct intersection
                 axis: "xy", // Consider both axes for nearest point
                 hoverRadius: 8, // Balanced hover sensitivity for growing effect
-                events: ['click'], // CRITICAL: Only trigger tooltip on click, not on mousemove
+                events: function(context) {
+                    // Use both click and mousemove for fullscreen mobile
+                    if (isMobile() && context.chart && context.chart.isFullscreen) {
+                        return ['mousemove', 'click'];
+                    }
+                    // Otherwise only use click for tooltip trigger
+                    return ['click'];
+                }, // Dynamic event handling based on context
                 callbacks: {
                     // Title callback still used by external handler
                     title: function (tooltipItems) {
@@ -1001,9 +1008,13 @@ nbacc_plotter_data = (() => {
             const allowClickWhenNotFullscreen = typeof nbacc_utils !== "undefined" && 
                 nbacc_utils.__HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__ === true;
             
-            // By default, on mobile only show tooltips in fullscreen mode
-            // But if the configuration flag is true, also show on click even when not in fullscreen
-            if (!isFullscreen && !(allowClickWhenNotFullscreen && isClick)) {
+            // For mobile fullscreen, always show the tooltip regardless of click
+            // For mobile non-fullscreen, show tooltip only if the flag is enabled
+            if (isFullscreen) {
+                // In fullscreen mode, treat all events as clicks to show tooltips
+                context.chart.lastClickEvent = new Date().getTime();
+            } else if (!allowClickWhenNotFullscreen) {
+                // If not in fullscreen and not allowing clicks in non-fullscreen, hide tooltip
                 return;
             }
         }
@@ -1132,9 +1143,26 @@ nbacc_plotter_data = (() => {
             return true;
         }
         
-        // For mousemove events when not sticky, don't show tooltip
-        if (event.type === 'mousemove' && !isSticky) {
-            return false;
+        // Special handling for mobile fullscreen mode - allow mousemove events to show tooltip
+        if (event.type === 'mousemove') {
+            // Check if we're in mobile fullscreen mode
+            const chartInstance = tooltipModel.chart;
+            const isMobileFullscreen = typeof isMobile === "function" && 
+                                      isMobile() && 
+                                      chartInstance && 
+                                      chartInstance.isFullscreen;
+            
+            // Allow tooltip on mousemove for mobile fullscreen
+            if (isMobileFullscreen) {
+                // Make tooltip sticky for better mobile experience
+                tooltipEl.setAttribute("data-sticky", "true");
+                return true;
+            }
+            
+            // Otherwise, don't show tooltip on mousemove when not sticky
+            if (!isSticky) {
+                return false;
+            }
         }
         
         // Cancel any hide timers if we're showing the tooltip
