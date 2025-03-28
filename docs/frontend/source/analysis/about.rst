@@ -12,5 +12,5 @@ code the front end for this project since -- in my day job writing scientific co
 software -- we aren't allowed to use AI on our main codebase.  So this was a perfect
 opportunity to experiment.
 
-I quickly :doc:`settled on using Claude Code </analysis/using_claude_code>` and had it
-build the majority of the JavaScript front end for this site.
+.. I quickly :doc:`settled on using Claude Code </analysis/using_claude_code>` and had
+   it build the majority of the JavaScript front end for this site.
