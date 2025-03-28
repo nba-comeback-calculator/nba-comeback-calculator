@@ -238,6 +238,9 @@ const nbacc_calculator_ui = (() => {
                                 <option value="Max Points Down Or More">Chart Type: Max Points Down Or More</option>
                                 <option value="Max Points Down">Chart Type: Max Points Down</option>
                                 <option value="Points Down At Time">Chart Type: Points Down At Time</option>
+                                <option value="Occurrence Max Points Down Or More">Chart Type: Occurrence Max Points Down Or More</option>
+                                <option value="Occurrence Max Points Down">Chart Type: Occurrence Max Points Down</option>
+                                <option value="Occurrence Points Down At Time">Chart Type: Occurrence Points Down At Time</option>
                             </select>
                         </div>
                         
@@ -575,9 +578,12 @@ const nbacc_calculator_ui = (() => {
             const currentSelectedTime = parseInt(timeSelect.value, 10) || 36;
             
             // Check if we need to adjust the time options and selected value
+            // Include both regular and occurrence versions of the full game plot types
             const isFullGamePlot = 
                 newPlotType === "Max Points Down Or More" || 
-                newPlotType === "Max Points Down";
+                newPlotType === "Max Points Down" ||
+                newPlotType === "Occurrence Max Points Down Or More" ||
+                newPlotType === "Occurrence Max Points Down";
             
             // Get max point margin container
             const maxPointMarginContainer = document.getElementById("max-point-margin-container");
@@ -603,16 +609,16 @@ const nbacc_calculator_ui = (() => {
                 state.specificTime = newPlotType === "Percent Chance: Time Vs. Points Down" ? 24 : 36;
             }
             
-            // If switching to a plot type that allows 48 minutes and current value is valid, keep it
-            // Otherwise, regenerate the options with the appropriate default
+            // Get the base plot type (without "Occurrence " prefix) for time options
+            const basePlotType = newPlotType.replace("Occurrence ", "");
             
             // Set appropriate defaults based on plot type
-            if (newPlotType === "Max Points Down" || newPlotType === "Max Points Down Or More") {
-                state.startTime = 48; // Default to 48 minutes for Max Down charts
-            } else if (newPlotType === "Points Down At Time") {
-                state.startTime = 24; // Default to 24 minutes for Points Down At Time
+            if (basePlotType === "Max Points Down" || basePlotType === "Max Points Down Or More") {
+                state.startTime = 48; // Default to 48 minutes for Max Down charts (regular and occurrence)
+            } else if (basePlotType === "Points Down At Time") {
+                state.startTime = 24; // Default to 24 minutes for Points Down At Time (regular and occurrence)
                 state.specificTime = 24; // Set specificTime to match
-            } else if (newPlotType === "Percent Chance: Time Vs. Points Down") {
+            } else if (basePlotType === "Percent Chance: Time Vs. Points Down") {
                 state.startTime = 24; // Default to 24 minutes for Percent charts
             }
             
@@ -967,8 +973,11 @@ const nbacc_calculator_ui = (() => {
 
     // Generate options for time selects with specific values based on plot type
     function generateTimeOptions(selectedTime = 36, plotType = "") {
+        // Get the base plot type (without "Occurrence " prefix) for time options
+        const basePlotType = plotType.replace("Occurrence ", "");
+        
         // For Max Points Down Or More or Max Points Down, include 48 minutes option
-        const includeFullGame = plotType === "Max Points Down Or More" || plotType === "Max Points Down";
+        const includeFullGame = basePlotType === "Max Points Down Or More" || basePlotType === "Max Points Down";
         
         // Start with the appropriate time values based on plot type
         const timeValues = includeFullGame ? 
@@ -1333,13 +1342,18 @@ const nbacc_calculator_ui = (() => {
             } else {
                 // For all other plot types, use plot_biggest_deficit
                 // Determine if we should cumulate based on plot type
-                const cumulate = state.plotType === "Max Points Down Or More";
+                const cumulate = state.plotType === "Max Points Down Or More" || 
+                                state.plotType === "Occurrence Max Points Down Or More";
 
                 // If 'Points Down At Time', pass null for stop_time
                 const stopTime =
-                    state.plotType === "Points Down At Time"
+                    state.plotType === "Points Down At Time" || 
+                    state.plotType === "Occurrence Points Down At Time"
                         ? null
                         : state.endTime || 0;
+
+                // Determine if we should calculate occurrences based on plot type
+                const calculateOccurrences = state.plotType.startsWith("Occurrence");
 
                 // Handle empty game filter array - use null when empty
                 const gameFilters = state.gameFilters && state.gameFilters.length > 0 ? 
@@ -1356,7 +1370,7 @@ const nbacc_calculator_ui = (() => {
                     null, // fit_max_points
                     gameFilters, // Use null if no filters
                     false, // use_normal_labels
-                    false, // calculate_occurrences
+                    calculateOccurrences, // calculate_occurrences
                     seasonData
                 );
             }
@@ -1614,11 +1628,19 @@ const nbacc_calculator_ui = (() => {
                     seasonData
                 );
             } else {
-                const cumulate = state.plotType === "Max Points Down Or More";
+                // Determine if we should cumulate based on plot type
+                const cumulate = state.plotType === "Max Points Down Or More" || 
+                               state.plotType === "Occurrence Max Points Down Or More";
+                
+                // If 'Points Down At Time', pass null for stop_time
                 const stopTime =
-                    state.plotType === "Points Down At Time"
+                    state.plotType === "Points Down At Time" || 
+                    state.plotType === "Occurrence Points Down At Time"
                         ? null
                         : state.endTime || 0;
+                
+                // Determine if we should calculate occurrences based on plot type
+                const calculateOccurrences = state.plotType.startsWith("Occurrence");
                 
                 // Handle empty game filter array - use null when empty
                 const gameFilters = state.gameFilters && state.gameFilters.length > 0 ? 
@@ -1635,7 +1657,7 @@ const nbacc_calculator_ui = (() => {
                     null, // fit_max_points
                     gameFilters, // Use null if no filters
                     false, // use_normal_labels
-                    false, // calculate_occurrences
+                    calculateOccurrences, // calculate_occurrences
                     seasonData
                 );
             }
