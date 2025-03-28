@@ -414,8 +414,24 @@ nbacc_plotter_data = (() => {
 
             // Format x value with no decimal places
             const xValue = parseFloat(dataPoint.x).toFixed(0);
-
-            // Main header for tooltip - use the x_label from the chart data
+            
+            // Check if we're dealing with a Record line
+            const isRecordLine = dataset.label && dataset.label.includes("Record");
+            
+            // If this is a time_v_point_margin plot and the user clicked on the Record line,
+            // show both Minutes Remaining and Points Down values
+            if (chartData.plot_type === "time_v_point_margin" && isRecordLine) {
+                // Look for the Record line data in pointMarginData
+                if (pointMarginData[xValue] && pointMarginData[xValue]["Record"]) {
+                    const recordData = pointMarginData[xValue]["Record"];
+                    // Use rounded value for Record points
+                    const pointsDown = Math.round(recordData.pointValue);
+                    // Return both values on separate lines
+                    return `${chartData.x_label}: ${xValue}<br>Points Down: ${pointsDown}`;
+                }
+            }
+            
+            // Default header for all other cases - use the x_label from the chart data
             const tooltipHeader = `${chartData.x_label}: ${xValue}`;
 
             // Check if we have pre-calculated data for this point margin
@@ -490,14 +506,30 @@ nbacc_plotter_data = (() => {
                     pointData.point_margin_occurs_percent * 100
                 ).toFixed(2)}</div>`;
             } else {
-                // Default win percentage mode
-                return `<div style="text-align: left;">${chartData.x_label}: ${
-                    pointData.x_value
-                }<br/>Wins: ${pointData.win_count} out of ${
-                    pointData.game_count
-                } Total Games<br/>Win %: ${winPercent}<br/>Occurs %: ${(
-                    pointData.point_margin_occurs_percent * 100
-                ).toFixed(2)}</div>`;
+                // Check if this is a Record line in time_v_point_margin plot
+                const isRecordLine = chartData.plot_type === "time_v_point_margin" && 
+                                   chartData.lines[lineIndex].legend === "Record";
+                
+                if (isRecordLine) {
+                    // For Record line, include both Minutes Remaining and Points Down
+                    const pointsDown = Math.round(pointData.y_value);
+                    return `<div style="text-align: left;">${chartData.x_label}: ${
+                        pointData.x_value
+                    }<br/>Points Down: ${pointsDown}<br/>Wins: ${pointData.win_count} out of ${
+                        pointData.game_count
+                    } Total Games<br/>Win %: ${winPercent}<br/>Occurs %: ${(
+                        pointData.point_margin_occurs_percent * 100
+                    ).toFixed(2)}</div>`;
+                } else {
+                    // Default win percentage mode
+                    return `<div style="text-align: left;">${chartData.x_label}: ${
+                        pointData.x_value
+                    }<br/>Wins: ${pointData.win_count} out of ${
+                        pointData.game_count
+                    } Total Games<br/>Win %: ${winPercent}<br/>Occurs %: ${(
+                        pointData.point_margin_occurs_percent * 100
+                    ).toFixed(2)}</div>`;
+                }
             }
         }
 
@@ -776,10 +808,13 @@ nbacc_plotter_data = (() => {
                 const color = colors[i % colors.length];
     
                 // Show point values for time_v_point_margin
+                // For Record legend, round to integer to fix the -28.20 issue
+                const displayValue = cleanLegend === "Record" 
+                    ? Math.round(data.pointValue)  // Round to integer for Record
+                    : data.pointValue.toFixed(2);  // Keep decimals for other percentages
+                
                 const lineContent = `<span class="color-indicator" style="background-color:${color};"></span>
-                <span class="legend-text">${cleanLegend}:</span> <span class="legend-text">${data.pointValue.toFixed(
-                        2
-                    )} Points</span>`;
+                <span class="legend-text">${cleanLegend}:</span> <span class="legend-text">${displayValue} Points</span>`;
     
                 // Add to body HTML
                 bodyHtml += `<tr><td>
