@@ -52,20 +52,14 @@ game_filters = [
     # GameFilter(for_rank="bot_10", vs_rank="top_10"),
 ]
 
-eras = [
-    # ERA ONE
-    # (1996, 2016),
-    (1996, 2024),
-]
-
 plot_biggest_deficit(
     json_name=f"{chart_base_path}/20_18/dramatic.json",
     year_groups=eras,
-    start_time="15s",
+    start_time=48,
     down_mode="max",
-    cumulate=False,
-    # game_filters=game_filters,
-    # max_point_margin=-4,
+    cumulate=True,
+    game_filters=game_filters,
+    max_point_margin=-4,
 )
 
 

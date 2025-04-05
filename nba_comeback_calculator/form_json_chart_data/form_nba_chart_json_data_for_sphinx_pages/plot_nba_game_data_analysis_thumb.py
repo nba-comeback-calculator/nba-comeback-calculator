@@ -22,10 +22,22 @@ from form_nba_chart_json_data_api import (
     plot_percent_versus_time,
 )
 
-# Base paths for input and output files
+# Calculate script directory from __file__
+script_dir = os.path.dirname(os.path.abspath(__file__))
+print(f"Script directory: {script_dir}")
+
+# Change working directory to the script's location
+os.chdir(script_dir)
+print(f"Working directory changed to: {os.getcwd()}")
 # Base paths for input and output files
 json_base_path = "../../../docs/frontend/source/_static/json/seasons"
 chart_base_path = "../../../docs/frontend/source/_static/json/charts"
+
+import form_nba_chart_json_data_season_game_loader as loader
+
+# Convert relative json_base_path to an absolute path
+json_base_path = os.path.abspath(os.path.join(script_dir, json_base_path))
+loader.json_base_path = json_base_path
 
 base_path = f"{chart_base_path}/thumb"
 # Control which plots to generate
@@ -41,7 +53,6 @@ plot_percent_versus_time(
     json_name=f"{base_path}/nbacc_points_versus_time_all_eras.json",
     year_groups=eras_one,
     start_time=24,
-    stop_time=0,
     percents=["20%", "10%", "5%", "1%", "Record"],
 )
 
@@ -49,7 +60,6 @@ plot_percent_versus_time(
     json_name=f"{base_path}/nbacc_points_versus_time_with_guides_all_eras.json",
     year_groups=eras_one,
     start_time=24,
-    stop_time=0,
     percents=["20%", "5%", "1%"],
     plot_2x_guide=True,
     plot_4x_guide=True,
@@ -60,7 +70,6 @@ plot_percent_versus_time(
     json_name=f"{base_path}/nbacc_points_versus_time_with_bad_guides_all_eras.json",
     year_groups=eras_one,
     start_time=16,
-    stop_time=0,
     plot_2x_bad_guide=True,
     plot_3x_bad_guide=True,
     percents=["20%", "5%", "1%"],
@@ -70,7 +79,6 @@ plot_percent_versus_time(
     json_name=f"{base_path}/nbacc_points_versus_time_with_calculated_guides_all_eras.json",
     year_groups=eras_one,
     start_time=24,
-    stop_time=0,
     percents=["20%", "5%", "1%"],
     plot_calculated_guides=True,
 )
@@ -85,7 +93,6 @@ plot_percent_versus_time(
     json_name=f"{base_path}/nbacc_points_versus_time_with_guides_old_school_era.json",
     year_groups=eras_one,
     start_time=24,
-    stop_time=0,
     percents=["20%", "5%", "1%"],
     plot_calculated_guides=True,
 )
@@ -99,7 +106,6 @@ plot_percent_versus_time(
     json_name=f"{base_path}/nbacc_points_versus_time_with_guides_modern_era.json",
     year_groups=eras_one,
     start_time=24,
-    stop_time=0,
     percents=["20%", "5%", "1%"],
     plot_calculated_guides=True,
 )

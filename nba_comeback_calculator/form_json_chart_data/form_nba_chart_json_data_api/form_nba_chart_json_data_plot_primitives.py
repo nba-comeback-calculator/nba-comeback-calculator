@@ -298,12 +298,19 @@ class PointsDownLine(PlotLine):
                 raise AssertionError(max_fit_point)
             max_fit_point = max_fit_point_amount
 
-        # At least 3 points of fit data
-        try:
-            safe_fit_point = self.point_margins[3]
-        except IndexError:
-            safe_fit_point = self.point_margins[-1]
-        max_fit_point = max(max_fit_point, safe_fit_point)
+            # At least 10 points of fit data
+            try:
+                safe_fit_point = self.point_margins[10]
+            except IndexError:
+                safe_fit_point = self.point_margins[-1]
+            if safe_fit_point > -2:
+                safe_fit_point = -2
+            max_fit_point = max(max_fit_point, safe_fit_point)
+            max_fit_point = max(max_fit_point, -18)
+
+        if self.point_margins.index(max_fit_point) < 2:
+            max_fit_point = self.point_margins[2]
+
         min_game_count = min_game_count if min_game_count is not None else 0
         max_fit_point = max_fit_point if max_fit_point is not None else float("inf")
         fit_xy = [

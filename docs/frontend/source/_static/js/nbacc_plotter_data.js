@@ -747,7 +747,7 @@ nbacc_plotter_data = (() => {
         context,
         dataset,
         index,
-        pointMarginData
+        modulePointMarginData
     ) {
         // When a chart tooltip is shown, disable any auto-hide mechanisms
         // This ensures tooltips stay visible indefinitely until user interaction
@@ -780,6 +780,12 @@ nbacc_plotter_data = (() => {
 
         let bodyHtml = "";
         const colors = getColorWheel(0.8);
+        
+        // IMPORTANT: Get chart-specific data to avoid cross-chart contamination
+        // First try to get pointMarginData from the chart instance itself (preferred)
+        const chartPointMarginData = context.chart.pointMarginData || 
+                                    (context.chart.options && context.chart.options.pointMarginData) ||
+                                    modulePointMarginData;
         
         // Get line coefficients from the chart
         const lineCoefficients = context.chart.lineCoefficients || 
@@ -823,16 +829,27 @@ nbacc_plotter_data = (() => {
         }
         // For time_v_point_margin plots, use pre-calculated data
         else if (context.chart.plotType === "time_v_point_margin") {
-            // Must have pre-calculated point margin data
-            if (!pointMarginData[xValue]) {
-                throw new Error(`No pre-calculated data available for time ${xValue}`);
+            // Already defined chartPointMarginData for consistency across code paths
+            
+            // Add diagnostic logging for debugging
+            console.debug(`Chart tooltip for time ${xValue}, using chart-specific data:`, 
+                         !!context.chart.pointMarginData, 
+                         `Chart ID: ${context.chart.id}`);
+            
+            // Check if we have pre-calculated point margin data
+            if (!chartPointMarginData[xValue]) {
+                // Instead of throwing an error, just return the existing body HTML
+                // This handles the case where we have incomplete data in the JSON
+                console.warn(`No pre-calculated data available for time ${xValue} in chart ${context.chart.id}`);
+                return bodyHtml;
             }
             
             // Loop through all lines and add their data from pre-calculated values
-            Object.entries(pointMarginData[xValue]).forEach(([legend, data], i) => {
-                // Pre-calculated data must contain pointValue
+            Object.entries(chartPointMarginData[xValue]).forEach(([legend, data], i) => {
+                // Skip if pointValue is missing
                 if (data.pointValue === undefined) {
-                    throw new Error(`Missing pointValue for line ${legend} at time ${xValue}`);
+                    console.warn(`Missing pointValue for line ${legend} at time ${xValue}`);
+                    return; // Skip this entry instead of throwing error
                 }
                 
                 // Remove the "(XXXX Total Games)" part from the legend text
@@ -856,7 +873,8 @@ nbacc_plotter_data = (() => {
             </td></tr>`;
             });
         } else {
-            throw new Error(`Unknown plot type: ${context.chart.plotType}`);
+            console.warn(`Unknown plot type: ${context.chart.plotType}`);
+            return bodyHtml; // Return existing body HTML instead of throwing
         }
 
         return bodyHtml;

@@ -25,12 +25,14 @@ victories in a single season since 1996-97 and continues with analysis by Steve 
 
 But is this true? In short ... not really.
 
-:ref:`To frame this, I decided to break up the available play-by-play data
-<deciding-on-eras-breakdown>` into:
+To frame this, I decided to break up the available play-by-play data into:
 
 * 1996-97 to 2016-17 (old-school) versus
 * 2017-18 to 2024-25 (modern)
 
+(:ref:`As explained below <deciding-on-eras-breakdown>`, a more targeted recent modern
+era does not change the analysis so the larger dataset was chosen).
+ 
 So while there's about 1.8x times as many 20 points-or-more comebacks comparing the
 eras, the *chance* of coming back from 20 points-or-more down (``5.31%``) is about the
 same as coming back from 18 points-or-more down (``4.88%``) back in the day.
@@ -194,8 +196,8 @@ occurrence rate between the eras we see:
 
     <div id="plots/old_school_v_modern/occurs_down_or_more_48" class="nbacc-chart"></div>
 
-Now, teams fall down 30 points or more ``12.09%`` of the time compared to
-``7.61%`` in the past, a notable 1.59x increase (or about 59% more frequently).
+Now, teams fall down 30 points or more ``12.09%`` of the time compared to ``7.61%`` in
+the past, a notable 1.59x increase (or about 59% more frequently).
 
 
 .. _what-would-be-dramatic:
@@ -231,5 +233,6 @@ If you:
 
 So -- always wanting as many games as possible to reduce the statistical noise -- I
 felt that was the fairest breakdown: :doc:`1996-2016 v
-2017-2024</plots/old_school_v_modern>`.
+2017-2024</plots/old_school_v_modern>`.  I also tried to create the most dramatic shift
+possible between something considered modern versus historical.
 

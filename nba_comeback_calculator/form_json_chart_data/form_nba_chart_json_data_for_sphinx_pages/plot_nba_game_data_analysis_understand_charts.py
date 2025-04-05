@@ -53,7 +53,7 @@ plot_biggest_deficit(
     json_name=f"{chart_base_path}/understand/nbacc_max_or_more_48_espn_0.json",
     year_groups=eras_one,
     start_time=48,
-    stop_time=0,
+    down_mode="max",
     cumulate=True,
     max_point_margin=-2,
 )
@@ -69,7 +69,7 @@ plot_biggest_deficit(
     json_name=f"{chart_base_path}/understand/nbacc_max_48_eras_1.json",
     year_groups=eras_one,
     start_time=48,
-    stop_time=0,
+    down_mode="max",
     cumulate=False,
     max_point_margin=2,
 )
@@ -79,7 +79,7 @@ plot_biggest_deficit(
     json_name=f"{chart_base_path}/understand/nbacc_down_at_24_eras_1.json",
     year_groups=eras_one,
     start_time=24,
-    stop_time=None,
+    down_mode="at",
     cumulate=False,
     max_point_margin=2,
 )
