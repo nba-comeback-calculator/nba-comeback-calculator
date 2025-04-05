@@ -265,7 +265,7 @@ const nbacc_calculator_api = (() => {
      *
      * @param {Array} year_groups - List of year group objects with start/end years
      * @param {number} start_time - Starting minute of analysis (e.g., 24 for halftime)
-     * @param {number|null} stop_time - Ending minute (null for specific point in time)
+     * @param {string} down_mode - Analysis mode: 'at' for specific time, 'max' for max deficit
      * @param {boolean} cumulate - Whether to cumulate point totals
      * @param {number|null} min_point_margin - Min point margin to include in analysis
      * @param {number|null} max_point_margin - Max point margin to include in analysis
@@ -280,7 +280,7 @@ const nbacc_calculator_api = (() => {
     function plot_biggest_deficit(
         year_groups,
         start_time,
-        stop_time,
+        down_mode,
         cumulate = false,
         min_point_margin = null,
         max_point_margin = null,
@@ -302,13 +302,14 @@ const nbacc_calculator_api = (() => {
         } else if (!Array.isArray(game_filters)) {
             game_filters = [game_filters];
         }
+        
         // Format time description
         let time_desc;
         if (start_time === 48) {
             time_desc = "Entire Game";
         } else if (start_time === 36) {
-            if (stop_time === null) {
-                time_desc = "2nd Quarter";
+            if (down_mode === "at") {
+                time_desc = "3rd Quarter";
             } else {
                 time_desc = "Final 3 Quarters";
             }
@@ -316,23 +317,31 @@ const nbacc_calculator_api = (() => {
             time_desc = "2nd Half";
         } else if (start_time === 12) {
             time_desc = "4th Quarter";
-        } else if (start_time < 12) {
+        } else if (start_time === 1) {
+            time_desc = "Final Minute";
+        } else if (typeof start_time === "string") {
+            time_desc = `Final ${start_time}`;
+        } else if (1 < start_time && start_time < 12) {
             time_desc = `Final ${start_time} Minutes`;
+        } else {
+            console.warn(`Unexpected start_time value: ${start_time}`);
+            time_desc = `${start_time} Minutes`;
         }
 
         const or_more = cumulate ? " Or More" : "";
 
         // game_filters already initialized above
-
         fit_min_win_game_count =
             fit_min_win_game_count !== null ? fit_min_win_game_count : 3;
 
-        if (stop_time === null) {
-            const title = `Points Down${or_more} At Start of ${time_desc}`;
+        let title;
+        
+        if (down_mode === "at") {
+            title = `Points Down${or_more} At Start of ${time_desc}`;
             max_point_margin = max_point_margin === null ? -1 : max_point_margin;
             fit_max_points = fit_max_points === null ? -1 : fit_max_points;
         } else {
-            const title = `Max Points Down${or_more} During ${time_desc}`;
+            title = `Max Points Down${or_more} During ${time_desc}`;
             max_point_margin = max_point_margin === null ? "auto" : max_point_margin;
             fit_max_points = fit_max_points === null ? "10%" : fit_max_points;
         }
@@ -403,12 +412,13 @@ const nbacc_calculator_api = (() => {
                         game_filter ? game_filter.get_filter_string() : "All Games"
                     }`;
                 }
+                
                 // Create the points down line
                 const points_down_line = new PointsDownLine(
                     games,
                     game_filter,
                     start_time,
-                    stop_time,
+                    down_mode,
                     legend,
                     cumulate,
                     min_point_margin,
@@ -423,13 +433,6 @@ const nbacc_calculator_api = (() => {
         }
 
         // Update title based on filter/year combinations
-        let title;
-        if (stop_time === null) {
-            title = `Points Down${or_more} At Start of ${time_desc}`;
-        } else {
-            title = `Max Points Down${or_more} During ${time_desc}`;
-        }
-
         if (number_of_year_groups === 1 && number_of_game_filters > 1) {
             // Use the stored reference to the first games object
             if (firstGamesRef) {
@@ -490,7 +493,6 @@ const nbacc_calculator_api = (() => {
      *
      * @param {Array} year_groups - List of year group objects with start/end years
      * @param {number} start_time - Starting minute of analysis
-     * @param {number} stop_time - Ending minute
      * @param {Array} percents - List of percentages to track (e.g., ["20%", "10%", "5%", "1%"])
      * @param {Array|GameFilter|null} game_filters - Filters to apply to games
      * @param {boolean} plot_2x_guide - Whether to plot 2√t guide line
@@ -505,7 +507,6 @@ const nbacc_calculator_api = (() => {
     function plot_percent_versus_time(
         year_groups,
         start_time,
-        stop_time = 0,
         percents = ["10%", "1%"],
         game_filters = null,
         plot_2x_guide = false,
@@ -527,12 +528,10 @@ const nbacc_calculator_api = (() => {
         } else if (!Array.isArray(game_filters)) {
             game_filters = [game_filters];
         }
-        // Initialize game_filters already handled above
-
-        // Setup time range -- just a note, claude did not do this translation correctly
-        // it forgot to do the stop_time + 1
+        
+        // Setup time range
         const times = [];
-        for (let t = start_time; t >= stop_time + 1; t--) {
+        for (let t = start_time; t >= 1; t--) {
             times.push(t);
         }
 
@@ -587,7 +586,7 @@ const nbacc_calculator_api = (() => {
                         games,
                         game_filter,
                         current_time,
-                        null, // stop_time is null for specific time points
+                        "at", // Use 'at' mode for time points
                         null, // no legend needed
                         false, // cumulate
                         null, // min_point_margin

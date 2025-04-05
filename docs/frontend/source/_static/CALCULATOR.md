@@ -4,6 +4,32 @@
 
 The NBA Charts Calculator extends the charting program to build charts on the fly from season data rather than loading pre-generated JSON files from the `/charts/` directory. This creates a dynamic calculation and visualization system.
 
+## PYTHON TO JAVASCRIPT TRANSLATION REFACTOR 1 (April 5, 2025)
+
+### Major Changes
+
+1. **New Season Data Format**: 
+   - Previous format used separate arrays for `point_margins`, `min_point_margins`, and `max_point_margins`
+   - New format uses a single list of strings with a custom parser
+   - Format: `"index=value"` or `"index=point_margin,min_point_margin,max_point_margin"`
+   - New parser function `get_point_margin_map_from_json` added
+
+2. **Game Time Granularity**:
+   - Added `GAME_MINUTES` array to support sub-minute time intervals
+   - Added `TIME_TO_INDEX_MAP` for efficient time-to-index lookup
+   - Now supports analysis at 5-second increments in the final minute
+
+3. **API Parameter Changes**:
+   - Replaced `stop_time` parameter with `down_mode` parameter:
+     - `down_mode` can be either "at" (point deficit at specific time) or "max" (maximum deficit during period)
+     - Clearer semantics and better matches Python API
+
+4. **Time Handling Improvements**:
+   - Support for string time values like "45s", "30s", "15s"
+   - More granular time analysis in final moments of games
+
+This refactor aligns the JavaScript code with the updated Python backend, ensuring consistent analysis across both platforms.
+
 ## New Features
 
 ### State Persistence and Sharing

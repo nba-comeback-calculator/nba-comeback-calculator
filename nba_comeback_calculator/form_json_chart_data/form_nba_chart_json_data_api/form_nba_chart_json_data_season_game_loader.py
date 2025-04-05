@@ -17,23 +17,43 @@ import os
 import gzip
 
 
-# Defines time intervals for analysis, from start of game (48 minutes) 
+# Defines time intervals for analysis, from start of game (48 minutes)
 # to end of game (0), with sub-minute intervals in the final minute
 GAME_MINUTES = [
-    48,     # Game start
-    36,     # Start of 2nd half (3rd quarter)
-    24,     # Halftime
-    23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13,  # 3rd quarter and early 4th
-    12,     # Start of 4th quarter
-    11, 10, 9, 8, 7, 6, 5, 4, 3, 2,
-    1,      # Final minute (60 seconds)
+    48,  # Game start
+    36,  # Start of 2nd half (3rd quarter)
+    24,  # Halftime
+    23,
+    22,
+    21,
+    20,
+    19,
+    18,
+    17,
+    16,
+    15,
+    14,
+    13,  # 3rd quarter and early 4th
+    12,  # Start of 4th quarter
+    11,
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,  # Final minute (60 seconds)
     "45s",  # 45 seconds remaining
     "30s",  # 30 seconds remaining
     "15s",  # 15 seconds remaining
     "10s",  # 10 seconds remaining
-    "5s",   # 5 seconds remaining
-    0,      # Game end (buzzer)
+    "5s",  # 5 seconds remaining
+    0,  # Game end (buzzer)
 ]
+
 
 # Mapping from time point to array index for efficient lookup
 TIME_TO_INDEX_MAP = {key: index for index, key in enumerate(GAME_MINUTES)}
@@ -153,7 +173,7 @@ class Games:
 class Game:
     """
     Represents a single NBA game with all related statistics.
-    
+
     Each Game object contains metadata about the game (teams, date, etc.)
     and a structured mapping of point margins at different times throughout
     the game, enabling detailed analysis of game progression and comebacks.
@@ -164,7 +184,7 @@ class Game:
     def __init__(self, game_data, game_id, season):
         """
         Initialize game with data from JSON.
-        
+
         Parameters:
         -----------
         game_data : dict
@@ -251,21 +271,21 @@ class Game:
 def get_point_margin_map_from_json(point_margins_data):
     """
     Process point margins from JSON data into a structured map.
-    
+
     Converts the compact string representation of point margins from the JSON data
     into a structured dictionary mapping time points to point margin data.
-    
-    The input format is a list of strings with format "index=value" or 
+
+    The input format is a list of strings with format "index=value" or
     "index=point_margin,min_point_margin,max_point_margin" where:
     - index corresponds to positions in the GAME_MINUTES array
     - point_margin is the current point margin at that time
     - min/max_point_margin track the extremes reached during intervals
-    
+
     Parameters:
     -----------
     point_margins_data : list
         List of strings containing point margin data in compressed format
-        
+
     Returns:
     --------
     dict

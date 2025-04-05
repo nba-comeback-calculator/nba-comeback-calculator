@@ -170,7 +170,7 @@ const nbacc_calculator_plot_primitives = (() => {
             games,
             game_filter,
             start_time,
-            stop_time = null,
+            down_mode = "at",
             legend = null,
             cumulate = false,
             min_point_margin = null,
@@ -186,12 +186,12 @@ const nbacc_calculator_plot_primitives = (() => {
             this.legend = legend;
 
             this.start_time = start_time;
-            this.stop_time = stop_time;
+            this.down_mode = down_mode;
             this.point_margin_map = this.setup_point_margin_map(
                 games,
                 game_filter,
                 start_time,
-                stop_time
+                down_mode
             );
             this.all_game_ids = this.get_all_game_ids();
             this.number_of_games = this.all_game_ids.size;
@@ -258,29 +258,52 @@ const nbacc_calculator_plot_primitives = (() => {
             return all_game_ids;
         }
 
-        setup_point_margin_map(games, game_filter, start_time, stop_time) {
+        setup_point_margin_map(games, game_filter, start_time, down_mode) {
             const point_margin_map = {};
 
             for (const game of games) {
                 let win_point_margin, lose_point_margin;
 
-                if (stop_time === null) {
+                if (down_mode === "at") {
                     // Points down at a specific time
                     const sign = game.score_diff > 0 ? 1 : -1;
-                    const point_margin =
-                        game.score_stats_by_minute.point_margins[48 - start_time - 1];
+                    
+                    // Get the index for this time point
+                    let index;
+                    if (typeof start_time === "number") {
+                        index = 48 - start_time - 1;
+                    } else {
+                        // Handle string time formats like "45s"
+                        const timeIndex = nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[start_time];
+                        index = 48 - timeIndex - 1;
+                    }
+                    
+                    const point_margin = game.score_stats_by_minute.point_margins[index];
                     win_point_margin = sign * point_margin;
                     lose_point_margin = -1 * win_point_margin;
-                } else if (start_time !== null && stop_time !== null) {
-                    // Max points down during a time period
+                } else if (down_mode === "max") {
+                    // Max points down during a time period to the end of the game
                     win_point_margin = Infinity;
                     lose_point_margin = Infinity;
 
-                    for (let minute = start_time; minute > stop_time - 1; minute--) {
-                        const min_point_margin =
-                            game.score_stats_by_minute.min_point_margins[48 - minute];
-                        const max_point_margin =
-                            game.score_stats_by_minute.max_point_margins[48 - minute];
+                    // Handle the case where start_time is a string (like "45s")
+                    let startIndex;
+                    if (typeof start_time === "string") {
+                        startIndex = nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[start_time];
+                    } else {
+                        startIndex = start_time;
+                    }
+
+                    // Loop through all time points from start_time to the end of the game
+                    for (let i = nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[startIndex]; 
+                         i < nbacc_calculator_season_game_loader.GAME_MINUTES.length; 
+                         i++) {
+                        
+                        const minute = nbacc_calculator_season_game_loader.GAME_MINUTES[i];
+                        const array_index = i; // Use the index directly
+                        
+                        const min_point_margin = game.score_stats_by_minute.min_point_margins[array_index];
+                        const max_point_margin = game.score_stats_by_minute.max_point_margins[array_index];
 
                         if (game.score_diff > 0) {
                             win_point_margin = Math.min(
@@ -305,7 +328,7 @@ const nbacc_calculator_plot_primitives = (() => {
                         }
                     }
                 } else {
-                    throw new Error("Invalid time parameters");
+                    throw new Error(`Invalid down_mode: ${down_mode}. Must be "at" or "max"`);
                 }
 
                 // Add game to win/loss maps based on filter

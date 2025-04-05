@@ -4,12 +4,59 @@
  * This module handles loading and processing NBA game data from JSON files.
  * It provides classes for representing seasons, games, and game collections,
  * along with utility functions for filtering and analyzing game data.
+ * 
+ * The module defines granular time intervals for game analysis, supporting
+ * minute-by-minute analysis as well as sub-minute intervals (down to 5-second
+ * increments) in the final minute of the game.
  */
 
 const nbacc_calculator_season_game_loader = (() => {
     // Global variable for base path to JSON files
     // Use the same path resolution approach as chart loader
     let json_base_path = `${nbacc_utils.staticDir}/json/seasons`; // Use staticDir from utils
+
+    // Defines time intervals for analysis, from start of game (48 minutes)
+    // to end of game (0), with sub-minute intervals in the final minute
+    const GAME_MINUTES = [
+        48,  // Game start
+        36,  // Start of 2nd half (3rd quarter)
+        24,  // Halftime
+        23,
+        22,
+        21,
+        20,
+        19,
+        18,
+        17,
+        16,
+        15,
+        14,
+        13,  // 3rd quarter and early 4th
+        12,  // Start of 4th quarter
+        11,
+        10,
+        9,
+        8,
+        7,
+        6,
+        5,
+        4,
+        3,
+        2,
+        1,  // Final minute (60 seconds)
+        "45s",  // 45 seconds remaining
+        "30s",  // 30 seconds remaining
+        "15s",  // 15 seconds remaining
+        "10s",  // 10 seconds remaining
+        "5s",  // 5 seconds remaining
+        0,  // Game end (buzzer)
+    ];
+
+    // Mapping from time point to array index for efficient lookup
+    const TIME_TO_INDEX_MAP = {};
+    GAME_MINUTES.forEach((key, index) => {
+        TIME_TO_INDEX_MAP[key] = index;
+    });
 
     class Season {
         static _seasons = {}; // Class-level cache of loaded seasons
@@ -295,10 +342,16 @@ const nbacc_calculator_season_game_loader = (() => {
                 throw new Error("NBA games can't end in a tie");
             }
 
-            // Create score stats by minute
+            // Process and store point margins at each time point
+            // This creates a dictionary mapping time points (from GAME_MINUTES) to point margin data
+            this.point_margin_map = get_point_margin_map_from_json(
+                game_data.point_margins
+            );
+
+            // Create score stats by minute for backwards compatibility
             this.score_stats_by_minute = new ScoreStatsByMinute(
                 this,
-                game_data.point_margins
+                this.point_margin_map
             );
 
             // Set team stats
@@ -339,15 +392,94 @@ const nbacc_calculator_season_game_loader = (() => {
     }
 
     class ScoreStatsByMinute {
-        constructor(game, point_margins_data) {
-            // Extract point margins from the JSON data
-            this.point_margins = point_margins_data.margins;
-            this.min_point_margins = point_margins_data.min_margins;
-            this.max_point_margins = point_margins_data.max_margins;
+        constructor(game, point_margin_map) {
+            // Creates backwards-compatible point margins arrays from the point_margin_map
+            this.point_margins = [];
+            this.min_point_margins = [];
+            this.max_point_margins = [];
+
+            // Fill arrays from the point_margin_map
+            GAME_MINUTES.forEach((time_point, index) => {
+                if (point_margin_map[time_point]) {
+                    const data = point_margin_map[time_point];
+                    this.point_margins[index] = data.point_margin;
+                    this.min_point_margins[index] = data.min_point_margin;
+                    this.max_point_margins[index] = data.max_point_margin;
+                }
+            });
 
             // Calculate home scores (if needed)
             this.home_scores = [];
         }
+    }
+
+    /**
+     * Process point margins from JSON data into a structured map.
+     *
+     * Converts the compact string representation of point margins from the JSON data
+     * into a structured dictionary mapping time points to point margin data.
+     *
+     * The input format is a list of strings with format "index=value" or
+     * "index=point_margin,min_point_margin,max_point_margin" where:
+     * - index corresponds to positions in the GAME_MINUTES array
+     * - point_margin is the current point margin at that time
+     * - min/max_point_margin track the extremes reached during intervals
+     *
+     * @param {Array} point_margins_data - List of strings containing point margin data in compressed format
+     * @returns {Object} A dictionary mapping time points (from GAME_MINUTES) to point margin data dictionaries
+     */
+    function get_point_margin_map_from_json(point_margins_data) {
+        // Extract point margins from the JSON data
+        const raw_point_margin_map = {};
+        
+        for (const point_margin of point_margins_data) {
+            const [index_str, points_string] = point_margin.split("=", 2);
+            const index = parseInt(index_str);
+            
+            let point_margin_val, min_point_margin, max_point_margin;
+            
+            if (points_string.includes(",")) {
+                [point_margin_val, min_point_margin, max_point_margin] = points_string
+                    .split(",")
+                    .map(x => parseInt(x));
+            } else {
+                point_margin_val = min_point_margin = max_point_margin = parseInt(points_string);
+            }
+            
+            raw_point_margin_map[index] = {
+                point_margin: point_margin_val,
+                min_point_margin: min_point_margin,
+                max_point_margin: max_point_margin
+            };
+        }
+
+        // Create a complete mapping for all time points in GAME_MINUTES
+        const point_margin_map = {};
+        let last_point_margin = null;
+        
+        for (let index = 0; index < GAME_MINUTES.length; index++) {
+            const key = GAME_MINUTES[index];
+            let point_margin_data;
+            
+            if (index in raw_point_margin_map) {
+                point_margin_data = raw_point_margin_map[index];
+            } else {
+                // If data is missing for this time point, use the last known point margin
+                if (last_point_margin === null) {
+                    throw new Error("Missing point margin data at beginning of game");
+                }
+                point_margin_data = {
+                    point_margin: last_point_margin,
+                    min_point_margin: last_point_margin,
+                    max_point_margin: last_point_margin
+                };
+            }
+            
+            point_margin_map[key] = point_margin_data;
+            last_point_margin = point_margin_data.point_margin;
+        }
+        
+        return point_margin_map;
     }
 
     /**
@@ -367,10 +499,13 @@ const nbacc_calculator_season_game_loader = (() => {
 
     // Return public API
     return {
+        GAME_MINUTES,
+        TIME_TO_INDEX_MAP,
         Season,
         Games,
         Game,
         ScoreStatsByMinute,
+        get_point_margin_map_from_json,
         parseSeasonType,
     };
 })();

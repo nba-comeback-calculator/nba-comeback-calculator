@@ -1347,12 +1347,12 @@ const nbacc_calculator_ui = (() => {
                 const cumulate = state.plotType === "Max Points Down Or More" || 
                                 state.plotType === "Occurrence Max Points Down Or More";
 
-                // If 'Points Down At Time', pass null for stop_time
-                const stopTime =
+                // Determine the down_mode based on plot type
+                const downMode =
                     state.plotType === "Points Down At Time" || 
                     state.plotType === "Occurrence Points Down At Time"
-                        ? null
-                        : state.endTime || 0;
+                        ? "at"
+                        : "max";
 
                 // Determine if we should calculate occurrences based on plot type
                 const calculateOccurrences = state.plotType.startsWith("Occurrence");
@@ -1364,7 +1364,7 @@ const nbacc_calculator_ui = (() => {
                 chartData = nbacc_calculator_api.plot_biggest_deficit(
                     state.yearGroups,
                     state.startTime,
-                    stopTime,
+                    downMode,
                     cumulate,
                     null, // min_point_margin
                     null, // max_point_margin
@@ -1634,12 +1634,12 @@ const nbacc_calculator_ui = (() => {
                 const cumulate = state.plotType === "Max Points Down Or More" || 
                                state.plotType === "Occurrence Max Points Down Or More";
                 
-                // If 'Points Down At Time', pass null for stop_time
-                const stopTime =
+                // Determine the down_mode based on plot type
+                const downMode =
                     state.plotType === "Points Down At Time" || 
                     state.plotType === "Occurrence Points Down At Time"
-                        ? null
-                        : state.endTime || 0;
+                        ? "at"
+                        : "max";
                 
                 // Determine if we should calculate occurrences based on plot type
                 const calculateOccurrences = state.plotType.startsWith("Occurrence");
@@ -1651,7 +1651,7 @@ const nbacc_calculator_ui = (() => {
                 chartData = nbacc_calculator_api.plot_biggest_deficit(
                     state.yearGroups,
                     state.startTime,
-                    stopTime,
+                    downMode,
                     cumulate,
                     null, // min_point_margin
                     state.maxPointMargin, // max_point_margin
