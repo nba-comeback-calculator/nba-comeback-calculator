@@ -5,6 +5,7 @@ from collections import OrderedDict, defaultdict
 
 # Third-party imports
 import numpy as np
+from scipy.interpolate import interp1d
 
 
 def dict_factory(cursor, row):
@@ -21,6 +22,41 @@ con = sqlite3.connect(
 )
 con.row_factory = dict_factory
 cursor = con.cursor()
+
+GAME_MINUTES = [
+    48,
+    36,
+    24,
+    23,
+    22,
+    21,
+    20,
+    19,
+    18,
+    17,
+    16,
+    15,
+    14,
+    13,
+    12,
+    11,
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1.00000,  # 60 seconds
+    0.75000,  # 45 seconds
+    0.50000,  # 30 seconds
+    0.25000,  # 15 seconds
+    0.16666,  # 10 seconds
+    0.08333,  # 05 seconds
+    0.00000,  # BZZZT!
+]
 
 
 class Games:
@@ -229,19 +265,14 @@ class Game:
             "home_team_abbr": self.home_team_abbr,
             "away_team_abbr": self.away_team_abbr,
             "score": self.score,
-            "point_margins": {
-                "margins": self.score_stats_by_minute.point_margins,
-                "min_margins": self.score_stats_by_minute.min_point_margins,
-                "max_margins": self.score_stats_by_minute.max_point_margins,
-            },
+            "point_margins": self.score_stats_by_minute.point_margins,
         }
 
 
 class ScoreStat:
     """Statistics for score at a given point in the game."""
 
-    def __init__(self, home_score, point_margin, min_point_margin, max_point_margin):
-        self.home_score = home_score
+    def __init__(self, point_margin, min_point_margin, max_point_margin):
         self.point_margin = point_margin
         self.min_point_margin = min_point_margin
         self.max_point_margin = max_point_margin
@@ -249,6 +280,9 @@ class ScoreStat:
     @property
     def away_score(self):
         return self.home_score - self.point_margin
+
+    def values(self):
+        return self.point_margin, self.min_point_margin, self.max_point_margin
 
 
 class ScoreStatsByMinute:
@@ -260,66 +294,52 @@ class ScoreStatsByMinute:
     def __init__(self, game):
         """Calculate and store score statistics by minute for a game."""
         # Initialize with zeroes at the start (48-minute mark)
-        score_map = {
-            48: ScoreStat(
-                home_score=0, point_margin=0, min_point_margin=0, max_point_margin=0
-            )
+        self.scores_map = {
+            0: ScoreStat(point_margin=0, min_point_margin=0, max_point_margin=0)
         }
+
+        time_indicies = list(range(len(GAME_MINUTES)))
+        time_to_index_fn = interp1d(
+            [float(x) for x in GAME_MINUTES], time_indicies, kind="previous"
+        )
 
         # Process each play to track score changes
         for play in game.play_by_plays:
-            time = play.time
+            time = float(play.time)
+            if time < 0:
+                continue
             home_score = play.home_score
             away_score = play.away_score
             point_margin = home_score - away_score
-            minute = int(np.ceil(time))
-            self.set_score_stat(score_map, minute, home_score, point_margin)
-
-            # Handle plays that occur exactly on a minute boundary
-            if abs(time - float(int(time))) < 1e-9:
-                self.set_score_stat(
-                    score_map, float(int(time)) + 1, home_score, point_margin
+            time_index = int(time_to_index_fn(time))
+            try:
+                score_stat = self.scores_map[time_index]
+            except KeyError:
+                score_stat = ScoreStat(
+                    point_margin=point_margin,
+                    min_point_margin=point_margin,
+                    max_point_margin=point_margin,
+                )
+                self.scores_map[time_index] = score_stat
+            else:
+                score_stat.point_margin = point_margin
+                score_stat.min_point_margin = min(
+                    score_stat.min_point_margin, point_margin
+                )
+                score_stat.max_point_margin = max(
+                    score_stat.max_point_margin, point_margin
                 )
 
-        # Build minute-by-minute arrays for the entire game
-        last_score_stat = score_map[48]
-        self.home_scores = []
-        self.point_margins = []
-        self.min_point_margins = []
-        self.max_point_margins = []
-
-        # Reverse through each minute (end to start)
-        for minute in range(48, -1, -1):
-            try:
-                score_stat = score_map[minute]
-            except KeyError:
-                # Use previous minute's stats if no update at this minute
-                self.home_scores.append(last_score_stat.home_score)
-                self.point_margins.append(last_score_stat.point_margin)
-                self.min_point_margins.append(last_score_stat.point_margin)
-                self.max_point_margins.append(last_score_stat.point_margin)
+    @property
+    def point_margins(self):
+        margins = []
+        for index, score_stat in sorted(self.scores_map.items()):
+            points, min_points, max_points = score_stat.values()
+            if points == min_points == max_points:
+                margins.append(f"{index}={points}")
             else:
-                self.home_scores.append(score_stat.home_score)
-                self.point_margins.append(score_stat.point_margin)
-                self.min_point_margins.append(score_stat.min_point_margin)
-                self.max_point_margins.append(score_stat.max_point_margin)
-                last_score_stat = score_stat
-
-    def set_score_stat(self, score_map, minute, home_score, point_margin):
-        """Update or create score statistics for a specific minute."""
-        score_stat = score_map.setdefault(
-            minute,
-            ScoreStat(
-                home_score=home_score,
-                point_margin=point_margin,
-                min_point_margin=self.inf,
-                max_point_margin=self.neg_inf,
-            ),
-        )
-        score_stat.home_score = home_score
-        score_stat.point_margin = point_margin
-        score_stat.min_point_margin = min(score_stat.min_point_margin, point_margin)
-        score_stat.max_point_margin = max(score_stat.max_point_margin, point_margin)
+                margins.append(f"{index}={points},{min_points},{max_points}")
+        return margins
 
 
 class PlayByPlays:
