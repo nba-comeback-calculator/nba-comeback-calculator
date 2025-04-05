@@ -12,6 +12,7 @@ import json
 import os
 
 # Local imports
+from form_nba_chart_json_data_season_game_loader import GAME_MINUTES, TIME_TO_INDEX_MAP
 from form_nba_chart_json_data_num import Num
 
 
@@ -101,7 +102,7 @@ class PointsDownLine(PlotLine):
         games,
         game_filter,
         start_time,
-        stop_time=None,
+        down_mode,
         legend=None,
         cumulate=False,
         min_point_margin=None,
@@ -115,9 +116,9 @@ class PointsDownLine(PlotLine):
         self.legend = legend
 
         self.start_time = start_time
-        self.stop_time = stop_time
+        self.down_mode = down_mode
         self.point_margin_map = point_margin_map = self.setup_point_margin_map(
-            games, game_filter, start_time, stop_time
+            games, game_filter, start_time, down_mode
         )
         x = [(x, y.odds[0])[0] for x, y in sorted(point_margin_map.items())]
         y = [(x, y.odds[0])[1] for x, y in sorted(point_margin_map.items())]
@@ -132,7 +133,9 @@ class PointsDownLine(PlotLine):
 
         import form_nba_chart_json_data_season_game_loader as loader
 
-        self.clean_point_margin_map_end_points(point_margin_map)
+        or_less_point_margin, or_more_point_margin = (
+            self.clean_point_margin_map_end_points(point_margin_map)
+        )
 
         self.point_margin_map = point_margin_map
         self.point_margins = sorted(point_margin_map)
@@ -163,6 +166,9 @@ class PointsDownLine(PlotLine):
 
         self.max_point_margin = max_point_margin
 
+        self.or_less_point_margin = or_less_point_margin
+        self.or_more_point_margin = or_more_point_margin
+
     def get_all_game_ids(self):
         all_game_ids = set()
         for data in self.point_margin_map.values():
@@ -170,26 +176,31 @@ class PointsDownLine(PlotLine):
             all_game_ids.update(data.losses)
         return all_game_ids
 
-    def setup_point_margin_map(self, games, game_filter, start_time, stop_time):
+    def setup_point_margin_map(self, games, game_filter, start_time, down_mode):
         point_margin_map = {}
+        if start_time not in TIME_TO_INDEX_MAP:
+            raise AssertionError
         for game in games:
-            if stop_time is None:
+            if down_mode == "at":
                 sign = 1 if game.score_diff > 0 else -1
-                point_margin = game.score_stats_by_minute.point_margins[
-                    48 - start_time - 1
-                ]
+                point_margin = game.point_margin_map[start_time]["point_margin"]
                 win_point_margin = sign * point_margin
                 lose_point_margin = -1 * win_point_margin
-            elif start_time is not None and stop_time is not None:
+            elif down_mode == "max":
+                point_margin = game.point_margin_map[start_time]["point_margin"]
                 win_point_margin = float("inf")
                 lose_point_margin = float("inf")
-                for minute in range(start_time, stop_time - 1, -1):
-                    min_point_margin = game.score_stats_by_minute.min_point_margins[
-                        48 - minute
-                    ]
-                    max_point_margin = game.score_stats_by_minute.max_point_margins[
-                        48 - minute
-                    ]
+                start_index = TIME_TO_INDEX_MAP[start_time]
+                stop_index = TIME_TO_INDEX_MAP[0]
+                for index in range(start_index, stop_index + 1):
+                    time = GAME_MINUTES[index]
+                    point_margin_data = game.point_margin_map[time]
+                    if index == start_index:
+                        min_point_margin = point_margin_data["point_margin"]
+                        max_point_margin = point_margin_data["point_margin"]
+                    else:
+                        min_point_margin = point_margin_data["min_point_margin"]
+                        max_point_margin = point_margin_data["max_point_margin"]
                     if game.score_diff > 0:
                         win_point_margin = min(min_point_margin, win_point_margin)
                         lose_point_margin = min(
@@ -203,7 +214,7 @@ class PointsDownLine(PlotLine):
                     else:
                         raise AssertionError
             else:
-                raise AssertionError
+                raise NotImplementedError(down_mode)
 
             if game_filter is None or game_filter.is_match(game, is_win=True):
                 win_point_margin_percent = point_margin_map.setdefault(
@@ -231,41 +242,44 @@ class PointsDownLine(PlotLine):
                 p1.losses.update(p0.losses)
 
     def clean_point_margin_map_end_points(self, point_margin_map):
-        first_minute = None
-        for minute, point_margin_percent in sorted(point_margin_map.items()):
+        first_point_margin = None
+        for point_margin, point_margin_percent in sorted(point_margin_map.items()):
             if point_margin_percent.odds[0] > 0:
-                if first_minute is None:
-                    first_minute = minute
+                if first_point_margin is None:
+                    first_point_margin = point_margin
                 break
             else:
-                first_minute = minute
+                first_point_margin = point_margin
 
-        last_minute = None
-        for minute, point_margin_percent in sorted(
+        last_point_margin = None
+        for point_margin, point_margin_percent in sorted(
             point_margin_map.items(), reverse=True
         ):
             if point_margin_percent.odds[0] < 1.0:
-                if last_minute is None:
-                    last_minute = minute
+                if last_point_margin is None:
+                    last_point_margin = point_margin
                 break
             else:
-                last_minute = minute
+                last_point_margin = point_margin
 
-        for minute, point_margin_percent in sorted(point_margin_map.items()):
-            if minute < first_minute:
+        for point_margin, point_margin_percent in sorted(point_margin_map.items()):
+            if point_margin < first_point_margin:
                 wins = point_margin_percent.wins
                 if wins:
                     raise AssertionError
-                point_margin_map[first_minute].losses.update(
+                point_margin_map[first_point_margin].losses.update(
                     point_margin_percent.losses
                 )
-                point_margin_map.pop(minute)
-            elif minute > last_minute:
+                point_margin_map.pop(point_margin)
+            elif point_margin > last_point_margin:
                 losses = point_margin_percent.losses
                 if losses:
                     raise AssertionError
-                point_margin_map[last_minute].wins.update(point_margin_percent.wins)
-                point_margin_map.pop(minute)
+                point_margin_map[last_point_margin].wins.update(
+                    point_margin_percent.wins
+                )
+                point_margin_map.pop(point_margin)
+        return first_point_margin, last_point_margin
 
     def fit_regression_lines(
         self, min_game_count, max_fit_point, calculate_occurrences
@@ -284,11 +298,12 @@ class PointsDownLine(PlotLine):
                 raise AssertionError(max_fit_point)
             max_fit_point = max_fit_point_amount
 
-        # At least 10 points of fit data
+        # At least 3 points of fit data
         try:
-            max_fit_point = max(max_fit_point, self.point_margins[10])
+            safe_fit_point = self.point_margins[3]
         except IndexError:
-            max_fit_point = max(max_fit_point, self.point_margins[-1])
+            safe_fit_point = self.point_margins[-1]
+        max_fit_point = max(max_fit_point, safe_fit_point)
         min_game_count = min_game_count if min_game_count is not None else 0
         max_fit_point = max_fit_point if max_fit_point is not None else float("inf")
         fit_xy = [
@@ -297,12 +312,14 @@ class PointsDownLine(PlotLine):
             if
             (
                 # len(self.point_margin_map[point_margin].wins) >= min_game_count
-                self.min_percent < self.percents[index] < self.max_percent
+                self.min_percent <= self.percents[index] <= self.max_percent
                 and point_margin <= max_fit_point
             )
         ]
         fit_x = [p[0] for p in fit_xy]
         fit_y = [p[1] for p in fit_xy]
+        if len(fit_x) < 2:
+            raise AssertionError
         try:
             result = Num.least_squares(fit_x, fit_y)
             m, b = result["m"], result["b"]
@@ -394,7 +411,8 @@ class PointsDownLine(PlotLine):
             "m": self.m,
             "b": self.b,
             "number_of_games": self.number_of_games,
-            # "r_value": self.r_value,
+            "or_less_point_margin": self.or_less_point_margin,
+            "or_more_point_margin": self.or_more_point_margin,
         }
         json_data["x_values"] = list(self.point_margins)
         json_data["y_values"] = y_values = []

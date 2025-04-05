@@ -17,6 +17,7 @@ from form_nba_chart_json_data_num import Num
 
 __LINEAR_Y_AXIS__ = False
 
+
 def parse_season_type(year):
     """
     Parse year string to determine season type and numeric year.
@@ -298,7 +299,7 @@ def plot_biggest_deficit(
     json_name,
     year_groups,
     start_time,
-    stop_time,
+    down_mode,
     cumulate=False,
     min_point_margin=None,
     max_point_margin=None,
@@ -310,7 +311,6 @@ def plot_biggest_deficit(
     use_normal_labels=False,
     linear_y_axis=False,
     use_logit=False,
-    
 ):
     """
     Generate plots and JSON data showing win probability based on point deficit.
@@ -323,8 +323,8 @@ def plot_biggest_deficit(
         List of (start_year, end_year) ranges to analyze
     start_time : int
         Starting minute of analysis (e.g., 24 for halftime)
-    stop_time : int or None
-        Ending minute (None for a specific point in time)
+    down_mode : str
+        Can either be 'max' or 'at'
     cumulate : bool
         Whether to cumulate point totals
     max_point_margin : int or None
@@ -342,7 +342,7 @@ def plot_biggest_deficit(
     calculate_occurrences : bool
         Whether to calculate occurrence percentages
     """
-    
+
     global __LINEAR_Y_AXIS__
     if linear_y_axis:
         __LINEAR_Y_AXIS__ = True
@@ -350,28 +350,32 @@ def plot_biggest_deficit(
         Num.PPF = lambda x: x
     else:
         __LINEAR_Y_AXIS__ = False
-        
+
     if use_logit:
         from scipy.special import logit, expit
+
         Num.CDF = expit
         Num.PPF = logit
-        
-                 
-                 
-                 
+
     if start_time == 48:
         time_desc = "Entire Game"
     elif start_time == 36:
-        if stop_time is None:
-            time_desc = "2nd Quarter"
+        if down_mode == "at":
+            time_desc = "3rd Quarter"
         else:
             time_desc = "Final 3 Quarters"
     elif start_time == 24:
         time_desc = "2nd Half"
     elif start_time == 12:
         time_desc = "4th Quarter"
-    elif start_time < 12:
+    elif start_time == 1:
+        time_desc = "Final Minute"
+    elif isinstance(start_time, str):
+        time_desc = f"Final {start_time}"
+    elif 1 < start_time < 12:
         time_desc = f"Final {start_time} Minutes"
+    else:
+        raise NotImplementedError(start_time)
 
     or_more = " Or More" if cumulate else ""
 
@@ -384,7 +388,7 @@ def plot_biggest_deficit(
     fit_min_win_game_count = (
         3 if fit_min_win_game_count is None else fit_min_win_game_count
     )
-    if stop_time is None:
+    if down_mode == "at":
         title = f"Points Down{or_more} At Start of {time_desc}"
         or_more = ""
         max_point_margin = -1 if max_point_margin is None else max_point_margin
@@ -443,7 +447,7 @@ def plot_biggest_deficit(
                 game_filter=game_filter,
                 legend=legend,
                 start_time=start_time,
-                stop_time=stop_time,
+                down_mode=down_mode,
                 cumulate=cumulate,
                 min_point_margin=min_point_margin,
                 max_point_margin=max_point_margin,
@@ -597,7 +601,6 @@ def plot_percent_versus_time(
     json_name,
     year_groups,
     start_time,
-    stop_time,
     percents,
     game_filters=None,
     plot_2x_guide=False,
@@ -622,8 +625,6 @@ def plot_percent_versus_time(
         List of (start_year, end_year) ranges to analyze
     start_time : int
         Starting minute of analysis (typically 24 for halftime)
-    stop_time : int
-        Ending minute (typically 0 for end of game)
     percents : list
         List of percentages to track (e.g., ["20%", "10%", "5%", "1%"])
     game_filters : list of GameFilter or None
@@ -643,7 +644,7 @@ def plot_percent_versus_time(
         number_of_game_filters = 0
 
     # Setup time range
-    times = list(range(start_time, stop_time, -1))
+    times = list(range(start_time, 0, -1))
     min_point_margin = float("inf")
     max_point_margin = -1.0 * float("inf")
 
@@ -677,7 +678,7 @@ def plot_percent_versus_time(
                     games=games,
                     game_filter=game_filter,
                     start_time=current_time,
-                    stop_time=None,
+                    down_mode="at",
                     max_point_margin=-1,
                     fit_max_points=-1,
                 )
@@ -758,7 +759,7 @@ def plot_percent_versus_time(
     # Calculate y_ticks for the plot
     x_label = "Minutes Remaining"
     y_label = "Points Down"
-    x_ticks = list(range(start_time, stop_time, -1))
+    x_ticks = list(range(start_time, 0, -1))
     y_ticks = list(
         range(
             int(Num.floor(min_point_margin)) - 1, int(Num.ceil(max_point_margin)) + 2, 2

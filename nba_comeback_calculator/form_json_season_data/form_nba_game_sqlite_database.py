@@ -211,7 +211,7 @@ def get_game_row(game_id, gate_data, season_year, season_type):
 
 
 game_count = 0
-now = datetime.datetime(2025, 3, 24)
+now = datetime.datetime(2025, 4, 10)
 season_types = ["Regular Season", "Playoffs"]
 # season_types = ["Playoffs"]
 # season_types = ["Regular Season"]

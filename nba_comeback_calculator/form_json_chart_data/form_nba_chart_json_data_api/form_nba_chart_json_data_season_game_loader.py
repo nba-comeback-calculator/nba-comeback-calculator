@@ -13,6 +13,44 @@ import os
 import gzip
 
 
+GAME_MINUTES = [
+    48,
+    36,
+    24,
+    23,
+    22,
+    21,
+    20,
+    19,
+    18,
+    17,
+    16,
+    15,
+    14,
+    13,
+    12,
+    11,
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,  # 60 seconds
+    "45s",  # 45 seconds
+    "30s",  # 30 seconds
+    "15s",  # 15 seconds
+    "10s",  # 10 seconds
+    "5s",  # 05 seconds
+    0,  # BZZZT!
+]
+
+TIME_TO_INDEX_MAP = {key: index for index, key in enumerate(GAME_MINUTES)}
+
+
 class Season:
     """Manages loading of season data from JSON files."""
 
@@ -168,8 +206,8 @@ class Game:
             raise AssertionError("NBA games can't end in a tie")
 
         # Create score stats by minute directly from point margins in the JSON
-        self.score_stats_by_minute = ScoreStatsByMinute(
-            self, game_data["point_margins"]
+        self.point_margin_map = get_point_margin_map_from_json(
+            game_data["point_margins"]
         )
 
         # Set team win percentages from season data
@@ -207,16 +245,38 @@ class Game:
         )
 
 
-class ScoreStatsByMinute:
-    """Score statistics tracked by minute throughout the game."""
+def get_point_margin_map_from_json(point_margins_data):
+    """Initialize from pre-calculated point margins in JSON."""
+    # Extract point margins from the JSON data
+    raw_point_margin_map = {}
+    for point_margin in point_margins_data:
+        index, points_string = point_margin.split("=", 1)
+        if "," in points_string:
+            point_margin, min_point_margin, max_point_margin = [
+                int(x) for x in points_string.split(",")
+            ]
+        else:
+            point_margin = min_point_margin = max_point_margin = int(points_string)
+        raw_point_margin_map[int(index)] = {
+            "point_margin": point_margin,
+            "min_point_margin": min_point_margin,
+            "max_point_margin": max_point_margin,
+        }
 
-    def __init__(self, game, point_margins_data):
-        """Initialize from pre-calculated point margins in JSON."""
-        # Extract point margins from the JSON data
-        self.point_margins = point_margins_data["margins"]
-        self.min_point_margins = point_margins_data["min_margins"]
-        self.max_point_margins = point_margins_data["max_margins"]
-
-        # Calculate home scores (if needed)
-        # Note: In this refactoring we don't actually need this as only point_margins are used
-        self.home_scores = []
+    point_margin_map = {}
+    last_point_margin = None
+    for index in range(len(GAME_MINUTES)):
+        key = GAME_MINUTES[index]
+        try:
+            point_margin_data = raw_point_margin_map[index]
+        except KeyError:
+            if last_point_margin is None:
+                raise AssertionError
+            point_margin_data = {
+                "point_margin": last_point_margin,
+                "min_point_margin": last_point_margin,
+                "max_point_margin": last_point_margin,
+            }
+        point_margin_map[key] = point_margin_data
+        last_point_margin = point_margin_data["point_margin"]
+    return point_margin_map

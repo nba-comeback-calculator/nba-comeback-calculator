@@ -4,7 +4,6 @@ import sqlite3
 from collections import OrderedDict, defaultdict
 
 # Third-party imports
-import numpy as np
 from scipy.interpolate import interp1d
 
 
@@ -302,7 +301,6 @@ class ScoreStatsByMinute:
         time_to_index_fn = interp1d(
             [float(x) for x in GAME_MINUTES], time_indicies, kind="previous"
         )
-
         # Process each play to track score changes
         for play in game.play_by_plays:
             time = float(play.time)

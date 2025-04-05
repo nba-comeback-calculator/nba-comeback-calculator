@@ -230,6 +230,7 @@ const nbacc_utils = (() => {
      * @param {number} limit - Maximum number of games to display
      * @param {boolean} isMobileDevice - Whether the current device is mobile
      * @param {string} gameFontSize - The font size to use for the game links
+     * @param {number} totalCount - Total count of games (win_count or loss_count) for "more" text
      * @returns {string} HTML string for the game examples
      */
     function renderGameExamples(
@@ -237,22 +238,26 @@ const nbacc_utils = (() => {
         headerText,
         limit,
         isMobileDevice,
-        gameFontSize
+        gameFontSize,
+        totalCount
     ) {
         if (!games || games.length === 0) return "";
 
         let html = `<tr><td class="header-text"><b>${headerText}</b></td></tr>`;
 
-        // Show up to the specified limit of examples
-        const examples = games.slice(0, limit);
+        // Use the appropriate limit based on the game type (wins vs losses)
+        const actualLimit = headerText.toLowerCase().includes("loss") ? 4 : 10;
+        const examples = games.slice(0, actualLimit);
         examples.forEach((game) => {
             html += createGameLink(game, isMobileDevice, gameFontSize);
         });
 
         // Show "more" text if there are more examples
-        if (games.length > limit) {
+        // Use totalCount if provided, otherwise fall back to games.length
+        const total = totalCount !== undefined ? totalCount : games.length;
+        if (total > actualLimit) {
             html += `<tr><td class="more-text">...and ${
-                games.length - limit
+                total - actualLimit
             } more</td></tr>`;
         }
 

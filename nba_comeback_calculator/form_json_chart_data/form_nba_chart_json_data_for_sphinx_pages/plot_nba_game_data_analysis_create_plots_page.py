@@ -26,9 +26,23 @@ from form_nba_chart_json_data_api import (
     GameFilter,
 )
 
+# Calculate script directory from __file__
+script_dir = os.path.dirname(os.path.abspath(__file__))
+print(f"Script directory: {script_dir}")
+
+# Change working directory to the script's location
+os.chdir(script_dir)
+print(f"Working directory changed to: {os.getcwd()}")
 # Base paths for input and output files
 json_base_path = "../../../docs/frontend/source/_static/json/seasons"
 chart_base_path = "../../../docs/frontend/source/_static/json/charts"
+
+import form_nba_chart_json_data_season_game_loader as loader
+
+# Convert relative json_base_path to an absolute path
+json_base_path = os.path.abspath(os.path.join(script_dir, json_base_path))
+loader.json_base_path = json_base_path
+
 
 # Clean up and recreate directories
 import shutil
@@ -108,7 +122,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=48,
-        stop_time=0,
+        down_mode="max",
         cumulate=True,
     )
     # Remove game count from title
@@ -124,7 +138,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=24,
-        stop_time=0,
+        down_mode="max",
         cumulate=True,
     )
     clean_title = remove_game_count(title)
@@ -137,7 +151,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=12,
-        stop_time=0,
+        down_mode="max",
         cumulate=True,
     )
     clean_title = remove_game_count(title)
@@ -150,7 +164,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=48,
-        stop_time=0,
+        down_mode="max",
         cumulate=False,
     )
     clean_title = remove_game_count(title)
@@ -163,7 +177,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=24,
-        stop_time=0,
+        down_mode="max",
         cumulate=False,
     )
     clean_title = remove_game_count(title)
@@ -176,7 +190,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=12,
-        stop_time=0,
+        down_mode="max",
         cumulate=False,
     )
     clean_title = remove_game_count(title)
@@ -189,7 +203,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=24,
-        stop_time=None,
+        down_mode="at",
         cumulate=False,
     )
     clean_title = remove_game_count(title)
@@ -202,7 +216,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=12,
-        stop_time=None,
+        down_mode="at",
         cumulate=False,
     )
     clean_title = remove_game_count(title)
@@ -215,7 +229,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=6,
-        stop_time=None,
+        down_mode="at",
         cumulate=False,
     )
     clean_title = remove_game_count(title)
@@ -228,7 +242,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=48,
-        stop_time=0,
+        down_mode="max",
         cumulate=True,
         calculate_occurrences=True,
     )
@@ -242,7 +256,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=24,
-        stop_time=0,
+        down_mode="max",
         cumulate=True,
         calculate_occurrences=True,
     )
@@ -256,7 +270,7 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=12,
-        stop_time=0,
+        down_mode="max",
         cumulate=True,
         calculate_occurrences=True,
     )
@@ -274,7 +288,6 @@ def create_plot_page(page_name, years_groups, game_filters=None):
             year_groups=[years_groups[0]],
             game_filters=game_filters,
             start_time=24,
-            stop_time=0,
             percents=["20%", "10%", "5%", "1%", "Record"],
         )
         clean_title = remove_game_count(title)
@@ -287,7 +300,6 @@ def create_plot_page(page_name, years_groups, game_filters=None):
             year_groups=[years_groups[1]],
             game_filters=game_filters,
             start_time=24,
-            stop_time=0,
             percents=["20%", "10%", "5%", "1%", "Record"],
         )
         clean_title = remove_game_count(title)
@@ -299,7 +311,6 @@ def create_plot_page(page_name, years_groups, game_filters=None):
             year_groups=years_groups,
             game_filters=[game_filters[-2]],
             start_time=24,
-            stop_time=0,
             percents=["20%", "10%", "5%", "1%", "Record"],
         )
         clean_title = remove_game_count(title)
@@ -312,7 +323,6 @@ def create_plot_page(page_name, years_groups, game_filters=None):
             year_groups=years_groups,
             game_filters=[game_filters[-1]],
             start_time=24,
-            stop_time=0,
             percents=["20%", "10%", "5%", "1%", "Record"],
         )
         clean_title = remove_game_count(title)
@@ -332,7 +342,6 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=24,
-        stop_time=0,
         percents=["10%"],
     )
     # Already using custom_title which doesn't have game count, no need to apply remove_game_count
@@ -349,7 +358,6 @@ def create_plot_page(page_name, years_groups, game_filters=None):
         year_groups=years_groups,
         game_filters=game_filters,
         start_time=24,
-        stop_time=0,
         percents=["1%"],
     )
     # Already using custom_title which doesn't have game count, no need to apply remove_game_count

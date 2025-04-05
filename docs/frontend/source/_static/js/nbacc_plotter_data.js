@@ -427,12 +427,24 @@ nbacc_plotter_data = (() => {
                     // Use rounded value for Record points
                     const pointsDown = Math.round(recordData.pointValue);
                     // Return both values on separate lines
-                    return `${chartData.x_label}: ${xValue}<br>Points Down: ${pointsDown}`;
+                    return `${chartData.x_label} = ${xValue}<br>Points Down: ${pointsDown}`;
                 }
             }
             
             // Default header for all other cases - use the x_label from the chart data
-            const tooltipHeader = `${chartData.x_label}: ${xValue}`;
+            // Get line data to check for or_less_point_margin and or_more_point_margin
+            const line = chartData.lines && chartData.lines[0]; // Use first line since these properties should be shared
+            
+            let tooltipHeader;
+            
+            // Check if we need to use special formatting for less than or greater than
+            if (line && line.or_less_point_margin !== undefined && parseInt(xValue) === line.or_less_point_margin) {
+                tooltipHeader = `${chartData.x_label} <= ${xValue}`;
+            } else if (line && line.or_more_point_margin !== undefined && parseInt(xValue) === line.or_more_point_margin) {
+                tooltipHeader = `${chartData.x_label} >= ${xValue}`;
+            } else {
+                tooltipHeader = `${chartData.x_label} = ${xValue}`;
+            }
 
             // Check if we have pre-calculated data for this point margin
             if (pointMarginData[xValue]) {
@@ -498,9 +510,19 @@ nbacc_plotter_data = (() => {
             // Format statistics with each item on a new line with proper left-alignment
             if (chartData.calculate_occurrences) {
                 // For occurrences mode, show occurs instead of wins
-                return `<div style="text-align: left;">${chartData.x_label}: ${
-                    pointData.x_value
-                }<br/>Occurs: ${
+                // Check for special cases of or_less and or_more
+                const line = chartData.lines && chartData.lines[lineIndex];
+                let pointMarginLabel;
+                
+                if (line && line.or_less_point_margin !== undefined && pointData.x_value === line.or_less_point_margin) {
+                    pointMarginLabel = `${chartData.x_label} <= ${pointData.x_value}`;
+                } else if (line && line.or_more_point_margin !== undefined && pointData.x_value === line.or_more_point_margin) {
+                    pointMarginLabel = `${chartData.x_label} >= ${pointData.x_value}`;
+                } else {
+                    pointMarginLabel = `${chartData.x_label} = ${pointData.x_value}`;
+                }
+                
+                return `<div style="text-align: left;">${pointMarginLabel}<br/>Occurs: ${
                     pointData.game_count
                 } out of ${numberOfGames} Total Games<br/>Occurs %: ${(
                     pointData.point_margin_occurs_percent * 100
@@ -513,18 +535,30 @@ nbacc_plotter_data = (() => {
                 if (isRecordLine) {
                     // For Record line, include both Minutes Remaining and Points Down
                     const pointsDown = Math.round(pointData.y_value);
-                    return `<div style="text-align: left;">${chartData.x_label}: ${
-                        pointData.x_value
-                    }<br/>Points Down: ${pointsDown}<br/>Wins: ${pointData.win_count} out of ${
+                    
+                    // Always use "=" for Record line time values
+                    const timeLabel = `${chartData.x_label} = ${pointData.x_value}`;
+                    
+                    return `<div style="text-align: left;">${timeLabel}<br/>Points Down: ${pointsDown}<br/>Wins: ${pointData.win_count} out of ${
                         pointData.game_count
                     } Total Games<br/>Win %: ${winPercent}<br/>Occurs %: ${(
                         pointData.point_margin_occurs_percent * 100
                     ).toFixed(2)}</div>`;
                 } else {
                     // Default win percentage mode
-                    return `<div style="text-align: left;">${chartData.x_label}: ${
-                        pointData.x_value
-                    }<br/>Wins: ${pointData.win_count} out of ${
+                    // Check for special cases of or_less and or_more
+                    const line = chartData.lines && chartData.lines[lineIndex];
+                    let pointMarginLabel;
+                    
+                    if (line && line.or_less_point_margin !== undefined && pointData.x_value === line.or_less_point_margin) {
+                        pointMarginLabel = `${chartData.x_label} <= ${pointData.x_value}`;
+                    } else if (line && line.or_more_point_margin !== undefined && pointData.x_value === line.or_more_point_margin) {
+                        pointMarginLabel = `${chartData.x_label} >= ${pointData.x_value}`;
+                    } else {
+                        pointMarginLabel = `${chartData.x_label} = ${pointData.x_value}`;
+                    }
+                    
+                    return `<div style="text-align: left;">${pointMarginLabel}<br/>Wins: ${pointData.win_count} out of ${
                         pointData.game_count
                     } Total Games<br/>Win %: ${winPercent}<br/>Occurs %: ${(
                         pointData.point_margin_occurs_percent * 100
@@ -542,7 +576,7 @@ nbacc_plotter_data = (() => {
          */
         function createScalesConfig(chartData, plotType, findYLabel) {
             return {
-                x0: createXAxisConfig(chartData, plotType),
+                x: createXAxisConfig(chartData, plotType),
                 y: createYAxisConfig(chartData, findYLabel),
                 y1: createSecondaryYAxisConfig(chartData, findYLabel),
             };
@@ -975,9 +1009,10 @@ nbacc_plotter_data = (() => {
                 bodyHtml += nbacc_utils.renderGameExamples(
                     occurredGames,
                     "Occurred examples:",
-                    9,
+                    10,
                     nbacc_utils.isMobile(),
-                    gameFontSize
+                    gameFontSize,
+                    pointData.game_count
                 );
             }
 
@@ -987,12 +1022,15 @@ nbacc_plotter_data = (() => {
                 (context.chart.calculate_occurrences ? pointData.loss_games : null);
 
             if (notOccurredGames && notOccurredGames.length > 0) {
+                // For not occurred games, we need to calculate how many did not occur
+                const notOccurredCount = chartData.lines[lineIndex].number_of_games - pointData.game_count;
                 bodyHtml += nbacc_utils.renderGameExamples(
                     notOccurredGames,
                     "Not occurred examples:",
                     4,
                     nbacc_utils.isMobile(),
-                    gameFontSize
+                    gameFontSize,
+                    notOccurredCount
                 );
             }
         } else {
@@ -1003,9 +1041,10 @@ nbacc_plotter_data = (() => {
                 bodyHtml += nbacc_utils.renderGameExamples(
                     pointData.win_games,
                     "Win examples:",
-                    9,
+                    10,
                     nbacc_utils.isMobile(),
-                    gameFontSize
+                    gameFontSize,
+                    pointData.win_count
                 );
             }
 
@@ -1016,7 +1055,8 @@ nbacc_plotter_data = (() => {
                     "Loss examples:",
                     4,
                     nbacc_utils.isMobile(),
-                    gameFontSize
+                    gameFontSize,
+                    pointData.loss_count
                 );
             }
         }
