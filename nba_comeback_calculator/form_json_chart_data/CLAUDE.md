@@ -1,26 +1,49 @@
 # NBA Data Processing Pipeline
 
 ## Project Structure
-This working directory (`form_plots`) contains scripts that create JSON chart data files from preprocessed NBA game data:
+This working directory (`form_json_chart_data`) contains scripts that create JSON chart data files from preprocessed NBA game data:
 
-- `form_nba_chart_json_data/`: Core library for chart JSON data generation
+- `form_nba_chart_json_data_api/`: Core library for chart JSON data generation
   - `form_nba_chart_json_data_api.py`: Main API that other scripts import
   - `form_nba_chart_json_data_num.py`: Contains scipy/numpy numerical operations
-  - `form_nba_chart_json_data_season_game_loader.py`: Loads json/seasons data and forms game objects
+  - `form_nba_chart_json_data_season_game_loader.py`: Loads JSON season data and constructs game objects
   - `form_nba_chart_json_data_plot_primitives.py`: Contains PlotLine and FinalPlot objects used by the API
 
-- `form_nba_json_data_for_sphinx_pages/`: Scripts that call the API to create chart JSON files
+- `form_nba_chart_json_data_for_sphinx_pages/`: Scripts that call the API to create chart JSON files
   - `plot_nba_game_data_analysis_20_18.py`: Creates chart JSON files for 2020-2018 analysis
   - `plot_nba_game_data_analysis_create_plots_page.py`: Automates creation of all Sphinx pages
   - `plot_nba_game_data_analysis_thumb.py`: Creates thumbnail chart JSON files
 
+## Recent Refactoring
+
+The system was recently refactored to improve data handling and enable more granular time analysis:
+
+1. **Time Resolution Enhancement**: Added support for sub-minute analysis with `GAME_MINUTES` array
+   - Now tracks 5-second to 45-second intervals in the final minute of games
+   - Uses a `TIME_TO_INDEX_MAP` for efficient lookups
+
+2. **Season Data Format Change**: Modified how game point margins are stored and accessed
+   - Replaced `ScoreStatsByMinute` class with a direct `point_margin_map` dictionary
+   - Each time point maps to a dictionary containing current, min, and max point margins
+   - New `get_point_margin_map_from_json` function parses the compact JSON format
+
+3. **API Parameter Improvements**: 
+   - Renamed `stop_time` parameter to `down_mode` for clarity
+   - `down_mode` can be either "at" (point at specific time) or "max" (maximum deficit)
+   - Added support for string-based time points (e.g., "45s", "30s")
+
+4. **Enhanced Analysis Capabilities**:
+   - Improved tracking of point margin extremes throughout game periods
+   - Added or_less_point_margin and or_more_point_margin tracking
+   - Enhanced regression fitting with better handling of edge cases
+
 ## Data Flow
-1. `sqlite_database.py` (outside cwd) reads data from stats.nba.com and creates SQLite database
-2. `json_seasons.py` (outside cwd) extracts point_margin and other game data from SQLite and stores as JSON
-3. Files in this directory (`form_plots`) process that JSON data to create plot-specific JSON files:
-   - `form_nba_chart_json_data` contains the library code
-   - `form_nba_json_data_for_sphinx_pages` contains the scripts that use the library to generate chart JSON
-4. JavaScript frontend consumes these JSON files for visualization with plot.js
+1. `form_nba_game_sqlite_database.py` (outside this dir) downloads data from stats.nba.com and creates SQLite database
+2. `form_nba_game_json_seasons.py` (outside this dir) extracts point_margin and other game data from SQLite and stores as JSON
+3. Files in this directory process that JSON data to create chart-specific JSON files:
+   - `form_nba_chart_json_data_api/` contains the library code
+   - `form_nba_chart_json_data_for_sphinx_pages/` contains the scripts that use the library to generate chart JSON
+4. JavaScript frontend consumes these JSON files for visualization with Chart.js
 
 ## Key Classes
 

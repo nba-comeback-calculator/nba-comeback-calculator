@@ -5,6 +5,10 @@ Data loading module for NBA season and game data.
 This module handles loading and processing NBA game data from JSON files.
 It provides classes for representing seasons, games, and game collections,
 along with utility functions for filtering and analyzing game data.
+
+The module defines granular time intervals for game analysis, supporting
+minute-by-minute analysis as well as sub-minute intervals (down to 5-second
+increments) in the final minute of the game.
 """
 
 # Standard library imports
@@ -13,41 +17,25 @@ import os
 import gzip
 
 
+# Defines time intervals for analysis, from start of game (48 minutes) 
+# to end of game (0), with sub-minute intervals in the final minute
 GAME_MINUTES = [
-    48,
-    36,
-    24,
-    23,
-    22,
-    21,
-    20,
-    19,
-    18,
-    17,
-    16,
-    15,
-    14,
-    13,
-    12,
-    11,
-    10,
-    9,
-    8,
-    7,
-    6,
-    5,
-    4,
-    3,
-    2,
-    1,  # 60 seconds
-    "45s",  # 45 seconds
-    "30s",  # 30 seconds
-    "15s",  # 15 seconds
-    "10s",  # 10 seconds
-    "5s",  # 05 seconds
-    0,  # BZZZT!
+    48,     # Game start
+    36,     # Start of 2nd half (3rd quarter)
+    24,     # Halftime
+    23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 13,  # 3rd quarter and early 4th
+    12,     # Start of 4th quarter
+    11, 10, 9, 8, 7, 6, 5, 4, 3, 2,
+    1,      # Final minute (60 seconds)
+    "45s",  # 45 seconds remaining
+    "30s",  # 30 seconds remaining
+    "15s",  # 15 seconds remaining
+    "10s",  # 10 seconds remaining
+    "5s",   # 5 seconds remaining
+    0,      # Game end (buzzer)
 ]
 
+# Mapping from time point to array index for efficient lookup
 TIME_TO_INDEX_MAP = {key: index for index, key in enumerate(GAME_MINUTES)}
 
 
@@ -163,12 +151,29 @@ class Games:
 
 
 class Game:
-    """Represents a single NBA game with all related statistics."""
+    """
+    Represents a single NBA game with all related statistics.
+    
+    Each Game object contains metadata about the game (teams, date, etc.)
+    and a structured mapping of point margins at different times throughout
+    the game, enabling detailed analysis of game progression and comebacks.
+    """
 
     index = 0  # Class variable to track game index
 
     def __init__(self, game_data, game_id, season):
-        """Initialize game with data from JSON."""
+        """
+        Initialize game with data from JSON.
+        
+        Parameters:
+        -----------
+        game_data : dict
+            Raw game data from JSON
+        game_id : str
+            Unique identifier for the game
+        season : Season
+            Reference to the Season object this game belongs to
+        """
         self.index = Game.index
         Game.index += 1
 
@@ -184,15 +189,12 @@ class Game:
         self.away_team_abbr = game_data["away_team_abbr"]
         self.score = game_data["score"]
 
-        # Parse the datetime
-        # self.datetime = datetime.strptime(self.game_date, "%Y-%m-%d")
-
         # Parse final score
         self.final_away_points, self.final_home_points = [
             int(x) for x in self.score.split(" - ")
         ]
 
-        # Calculate point differential
+        # Calculate point differential (positive means home team won)
         self.score_diff = int(self.final_home_points) - int(self.final_away_points)
 
         # Determine win/loss
@@ -205,12 +207,13 @@ class Game:
         else:
             raise AssertionError("NBA games can't end in a tie")
 
-        # Create score stats by minute directly from point margins in the JSON
+        # Process and store point margins at each time point
+        # This creates a dictionary mapping time points (from GAME_MINUTES) to point margin data
         self.point_margin_map = get_point_margin_map_from_json(
             game_data["point_margins"]
         )
 
-        # Set team win percentages from season data
+        # Set team win percentages and rankings from season data
         self.home_team_win_pct = season.team_stats[self.home_team_abbr]["win_pct"]
         self.away_team_win_pct = season.team_stats[self.away_team_abbr]["win_pct"]
         self.home_team_rank = season.team_stats[self.home_team_abbr]["rank"]
@@ -246,7 +249,29 @@ class Game:
 
 
 def get_point_margin_map_from_json(point_margins_data):
-    """Initialize from pre-calculated point margins in JSON."""
+    """
+    Process point margins from JSON data into a structured map.
+    
+    Converts the compact string representation of point margins from the JSON data
+    into a structured dictionary mapping time points to point margin data.
+    
+    The input format is a list of strings with format "index=value" or 
+    "index=point_margin,min_point_margin,max_point_margin" where:
+    - index corresponds to positions in the GAME_MINUTES array
+    - point_margin is the current point margin at that time
+    - min/max_point_margin track the extremes reached during intervals
+    
+    Parameters:
+    -----------
+    point_margins_data : list
+        List of strings containing point margin data in compressed format
+        
+    Returns:
+    --------
+    dict
+        A dictionary mapping time points (from GAME_MINUTES) to point margin data dictionaries
+        containing 'point_margin', 'min_point_margin', and 'max_point_margin' keys
+    """
     # Extract point margins from the JSON data
     raw_point_margin_map = {}
     for point_margin in point_margins_data:
@@ -263,6 +288,7 @@ def get_point_margin_map_from_json(point_margins_data):
             "max_point_margin": max_point_margin,
         }
 
+    # Create a complete mapping for all time points in GAME_MINUTES
     point_margin_map = {}
     last_point_margin = None
     for index in range(len(GAME_MINUTES)):
@@ -270,6 +296,7 @@ def get_point_margin_map_from_json(point_margins_data):
         try:
             point_margin_data = raw_point_margin_map[index]
         except KeyError:
+            # If data is missing for this time point, use the last known point margin
             if last_point_margin is None:
                 raise AssertionError
             point_margin_data = {

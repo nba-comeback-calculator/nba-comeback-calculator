@@ -94,6 +94,15 @@ class PlotLine:
 
 
 class PointsDownLine(PlotLine):
+    """
+    Represents a line plotting win probability versus point deficit.
+    
+    This class handles the analysis of how win probability changes based on
+    point deficit at different times in a game. It supports analyzing both
+    deficits at specific moments and maximum deficits faced during periods.
+    """
+    
+    # Boundaries for valid percentage values to avoid numerical issues
     min_percent = 1 / 10000000000.0
     max_percent = 1.0 - min_percent
 
@@ -111,6 +120,34 @@ class PointsDownLine(PlotLine):
         fit_max_points=float("inf"),
         calculate_occurrences=False,
     ):
+        """
+        Initialize a line for analyzing point deficit vs. win probability.
+        
+        Parameters:
+        -----------
+        games : Games
+            Collection of games to analyze
+        game_filter : GameFilter or None
+            Filter to apply to games
+        start_time : int or str
+            Time point to start analysis from (minute value or sub-minute string)
+        down_mode : str
+            Analysis mode ('at' for specific time point, 'max' for maximum deficit)
+        legend : str or None
+            Legend text for the line
+        cumulate : bool
+            Whether to cumulate point totals for "or more" analysis
+        min_point_margin : int or None
+            Minimum point margin to include
+        max_point_margin : int, "auto", or None
+            Maximum point margin to include
+        fit_min_win_game_count : int or None
+            Minimum number of wins required for regression
+        fit_max_points : float, str, or None
+            Maximum points to include in regression fit
+        calculate_occurrences : bool
+            Whether to calculate occurrence percentages instead of win percentages
+        """
         self.plot_type = "percent_v_margin"
         self.games = games
         self.legend = legend
@@ -177,50 +214,94 @@ class PointsDownLine(PlotLine):
         return all_game_ids
 
     def setup_point_margin_map(self, games, game_filter, start_time, down_mode):
+        """
+        Create a mapping of point margins to win/loss outcomes for analysis.
+        
+        This method processes the game data according to the specified analysis mode:
+        - 'at' mode: Analyzes point deficit at a specific time point
+        - 'max' mode: Analyzes maximum point deficit faced during the period
+        
+        Parameters:
+        -----------
+        games : Games
+            Collection of games to analyze
+        game_filter : GameFilter or None
+            Filter to apply to games
+        start_time : int or str
+            Time point to start analysis from
+        down_mode : str
+            Analysis mode ('at' or 'max')
+            
+        Returns:
+        --------
+        dict
+            Dictionary mapping point margins to PointMarginPercent objects
+            
+        Raises:
+        -------
+        AssertionError
+            If start_time is not in TIME_TO_INDEX_MAP
+        NotImplementedError
+            If down_mode is not 'at' or 'max'
+        """
         point_margin_map = {}
         if start_time not in TIME_TO_INDEX_MAP:
-            raise AssertionError
+            raise AssertionError(f"Invalid start_time: {start_time}, not found in TIME_TO_INDEX_MAP")
+            
         for game in games:
             if down_mode == "at":
+                # Analyze point deficit at the specific time point
                 sign = 1 if game.score_diff > 0 else -1
                 point_margin = game.point_margin_map[start_time]["point_margin"]
                 win_point_margin = sign * point_margin
                 lose_point_margin = -1 * win_point_margin
+                
             elif down_mode == "max":
+                # Analyze maximum point deficit faced during the period
                 point_margin = game.point_margin_map[start_time]["point_margin"]
                 win_point_margin = float("inf")
                 lose_point_margin = float("inf")
+                
+                # Determine the range of time to analyze
                 start_index = TIME_TO_INDEX_MAP[start_time]
-                stop_index = TIME_TO_INDEX_MAP[0]
+                stop_index = TIME_TO_INDEX_MAP[0]  # End of game
+                
+                # Find the maximum deficit throughout the period
                 for index in range(start_index, stop_index + 1):
                     time = GAME_MINUTES[index]
                     point_margin_data = game.point_margin_map[time]
+                    
+                    # For first time point, use the current margin
                     if index == start_index:
                         min_point_margin = point_margin_data["point_margin"]
                         max_point_margin = point_margin_data["point_margin"]
                     else:
+                        # For subsequent time points, use min/max values
                         min_point_margin = point_margin_data["min_point_margin"]
                         max_point_margin = point_margin_data["max_point_margin"]
-                    if game.score_diff > 0:
+                        
+                    if game.score_diff > 0:  # Home team won
                         win_point_margin = min(min_point_margin, win_point_margin)
                         lose_point_margin = min(
                             -1.0 * max_point_margin, lose_point_margin
                         )
-                    elif game.score_diff < 0:
+                    elif game.score_diff < 0:  # Away team won
                         win_point_margin = min(
                             -1.0 * max_point_margin, win_point_margin
                         )
                         lose_point_margin = min(min_point_margin, lose_point_margin)
                     else:
-                        raise AssertionError
+                        raise AssertionError("NBA games can't end in a tie")
             else:
-                raise NotImplementedError(down_mode)
-
+                raise NotImplementedError(f"Unsupported down_mode: {down_mode}")
+            
+            # Record the outcomes based on the game filter
             if game_filter is None or game_filter.is_match(game, is_win=True):
                 win_point_margin_percent = point_margin_map.setdefault(
                     win_point_margin, PointMarginPercent()
                 )
                 win_point_margin_percent.wins.add(game.game_id)
+                
             if game_filter is None or game_filter.is_match(game, is_win=False):
                 lose_point_margin_percent = point_margin_map.setdefault(
                     lose_point_margin, PointMarginPercent()
@@ -450,7 +531,31 @@ class PointsDownLine(PlotLine):
 
 
 class PercentLine(PlotLine):
+    """
+    Represents a line plotting point deficit versus time for a specific win probability.
+    
+    This class tracks how the point deficit required for a specific win probability
+    changes throughout the game. It can represent both actual data from game analysis
+    and theoretical guide curves (such as the square root relationship).
+    """
+    
     def __init__(self, games, legend, x_values, line_data):
+        """
+        Initialize a line for tracking deficit changes over time.
+        
+        Parameters:
+        -----------
+        games : Games or None
+            Collection of games analyzed (None for theoretical guide lines)
+        legend : str
+            Legend text for the line
+        x_values : list
+            List of time points (typically minutes remaining)
+        line_data : list
+            Either:
+            - List of tuples (deficit, point_margin, PointMarginPercent) for actual data
+            - List of float values for theoretical guides
+        """
         self.games = games
         self.legend = legend
         self.x_values = x_values
@@ -459,16 +564,36 @@ class PercentLine(PlotLine):
         self.number_of_games = len(games) if games else 0
 
     def get_xy(self):
-        """Required implementation of PlotLine interface."""
+        """
+        Get x and y values for plotting.
+        
+        Returns:
+        --------
+        tuple
+            (x_values, y_values) where x_values are time points and
+            y_values are point deficits
+        """
         x_values = self.x_values
-        y_values = [point[0] for point in self.line_data]
+        y_values = [point[0] for point in self.line_data] if isinstance(self.line_data[0], tuple) else self.line_data
         return x_values, y_values
 
     def to_json(self, calculate_occurrences=False):
-        """Convert line data to JSON format.
+        """
+        Convert line data to JSON format.
+        
+        Creates a structured JSON representation of the line data
+        suitable for rendering in the frontend.
 
-        This method matches the signature of PointsDownLine.to_json()
-        by accepting a calculate_occurrences parameter, though it's not used.
+        Parameters:
+        -----------
+        calculate_occurrences : bool
+            Parameter for compatibility with PointsDownLine.to_json()
+            (not used in this class)
+            
+        Returns:
+        --------
+        dict
+            JSON-serializable dictionary of line data
         """
         json_data = {
             "legend": self.legend,

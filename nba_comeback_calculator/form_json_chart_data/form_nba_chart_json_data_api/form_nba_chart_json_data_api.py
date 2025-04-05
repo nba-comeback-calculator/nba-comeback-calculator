@@ -314,6 +314,10 @@ def plot_biggest_deficit(
 ):
     """
     Generate plots and JSON data showing win probability based on point deficit.
+    
+    Creates chart data showing how point deficits at different game times
+    correlate with comeback probabilities. Can analyze either deficits at a
+    specific moment or maximum deficits faced during a period.
 
     Parameters:
     -----------
@@ -321,26 +325,42 @@ def plot_biggest_deficit(
         Path to save the JSON output
     year_groups : list of tuples
         List of (start_year, end_year) ranges to analyze
-    start_time : int
-        Starting minute of analysis (e.g., 24 for halftime)
+    start_time : int or str
+        Time point to start analysis from, can be:
+        - Integer minute value (e.g., 48 for game start, 24 for halftime)
+        - String for sub-minute times in final minute (e.g., "45s", "30s", "15s")
     down_mode : str
-        Can either be 'max' or 'at'
+        Analysis mode:
+        - 'at': Point deficit at specific time point
+        - 'max': Maximum point deficit faced during the period from start_time to end
     cumulate : bool
-        Whether to cumulate point totals
-    max_point_margin : int or None
+        Whether to cumulate point totals (for "or more" analysis)
+    min_point_margin : int or None
+        Minimum point margin to include in analysis
+    max_point_margin : int, "auto", or None
         Maximum point margin to include in analysis
+        - int: Specific max value
+        - "auto": Automatically determine based on data
+        - None: Use defaults based on down_mode
     fit_min_win_game_count : int or None
         Minimum number of wins required for fitting regression
-    fit_max_points : float or None
+    fit_max_points : float, str, or None
         Maximum points to include in regression fit
+        - float: Specific max value
+        - str ending with '%': Percentile cutoff (e.g., "10%")
+        - None: Use defaults based on down_mode
     game_filters : list of GameFilter or None
         List of filters to apply to games. Each filter will be paired with each year group.
     plot : bool
         Whether to generate matplotlib plots in addition to JSON output
+    calculate_occurrences : bool
+        Whether to calculate occurrence percentages instead of win percentages
     use_normal_labels : bool or str
         Type of labels to use for y-axis
-    calculate_occurrences : bool
-        Whether to calculate occurrence percentages
+    linear_y_axis : bool
+        Whether to use linear y-axis instead of probit scaling
+    use_logit : bool
+        Whether to use logit transformation instead of probit for probabilities
     """
 
     global __LINEAR_Y_AXIS__
@@ -614,8 +634,9 @@ def plot_percent_versus_time(
     """
     Generate plots and JSON data showing win probability versus time for NBA games.
 
-    This function analyzes how point margins corresponding to different win percentages
-    change throughout the game.
+    This function analyzes how point deficits corresponding to specific win percentages
+    change throughout the game. It tracks the required deficit for a given comeback
+    probability at each minute from start_time down to the end of the game.
 
     Parameters:
     -----------
@@ -624,11 +645,25 @@ def plot_percent_versus_time(
     year_groups : list of tuples
         List of (start_year, end_year) ranges to analyze
     start_time : int
-        Starting minute of analysis (typically 24 for halftime)
+        Starting minute of analysis (e.g., 24 for halftime)
     percents : list
         List of percentages to track (e.g., ["20%", "10%", "5%", "1%"])
     game_filters : list of GameFilter or None
         List of filters to apply to games. Each filter will be paired with each year group.
+    plot_2x_guide : bool
+        Whether to plot the 2√t theoretical curve guide
+    plot_4x_guide : bool
+        Whether to plot the 4√t theoretical curve guide
+    plot_6x_guide : bool
+        Whether to plot the 6√t theoretical curve guide
+    plot_2x_bad_guide : bool
+        Whether to plot the 2t (linear) guide
+    plot_3x_bad_guide : bool
+        Whether to plot the 3t (linear) guide
+    plot_calculated_guides : bool
+        Whether to calculate and plot regression guides from actual data
+    python_only_calculate_cdf_constant : bool
+        Whether to calculate the CDF coefficient (for debugging, not used in output)
     """
 
     # If game_filters is None, create a list with a single None element
