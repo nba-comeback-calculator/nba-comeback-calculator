@@ -55,6 +55,33 @@ function initializeCalculator() {
             const calculatorDiv = findCalculatorDiv();
             if (!calculatorDiv) return;
             
+            // Make sure we have a chart container
+            let chartContainer;
+            if (calculatorDiv.id === "nbacc_calculator") {
+                // Get or create the chart container
+                chartContainer = document.getElementById("nbacc_chart_container");
+                if (!chartContainer) {
+                    // Create chart container if it doesn't exist
+                    chartContainer = document.createElement("div");
+                    chartContainer.id = "nbacc_chart_container";
+                    chartContainer.className = "chart-container";
+                    calculatorDiv.appendChild(chartContainer);
+                }
+            } else {
+                // For custom calculator divs, create a chart container within it
+                chartContainer = document.getElementById(`${calculatorDiv.id}-container`);
+                if (!chartContainer) {
+                    // Create chart container if it doesn't exist
+                    chartContainer = document.createElement("div");
+                    chartContainer.id = `${calculatorDiv.id}-container`;
+                    chartContainer.className = "chart-container";
+                    calculatorDiv.appendChild(chartContainer);
+                }
+            }
+            
+            // Show loading indicator immediately
+            chartContainer.innerHTML = '<div class="loading">Loading data and calculating...</div>';
+            
             // Get state from URL
             const urlState = nbacc_calculator_state.getStateFromUrl();
             

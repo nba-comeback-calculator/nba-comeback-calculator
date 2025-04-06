@@ -35,8 +35,8 @@ To frame this, I decided to break up the available play-by-play data into:
 era does not change the analysis so the larger dataset was chosen).
  
 So while there's about 1.8x times as many 20 points-or-more comebacks comparing the
-eras, the *chance* of coming back from 20 points-or-more down (``5.31%``) is about the
-same as coming back from 18 points-or-more down (``4.88%``) back in the day.
+eras, the *chance* of coming back from 20 points-or-more down (``~5.3%``) is about the
+same as coming back from 18 points-or-more down (``~4.9%``) back in the day.
 
 Meaning leads are *roughly* as safe as they have been, maybe at most needing an extra
 bucket.
@@ -92,7 +92,7 @@ inclined).  To focus on a few we get:
 So while coming back from down 30 or more happens 2.8 times more than in the past, it's
 still very unlikely. In fact, you need to move over a little less than one
 three-pointer to get about the same chance: in the old school era, if you were down -27
-or more there was about a ``0.48%`` chance of winning. And being down 20 or more now
+or more there was about a ``~0.50%`` chance of winning. And being down 20 or more now
 has just about the same chance of winning as being down 18 or more back in the day
 (``~5.0%``).
 
@@ -142,7 +142,7 @@ Now, the divide here is a little larger: being down -20 in the modern era is abo
 same as being down 16.5 points in the old school era (3.5 point shift).
 
 But as time decreases it tightens up -- looking at starting the 4th quarter we have
-being 20 points down (``0.17%``) being about the same as 17.8 points down when
+being 20 points down (``~0.17%``) being about the same as 17.8 points down when
 comparing new to old:
 
 .. raw:: html
@@ -198,7 +198,7 @@ occurrence rate between the eras we see:
 
     <div id="plots/old_school_v_modern/occurs_down_or_more_48" class="nbacc-chart"></div>
 
-Now, teams fall down 30 points or more ``12.09%`` of the time compared to ``7.61%`` in
+Now, teams fall down 30 points or more ``~12%`` of the time compared to ``~7.6%`` in
 the past, a notable 1.59x increase (or about 59% more frequently).
 
 
@@ -215,7 +215,7 @@ Just to get a sense of what an 8 point shift looks like, if we look at top 10 te
     <div id="20_18/dramatic" class="nbacc-chart"></div>
 
 Here, the chance of top ten team playing a bottom 10 team coming back from a
-20-points-or-more deficit (``20.39%``) is about the same for any team coming back from
+20-points-or-more deficit (``~ 20%``) is about the same for any team coming back from
 12 or more down against any other team (basically, the average odds).
 
 .. _deciding-on-eras-breakdown:
