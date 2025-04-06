@@ -24,8 +24,9 @@ const nbacc_utils = (() => {
     // Set to false to disable caching (e.g., for development)
     var __USE_LOCAL_STORAGE_CACHE__ = true;
 
-    // Maximum cache age in milliseconds (1 week)
-    var __MAX_CACHE_AGE_MS__ = 7 * 24 * 60 * 60 * 1000;
+    // Maximum cache age in milliseconds (1 hour for now, will be increased to 1 day later)
+    // 1 hour = 60 * 60 * 1000 = 3,600,000 ms
+    var __MAX_CACHE_AGE_MS__ = 1 * 60 * 60 * 1000;
 
     /**
      * Reads and decompresses a gzipped JSON file from a URL or Response object
@@ -861,8 +862,93 @@ const nbacc_utils = (() => {
         }
     }
     
+    /**
+     * Clears all NBACC-related cache entries from localStorage
+     * @returns {number} Count of cleared cache entries
+     */
+    function clearAllCache() {
+        if (!__USE_LOCAL_STORAGE_CACHE__) return 0;
+        
+        try {
+            const keysToRemove = [];
+            
+            // Find all NBACC cache keys
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('nbacc_')) {
+                    keysToRemove.push(key);
+                }
+            }
+            
+            // Remove all identified keys
+            keysToRemove.forEach(key => {
+                try {
+                    localStorage.removeItem(key);
+                } catch (e) {
+                    // Ignore removal errors
+                }
+            });
+            
+            return keysToRemove.length;
+        } catch (e) {
+            return 0;
+        }
+    }
+    
+    // Check for cache clearing instruction in URL
+    function checkUrlForCacheClear() {
+        if (window.location.hash === '#clear') {
+            const clearedCount = clearAllCache();
+            console.log(`Cache cleared: ${clearedCount} items removed`);
+            
+            // Remove the #clear from the URL to prevent clearing on every page refresh
+            // Replace current URL without the hash
+            try {
+                const url = window.location.href.split('#')[0];
+                window.history.replaceState({}, document.title, url);
+            } catch (e) {
+                // Fallback for browsers not supporting history API
+                window.location.hash = '';
+            }
+            
+            // Show a brief message to the user
+            const messageDiv = document.createElement('div');
+            messageDiv.style.position = 'fixed';
+            messageDiv.style.top = '10px';
+            messageDiv.style.left = '50%';
+            messageDiv.style.transform = 'translateX(-50%)';
+            messageDiv.style.backgroundColor = 'rgba(0,0,0,0.7)';
+            messageDiv.style.color = 'white';
+            messageDiv.style.padding = '10px 20px';
+            messageDiv.style.borderRadius = '5px';
+            messageDiv.style.zIndex = '9999';
+            messageDiv.style.fontFamily = 'Arial, sans-serif';
+            messageDiv.textContent = `Cache cleared: ${clearedCount} items removed`;
+            
+            document.body.appendChild(messageDiv);
+            
+            // Remove the message after 3 seconds
+            setTimeout(() => {
+                if (messageDiv.parentNode) {
+                    messageDiv.parentNode.removeChild(messageDiv);
+                }
+            }, 3000);
+            
+            return true;
+        }
+        return false;
+    }
+    
     // Run cache initialization
-    setTimeout(initCacheManagement, 2000);
+    setTimeout(() => {
+        // First check for cache clear instruction
+        const cacheCleared = checkUrlForCacheClear();
+        
+        // Then run normal cache management if cache wasn't just cleared
+        if (!cacheCleared) {
+            initCacheManagement();
+        }
+    }, 500);
 
     // Export public API
     return {
@@ -882,6 +968,8 @@ const nbacc_utils = (() => {
         setLocalStorageWithTimestamp,
         getLocalStorageWithTimestamp,
         initCacheManagement,
+        clearAllCache,
+        checkUrlForCacheClear,
         __LOAD_CHART_ON_PAGE_LOAD__,
         __HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__,
         __USE_LOCAL_STORAGE_CACHE__,

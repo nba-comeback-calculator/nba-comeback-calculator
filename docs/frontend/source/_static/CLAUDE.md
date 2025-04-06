@@ -22,6 +22,25 @@ This setting is defined in `nbacc_utils.js` and used by `nbacc_chart_loader.js`.
 
 This setting was added to address mobile usability. By default, mobile users must enter fullscreen mode to see tooltip data. This preserves the original design where chart tooltips are reserved for fullscreen mode on mobile devices, which provides a cleaner experience for mobile users browsing the charts. When enabled, users can access tooltips by clicking directly on data points without entering fullscreen mode.
 
+### Data Caching Configuration
+
+- `nbacc_utils.__USE_LOCAL_STORAGE_CACHE__`: Controls whether data is cached in localStorage
+  - When `true` (default): JSON data is cached in localStorage to reduce bandwidth
+  - When `false`: JSON data is always fetched from the server
+
+- `nbacc_utils.__MAX_CACHE_AGE_MS__`: Controls how long data remains cached
+  - Default: 1 hour (3,600,000 ms) during development
+  - Will be increased to 1 day (86,400,000 ms) for production
+
+These settings optimize bandwidth usage while ensuring users have relatively fresh data. Cache entries older than the maximum age are automatically purged when the page loads.
+
+To clear the cache for testing purposes, simply add `#clear` to the end of any URL on the site. For example:
+```
+https://nba-comeback-calculator.github.io/#clear
+```
+
+When the `#clear` hash is detected, all NBACC cached data will be immediately removed from localStorage, and a brief confirmation message will be displayed.
+
 ## Calculator State Management
 
 The calculator now includes state management features:
