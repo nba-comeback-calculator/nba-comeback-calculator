@@ -711,6 +711,10 @@ const nbacc_calculator_ui = (() => {
         const calculateBtn = document.getElementById("calculate-btn");
         calculateBtn.addEventListener("click", function () {
             try {
+                // Clear any visible tooltips - use the same tooltip clearer used by Full Screen and Reset Zoom buttons
+                // This ensures hover boxes are closed when hitting Calculate button
+                nbacc_utils.chartJsToolTipClearer(event);
+                
                 // Make sure year groups and game filters are up to date before rendering
                 updateYearGroupsState();
                 updateGameFiltersState();
