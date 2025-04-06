@@ -13,7 +13,7 @@ NBA Comeback Calculator
 
 .. green-box::
 
-   *Game data last updated: 2025-03-25. Due to the large amount of data, charts are
+   *Game data last updated: 04/05/2025. Due to the large amount of data, charts are
    best viewed on a computer.  On mobile, click the fullscreen icon to view all chart
    data.*
 

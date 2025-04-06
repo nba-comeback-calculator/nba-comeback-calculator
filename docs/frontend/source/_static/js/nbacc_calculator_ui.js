@@ -880,6 +880,21 @@ const nbacc_calculator_ui = (() => {
         const minYearSelect = yearGroup.querySelector(".min-year-select");
         const maxYearSelect = yearGroup.querySelector(".max-year-select");
         
+        // Add special handling for the min year select
+        if (minYearSelect) {
+            minYearSelect.addEventListener("change", function() {
+                const minYear = parseInt(minYearSelect.value, 10);
+                const maxYear = parseInt(maxYearSelect.value, 10);
+                
+                // If min year is greater than max year, set max year to min year
+                if (minYear > maxYear) {
+                    maxYearSelect.value = minYear;
+                }
+                
+                updateYearGroupsState();
+            });
+        }
+        
         // Add special handling for the max year select
         if (maxYearSelect) {
             maxYearSelect.addEventListener("change", function() {
