@@ -807,16 +807,18 @@ const nbacc_calculator_api = (() => {
             next_max_y = Math.max(next_max_y, filtered_max);
 
             // Include regression fit values
-            // if (plot_line.m !== null) {
-            //     const y_fit = x.map((x_val) => plot_line.m * x_val + plot_line.b);
-            //     const y_fit_min = Math.min(...y_fit);
-            //     const y_fit_max = Math.max(...y_fit);
+            if (plot_line.m !== null) {
+                // This console logging is no longer needed because features are working fine
+                // console.log("Including regression fit values for y-tick calculation");
+                const y_fit = x.map((x_val) => plot_line.m * x_val + plot_line.b);
+                const y_fit_min = Math.min(...y_fit);
+                const y_fit_max = Math.max(...y_fit);
 
-            //     min_y = Math.min(min_y, Num.CDF(y_fit_min));
-            //     max_y = Math.max(max_y, Num.CDF(y_fit_max));
-            //     next_min_y = Math.min(next_min_y, Num.CDF(y_fit_min));
-            //     next_max_y = Math.max(next_max_y, Num.CDF(y_fit_max));
-            // }
+                min_y = Math.min(min_y, Num.CDF(y_fit_min));
+                max_y = Math.max(max_y, Num.CDF(y_fit_max));
+                next_min_y = Math.min(next_min_y, Num.CDF(y_fit_min));
+                next_max_y = Math.max(next_max_y, Num.CDF(y_fit_max));
+            }
         }
 
         // Define standard y-tick positions and labels
