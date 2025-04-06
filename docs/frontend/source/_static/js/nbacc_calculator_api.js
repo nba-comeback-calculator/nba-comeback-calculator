@@ -302,7 +302,7 @@ const nbacc_calculator_api = (() => {
         } else if (!Array.isArray(game_filters)) {
             game_filters = [game_filters];
         }
-        
+
         // Format time description
         let time_desc;
         if (start_time === 48) {
@@ -341,7 +341,7 @@ const nbacc_calculator_api = (() => {
             fit_min_win_game_count !== null ? fit_min_win_game_count : 3;
 
         let title;
-        
+
         if (down_mode === "at") {
             title = `Points Down${or_more} At Start of ${time_desc}`;
             max_point_margin = max_point_margin === null ? -1 : max_point_margin;
@@ -366,7 +366,7 @@ const nbacc_calculator_api = (() => {
         const number_of_game_filters = game_filters.length;
         const game_years_strings = [];
         const game_filter_strings = [];
-        
+
         // Create a reference to store the first games object for later use in title
         let firstGamesRef = null;
 
@@ -393,7 +393,7 @@ const nbacc_calculator_api = (() => {
                 // Create games collection
                 const games = new Games(start_year, stop_year, season_type);
                 games.initialize(seasonData);
-                
+
                 // Store reference to first games object
                 if (firstGamesRef === null) {
                     firstGamesRef = games;
@@ -421,7 +421,7 @@ const nbacc_calculator_api = (() => {
                         game_filter ? game_filter.get_filter_string() : "All Games"
                     }`;
                 }
-                
+
                 // Create the points down line
                 const points_down_line = new PointsDownLine(
                     games,
@@ -516,7 +516,7 @@ const nbacc_calculator_api = (() => {
     function plot_percent_versus_time(
         year_groups,
         start_time,
-        percents = ["10%", "1%"],
+        percents,
         game_filters = null,
         plot_2x_guide = false,
         plot_4x_guide = false,
@@ -537,20 +537,10 @@ const nbacc_calculator_api = (() => {
         } else if (!Array.isArray(game_filters)) {
             game_filters = [game_filters];
         }
-        
-        // For seconds values (e.g., "45s"), we want to use 1 minute in the time range
-        // This ensures we get at least the final minute of the game in our analysis
-        let numeric_start_time = start_time;
-        if (typeof start_time === 'string' && start_time.endsWith('s')) {
-            // For sub-minute times, always use at least 1 minute for the range
-            numeric_start_time = 1;
-        } else if (typeof start_time === 'string') {
-            numeric_start_time = parseInt(start_time, 10) || 24; // Default to 24 if parsing fails
-        }
-        
-        // Setup time range
+
+        // Setup time range exactly as in Python
         const times = [];
-        for (let t = numeric_start_time; t >= 1; t--) {
+        for (let t = start_time; t >= 1; t--) {
             times.push(t);
         }
 
@@ -609,7 +599,9 @@ const nbacc_calculator_api = (() => {
                         null, // no legend needed
                         false, // cumulate
                         null, // min_point_margin
-                        -1 // max_point_margin
+                        -1, // max_point_margin
+                        null, // fit_min_win_game_count
+                        -1 // fit_max_points
                     );
 
                     const game_count = points_down_line.number_of_games;
@@ -623,9 +615,13 @@ const nbacc_calculator_api = (() => {
                         if (percent === "Record") {
                             point_margin = points_down_line.margin_at_record();
                         } else {
-                            point_margin = points_down_line.margin_at_percent(
-                                parseFloat(percent)
-                            );
+                            // Handle percentage strings with trailing %
+                            const percentValue = percent.endsWith("%")
+                                ? parseFloat(percent.slice(0, -1))
+                                : parseFloat(percent);
+
+                            point_margin =
+                                points_down_line.margin_at_percent(percentValue);
                         }
 
                         percent_data[percent].push(point_margin);

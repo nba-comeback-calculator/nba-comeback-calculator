@@ -972,14 +972,22 @@ const nbacc_calculator_ui = (() => {
         // For Max Points Down Or More or Max Points Down, include 48 minutes option
         const includeFullGame = basePlotType === "Max Points Down Or More" || basePlotType === "Max Points Down";
         
-        // Start with the appropriate time values based on plot type
-        const timeValues = includeFullGame ? 
-            [48, 36, 24, 18, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] : 
-            [36, 24, 18, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+        // For Percent Chance: Time Vs. Points Down, minimum time is 6 minutes
+        const isPercentPlot = basePlotType === "Percent Chance: Time Vs. Points Down";
         
-        // Add seconds values - use string values directly in the HTML
-        // The option value needs to be a string that can be directly parsed
-        const secondsValues = [
+        // Start with the appropriate time values based on plot type
+        let timeValues;
+        if (includeFullGame) {
+            timeValues = [48, 36, 24, 18, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+        } else if (isPercentPlot) {
+            // For Percent Chance plots, range is 6-24 minutes only
+            timeValues = [24, 18, 12, 11, 10, 9, 8, 7, 6];
+        } else {
+            timeValues = [36, 24, 18, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+        }
+        
+        // Add seconds values only for non-percent plots
+        const secondsValues = isPercentPlot ? [] : [
             { value: "0.75", label: "45 seconds" },
             { value: "0.5", label: "30 seconds" },
             { value: "0.25", label: "15 seconds" },
@@ -997,7 +1005,7 @@ const nbacc_calculator_ui = (() => {
             }</option>`;
         }
         
-        // Add seconds options
+        // Add seconds options (only for non-percent plots)
         for (const seconds of secondsValues) {
             // Convert both values to numbers for comparison since selectedTime might be a number
             // and seconds.value is now a string
