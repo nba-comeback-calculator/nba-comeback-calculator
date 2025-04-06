@@ -2,6 +2,10 @@
 About
 *****
 
+.. green-box::
+   Feel free to `email me <mailto:nba.comeback.calculator@gmail.com>`_ or `click here
+   if you would like to tip this work
+   <https://buymeacoffee.com/nba.comeback.calculator>`_ so I can buy some more tokens.
 
 This project started when I was :doc:`trying to examine a rule of thumb
 </analysis/rule_of_thumb_that_actually_works>` about how safe leads are while watching

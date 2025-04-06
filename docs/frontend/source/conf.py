@@ -96,16 +96,28 @@ html_theme_options = {
     # "navbar_center": [],
     "navbar_persistent": [],
     # "navbar_end": ["navbar-icon-links", "search-button"],
-    "navbar_end": ["search-button"],
+    "navbar_end": ["navbar-icon-links", "search-button"],
     "show_prev_next": False,
     "logo": {
         "text": "NBA comeback calculator",
         # "image_light": "_static/logo-light.png",
     },
+    "icon_links": [
+        {
+            "name": "Buy Me a Coffee",
+            "url": "https://buymeacoffee.com/nba.comeback.calculator",
+            "icon": "_static/icons/buy-me-coffee.svg",
+            "type": "local",
+            "attributes": {"target": "_blank"}
+        },
+    ],
     "analytics": {
         "google_analytics_id": "G-6Q6K588YXL",
     },
 }
+
+# Favicon configuration
+html_favicon = "_static/bball.png"
 
 html_show_sourcelink = False
 
