@@ -61,6 +61,7 @@ const nbacc_calculator_season_game_loader = (() => {
     class Season {
         static _seasons = {}; // Class-level cache of loaded seasons
         static _loadingPromises = {}; // Track ongoing load operations
+        static _localStorage_prefix = 'nbacc_season_';
 
         /**
          * Get a Season instance for the specified year
@@ -83,6 +84,28 @@ const nbacc_calculator_season_game_loader = (() => {
             const season = this.get_season(year);
             await season.load();
             return season;
+        }
+
+        /**
+         * Get storage key for the season
+         * @param {number} year - The year to get the key for
+         * @returns {string} - The localStorage key for the season
+         */
+        static getStorageKey(year) {
+            return `${this._localStorage_prefix}${year}`;
+        }
+
+        /**
+         * Check if a season is cached in localStorage
+         * @param {number} year - The year to check
+         * @returns {boolean} - True if the season is cached
+         */
+        static isSeasonCached(year) {
+            try {
+                return localStorage.getItem(this.getStorageKey(year)) !== null;
+            } catch (e) {
+                return false;
+            }
         }
 
         constructor(year) {
@@ -129,35 +152,46 @@ const nbacc_calculator_season_game_loader = (() => {
 
         /**
          * Internal method to handle the actual data loading
+         * Uses localStorage cache if available, otherwise fetches from network
          * @private
          */
         async _loadData() {
+            const storageKey = Season.getStorageKey(this.year);
+            
             try {
-                //''console.log''(`Fetching season data from: ${this.filename}`);
-                const response = await fetch(this.filename);
-
-                if (!response.ok) {
-                    throw new Error(
-                        `Failed to load season data: ${response.status} ${response.statusText}`
-                    );
+                // Try to load from localStorage first using utility function
+                let seasonData = null;
+                if (nbacc_utils.__USE_LOCAL_STORAGE_CACHE__) {
+                    seasonData = nbacc_utils.getLocalStorageWithTimestamp(storageKey);
                 }
 
-                // Check if we have gzipped JSON (based on filename)
-                if (this.filename.endsWith('.gz')) {
-                    // Use the readGzJson utility function for gzipped data
-                    this.data = await nbacc_utils.readGzJson(response);
+                // If we have valid cached data, use it
+                if (seasonData) {
+                    this.data = seasonData;
                 } else {
-                    // Regular JSON
-                    this.data = await response.json();
-                }
+                    // Fetch from network
+                    const response = await fetch(this.filename);
 
-                // Debug the loaded JSON data structure
-                // console.log(`Season ${this.year} data structure:`, {
-                //     hasGames: Boolean(this.data.games),
-                //     gameCount: this.data.games ? Object.keys(this.data.games).length : 0,
-                //     hasTeamStats: Boolean(this.data.team_stats),
-                //     sample: this.data.games ? Object.keys(this.data.games).slice(0, 3) : []
-                // });
+                    if (!response.ok) {
+                        throw new Error(
+                            `Failed to load season data: ${response.status} ${response.statusText}`
+                        );
+                    }
+
+                    // Check if we have gzipped JSON (based on filename)
+                    if (this.filename.endsWith('.gz')) {
+                        // Use the readGzJson utility function for gzipped data
+                        this.data = await nbacc_utils.readGzJson(response);
+                    } else {
+                        // Regular JSON
+                        this.data = await response.json();
+                    }
+
+                    // Cache the data in localStorage using utility function
+                    if (nbacc_utils.__USE_LOCAL_STORAGE_CACHE__) {
+                        nbacc_utils.setLocalStorageWithTimestamp(storageKey, this.data);
+                    }
+                }
 
                 // Extract season metadata
                 this.season_year = this.data.season_year;
@@ -174,15 +208,7 @@ const nbacc_calculator_season_game_loader = (() => {
                         this._games[game_id] = new Game(game_data, game_id, this);
                     }
                 }
-
-                // console.log(
-                //     `Successfully loaded season data for ${this.year} with ${
-                //         Object.keys(this._games).length
-                //     } games`
-                // );
             } catch (error) {
-                // This console logging is no longer needed because features are working fine
-                // console.error(`Error loading season ${this.year}:`, error);
                 throw new Error(
                     `Failed to load data for season ${this.year}: ${error.message}`
                 );

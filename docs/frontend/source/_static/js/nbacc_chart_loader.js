@@ -12,6 +12,54 @@ const chartInstances = {};
 window.loadedCharts = loadedCharts;
 window.chartInstances = chartInstances;
 
+// Cache key prefix for chart data in localStorage
+const CHART_CACHE_PREFIX = 'nbacc_chart_';
+
+/**
+ * Get cache key for a chart ID
+ * @param {string} chartId - The chart ID
+ * @returns {string} The localStorage key for the chart
+ */
+function getChartCacheKey(chartId) {
+    return `${CHART_CACHE_PREFIX}${chartId.split("_copy")[0]}`;
+}
+
+/**
+ * Check if chart data is cached
+ * @param {string} chartId - The chart ID
+ * @returns {boolean} True if the chart is cached
+ */
+function isChartCached(chartId) {
+    if (!nbacc_utils.__USE_LOCAL_STORAGE_CACHE__) return false;
+    
+    // Use the utility function with timestamps
+    return nbacc_utils.getLocalStorageWithTimestamp(getChartCacheKey(chartId)) !== null;
+}
+
+/**
+ * Get cached chart data
+ * @param {string} chartId - The chart ID
+ * @returns {Object|null} The cached chart data or null if not cached
+ */
+function getCachedChartData(chartId) {
+    if (!nbacc_utils.__USE_LOCAL_STORAGE_CACHE__) return null;
+    
+    // Use the utility function with timestamps
+    return nbacc_utils.getLocalStorageWithTimestamp(getChartCacheKey(chartId));
+}
+
+/**
+ * Cache chart data in localStorage
+ * @param {string} chartId - The chart ID
+ * @param {Object} data - The chart data to cache
+ */
+function cacheChartData(chartId, data) {
+    if (!nbacc_utils.__USE_LOCAL_STORAGE_CACHE__) return;
+    
+    // Use the utility function with timestamps
+    nbacc_utils.setLocalStorageWithTimestamp(getChartCacheKey(chartId), data);
+}
+
 // Function to check if any part of an element is in the viewport
 // Returns true if any portion of the element is visible on screen
 function isElementInViewport(el) {
@@ -158,41 +206,52 @@ async function loadAndPlotChart(chartDiv) {
     // Show loading indicator within the chart container
     chartContainer.innerHTML = '<div class="chart-loading">Loading chart data...</div>';
 
-    // Construct the URL for the chart data using absolute path from root
-    const rootUrl = window.location.protocol + "//" + window.location.host;
-    const jsonUrl = `${rootUrl}${nbacc_utils.staticDir}/json/charts/${
-        divId.split("_copy")[0]
-    }.json.gz`;
+    // Try to get chart data from localStorage first
+    let chartData = null;
+    
+    if (isChartCached(divId)) {
+        chartData = getCachedChartData(divId);
+    }
+    
+    // If no cached data, fetch from network
+    if (!chartData) {
+        // Construct the URL for the chart data using absolute path from root
+        const rootUrl = window.location.protocol + "//" + window.location.host;
+        const jsonUrl = `${rootUrl}${nbacc_utils.staticDir}/json/charts/${
+            divId.split("_copy")[0]
+        }.json.gz`;
 
-    // Fetch the JSON data
-    let chartData;
-    try {
-        // Try the absolute path
-        let response = await fetch(jsonUrl);
+        try {
+            // Try the absolute path
+            let response = await fetch(jsonUrl);
 
-        // If absolute path fails, try an alternative path
-        if (!response.ok) {
-            throw new Error(`Error can't find ${divId}.json!`);
+            // If absolute path fails, try an alternative path
+            if (!response.ok) {
+                throw new Error(`Error can't find ${divId}.json!`);
+            }
+
+            // Check if we have gzipped JSON (based on content type or extension)
+            const contentType = response.headers.get("Content-Type");
+            const isGzipped =
+                jsonUrl.endsWith(".gz") || (contentType && contentType.includes("gzip"));
+            if (isGzipped) {
+                // Use the readGzJson utility function
+                chartData = await nbacc_utils.readGzJson(response);
+            } else {
+                // Regular JSON
+                chartData = await response.json();
+            }
+
+            // Validate the required attributes early
+            validateChartData(chartData);
+            
+            // Cache the data for future use
+            cacheChartData(divId, chartData);
+        } catch (error) {
+            console.error(`Error loading or validating JSON: ${error.message}`);
+            chartContainer.innerHTML = `Error can't find ${divId}.json!`;
+            return;
         }
-
-        // Check if we have gzipped JSON (based on content type or extension)
-        const contentType = response.headers.get("Content-Type");
-        const isGzipped =
-            jsonUrl.endsWith(".gz") || (contentType && contentType.includes("gzip"));
-        if (isGzipped) {
-            // Use the readGzJson utility function
-            chartData = await nbacc_utils.readGzJson(response);
-        } else {
-            // Regular JSON
-            chartData = await response.json();
-        }
-
-        // Validate the required attributes early
-        validateChartData(chartData);
-    } catch (error) {
-        console.error(`Error loading or validating JSON: ${error.message}`);
-        chartContainer.innerHTML = `Error can't find ${divId}.json!`;
-        return;
     }
 
     // Clear the container again to remove loading message

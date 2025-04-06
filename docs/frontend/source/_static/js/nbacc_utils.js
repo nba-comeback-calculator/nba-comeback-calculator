@@ -19,6 +19,13 @@ const nbacc_utils = (() => {
     // If true, tooltips will show on click even when not in fullscreen mode on mobile
     // If false (default), tooltips on mobile only appear in fullscreen mode
     var __HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__ = false;
+    
+    // Controls whether to use localStorage for caching data
+    // Set to false to disable caching (e.g., for development)
+    var __USE_LOCAL_STORAGE_CACHE__ = true;
+
+    // Maximum cache age in milliseconds (1 week)
+    var __MAX_CACHE_AGE_MS__ = 7 * 24 * 60 * 60 * 1000;
 
     /**
      * Reads and decompresses a gzipped JSON file from a URL or Response object
@@ -752,6 +759,111 @@ const nbacc_utils = (() => {
         );
     }
 
+    /**
+     * Store data in localStorage with timestamp
+     * @param {string} key - The storage key
+     * @param {any} data - The data to store (will be JSON stringified)
+     * @returns {boolean} - True if storage was successful
+     */
+    function setLocalStorageWithTimestamp(key, data) {
+        if (!__USE_LOCAL_STORAGE_CACHE__) return false;
+        
+        try {
+            // Store the data
+            localStorage.setItem(key, JSON.stringify(data));
+            
+            // Store timestamp metadata
+            localStorage.setItem(`${key}_timestamp`, Date.now().toString());
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    
+    /**
+     * Get data from localStorage with timestamp validation
+     * @param {string} key - The storage key
+     * @returns {any|null} - The stored data or null if not found or expired
+     */
+    function getLocalStorageWithTimestamp(key) {
+        if (!__USE_LOCAL_STORAGE_CACHE__) return null;
+        
+        try {
+            // Check timestamp first
+            const timestampKey = `${key}_timestamp`;
+            const timestamp = localStorage.getItem(timestampKey);
+            
+            if (timestamp) {
+                const cacheTime = parseInt(timestamp, 10);
+                const now = Date.now();
+                
+                // If cache is expired, clear it and return null
+                if (now - cacheTime > __MAX_CACHE_AGE_MS__) {
+                    localStorage.removeItem(key);
+                    localStorage.removeItem(timestampKey);
+                    return null;
+                }
+            }
+            
+            // Get and parse the data
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : null;
+        } catch (e) {
+            return null;
+        }
+    }
+    
+    /**
+     * Initialize cache management by cleaning up expired items
+     */
+    function initCacheManagement() {
+        if (!__USE_LOCAL_STORAGE_CACHE__) return;
+        
+        try {
+            // Clean up expired cache entries
+            const now = Date.now();
+            const keysToRemove = [];
+            
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                
+                // Only process our cache keys
+                if (key && key.startsWith('nbacc_')) {
+                    try {
+                        // Try to get timestamp metadata
+                        const timestampKey = `${key}_timestamp`;
+                        const timestamp = localStorage.getItem(timestampKey);
+                        
+                        if (timestamp) {
+                            const cacheTime = parseInt(timestamp, 10);
+                            if (now - cacheTime > __MAX_CACHE_AGE_MS__) {
+                                keysToRemove.push(key);
+                                keysToRemove.push(timestampKey);
+                            }
+                        }
+                    } catch (e) {
+                        // If we can't parse the timestamp, better to remove the item
+                        keysToRemove.push(key);
+                    }
+                }
+            }
+            
+            // Remove expired items
+            keysToRemove.forEach(key => {
+                try {
+                    localStorage.removeItem(key);
+                } catch (e) {
+                    // Ignore removal errors
+                }
+            });
+        } catch (e) {
+            // Ignore any localStorage errors
+        }
+    }
+    
+    // Run cache initialization
+    setTimeout(initCacheManagement, 2000);
+
     // Export public API
     return {
         readGzJson,
@@ -767,7 +879,12 @@ const nbacc_utils = (() => {
         renderGameExamples,
         createGameLink,
         formatGameDate,
+        setLocalStorageWithTimestamp,
+        getLocalStorageWithTimestamp,
+        initCacheManagement,
         __LOAD_CHART_ON_PAGE_LOAD__,
-        __HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__
+        __HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__,
+        __USE_LOCAL_STORAGE_CACHE__,
+        __MAX_CACHE_AGE_MS__
     };
 })();
