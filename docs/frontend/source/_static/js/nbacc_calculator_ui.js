@@ -28,6 +28,8 @@ const nbacc_calculator_ui = (() => {
     // Initialize UI components
     function initUI() {
         // Add keyboard listener for calculator toggle
+        // COMMENTED OUT - Removed keyboard event listeners as requested
+        /*
         document.addEventListener("keydown", (e) => {
             if (e.key === "c") {
                 if (isCalculatorOpen) {
@@ -59,13 +61,14 @@ const nbacc_calculator_ui = (() => {
                 }
             }
         });
+        */
 
         // Initialize calculator container
         const calculatorDiv = document.getElementById("nbacc_calculator");
         if (calculatorDiv) {
             calculatorDiv.innerHTML = `
                 <div id="nbacc_chart_container" class="chart-container">
-                    <p class="calculator-placeholder">Press 'c' to open Calculator</p>
+                    <p class="calculator-placeholder">Click "Configure" button to open Calculator</p>
                 </div>
             `;
         }
@@ -321,7 +324,7 @@ const nbacc_calculator_ui = (() => {
                         } else if (!document.getElementById("nbacc_calculator_chart")) {
                             // No chart at all, show placeholder
                             chartContainer.innerHTML =
-                                "<p class=\"calculator-placeholder\">Press 'c' to open Calculator</p>";
+                                "<p class=\"calculator-placeholder\">Click \"Configure\" button to open Calculator</p>";
                         }
                     }
                 }
@@ -1319,7 +1322,7 @@ const nbacc_calculator_ui = (() => {
                 if (resetBtn) {
                     resetBtn.addEventListener("click", function () {
                         chartContainer.innerHTML =
-                            "<p class=\"calculator-placeholder\">Press 'c' to open Calculator</p>";
+                            "<p class=\"calculator-placeholder\">Click \"Configure\" button to open Calculator</p>";
                     });
                 }
 

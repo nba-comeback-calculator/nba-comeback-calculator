@@ -283,8 +283,7 @@ canvas {
 #chartjs-tooltip .tooltip-close {
     position: absolute;
     right: 8px;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 8px;
     cursor: pointer;
     width: 20px;
     height: 20px;
@@ -402,6 +401,7 @@ canvas {
         height: 16px;
         line-height: 16px;
         font-size: 11px;
+        top: 6px;
     }
     
     #chartjs-tooltip .header-text b {

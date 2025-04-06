@@ -330,6 +330,8 @@ function exitFullScreen(event) {
 }
 
 // Setup global ESC key handler that uses our global currentFullscreenChart variable
+// COMMENTED OUT - Removed keyboard event listeners as requested
+/*
 document.addEventListener("keydown", function(e) {
     if (e.key === "Escape" && lightboxInstance && lightboxInstance.visible()) {
         // Get the exitFullScreen function from the module scope
@@ -344,6 +346,7 @@ document.addEventListener("keydown", function(e) {
         }
     }
 });
+*/
 
 /**
  * Creates a button container for chart controls

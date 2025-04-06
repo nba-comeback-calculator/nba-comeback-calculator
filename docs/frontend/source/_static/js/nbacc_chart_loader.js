@@ -230,6 +230,8 @@ async function loadAndPlotChart(chartDiv) {
     });
 
     // Create a global keyboard handler for this chart instead of focusing the canvas
+    // COMMENTED OUT - Removed keyboard event listeners as requested
+    /*
     const chartKeyboardHandler = function (event) {
         if (event.key === "f" || event.key === "F") {
             // Check if the mouse is over this chart
@@ -253,6 +255,7 @@ async function loadAndPlotChart(chartDiv) {
 
     // Add global key event listener
     document.addEventListener("keydown", chartKeyboardHandler);
+    */
 
     // // Mark chart as active when mouse enters
     // canvas.addEventListener("mouseenter", function () {
