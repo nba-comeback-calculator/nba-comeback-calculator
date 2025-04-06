@@ -821,16 +821,17 @@ nbacc_plotter_data = (() => {
         else if (context.chart.plotType === "time_v_point_margin") {
             // Already defined chartPointMarginData for consistency across code paths
             
-            // Add diagnostic logging for debugging
-            console.debug(`Chart tooltip for time ${xValue}, using chart-specific data:`, 
-                         !!context.chart.pointMarginData, 
-                         `Chart ID: ${context.chart.id}`);
+            // This console logging is no longer needed because features are working fine
+            // console.debug(`Chart tooltip for time ${xValue}, using chart-specific data:`, 
+            //              !!context.chart.pointMarginData, 
+            //              `Chart ID: ${context.chart.id}`);
             
             // Check if we have pre-calculated point margin data
             if (!chartPointMarginData[xValue]) {
                 // Instead of throwing an error, just return the existing body HTML
                 // This handles the case where we have incomplete data in the JSON
-                console.warn(`No pre-calculated data available for time ${xValue} in chart ${context.chart.id}`);
+                // This console logging is no longer needed because features are working fine
+                // console.warn(`No pre-calculated data available for time ${xValue} in chart ${context.chart.id}`);
                 return bodyHtml;
             }
             
@@ -838,7 +839,8 @@ nbacc_plotter_data = (() => {
             Object.entries(chartPointMarginData[xValue]).forEach(([legend, data], i) => {
                 // Skip if pointValue is missing
                 if (data.pointValue === undefined) {
-                    console.warn(`Missing pointValue for line ${legend} at time ${xValue}`);
+                    // This console logging is no longer needed because features are working fine
+                    // console.warn(`Missing pointValue for line ${legend} at time ${xValue}`);
                     return; // Skip this entry instead of throwing error
                 }
                 

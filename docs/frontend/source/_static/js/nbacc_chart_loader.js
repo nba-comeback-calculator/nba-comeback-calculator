@@ -110,7 +110,8 @@ async function loadAndPlotChart(chartDiv) {
         typeof nbacc_calculator_state !== 'undefined' && 
         nbacc_calculator_state.hasStateInUrl()) {
         
-        console.log(`Calculator chart with URL parameters detected for ${divId}, using URL data instead of JSON file`);
+        // This console logging is no longer needed because features are working fine
+        // console.log(`Calculator chart with URL parameters detected for ${divId}, using URL data instead of JSON file`);
         
         // Show loading indicator while calculator processes the URL data
         chartContainer.innerHTML = '<div class="chart-loading">Processing calculator data from URL...</div>';

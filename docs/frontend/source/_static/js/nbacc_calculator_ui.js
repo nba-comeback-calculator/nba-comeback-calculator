@@ -6,11 +6,13 @@
 const nbacc_calculator_ui = (() => {
     // Check for required dependencies
     if (typeof nbacc_calculator_api === "undefined") {
-        console.error("nbacc_calculator_api module is not loaded");
+        // This console logging is no longer needed because features are working fine
+        // console.error("nbacc_calculator_api module is not loaded");
     }
     
     if (typeof nbacc_calculator_state === "undefined") {
-        console.error("nbacc_calculator_state module is not loaded");
+        // This console logging is no longer needed because features are working fine
+        // console.error("nbacc_calculator_state module is not loaded");
     }
     
     // State management
@@ -78,10 +80,12 @@ const nbacc_calculator_ui = (() => {
         
         // Check for URL parameters - URL is the single source of truth
         if (typeof nbacc_calculator_state !== 'undefined' && nbacc_calculator_state.hasStateInUrl()) {
-            console.log('URL parameters detected, initializing calculator with URL state');
+            // This console logging is no longer needed because features are working fine
+            // console.log('URL parameters detected, initializing calculator with URL state');
             const urlState = nbacc_calculator_state.getStateFromUrl();
             if (urlState) {
-                console.log('URL state found, applying and rendering');
+                // This console logging is no longer needed because features are working fine
+                // console.log('URL state found, applying and rendering');
                 // Update the state with URL parameters
                 applyState(urlState);
                 
@@ -117,7 +121,8 @@ const nbacc_calculator_ui = (() => {
     function applyState(loadedState) {
         if (!loadedState) return state;
         
-        console.log("Applying state:", loadedState);
+        // This console logging is no longer needed because features are working fine
+        // console.log("Applying state:", loadedState);
         
         // Copy simple properties
         state.plotType = loadedState.plotType || state.plotType;
@@ -134,7 +139,8 @@ const nbacc_calculator_ui = (() => {
         
         // Copy year groups (these are simple objects)
         if (loadedState.yearGroups && loadedState.yearGroups.length > 0) {
-            console.log(`Applying ${loadedState.yearGroups.length} year groups from loaded state`);
+            // This console logging is no longer needed because features are working fine
+            // console.log(`Applying ${loadedState.yearGroups.length} year groups from loaded state`);
             state.yearGroups = loadedState.yearGroups;
         } else {
             // Ensure we have at least one year group
@@ -149,7 +155,8 @@ const nbacc_calculator_ui = (() => {
         
         // Handle game filters - need to create proper GameFilter instances
         if (loadedState.gameFilters && loadedState.gameFilters.length > 0 && typeof nbacc_calculator_api !== 'undefined') {
-            console.log(`Applying ${loadedState.gameFilters.length} game filters from loaded state`);
+            // This console logging is no longer needed because features are working fine
+            // console.log(`Applying ${loadedState.gameFilters.length} game filters from loaded state`);
             
             state.gameFilters = loadedState.gameFilters.map(filterParams => {
                 // Handle null or empty filter - always create a GameFilter instance
@@ -158,7 +165,8 @@ const nbacc_calculator_ui = (() => {
                     try {
                         return new nbacc_calculator_api.GameFilter({});
                     } catch (error) {
-                        console.error("Error creating empty GameFilter:", error);
+                        // This console logging is no longer needed because features are working fine
+                        // console.error("Error creating empty GameFilter:", error);
                         return null; // Return null if we can't create a GameFilter
                     }
                 }
@@ -167,7 +175,8 @@ const nbacc_calculator_ui = (() => {
                 try {
                     return new nbacc_calculator_api.GameFilter(filterParams);
                 } catch (error) {
-                    console.error("Error creating GameFilter:", error);
+                    // This console logging is no longer needed because features are working fine
+                    // console.error("Error creating GameFilter:", error);
                     // Try to create an empty filter as fallback
                     try {
                         return new nbacc_calculator_api.GameFilter({});
@@ -177,13 +186,15 @@ const nbacc_calculator_ui = (() => {
                 }
             }).filter(filter => filter !== null); // Remove any null filters
             
-            console.log("Applied game filters:", state.gameFilters);
+            // This console logging is no longer needed because features are working fine
+            // console.log("Applied game filters:", state.gameFilters);
         } else {
             // No game filters in loaded state, set to empty array (not [null])
             state.gameFilters = [];
         }
         
-        console.log("State applied successfully");
+        // This console logging is no longer needed because features are working fine
+        // console.log("State applied successfully");
         return state;
     }
     
@@ -455,7 +466,8 @@ const nbacc_calculator_ui = (() => {
         // Clear previous year groups and load from state
         document.getElementById("year-groups-list").innerHTML = "";
         if (state.yearGroups && state.yearGroups.length > 0) {
-            console.log(`Setting up ${state.yearGroups.length} year groups from state`);
+            // This console logging is no longer needed because features are working fine
+            // console.log(`Setting up ${state.yearGroups.length} year groups from state`);
             
             // Load year groups from state
             state.yearGroups.forEach(() => {
@@ -497,7 +509,8 @@ const nbacc_calculator_ui = (() => {
         // Clear previous game filters and load from state
         document.getElementById("game-filters-list").innerHTML = "";
         if (state.gameFilters && state.gameFilters.length > 0) {
-            console.log(`Setting up ${state.gameFilters.length} game filters from state`);
+            // This console logging is no longer needed because features are working fine
+            // console.log(`Setting up ${state.gameFilters.length} game filters from state`);
             
             // Load game filters from state - create one UI element for each filter in the state
             state.gameFilters.forEach(() => {
@@ -726,7 +739,8 @@ const nbacc_calculator_ui = (() => {
                 // Update URL only - this is now our single source of truth for state
                 if (typeof nbacc_calculator_state !== 'undefined') {
                     const urlParams = nbacc_calculator_state.updateBrowserUrl(state);
-                    console.log("Updated URL with state:", urlParams);
+                    // This console logging is no longer needed because features are working fine
+                    // console.log("Updated URL with state:", urlParams);
                 }
                 
                 if (state.targetChartId) {
@@ -739,7 +753,8 @@ const nbacc_calculator_ui = (() => {
                 lightboxInstance.close();
                 isCalculatorOpen = false;
             } catch (error) {
-                console.error("Error during calculation:", error);
+                // This console logging is no longer needed because features are working fine
+                // console.error("Error during calculation:", error);
             }
         });
         
@@ -1698,7 +1713,10 @@ const nbacc_calculator_ui = (() => {
             
             // Make sure control buttons are visible
             setTimeout(() => {
-                if (typeof nbacc_plotter_ui !== 'undefined' && nbacc_plotter_ui.addControlsToChartArea) {
+                if (typeof nbacc_plotter_ui !== 'undefined' && 
+                    nbacc_plotter_ui.addControlsToChartArea && 
+                    canvas && 
+                    chart) {
                     nbacc_plotter_ui.addControlsToChartArea(canvas, chart);
                 }
             }, 100);

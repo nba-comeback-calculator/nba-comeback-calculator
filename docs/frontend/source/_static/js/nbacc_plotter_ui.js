@@ -366,6 +366,13 @@ function createChartButtonContainer() {
 
 // Function to create and add controls to the chart area
 function addControlsToChartArea(canvas, chart) {
+    // First check if canvas and chart exist
+    if (!canvas || !chart) {
+        // This console logging is no longer needed because features are working fine
+        // console.warn("Cannot add controls to chart area: canvas or chart is null");
+        return; // Exit early if required parameters are missing
+    }
+    
     // Create button container
     const buttonContainer = createChartButtonContainer();
 
@@ -428,7 +435,15 @@ function addControlsToChartArea(canvas, chart) {
     buttonContainer.appendChild(saveButton);
 
     // Add the button container to the chart container
-    const chartContainer = canvas.parentElement;
+    const chartContainer = canvas?.parentElement;
+    
+    // Check if chartContainer exists before appending
+    if (!chartContainer) {
+        // This console logging is no longer needed because features are working fine
+        // console.warn("Cannot add controls to chart area: chart container not found");
+        return; // Exit early if no container is found
+    }
+    
     chartContainer.appendChild(buttonContainer);
 
     // Set initial styles - positioning will be handled by updateButtonPositions

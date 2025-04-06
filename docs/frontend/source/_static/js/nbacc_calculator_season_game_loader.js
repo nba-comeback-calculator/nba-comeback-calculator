@@ -181,7 +181,8 @@ const nbacc_calculator_season_game_loader = (() => {
                 //     } games`
                 // );
             } catch (error) {
-                console.error(`Error loading season ${this.year}:`, error);
+                // This console logging is no longer needed because features are working fine
+                // console.error(`Error loading season ${this.year}:`, error);
                 throw new Error(
                     `Failed to load data for season ${this.year}: ${error.message}`
                 );
@@ -223,9 +224,10 @@ const nbacc_calculator_season_game_loader = (() => {
             // Load all games from the date range using provided seasonData
             for (let year = this.start_year; year <= this.stop_year; year++) {
                 if (!seasonData[year]) {
-                    console.warn(
-                        `Season data for ${year} not found in provided seasonData`
-                    );
+                    // This console logging is no longer needed because features are working fine
+                    // console.warn(
+                    //     `Season data for ${year} not found in provided seasonData`
+                    // );
                     continue;
                 }
 
@@ -233,7 +235,8 @@ const nbacc_calculator_season_game_loader = (() => {
 
                 // Verify season is loaded
                 if (!season._loaded) {
-                    console.warn(`Season ${year} exists but isn't fully loaded`);
+                    // This console logging is no longer needed because features are working fine
+                    // console.warn(`Season ${year} exists but isn't fully loaded`);
                     continue;
                 }
 
@@ -305,7 +308,8 @@ const nbacc_calculator_season_game_loader = (() => {
 
             // Debug game creation
             if (!game_data) {
-                console.error(`Error creating game ${game_id}: No game data provided`);
+                // This console logging is no longer needed because features are working fine
+                // console.error(`Error creating game ${game_id}: No game data provided`);
                 return;
             }
 

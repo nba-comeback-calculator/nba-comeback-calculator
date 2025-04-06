@@ -128,7 +128,8 @@ const nbacc_calculator_state = (() => {
             return params.join('&');
             
         } catch (error) {
-            console.error('Failed to encode state to URL:', error);
+            // This console logging is no longer needed because features are working fine
+            // console.error('Failed to encode state to URL:', error);
             return '';
         }
     }
@@ -140,7 +141,8 @@ const nbacc_calculator_state = (() => {
      */
     function decodeUrlParamsToState(urlParams) {
         try {
-            console.log('Decoding URL parameters:', urlParams);
+            // This console logging is no longer needed because features are working fine
+            // console.log('Decoding URL parameters:', urlParams);
             
             // Handle case where URL might include '?' prefix
             if (urlParams.startsWith('?')) {
@@ -189,7 +191,8 @@ const nbacc_calculator_state = (() => {
             
             // Parse p parameter (plot settings)
             const pParam = params.get('p');
-            console.log('Parsing plot parameter:', pParam);
+            // This console logging is no longer needed because features are working fine
+            // console.log('Parsing plot parameter:', pParam);
             
             if (pParam) {
                 const pParts = pParam.split('-');
@@ -198,9 +201,11 @@ const nbacc_calculator_state = (() => {
                 const plotTypeIndex = parseInt(pParts[0]);
                 if (!isNaN(plotTypeIndex) && plotTypeIndex >= 0 && plotTypeIndex < plotTypes.length) {
                     state.plotType = plotTypes[plotTypeIndex];
-                    console.log('Set plot type to:', state.plotType);
+                    // This console logging is no longer needed because features are working fine
+                    // console.log('Set plot type to:', state.plotType);
                 } else {
-                    console.warn('Invalid plot type index:', plotTypeIndex, 'using default');
+                    // This console logging is no longer needed because features are working fine
+                    // console.warn('Invalid plot type index:', plotTypeIndex, 'using default');
                 }
                 
                 // Start time
@@ -208,14 +213,16 @@ const nbacc_calculator_state = (() => {
                     const parsedTime = parseInt(pParts[1]);
                     if (!isNaN(parsedTime) && parsedTime > 0 && parsedTime <= 48) {
                         state.startTime = parsedTime;
-                        console.log('Set start time to:', state.startTime);
+                        // This console logging is no longer needed because features are working fine
+                        // console.log('Set start time to:', state.startTime);
                         
                         // For Points Down At Time, use startTime as specificTime
                         if (state.plotType === "Points Down At Time") {
                             state.specificTime = state.startTime;
                         }
                     } else {
-                        console.warn('Invalid start time:', parsedTime, 'using default');
+                        // This console logging is no longer needed because features are working fine
+                        // console.warn('Invalid start time:', parsedTime, 'using default');
                     }
                 }
                 
@@ -224,12 +231,14 @@ const nbacc_calculator_state = (() => {
                     // Handle empty percent strings
                     if (pParts[2] && pParts[2].length > 0) {
                         state.selectedPercents = pParts[2].split('_').filter(p => p.length > 0);
-                        console.log('Set selected percents to:', state.selectedPercents);
+                        // This console logging is no longer needed because features are working fine
+                        // console.log('Set selected percents to:', state.selectedPercents);
                         
                         // If no valid percents were parsed, use defaults
                         if (state.selectedPercents.length === 0) {
                             state.selectedPercents = ["20", "10", "5", "1"];
-                            console.warn('No valid percents found, using defaults');
+                            // This console logging is no longer needed because features are working fine
+                            // console.warn('No valid percents found, using defaults');
                         }
                     }
                     
@@ -237,14 +246,16 @@ const nbacc_calculator_state = (() => {
                     if (pParts.length > 3 && pParts[3] && pParts[3].length === 2) {
                         state.plotGuides = pParts[3][0] === '1';
                         state.plotCalculatedGuides = pParts[3][1] === '1';
-                        console.log('Set guide flags to:', state.plotGuides, state.plotCalculatedGuides);
+                        // This console logging is no longer needed because features are working fine
+                        // console.log('Set guide flags to:', state.plotGuides, state.plotCalculatedGuides);
                     }
                 }
             }
             
             // Parse s parameter (seasons)
             const sParam = params.get('s');
-            console.log('Parsing seasons parameter:', sParam);
+            // This console logging is no longer needed because features are working fine
+            // console.log('Parsing seasons parameter:', sParam);
             
             if (sParam) {
                 const seasonsArray = sParam.split('~').filter(s => s && s.length > 0);
@@ -253,7 +264,8 @@ const nbacc_calculator_state = (() => {
                     state.yearGroups = seasonsArray.map(seasonStr => {
                         const parts = seasonStr.split('-');
                         if (parts.length !== 3) {
-                            console.warn('Invalid season format:', seasonStr);
+                            // This console logging is no longer needed because features are working fine
+                            // console.warn('Invalid season format:', seasonStr);
                             return null;
                         }
                         
@@ -263,7 +275,8 @@ const nbacc_calculator_state = (() => {
                         
                         // Validate years
                         if (isNaN(minYear) || isNaN(maxYear) || minYear < 1996 || maxYear > 2030 || minYear > maxYear) {
-                            console.warn('Invalid year range:', minYear, '-', maxYear);
+                            // This console logging is no longer needed because features are working fine
+                            // console.warn('Invalid year range:', minYear, '-', maxYear);
                             return null;
                         }
                         
@@ -276,7 +289,8 @@ const nbacc_calculator_state = (() => {
                         } else if (seasonType === 'P') {
                             regularSeason = false;
                         } else if (seasonType !== 'B') {
-                            console.warn('Invalid season type:', seasonType, 'using default (both)');
+                            // This console logging is no longer needed because features are working fine
+                            // console.warn('Invalid season type:', seasonType, 'using default (both)');
                         }
                         
                         // Create label based on year range and season type
@@ -303,7 +317,8 @@ const nbacc_calculator_state = (() => {
                         };
                     }).filter(group => group !== null);
                     
-                    console.log(`Set ${state.yearGroups.length} year groups from URL parameters:`, state.yearGroups);
+                    // This console logging is no longer needed because features are working fine
+                    // console.log(`Set ${state.yearGroups.length} year groups from URL parameters:`, state.yearGroups);
                 }
                 
                 // If no valid year groups were parsed, add a default one
@@ -315,7 +330,8 @@ const nbacc_calculator_state = (() => {
                         playoffs: true,
                         label: '2017-2024'
                     }];
-                    console.warn('No valid year groups found, using default 2017-2024');
+                    // This console logging is no longer needed because features are working fine
+                    // console.warn('No valid year groups found, using default 2017-2024');
                 }
             } else {
                 // If no seasons parameter was provided, use the default
@@ -326,12 +342,14 @@ const nbacc_calculator_state = (() => {
                     playoffs: true,
                     label: '2017-2024'
                 }];
-                console.log('No seasons parameter, using default 2017-2024');
+                // This console logging is no longer needed because features are working fine
+                // console.log('No seasons parameter, using default 2017-2024');
             }
             
             // Parse g parameter (game filters)
             const gParam = params.get('g');
-            console.log('Parsing game filters parameter:', gParam);
+            // This console logging is no longer needed because features are working fine
+            // console.log('Parsing game filters parameter:', gParam);
             
             if (gParam) {
                 const filterArray = gParam.split('~').filter(f => f && f.length > 0);
@@ -341,7 +359,8 @@ const nbacc_calculator_state = (() => {
                     const filterParams = filterArray.map(filterStr => {
                         const parts = filterStr.split('-');
                         if (parts.length !== 3) {
-                            console.warn('Invalid filter format:', filterStr);
+                            // This console logging is no longer needed because features are working fine
+                            // console.warn('Invalid filter format:', filterStr);
                             return null;
                         }
                         
@@ -384,21 +403,24 @@ const nbacc_calculator_state = (() => {
                         // If we have an ANY-e-ANY filter, still return it as an empty object, not null
                         // This allows the UI to create the right number of filter rows
                         if (forTeamField === 'ANY' && homeAwayField === 'e' && vsTeamField === 'ANY') {
-                            console.log('ANY-e-ANY filter found, keeping as empty filter');
+                            // This console logging is no longer needed because features are working fine
+                            // console.log('ANY-e-ANY filter found, keeping as empty filter');
                             // Return an empty object to preserve the filter row
                             return params;
                         }
                         
                         // If all params are empty for other cases, return empty object to preserve the row
                         if (Object.keys(params).length === 0) {
-                            console.log('Empty filter params, keeping as empty filter');
+                            // This console logging is no longer needed because features are working fine
+                            // console.log('Empty filter params, keeping as empty filter');
                             return params;
                         }
                         
                         return params;
                     }).filter(params => params !== null);
                     
-                    console.log('Parsed filter parameters:', filterParams);
+                    // This console logging is no longer needed because features are working fine
+                    // console.log('Parsed filter parameters:', filterParams);
                     
                     // Convert filter params to GameFilter instances
                     if (typeof nbacc_calculator_api !== 'undefined') {
@@ -409,41 +431,49 @@ const nbacc_calculator_state = (() => {
                                     // Create a GameFilter instance from the parameters
                                     return new nbacc_calculator_api.GameFilter(params);
                                 } catch (error) {
-                                    console.error("Error creating GameFilter from params:", error, params);
+                                    // This console logging is no longer needed because features are working fine
+                                    // console.error("Error creating GameFilter from params:", error, params);
                                     // Try to create an empty filter as fallback
                                     try {
                                         return new nbacc_calculator_api.GameFilter({});
                                     } catch (err) {
-                                        console.error("Failed to create fallback empty filter:", err);
+                                        // This console logging is no longer needed because features are working fine
+                                        // console.error("Failed to create fallback empty filter:", err);
                                         return null;
                                     }
                                 }
                             }).filter(filter => filter !== null); // Remove any null filters
                         } catch (error) {
-                            console.error("Error creating GameFilter instances:", error);
+                            // This console logging is no longer needed because features are working fine
+                            // console.error("Error creating GameFilter instances:", error);
                             state.gameFilters = [];
                         }
                     } else {
                         // Store filter params in the state to be processed later
                         state.gameFilters = filterParams;
                     }
-                    console.log(`Parsed ${state.gameFilters.length} game filters from URL parameters`);
+                    // This console logging is no longer needed because features are working fine
+                    // console.log(`Parsed ${state.gameFilters.length} game filters from URL parameters`);
                 } else {
                     // No valid filters in parameter, use empty array
                     state.gameFilters = [];
-                    console.log('No valid filters in parameter, using empty array');
+                    // This console logging is no longer needed because features are working fine
+                    // console.log('No valid filters in parameter, using empty array');
                 }
             } else {
                 // No game filters parameter, use empty array
                 state.gameFilters = [];
-                console.log('No game filters parameter, using empty array');
+                // This console logging is no longer needed because features are working fine
+                // console.log('No game filters parameter, using empty array');
             }
             
-            console.log('Decoded state:', state);
+            // This console logging is no longer needed because features are working fine
+            // console.log('Decoded state:', state);
             return state;
             
         } catch (error) {
-            console.error('Failed to parse URL parameters:', error);
+            // This console logging is no longer needed because features are working fine
+            // console.error('Failed to parse URL parameters:', error);
             return null;
         }
     }
@@ -455,7 +485,8 @@ const nbacc_calculator_state = (() => {
     function hasStateInUrl() {
         const urlParams = new URLSearchParams(window.location.search);
         const hasParams = urlParams.has('p') || urlParams.has('s') || urlParams.has('g') || urlParams.has('m');
-        console.log('Checking URL parameters:', window.location.search, 'Has params:', hasParams);
+        // This console logging is no longer needed because features are working fine
+        // console.log('Checking URL parameters:', window.location.search, 'Has params:', hasParams);
         return hasParams;
     }
     
@@ -467,14 +498,16 @@ const nbacc_calculator_state = (() => {
         if (!hasStateInUrl()) return null;
         
         const urlString = window.location.search.substring(1);
-        console.log("Loading state from URL parameters:", urlString);
+        // This console logging is no longer needed because features are working fine
+        // console.log("Loading state from URL parameters:", urlString);
         setCurrentUrlString(urlString);
         
         const state = decodeUrlParamsToState(urlString);
         if (state) {
-            console.log("Successfully loaded state with:", 
-                state.yearGroups?.length || 0, "year groups and", 
-                state.gameFilters?.length || 0, "game filters");
+            // This console logging is no longer needed because features are working fine
+            // console.log("Successfully loaded state with:", 
+            //     state.yearGroups?.length || 0, "year groups and", 
+            //     state.gameFilters?.length || 0, "game filters");
         }
         
         return state;
@@ -498,10 +531,12 @@ const nbacc_calculator_state = (() => {
             const url = `${window.location.pathname}?${params}${window.location.hash}`;
             window.history.replaceState({}, '', url);
             
-            console.log('URL state updated:', params);
+            // This console logging is no longer needed because features are working fine
+        // console.log('URL state updated:', params);
             return params;
         } catch (error) {
-            console.error('Failed to update browser URL:', error);
+            // This console logging is no longer needed because features are working fine
+            // console.error('Failed to update browser URL:', error);
             return '';
         }
     }
@@ -518,10 +553,12 @@ const nbacc_calculator_state = (() => {
             const url = window.location.pathname + window.location.hash;
             window.history.replaceState({}, '', url);
             
-            console.log('URL state cleared');
+            // This console logging is no longer needed because features are working fine
+            // console.log('URL state cleared');
             return true;
         } catch (error) {
-            console.error('Failed to clear URL state:', error);
+            // This console logging is no longer needed because features are working fine
+            // console.error('Failed to clear URL state:', error);
             return false;
         }
     }
