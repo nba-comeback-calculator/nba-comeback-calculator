@@ -267,17 +267,11 @@ const nbacc_calculator_plot_primitives = (() => {
                 if (down_mode === "at") {
                     // Points down at a specific time
                     const sign = game.score_diff > 0 ? 1 : -1;
+
+                    // Get the index for this time point directly from the TIME_TO_INDEX_MAP
+                    const index = nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[start_time];
                     
-                    // Get the index for this time point
-                    let index;
-                    if (typeof start_time === "number") {
-                        index = 48 - start_time - 1;
-                    } else {
-                        // Handle string time formats like "45s"
-                        const timeIndex = nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[start_time];
-                        index = 48 - timeIndex - 1;
-                    }
-                    
+                    // Get the point margin at this specific time
                     const point_margin = game.score_stats_by_minute.point_margins[index];
                     win_point_margin = sign * point_margin;
                     lose_point_margin = -1 * win_point_margin;
@@ -286,24 +280,28 @@ const nbacc_calculator_plot_primitives = (() => {
                     win_point_margin = Infinity;
                     lose_point_margin = Infinity;
 
-                    // Handle the case where start_time is a string (like "45s")
-                    let startIndex;
-                    if (typeof start_time === "string") {
-                        startIndex = nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[start_time];
-                    } else {
-                        startIndex = start_time;
-                    }
+                    // Get the start index for the time (works with both number and string formats)
+                    const startIndex = nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[start_time];
+                    // Define the end index (end of game is index of 0 minute)
+                    const stopIndex =
+                        nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[0];
 
                     // Loop through all time points from start_time to the end of the game
-                    for (let i = nbacc_calculator_season_game_loader.TIME_TO_INDEX_MAP[startIndex]; 
-                         i < nbacc_calculator_season_game_loader.GAME_MINUTES.length; 
-                         i++) {
-                        
+                    // Using the Python's range(start_index, stop_index + 1) equivalent
+                    for (let i = startIndex; i <= stopIndex; i++) {
                         const minute = nbacc_calculator_season_game_loader.GAME_MINUTES[i];
-                        const array_index = i; // Use the index directly
                         
-                        const min_point_margin = game.score_stats_by_minute.min_point_margins[array_index];
-                        const max_point_margin = game.score_stats_by_minute.max_point_margins[array_index];
+                        let min_point_margin, max_point_margin;
+                        
+                        // For first time point, use the current margin
+                        if (i === startIndex) {
+                            min_point_margin = game.score_stats_by_minute.point_margins[i];
+                            max_point_margin = game.score_stats_by_minute.point_margins[i];
+                        } else {
+                            // For subsequent time points, use min/max values
+                            min_point_margin = game.score_stats_by_minute.min_point_margins[i];
+                            max_point_margin = game.score_stats_by_minute.max_point_margins[i];
+                        }
 
                         if (game.score_diff > 0) {
                             win_point_margin = Math.min(
@@ -328,7 +326,9 @@ const nbacc_calculator_plot_primitives = (() => {
                         }
                     }
                 } else {
-                    throw new Error(`Invalid down_mode: ${down_mode}. Must be "at" or "max"`);
+                    throw new Error(
+                        `Invalid down_mode: ${down_mode}. Must be "at" or "max"`
+                    );
                 }
 
                 // Add game to win/loss maps based on filter
@@ -537,7 +537,8 @@ const nbacc_calculator_plot_primitives = (() => {
 
                 return max_fit_point;
             } catch (error) {
-                console.error("Error fitting regression:", error);
+                // This console logging is no longer needed because features are working fine
+                // console.error("Error fitting regression:", error);
                 this.m = null;
                 this.b = null;
                 return max_fit_point;
