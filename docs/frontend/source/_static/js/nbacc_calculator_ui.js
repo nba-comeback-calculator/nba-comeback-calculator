@@ -1430,9 +1430,8 @@ const nbacc_calculator_ui = (() => {
                 chartData = nbacc_calculator_api.plot_percent_versus_time(
                     state.yearGroups,
                     apiStartTime, // Use formatted time value
-                    state.endTime || 0,
-                    formattedPercents, // Use selected percents
-                    gameFilters, // Use null if no filters
+                    formattedPercents, // Use selected percents - this is the 3rd parameter
+                    gameFilters, // Use null if no filters - this is the 4th parameter
                     state.plotGuides, // plot_2x_guide
                     state.plotGuides, // plot_4x_guide
                     state.plotGuides, // plot_6x_guide
@@ -1761,9 +1760,8 @@ const nbacc_calculator_ui = (() => {
                 chartData = nbacc_calculator_api.plot_percent_versus_time(
                     state.yearGroups,
                     apiStartTime, // Use formatted time value
-                    state.endTime || 0,
-                    formattedPercents, // Use selected percents
-                    gameFilters, // Use null if no filters
+                    formattedPercents, // Use selected percents - this is the 3rd parameter
+                    gameFilters, // Use null if no filters - this is the 4th parameter
                     state.plotGuides, // plot_2x_guide
                     state.plotGuides, // plot_4x_guide
                     state.plotGuides, // plot_6x_guide
