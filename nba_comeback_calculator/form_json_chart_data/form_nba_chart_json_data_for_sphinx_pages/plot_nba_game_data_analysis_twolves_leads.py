@@ -41,6 +41,20 @@ json_base_path = os.path.abspath(os.path.join(script_dir, json_base_path))
 loader.json_base_path = json_base_path
 
 
+# eras = [
+#     # ERA ONE
+#     (1996, 2024),
+# ]
+
+# plot_biggest_deficit(
+#     json_name=f"{chart_base_path}/twolves_leads/at_4min_all_time.json.gz",
+#     year_groups=eras,
+#     start_time=4,
+#     down_mode="max",
+#     cumulate=False,
+# )
+
+
 eras = [
     # ERA ONE
     (1996, 2024),
@@ -49,7 +63,7 @@ eras = [
 plot_biggest_deficit(
     json_name=f"{chart_base_path}/twolves_leads/at_4min_all_time.json.gz",
     year_groups=eras,
-    start_time=4,
+    start_time="15s",
     down_mode="max",
     cumulate=False,
 )

@@ -100,6 +100,7 @@ This loading order is defined in the `conf.py` file and should be maintained whe
 - **JSON Data**: Never use fallback/default values (like `|| 0` or `|| "default"`) for missing JSON data - assume data is "correct by construction"
 - **Error Checking**: Do not add unnecessary error checking or validation - the JSON data is "correct by construction" and the UI forms will only provide valid values
 - **No Fallbacks for Missing Dependencies**: Do not implement fallback algorithms when dependencies like numeric.js are missing. If a dependency is required, throw an error and fail explicitly rather than silently degrading to an alternative implementation.
+- **No Console Logging**: Avoid using console.log statements in production code. Only use console.error within catch blocks or for critical errors. Do not leave in debugging console.log statements. Use normal JavaScript exceptions that show up in the browser console naturally when errors occur.
 - **CSS**: Keep styles in `css/nbacc.css` with descriptive class names
 - **HTML**: Use semantic elements, consistent ID naming with `nbacc_` prefix
 

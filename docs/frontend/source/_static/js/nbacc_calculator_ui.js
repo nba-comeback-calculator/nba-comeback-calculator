@@ -5,15 +5,7 @@
 
 const nbacc_calculator_ui = (() => {
     // Check for required dependencies
-    if (typeof nbacc_calculator_api === "undefined") {
-        // This console logging is no longer needed because features are working fine
-        // console.error("nbacc_calculator_api module is not loaded");
-    }
-    
-    if (typeof nbacc_calculator_state === "undefined") {
-        // This console logging is no longer needed because features are working fine
-        // console.error("nbacc_calculator_state module is not loaded");
-    }
+    // Removed dependency checking console logs
     
     // State management
     let state = {
@@ -80,12 +72,8 @@ const nbacc_calculator_ui = (() => {
         
         // Check for URL parameters - URL is the single source of truth
         if (typeof nbacc_calculator_state !== 'undefined' && nbacc_calculator_state.hasStateInUrl()) {
-            // This console logging is no longer needed because features are working fine
-            // console.log('URL parameters detected, initializing calculator with URL state');
             const urlState = nbacc_calculator_state.getStateFromUrl();
             if (urlState) {
-                // This console logging is no longer needed because features are working fine
-                // console.log('URL state found, applying and rendering');
                 // Update the state with URL parameters
                 applyState(urlState);
                 
@@ -121,9 +109,6 @@ const nbacc_calculator_ui = (() => {
     function applyState(loadedState) {
         if (!loadedState) return state;
         
-        // This console logging is no longer needed because features are working fine
-        // console.log("Applying state:", loadedState);
-        
         // Copy simple properties
         state.plotType = loadedState.plotType || state.plotType;
         state.startTime = loadedState.startTime || state.startTime;
@@ -139,8 +124,6 @@ const nbacc_calculator_ui = (() => {
         
         // Copy year groups (these are simple objects)
         if (loadedState.yearGroups && loadedState.yearGroups.length > 0) {
-            // This console logging is no longer needed because features are working fine
-            // console.log(`Applying ${loadedState.yearGroups.length} year groups from loaded state`);
             state.yearGroups = loadedState.yearGroups;
         } else {
             // Ensure we have at least one year group
@@ -155,9 +138,6 @@ const nbacc_calculator_ui = (() => {
         
         // Handle game filters - need to create proper GameFilter instances
         if (loadedState.gameFilters && loadedState.gameFilters.length > 0 && typeof nbacc_calculator_api !== 'undefined') {
-            // This console logging is no longer needed because features are working fine
-            // console.log(`Applying ${loadedState.gameFilters.length} game filters from loaded state`);
-            
             state.gameFilters = loadedState.gameFilters.map(filterParams => {
                 // Handle null or empty filter - always create a GameFilter instance
                 if (!filterParams || Object.keys(filterParams).length === 0) {
@@ -165,8 +145,6 @@ const nbacc_calculator_ui = (() => {
                     try {
                         return new nbacc_calculator_api.GameFilter({});
                     } catch (error) {
-                        // This console logging is no longer needed because features are working fine
-                        // console.error("Error creating empty GameFilter:", error);
                         return null; // Return null if we can't create a GameFilter
                     }
                 }
@@ -175,8 +153,6 @@ const nbacc_calculator_ui = (() => {
                 try {
                     return new nbacc_calculator_api.GameFilter(filterParams);
                 } catch (error) {
-                    // This console logging is no longer needed because features are working fine
-                    // console.error("Error creating GameFilter:", error);
                     // Try to create an empty filter as fallback
                     try {
                         return new nbacc_calculator_api.GameFilter({});
@@ -185,16 +161,11 @@ const nbacc_calculator_ui = (() => {
                     }
                 }
             }).filter(filter => filter !== null); // Remove any null filters
-            
-            // This console logging is no longer needed because features are working fine
-            // console.log("Applied game filters:", state.gameFilters);
         } else {
             // No game filters in loaded state, set to empty array (not [null])
             state.gameFilters = [];
         }
         
-        // This console logging is no longer needed because features are working fine
-        // console.log("State applied successfully");
         return state;
     }
     
@@ -649,26 +620,9 @@ const nbacc_calculator_ui = (() => {
             // Get the raw selected value
             const selectedValue = this.value;
             
-            // Log the raw selected value from the dropdown
-            console.log("Time select changed - raw value:", selectedValue, "Type:", typeof selectedValue);
-            
-            // Log all the select options to help diagnose problems
-            const options = this.options;
-            console.log("Available options:", Array.from(options).map(o => ({value: o.value, text: o.text})));
-            
-            // Get the selected option for additional information
-            const selectedOption = this.options[this.selectedIndex];
-            console.log("Selected option:", {
-                value: selectedOption.value,
-                text: selectedOption.text,
-                index: this.selectedIndex
-            });
-            
             // For seconds values, parse to proper number
             // We need to convert these to numbers
             state.startTime = parseFloat(selectedValue);
-            
-            console.log("Parsed state.startTime:", state.startTime, "Type:", typeof state.startTime);
             
             // For Points Down At Time, use the selected time as the specificTime
             if (state.plotType === "Points Down At Time") {
@@ -1168,7 +1122,6 @@ const nbacc_calculator_ui = (() => {
         
         // If no filter elements, return with empty array
         if (filters.length === 0) {
-            console.log("No game filter elements found, using empty array");
             return;
         }
         filters.forEach((filter) => {
@@ -1243,13 +1196,11 @@ const nbacc_calculator_ui = (() => {
                 const gameFilter = new nbacc_calculator_api.GameFilter(filterParams);
                 state.gameFilters.push(gameFilter);
             } catch (error) {
-                console.error("Error creating GameFilter from UI:", error);
                 // Try to create an empty filter as fallback
                 try {
                     const emptyFilter = new nbacc_calculator_api.GameFilter({});
                     state.gameFilters.push(emptyFilter);
                 } catch (err) {
-                    console.error("Failed to create fallback empty filter:", err);
                     // Don't add anything if we can't create a valid filter
                 }
             }
@@ -1337,7 +1288,7 @@ const nbacc_calculator_ui = (() => {
                 0
             );
 
-            console.log(`Total games loaded across all seasons: ${totalGames}`);
+            // Total games loaded across all seasons
 
             if (totalGames === 0) {
                 // Instead of throwing, show error message in the chart container
@@ -1370,8 +1321,7 @@ const nbacc_calculator_ui = (() => {
             // Calculate chart data based on plot type
             let chartData;
 
-            // Remove debugger statement
-            console.log("Ready to calculate chart data...");
+            // Ready to calculate chart data
             
             /**
              * Convert a time value from the select option to the proper API format.
@@ -1379,42 +1329,32 @@ const nbacc_calculator_ui = (() => {
              * (0.75 for 45s, 0.5 for 30s, etc.)
              */
             const formatTimeForApi = (time) => {
-                // Log input for debugging
-                console.log("formatTimeForApi input:", time, "Type:", typeof time);
-                
                 // Ensure we're working with a number for proper comparison
                 const numericTime = parseFloat(time);
                 
                 // Check for sub-minute values with small tolerance for floating point errors
                 if (Math.abs(numericTime - 0.75) < 0.001) {
-                    console.log("Returning 45s");
                     return "45s";
                 }
                 if (Math.abs(numericTime - 0.5) < 0.001) {
-                    console.log("Returning 30s");
                     return "30s";
                 }
                 if (Math.abs(numericTime - 0.25) < 0.001) {
-                    console.log("Returning 15s");
                     return "15s";
                 }
                 if (Math.abs(numericTime - 1/6) < 0.001) {
-                    console.log("Returning 10s");
                     return "10s";
                 }
                 if (Math.abs(numericTime - 1/12) < 0.001) {
-                    console.log("Returning 5s");
                     return "5s";
                 }
                 
                 // For regular minutes, return as-is
-                console.log("Returning regular minutes:", numericTime);
                 return numericTime;
             };
             
             // Format time for API call
             const apiStartTime = formatTimeForApi(state.startTime);
-            console.log("API call will use time value:", apiStartTime);
 
             if (state.plotType === "Percent Chance: Time Vs. Points Down") {
                 // Format percents with % sign 
@@ -1511,12 +1451,7 @@ const nbacc_calculator_ui = (() => {
             }
 
             try {
-                // Debug the modules
-                console.log("Module check at render time:");
-                console.log("nbacc_utils available:", typeof nbacc_utils);
-                console.log("nbacc_plotter_data available:", typeof nbacc_plotter_data);
-                console.log("nbacc_plotter_core available:", typeof nbacc_plotter_core);
-                console.log("nbacc_plotter_ui available:", typeof nbacc_plotter_ui);
+                // Check modules availability
 
                 // Use the global references (which are set in their respective files)
                 if (!nbacc_plotter_data) {
@@ -1543,7 +1478,7 @@ const nbacc_calculator_ui = (() => {
                 setTimeout(() => {
                     const buttonContainer = document.querySelector("#nbacc_calculator_chart").parentElement.querySelector(".chart-buttons");
                     if (!buttonContainer && typeof nbacc_plotter_ui !== 'undefined' && nbacc_plotter_ui.addControlsToChartArea) {
-                        console.log("Adding chart controls manually");
+                        // Add chart controls manually
                         const canvas = document.getElementById("nbacc_calculator_chart");
                         nbacc_plotter_ui.addControlsToChartArea(canvas, chart);
                     }
@@ -1710,42 +1645,32 @@ const nbacc_calculator_ui = (() => {
              * (0.75 for 45s, 0.5 for 30s, etc.)
              */
             const formatTimeForApi = (time) => {
-                // Log input for debugging
-                console.log("calculateAndRenderChartForTarget - formatTimeForApi input:", time, "Type:", typeof time);
-                
                 // Ensure we're working with a number for proper comparison
                 const numericTime = parseFloat(time);
                 
                 // Check for sub-minute values with small tolerance for floating point errors
                 if (Math.abs(numericTime - 0.75) < 0.001) {
-                    console.log("Returning 45s");
                     return "45s";
                 }
                 if (Math.abs(numericTime - 0.5) < 0.001) {
-                    console.log("Returning 30s");
                     return "30s";
                 }
                 if (Math.abs(numericTime - 0.25) < 0.001) {
-                    console.log("Returning 15s");
                     return "15s";
                 }
                 if (Math.abs(numericTime - 1/6) < 0.001) {
-                    console.log("Returning 10s");
                     return "10s";
                 }
                 if (Math.abs(numericTime - 1/12) < 0.001) {
-                    console.log("Returning 5s");
                     return "5s";
                 }
                 
                 // For regular minutes, return as-is
-                console.log("Returning regular minutes:", numericTime);
                 return numericTime;
             };
             
             // Format time for API call
             const apiStartTime = formatTimeForApi(state.startTime);
-            console.log("Target chart API call will use time value:", apiStartTime);
             
             if (state.plotType === "Percent Chance: Time Vs. Points Down") {
                 // Format percents with % sign 

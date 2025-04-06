@@ -330,7 +330,7 @@ const nbacc_calculator_api = (() => {
             const seconds = Math.round(start_time * 60);
             time_desc = `Final ${seconds} Seconds`;
         } else {
-            console.warn(`Unexpected start_time value: ${start_time}`);
+            // Handle unexpected start_time values
             time_desc = `${start_time} Minutes`;
         }
 
@@ -349,7 +349,10 @@ const nbacc_calculator_api = (() => {
         } else {
             title = `Max Points Down${or_more} During ${time_desc}`;
             max_point_margin = max_point_margin === null ? "auto" : max_point_margin;
-            fit_max_points = fit_max_points === null ? "10%" : fit_max_points;
+            // Match Python behavior EXACTLY: set fit_max_points to "10%" if it's null OR undefined
+            if (fit_max_points === null || fit_max_points === undefined) {
+                fit_max_points = "10%";
+            }
         }
 
         if (calculate_occurrences) {
@@ -824,8 +827,6 @@ const nbacc_calculator_api = (() => {
 
             // Include regression fit values
             if (plot_line.m !== null) {
-                // This console logging is no longer needed because features are working fine
-                // console.log("Including regression fit values for y-tick calculation");
                 const y_fit = x.map((x_val) => plot_line.m * x_val + plot_line.b);
                 const y_fit_min = Math.min(...y_fit);
                 const y_fit_max = Math.max(...y_fit);
