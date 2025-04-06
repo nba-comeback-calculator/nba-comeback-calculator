@@ -1485,15 +1485,27 @@ const nbacc_calculator_ui = (() => {
                     chartConfig
                 );
                 
-                // Manually check and add chart controls if they weren't added by the core plotter
-                setTimeout(() => {
-                    const buttonContainer = document.querySelector("#nbacc_calculator_chart").parentElement.querySelector(".chart-buttons");
+                // Ensure chart controls are properly added with multiple retry attempts
+                const ensureChartControls = () => {
+                    const canvas = document.getElementById("nbacc_calculator_chart");
+                    const buttonContainer = canvas?.parentElement?.querySelector(".chart-buttons");
+                    
                     if (!buttonContainer && typeof nbacc_plotter_ui !== 'undefined' && nbacc_plotter_ui.addControlsToChartArea) {
                         // Add chart controls manually
-                        const canvas = document.getElementById("nbacc_calculator_chart");
                         nbacc_plotter_ui.addControlsToChartArea(canvas, chart);
+                        
+                        // Force button visibility
+                        setTimeout(() => {
+                            if (typeof window.updateButtonPositions === 'function') {
+                                window.updateButtonPositions(chart);
+                            }
+                        }, 50);
                     }
-                }, 100);
+                };
+                
+                // Multiple attempts to ensure buttons are added
+                setTimeout(ensureChartControls, 100);
+                setTimeout(ensureChartControls, 500);
             } catch (error) {
                 console.error("Error rendering chart:", error);
                 throw new Error("Failed to render chart: " + error.message);
@@ -1773,15 +1785,31 @@ const nbacc_calculator_ui = (() => {
                 window.chartInstances[targetChartId] = chart;
             }
             
-            // Make sure control buttons are visible
-            setTimeout(() => {
+            // Ensure chart controls are properly added with multiple retry attempts
+            const ensureChartControls = () => {
                 if (typeof nbacc_plotter_ui !== 'undefined' && 
                     nbacc_plotter_ui.addControlsToChartArea && 
                     canvas && 
                     chart) {
-                    nbacc_plotter_ui.addControlsToChartArea(canvas, chart);
+                    // Check if buttons already exist
+                    const buttonContainer = canvas.parentElement?.querySelector(".chart-buttons");
+                    if (!buttonContainer) {
+                        // Add chart controls manually
+                        nbacc_plotter_ui.addControlsToChartArea(canvas, chart);
+                        
+                        // Force button visibility
+                        setTimeout(() => {
+                            if (typeof window.updateButtonPositions === 'function') {
+                                window.updateButtonPositions(chart);
+                            }
+                        }, 50);
+                    }
                 }
-            }, 100);
+            };
+            
+            // Multiple attempts to ensure buttons are added and visible
+            setTimeout(ensureChartControls, 100);
+            setTimeout(ensureChartControls, 500);
             
             // Re-mark the chart as a calculator chart so it keeps its configurable status
             // Access the loadedCharts variable defined in nbacc_chart_loader.js
