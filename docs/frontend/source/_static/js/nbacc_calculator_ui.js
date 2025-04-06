@@ -9,10 +9,10 @@ const nbacc_calculator_ui = (() => {
     
     // State management
     let state = {
-        plotType: "Percent Chance: Time Vs. Points Down",
+        plotType: "Max Points Down Or More",
         yearGroups: [],
         gameFilters: [], // Empty array - no default filters
-        startTime: 24, // 24 minutes default for Percent Chance: Time Vs. Points Down
+        startTime: 48, // 48 minutes default for Max Points Down Or More
         endTime: 0, // 0 minutes default (end of game),
         specificTime: 24, // Used for Points Down At Time (default to 24)
         targetChartId: null, // Used when configuring an existing chart
@@ -201,7 +201,7 @@ const nbacc_calculator_ui = (() => {
         }
 
         // Generate options for dropdown selects
-        const defaultPlotType = "Max Points Down Or More";
+        const defaultPlotType = state.plotType || "Max Points Down Or More";
         
         // Use appropriate time default based on plot type
         const defaultTimeMinutes = state.plotType === "Percent Chance: Time Vs. Points Down" ? 24 : 48;
@@ -213,7 +213,7 @@ const nbacc_calculator_ui = (() => {
         const content = `
             <div class="calculator-ui">
                 <div class="info-box alert alert-info">
-                    <i>Configure <a href="/analysis/understanding_and_using_the_plots.html">different chart types</a> and options to create an interactive plot. ${nbacc_utils.isMobile() ? 'Press full screen and then click on data points' : 'Click on data points'} to examine NBA gamesets and trend line predictions.</i>
+                    <i>Configure <a href="/analysis/understanding_and_using_the_plots.html">different chart types</a> and options to create an interactive plot. ${nbacc_utils.isMobile() ? 'Press full screen and then click on data points' : 'Click on data points'} to examine NBA gamesets and trend line predictions. Calculation on mobile may be slow based on configuration options.</i>
                 </div>
                 <div class="calculator-header">
                     <h2>${headerText}</h2>
@@ -222,10 +222,10 @@ const nbacc_calculator_ui = (() => {
                     <div class="top-controls-row">
                         <div class="plot-type-container">
                             <select id="plot-type" class="form-control">
-                                <option value="Percent Chance: Time Vs. Points Down">Chart Type: Percent Chance -- Time v Points Down</option>
                                 <option value="Max Points Down Or More">Chart Type: Max Points Down Or More</option>
                                 <option value="Max Points Down">Chart Type: Max Points Down</option>
                                 <option value="Points Down At Time">Chart Type: Points Down At Time</option>
+                                <option value="Percent Chance: Time Vs. Points Down">Chart Type: Percent Chance -- Time v Points Down</option>
                                 <!-- Commented out temporarily as they aren't working yet
                                 <option value="Occurrence Max Points Down Or More">Chart Type: Occurrence Max Points Down Or More</option>
                                 <option value="Occurrence Max Points Down">Chart Type: Occurrence Max Points Down</option>
@@ -755,7 +755,7 @@ const nbacc_calculator_ui = (() => {
         resetBtn.addEventListener("click", function () {
             // Reset state to default values
             state = {
-                plotType: "Percent Chance: Time Vs. Points Down",
+                plotType: "Max Points Down Or More",
                 yearGroups: [{
                     minYear: 2017,
                     maxYear: 2024,
@@ -764,7 +764,7 @@ const nbacc_calculator_ui = (() => {
                     label: '2017-2024'
                 }],
                 gameFilters: [],
-                startTime: 24,
+                startTime: 48,
                 endTime: 0,
                 specificTime: 24,
                 targetChartId: state.targetChartId, // Keep target chart ID

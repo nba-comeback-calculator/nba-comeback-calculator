@@ -38,10 +38,10 @@ const nbacc_calculator_state = (() => {
         try {
             // Plot type mapping to index
             const plotTypes = [
-                "Percent Chance: Time Vs. Points Down", 
                 "Max Points Down Or More", 
                 "Max Points Down", 
-                "Points Down At Time"
+                "Points Down At Time",
+                "Percent Chance: Time Vs. Points Down"
             ];
             
             const plotTypeIndex = plotTypes.indexOf(state.plotType);
@@ -170,8 +170,8 @@ const nbacc_calculator_state = (() => {
             
             // Create a default state object
             const state = {
-                plotType: "Percent Chance: Time Vs. Points Down",
-                startTime: 24,
+                plotType: "Max Points Down Or More",
+                startTime: 48,
                 endTime: 0,
                 specificTime: 12,
                 selectedPercents: ["20", "10", "5", "1", "Record"],
@@ -199,10 +199,10 @@ const nbacc_calculator_state = (() => {
             
             // Plot type mapping
             const plotTypes = [
-                "Percent Chance: Time Vs. Points Down", 
                 "Max Points Down Or More", 
                 "Max Points Down", 
-                "Points Down At Time"
+                "Points Down At Time",
+                "Percent Chance: Time Vs. Points Down"
             ];
             
             // Handle different URL parameter formats:

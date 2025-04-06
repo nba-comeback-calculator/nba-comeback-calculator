@@ -6,4 +6,4 @@ Calculator
 
 .. raw:: html
 
-    <div id="plots/all_time_v_modern/percent_plot_group_1" class="nbacc-chart nbacc-calculator"></div>
+    <div id="calc/modern_max_down_or_more_48" class="nbacc-chart nbacc-calculator"></div>
