@@ -152,23 +152,34 @@ function drawWinCountOnPoint(chart, ctx, element, winCount) {
  */
 // Make updateButtonPositions available globally
 window.updateButtonPositions = function(chart) {
-    // First try to find the button container using the chart's canvas ID
-    const chartId = chart.canvas.id.replace("-canvas", "");
+    if (!chart || !chart.canvas) {
+        return; // Exit early if chart is invalid
+    }
 
-    // Use CSS-escaped ID since chartId may contain characters that need escaping in CSS selectors
-    const escapedChartId = CSS.escape(chartId);
-
-    // Need to handle both regular chart containers and fullscreen containers
-    let buttonContainer = document.querySelector(
-        `#${escapedChartId} .chart-container .chart-buttons`
-    );
-
-    // If not found, check if we're in fullscreen mode
-    if (!buttonContainer) {
-        // Try to find button container in the lightbox
+    // First try to find the button container directly from the chart's canvas parent
+    let buttonContainer = chart.canvas.parentElement?.querySelector(".chart-buttons");
+    
+    if (buttonContainer) {
+        // We found the buttons directly from the canvas - use this as most reliable method
+    } else {
+        // Fall back to searching by ID
+        const chartId = chart.canvas.id.replace("-canvas", "");
+        
+        // Use CSS-escaped ID since chartId may contain characters that need escaping in CSS selectors
+        const escapedChartId = CSS.escape(chartId);
+        
+        // Try finding in regular chart containers
         buttonContainer = document.querySelector(
-            `#lightbox-chart-container .chart-container .chart-buttons`
+            `#${escapedChartId} .chart-container .chart-buttons`
         );
+        
+        // If not found, check if we're in fullscreen mode
+        if (!buttonContainer) {
+            // Try to find button container in the lightbox
+            buttonContainer = document.querySelector(
+                `#lightbox-chart-container .chart-container .chart-buttons`
+            );
+        }
     }
 
     if (buttonContainer && chart.chartArea) {
