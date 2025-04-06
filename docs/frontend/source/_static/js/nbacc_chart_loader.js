@@ -90,10 +90,10 @@ async function loadAndPlotChart(chartDiv) {
         const configureButton = document.createElement("button");
         configureButton.className = "btn btn-primary calculator-configure-btn";
         configureButton.textContent = "Configure";
-        configureButton.addEventListener("click", function () {
+        configureButton.addEventListener("click", function (event) {
             // Show calculator UI for this specific chart
             if (typeof nbacc_calculator_ui !== "undefined") {
-                nbacc_calculator_ui.showCalculatorUI(divId);
+                nbacc_calculator_ui.showCalculatorUI(divId, event);
             } else {
                 console.error("nbacc_calculator_ui module is not loaded");
             }

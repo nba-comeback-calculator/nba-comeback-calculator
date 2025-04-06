@@ -182,7 +182,10 @@ const nbacc_calculator_ui = (() => {
     }
 
     // Show calculator UI in a lightbox
-    function showCalculatorUI(targetChartId = null) {
+    function showCalculatorUI(targetChartId = null, event = null) {
+        // Clear any visible tooltips
+        nbacc_utils.chartJsToolTipClearer(event);
+        
         // Set the flag that calculator is open
         isCalculatorOpen = true;
         
