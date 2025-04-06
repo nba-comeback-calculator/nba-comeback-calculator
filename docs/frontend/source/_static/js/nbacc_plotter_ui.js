@@ -197,6 +197,14 @@ fullscreen = function(chart, fullScreenButton) {
 
         // Reposition buttons
         repositionFullscreenButtons(chart);
+        
+        // Disable configure button when in fullscreen mode
+        const configureButton = document.querySelector(".configure-chart-btn");
+        if (configureButton) {
+            configureButton.style.opacity = "0.5";
+            configureButton.style.pointerEvents = "none";
+            configureButton.disabled = true;
+        }
     };
 };
 
@@ -363,6 +371,14 @@ function exitFullScreen(event) {
 
         // Reposition buttons
         repositionFullscreenButtons(chartToRestore);
+        
+        // Re-enable configure button when exiting fullscreen mode
+        const configureButton = document.querySelector(".configure-chart-btn");
+        if (configureButton) {
+            configureButton.style.opacity = "1";
+            configureButton.style.pointerEvents = "auto";
+            configureButton.disabled = false;
+        }
         
         // For calculator charts, do extra validation of button state
         if (chartToRestore.canvas?.id === "nbacc_calculator_chart" ||
