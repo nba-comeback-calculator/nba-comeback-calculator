@@ -432,19 +432,9 @@ nbacc_plotter_data = (() => {
             }
             
             // Default header for all other cases - use the x_label from the chart data
-            // Get line data to check for or_less_point_margin and or_more_point_margin
-            const line = chartData.lines && chartData.lines[0]; // Use first line since these properties should be shared
-            
-            let tooltipHeader;
-            
-            // Check if we need to use special formatting for less than or greater than
-            if (line && line.or_less_point_margin !== undefined && parseInt(xValue) === line.or_less_point_margin) {
-                tooltipHeader = `${chartData.x_label} <= ${xValue}`;
-            } else if (line && line.or_more_point_margin !== undefined && parseInt(xValue) === line.or_more_point_margin) {
-                tooltipHeader = `${chartData.x_label} >= ${xValue}`;
-            } else {
-                tooltipHeader = `${chartData.x_label} = ${xValue}`;
-            }
+            // For trend lines, always use "=" regardless of or_less/or_more values
+            // Trend lines should always show "Point Margin = X" format
+            const tooltipHeader = `${chartData.x_label} = ${xValue}`;
 
             // Check if we have pre-calculated data for this point margin
             if (pointMarginData[xValue]) {

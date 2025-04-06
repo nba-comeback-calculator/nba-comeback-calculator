@@ -184,6 +184,7 @@ const nbacc_calculator_plot_primitives = (() => {
             this.plot_type = "percent_v_margin";
             this.games = games;
             this.legend = legend;
+            this.cumulate = cumulate; // Store cumulate as an instance variable
 
             this.start_time = start_time;
             this.down_mode = down_mode;
@@ -203,7 +204,12 @@ const nbacc_calculator_plot_primitives = (() => {
                 this.cumulate_point_totals(this.point_margin_map);
             }
 
-            this.clean_point_margin_map_end_points(this.point_margin_map);
+            // Store or_less_point_margin and or_more_point_margin from clean_point_margin_map_end_points
+            const [or_less_point_margin, or_more_point_margin] = this.clean_point_margin_map_end_points(this.point_margin_map);
+            
+            // Store these values like the Python implementation
+            this.or_less_point_margin = or_less_point_margin;
+            this.or_more_point_margin = or_more_point_margin;
 
             this.point_margins = Object.keys(this.point_margin_map)
                 .map(Number)
@@ -367,73 +373,76 @@ const nbacc_calculator_plot_primitives = (() => {
 
         clean_point_margin_map_end_points(point_margin_map) {
             // Find first minute with win percentage > 0
-            let first_minute = null;
+            let first_point_margin = null;
             const sortedEntries = Object.entries(point_margin_map)
                 .map(([key, value]) => [Number(key), value])
                 .sort((a, b) => a[0] - b[0]);
 
-            for (const [minute, data] of sortedEntries) {
+            for (const [point_margin, data] of sortedEntries) {
                 if (data.odds[0] > 0) {
-                    if (first_minute === null) {
-                        first_minute = minute;
+                    if (first_point_margin === null) {
+                        first_point_margin = point_margin;
                     }
                     break;
                 } else {
-                    first_minute = minute;
+                    first_point_margin = point_margin;
                 }
             }
 
             // Find last minute with win percentage < 1.0
-            let last_minute = null;
+            let last_point_margin = null;
             const sortedEntriesReverse = [...sortedEntries].sort((a, b) => b[0] - a[0]);
 
-            for (const [minute, data] of sortedEntriesReverse) {
+            for (const [point_margin, data] of sortedEntriesReverse) {
                 if (data.odds[0] < 1.0) {
-                    if (last_minute === null) {
-                        last_minute = minute;
+                    if (last_point_margin === null) {
+                        last_point_margin = point_margin;
                     }
                     break;
                 } else {
-                    last_minute = minute;
+                    last_point_margin = point_margin;
                 }
             }
 
-            // Move data from minutes below first_minute to first_minute
-            for (const [minute, data] of sortedEntries) {
-                if (minute < first_minute) {
+            // Move data from points below first_point_margin to first_point_margin
+            for (const [point_margin, data] of sortedEntries) {
+                if (point_margin < first_point_margin) {
                     // Should have no wins
                     if (data.wins.size > 0) {
                         throw new Error("Unexpected wins found in low point margin");
                     }
 
-                    // Move losses to first_minute
-                    if (!point_margin_map[first_minute]) {
-                        point_margin_map[first_minute] = new PointMarginPercent();
+                    // Move losses to first_point_margin
+                    if (!point_margin_map[first_point_margin]) {
+                        point_margin_map[first_point_margin] = new PointMarginPercent();
                     }
 
                     data.losses.forEach((id) =>
-                        point_margin_map[first_minute].losses.add(id)
+                        point_margin_map[first_point_margin].losses.add(id)
                     );
 
-                    delete point_margin_map[minute];
-                } else if (minute > last_minute) {
+                    delete point_margin_map[point_margin];
+                } else if (point_margin > last_point_margin) {
                     // Should have no losses
                     if (data.losses.size > 0) {
                         throw new Error("Unexpected losses found in high point margin");
                     }
 
-                    // Move wins to last_minute
-                    if (!point_margin_map[last_minute]) {
-                        point_margin_map[last_minute] = new PointMarginPercent();
+                    // Move wins to last_point_margin
+                    if (!point_margin_map[last_point_margin]) {
+                        point_margin_map[last_point_margin] = new PointMarginPercent();
                     }
 
                     data.wins.forEach((id) =>
-                        point_margin_map[last_minute].wins.add(id)
+                        point_margin_map[last_point_margin].wins.add(id)
                     );
 
-                    delete point_margin_map[minute];
+                    delete point_margin_map[point_margin];
                 }
             }
+            
+            // Return the first and last point margins, just like the Python version
+            return [first_point_margin, last_point_margin];
         }
 
         fit_regression_lines(min_game_count, max_fit_point, calculate_occurrences) {
@@ -657,6 +666,8 @@ const nbacc_calculator_plot_primitives = (() => {
                 m: this.m,
                 b: this.b,
                 number_of_games: this.number_of_games,
+                or_less_point_margin: this.or_less_point_margin,
+                or_more_point_margin: this.or_more_point_margin,
             };
 
             json_data.x_values = this.point_margins;
