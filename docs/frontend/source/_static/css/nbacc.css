@@ -454,3 +454,10 @@ canvas {
     justify-content: center;
 }
 
+/* Class for disabled configure button in fullscreen */
+.configure-chart-btn-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+

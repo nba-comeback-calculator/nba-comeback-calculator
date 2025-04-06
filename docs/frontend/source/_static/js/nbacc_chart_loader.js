@@ -88,7 +88,7 @@ async function loadAndPlotChart(chartDiv) {
         buttonContainer.className = "calculator-button-container";
 
         const configureButton = document.createElement("button");
-        configureButton.className = "btn btn-primary calculator-configure-btn";
+        configureButton.className = "btn btn-primary calculator-configure-btn configure-chart-btn";
         configureButton.textContent = "Configure";
         configureButton.addEventListener("click", function (event) {
             // Show calculator UI for this specific chart
