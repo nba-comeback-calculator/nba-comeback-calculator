@@ -391,7 +391,6 @@ class PointsDownLine(PlotLine):
             max_fit_point = max(max_fit_point, safe_fit_point)
             max_fit_point = max(max_fit_point, -18)
 
-        breakpoint()
         if self.point_margins.index(max_fit_point) < 2:
             max_fit_point = self.point_margins[2]
 

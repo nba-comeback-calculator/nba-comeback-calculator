@@ -9,11 +9,12 @@ Are Big Leads No Longer Safe?
 
 There's a sense that, in recent times, teams are busting out of big holes more often
 than ever. Just as `Kevin Pelton and Baxter Holmes noted in 2019
-<https://www.espn.com/nba/story/_/id/26725776/this-season-massive-comeback-nba>`_, in
-`'20 is the old 12': Why no lead is safe in the NBA anymore
-<https://www.espn.com/nba/story/_/id/39698420/no-lead-safe-nba-big-comebacks-blown-leads>`_
-ESPN reporter Andrew Lopez explains that 2023-24 has already seen the most 20-point
-victories in a single season since 1996-97 and continues with analysis by Steve Kerr:
+<https://www.espn.com/nba/story/_/id/26725776/this-season-massive-comeback-nba>`_, so
+did ESPN reporter Andrew Lopez in `'20 is the old 12': Why no lead is safe in the NBA
+anymore
+<https://www.espn.com/nba/story/_/id/39698420/no-lead-safe-nba-big-comebacks-blown-leads>`_.
+There he points out that 2023-24 has already seen the most 20-point victories in a
+single season since 1996-97 and continues with analysis by Steve Kerr:
 
 .. pull-quote::
 
@@ -53,8 +54,9 @@ game:
 
     <div id="plots/old_school_v_modern/max_down_or_more_48" class="nbacc-chart"></div>
 
-Adding :doc:`trend lines to the statistical data
-</analysis/forming_the_plot_trend_lines>` and plotting it on a `normal probability plot
+A major point is that the almost always the data is normal (Gaussian) so adding
+:doc:`trend lines to the statistical data </analysis/forming_the_plot_trend_lines>` and
+plotting it on a `normal probability plot
 <https://en.wikipedia.org/wiki/Normal_probability_plot>`_, we can see a fairly constant
 shift of about 2 points to the left for the modern era.
 
