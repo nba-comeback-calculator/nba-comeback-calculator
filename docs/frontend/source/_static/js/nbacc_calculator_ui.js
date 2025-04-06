@@ -722,22 +722,28 @@ const nbacc_calculator_ui = (() => {
                 updateYearGroupsState();
                 updateGameFiltersState();
                 
-                // Update URL only - this is now our single source of truth for state
+                // Update URL and reload the page
                 if (typeof nbacc_calculator_state !== 'undefined') {
                     const urlParams = nbacc_calculator_state.updateBrowserUrl(state);
-                    // This console logging is no longer needed because features are working fine
-                    // console.log("Updated URL with state:", urlParams);
-                }
-                
-                if (state.targetChartId) {
-                    // We're configuring an existing chart
-                    calculateAndRenderChartForTarget(state.targetChartId);
+                    
+                    // Close the lightbox before reload
+                    lightboxInstance.close();
+                    isCalculatorOpen = false;
+                    
+                    // Reload the page to trigger initialization from URL parameters
+                    window.location.reload();
                 } else {
-                    // Traditional calculator mode
-                    calculateAndRenderChart();
+                    // Fallback if state management is not available
+                    if (state.targetChartId) {
+                        // We're configuring an existing chart
+                        calculateAndRenderChartForTarget(state.targetChartId);
+                    } else {
+                        // Traditional calculator mode
+                        calculateAndRenderChart();
+                    }
+                    lightboxInstance.close();
+                    isCalculatorOpen = false;
                 }
-                lightboxInstance.close();
-                isCalculatorOpen = false;
             } catch (error) {
                 // This console logging is no longer needed because features are working fine
                 // console.error("Error during calculation:", error);
