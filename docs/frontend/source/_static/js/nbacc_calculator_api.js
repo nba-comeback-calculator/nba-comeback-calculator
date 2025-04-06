@@ -319,10 +319,16 @@ const nbacc_calculator_api = (() => {
             time_desc = "4th Quarter";
         } else if (start_time === 1) {
             time_desc = "Final Minute";
-        } else if (typeof start_time === "string") {
-            time_desc = `Final ${start_time}`;
+        } else if (typeof start_time === "string" && start_time.endsWith("s")) {
+            // Handle seconds format (e.g., "45s", "30s", etc.)
+            const seconds = parseInt(start_time.slice(0, -1), 10);
+            time_desc = `Final ${seconds} Seconds`;
         } else if (1 < start_time && start_time < 12) {
             time_desc = `Final ${start_time} Minutes`;
+        } else if (start_time < 1) {
+            // For other fractional values (shouldn't be used now that we're using string format)
+            const seconds = Math.round(start_time * 60);
+            time_desc = `Final ${seconds} Seconds`;
         } else {
             console.warn(`Unexpected start_time value: ${start_time}`);
             time_desc = `${start_time} Minutes`;
@@ -529,9 +535,19 @@ const nbacc_calculator_api = (() => {
             game_filters = [game_filters];
         }
         
+        // For seconds values (e.g., "45s"), we want to use 1 minute in the time range
+        // This ensures we get at least the final minute of the game in our analysis
+        let numeric_start_time = start_time;
+        if (typeof start_time === 'string' && start_time.endsWith('s')) {
+            // For sub-minute times, always use at least 1 minute for the range
+            numeric_start_time = 1;
+        } else if (typeof start_time === 'string') {
+            numeric_start_time = parseInt(start_time, 10) || 24; // Default to 24 if parsing fails
+        }
+        
         // Setup time range
         const times = [];
-        for (let t = start_time; t >= 1; t--) {
+        for (let t = numeric_start_time; t >= 1; t--) {
             times.push(t);
         }
 

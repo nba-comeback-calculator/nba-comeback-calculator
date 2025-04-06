@@ -646,7 +646,29 @@ const nbacc_calculator_ui = (() => {
 
         // Time select handler (timeSelect is already defined above)
         timeSelect.addEventListener("change", function () {
-            state.startTime = parseInt(this.value, 10) || 0;
+            // Get the raw selected value
+            const selectedValue = this.value;
+            
+            // Log the raw selected value from the dropdown
+            console.log("Time select changed - raw value:", selectedValue, "Type:", typeof selectedValue);
+            
+            // Log all the select options to help diagnose problems
+            const options = this.options;
+            console.log("Available options:", Array.from(options).map(o => ({value: o.value, text: o.text})));
+            
+            // Get the selected option for additional information
+            const selectedOption = this.options[this.selectedIndex];
+            console.log("Selected option:", {
+                value: selectedOption.value,
+                text: selectedOption.text,
+                index: this.selectedIndex
+            });
+            
+            // For seconds values, parse to proper number
+            // We need to convert these to numbers
+            state.startTime = parseFloat(selectedValue);
+            
+            console.log("Parsed state.startTime:", state.startTime, "Type:", typeof state.startTime);
             
             // For Points Down At Time, use the selected time as the specificTime
             if (state.plotType === "Points Down At Time") {
@@ -1001,13 +1023,33 @@ const nbacc_calculator_ui = (() => {
             [48, 36, 24, 18, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1] : 
             [36, 24, 18, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
         
+        // Add seconds values - use string values directly in the HTML
+        // The option value needs to be a string that can be directly parsed
+        const secondsValues = [
+            { value: "0.75", label: "45 seconds" },
+            { value: "0.5", label: "30 seconds" },
+            { value: "0.25", label: "15 seconds" },
+            { value: (1/6).toString(), label: "10 seconds" },
+            { value: (1/12).toString(), label: "5 seconds" }
+        ];
+        
         let options = "";
 
+        // Add minute options
         for (const time of timeValues) {
             const selected = time === selectedTime ? "selected" : "";
             options += `<option value="${time}" ${selected}>${time} minute${
                 time !== 1 ? "s" : ""
             }</option>`;
+        }
+        
+        // Add seconds options
+        for (const seconds of secondsValues) {
+            // Convert both values to numbers for comparison since selectedTime might be a number
+            // and seconds.value is now a string
+            const numericValue = parseFloat(seconds.value);
+            const selected = Math.abs(numericValue - selectedTime) < 0.001 ? "selected" : "";
+            options += `<option value="${seconds.value}" ${selected}>${seconds.label}</option>`;
         }
 
         return options;
@@ -1330,6 +1372,49 @@ const nbacc_calculator_ui = (() => {
 
             // Remove debugger statement
             console.log("Ready to calculate chart data...");
+            
+            /**
+             * Convert a time value from the select option to the proper API format.
+             * Handles both numerical values (1, 2, etc.) and sub-minute values
+             * (0.75 for 45s, 0.5 for 30s, etc.)
+             */
+            const formatTimeForApi = (time) => {
+                // Log input for debugging
+                console.log("formatTimeForApi input:", time, "Type:", typeof time);
+                
+                // Ensure we're working with a number for proper comparison
+                const numericTime = parseFloat(time);
+                
+                // Check for sub-minute values with small tolerance for floating point errors
+                if (Math.abs(numericTime - 0.75) < 0.001) {
+                    console.log("Returning 45s");
+                    return "45s";
+                }
+                if (Math.abs(numericTime - 0.5) < 0.001) {
+                    console.log("Returning 30s");
+                    return "30s";
+                }
+                if (Math.abs(numericTime - 0.25) < 0.001) {
+                    console.log("Returning 15s");
+                    return "15s";
+                }
+                if (Math.abs(numericTime - 1/6) < 0.001) {
+                    console.log("Returning 10s");
+                    return "10s";
+                }
+                if (Math.abs(numericTime - 1/12) < 0.001) {
+                    console.log("Returning 5s");
+                    return "5s";
+                }
+                
+                // For regular minutes, return as-is
+                console.log("Returning regular minutes:", numericTime);
+                return numericTime;
+            };
+            
+            // Format time for API call
+            const apiStartTime = formatTimeForApi(state.startTime);
+            console.log("API call will use time value:", apiStartTime);
 
             if (state.plotType === "Percent Chance: Time Vs. Points Down") {
                 // Format percents with % sign 
@@ -1344,7 +1429,7 @@ const nbacc_calculator_ui = (() => {
                 // Use plot_percent_versus_time function for this plot type
                 chartData = nbacc_calculator_api.plot_percent_versus_time(
                     state.yearGroups,
-                    state.startTime,
+                    apiStartTime, // Use formatted time value
                     state.endTime || 0,
                     formattedPercents, // Use selected percents
                     gameFilters, // Use null if no filters
@@ -1378,7 +1463,7 @@ const nbacc_calculator_ui = (() => {
                 
                 chartData = nbacc_calculator_api.plot_biggest_deficit(
                     state.yearGroups,
-                    state.startTime,
+                    apiStartTime, // Use formatted time value
                     downMode,
                     cumulate,
                     null, // min_point_margin
@@ -1620,6 +1705,49 @@ const nbacc_calculator_ui = (() => {
             // Calculate chart data based on plot type - same logic as calculateAndRenderChart
             let chartData;
             
+            /**
+             * Convert a time value from the select option to the proper API format.
+             * Handles both numerical values (1, 2, etc.) and sub-minute values
+             * (0.75 for 45s, 0.5 for 30s, etc.)
+             */
+            const formatTimeForApi = (time) => {
+                // Log input for debugging
+                console.log("calculateAndRenderChartForTarget - formatTimeForApi input:", time, "Type:", typeof time);
+                
+                // Ensure we're working with a number for proper comparison
+                const numericTime = parseFloat(time);
+                
+                // Check for sub-minute values with small tolerance for floating point errors
+                if (Math.abs(numericTime - 0.75) < 0.001) {
+                    console.log("Returning 45s");
+                    return "45s";
+                }
+                if (Math.abs(numericTime - 0.5) < 0.001) {
+                    console.log("Returning 30s");
+                    return "30s";
+                }
+                if (Math.abs(numericTime - 0.25) < 0.001) {
+                    console.log("Returning 15s");
+                    return "15s";
+                }
+                if (Math.abs(numericTime - 1/6) < 0.001) {
+                    console.log("Returning 10s");
+                    return "10s";
+                }
+                if (Math.abs(numericTime - 1/12) < 0.001) {
+                    console.log("Returning 5s");
+                    return "5s";
+                }
+                
+                // For regular minutes, return as-is
+                console.log("Returning regular minutes:", numericTime);
+                return numericTime;
+            };
+            
+            // Format time for API call
+            const apiStartTime = formatTimeForApi(state.startTime);
+            console.log("Target chart API call will use time value:", apiStartTime);
+            
             if (state.plotType === "Percent Chance: Time Vs. Points Down") {
                 // Format percents with % sign 
                 const formattedPercents = state.selectedPercents.map(p => 
@@ -1632,7 +1760,7 @@ const nbacc_calculator_ui = (() => {
                 
                 chartData = nbacc_calculator_api.plot_percent_versus_time(
                     state.yearGroups,
-                    state.startTime,
+                    apiStartTime, // Use formatted time value
                     state.endTime || 0,
                     formattedPercents, // Use selected percents
                     gameFilters, // Use null if no filters
@@ -1665,7 +1793,7 @@ const nbacc_calculator_ui = (() => {
                 
                 chartData = nbacc_calculator_api.plot_biggest_deficit(
                     state.yearGroups,
-                    state.startTime,
+                    apiStartTime, // Use formatted time value
                     downMode,
                     cumulate,
                     null, // min_point_margin

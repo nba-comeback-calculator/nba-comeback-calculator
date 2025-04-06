@@ -456,16 +456,27 @@ const nbacc_calculator_plot_primitives = (() => {
             if (typeof max_fit_point === "string" && max_fit_point.endsWith("%")) {
                 const amount = parseFloat(max_fit_point) / 100.0;
                 let max_fit_point_amount;
-
-                for (let index = 0; index < this.point_margins.length; index++) {
-                    if (this.percents[index] > amount) {
-                        max_fit_point_amount = this.point_margins[index];
-                        break;
+                
+                // With very short time values (e.g., 5s, 10s), there might not be enough data points
+                // Default to the highest available point margin if we can't find one matching the percentage
+                if (this.point_margins.length > 0) {
+                    // Find a margin where percentage exceeds target or use the highest available
+                    for (let index = 0; index < this.point_margins.length; index++) {
+                        if (this.percents[index] > amount) {
+                            max_fit_point_amount = this.point_margins[index];
+                            break;
+                        }
                     }
-                }
-
-                if (!max_fit_point_amount) {
-                    throw new Error(`Could not find point margin for ${max_fit_point}`);
+                    
+                    // If no margin exceeds the target, use the highest one
+                    if (!max_fit_point_amount) {
+                        max_fit_point_amount = this.point_margins[this.point_margins.length - 1];
+                        console.log(`Using highest available point margin ${max_fit_point_amount} for ${max_fit_point} fit point`);
+                    }
+                } else {
+                    // If no point margins are available, use a reasonable default
+                    max_fit_point_amount = 0;
+                    console.log(`No point margins available for ${max_fit_point} fit point, using 0 as default`);
                 }
 
                 max_fit_point = max_fit_point_amount;

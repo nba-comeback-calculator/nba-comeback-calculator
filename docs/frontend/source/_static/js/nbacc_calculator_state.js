@@ -28,8 +28,8 @@ const nbacc_calculator_state = (() => {
     }
     
     /**
-     * Encodes the calculator state as URL parameters using the simplified scheme:
-     * p=<plot_type_index>,<time>,<percent_one>_<percent_two>_...&s={season_one}+{season_two}&g={game_filter_one}+{game_filter_two}
+     * Encodes the calculator state as URL parameters using separate parameters:
+     * p=<plot_type_index>&t=<time>&pc=<percent_one>_<percent_two>_...&s={season_one}+{season_two}&g={game_filter_one}+{game_filter_two}
      * 
      * @param {Object} state - The calculator state to encode
      * @returns {string} URL parameter string (without the leading '?')
@@ -47,16 +47,31 @@ const nbacc_calculator_state = (() => {
             const plotTypeIndex = plotTypes.indexOf(state.plotType);
             if (plotTypeIndex === -1) return '';  // Invalid plot type
             
-            // Build p parameter (plot settings)
-            let pParam = `${plotTypeIndex}-${state.startTime}`;
+            // Build p parameter (plot type index)
+            const pParam = plotTypeIndex.toString();
             
-            // Add percent values for Percent Chance plot type
+            // Build t parameter (time)
+            // Convert fractional times to seconds string format for encoding in URL
+            let tParam;
+            if (typeof state.startTime === 'number') {
+                if (state.startTime === 0.75) tParam = "45s";
+                else if (state.startTime === 0.5) tParam = "30s";
+                else if (state.startTime === 0.25) tParam = "15s";
+                else if (state.startTime === 1/6) tParam = "10s";
+                else if (state.startTime === 1/12) tParam = "5s";
+                else tParam = state.startTime.toString();
+            } else {
+                tParam = state.startTime;
+            }
+            
+            // Build pc parameter (percents) for Percent Chance plot type
+            let pcParam = '';
             if (plotTypeIndex === 0 && state.selectedPercents && state.selectedPercents.length > 0) {
-                pParam += `-${state.selectedPercents.join('_')}`;
+                pcParam = state.selectedPercents.join('_');
                 
                 // Add guide flags if set
                 if (state.plotGuides || state.plotCalculatedGuides) {
-                    pParam += `-${state.plotGuides ? '1' : '0'}${state.plotCalculatedGuides ? '1' : '0'}`;
+                    pcParam += `_${state.plotGuides ? '1' : '0'}${state.plotCalculatedGuides ? '1' : '0'}`;
                 }
             }
             
@@ -120,7 +135,8 @@ const nbacc_calculator_state = (() => {
             }
             
             // Combine all parameters
-            let params = [`p=${pParam}`];
+            let params = [`p=${pParam}`, `t=${tParam}`];
+            if (pcParam) params.push(`pc=${pcParam}`);
             if (sParam) params.push(`s=${sParam}`);
             if (gParam) params.push(`g=${gParam}`);
             if (mParam) params.push(`m=${mParam}`);
@@ -189,65 +205,132 @@ const nbacc_calculator_state = (() => {
                 "Points Down At Time"
             ];
             
-            // Parse p parameter (plot settings)
-            const pParam = params.get('p');
-            // This console logging is no longer needed because features are working fine
-            // console.log('Parsing plot parameter:', pParam);
+            // Handle different URL parameter formats:
+            // 1. New style: separate p, t, and pc parameters
+            // 2. Legacy style with t=plotType_time_percents 
+            // 3. Oldest style with p=plotType-time-percents
             
-            if (pParam) {
-                const pParts = pParam.split('-');
-                
-                // Plot type
-                const plotTypeIndex = parseInt(pParts[0]);
+            // Get all relevant parameters
+            const pParam = params.get('p');
+            const tParam = params.get('t');
+            const pcParam = params.get('pc');
+            
+            // Try to parse the plot type parameter
+            if (pParam !== null) {
+                // Parse new-style plot type parameter
+                const plotTypeIndex = parseInt(pParam, 10);
                 if (!isNaN(plotTypeIndex) && plotTypeIndex >= 0 && plotTypeIndex < plotTypes.length) {
                     state.plotType = plotTypes[plotTypeIndex];
-                    // This console logging is no longer needed because features are working fine
-                    // console.log('Set plot type to:', state.plotType);
-                } else {
-                    // This console logging is no longer needed because features are working fine
-                    // console.warn('Invalid plot type index:', plotTypeIndex, 'using default');
                 }
                 
-                // Start time
-                if (pParts.length > 1) {
-                    const parsedTime = parseInt(pParts[1]);
+                // Parse time parameter if it exists
+                if (tParam !== null) {
+                    parseTimeParameter(tParam, state);
+                }
+                
+                // Parse percent parameter for Percent Chance plot type
+                if (state.plotType === "Percent Chance: Time Vs. Points Down" && pcParam !== null) {
+                    parsePercentParameter(pcParam, state);
+                }
+            } else if (tParam !== null && tParam.includes('_')) {
+                // Legacy style with t=plotType_time_percents
+                const paramParts = tParam.split('_');
+                
+                // Plot type
+                const plotTypeIndex = parseInt(paramParts[0], 10);
+                if (!isNaN(plotTypeIndex) && plotTypeIndex >= 0 && plotTypeIndex < plotTypes.length) {
+                    state.plotType = plotTypes[plotTypeIndex];
+                }
+                
+                // Parse time (second part)
+                if (paramParts.length > 1) {
+                    parseTimeParameter(paramParts[1], state);
+                }
+                
+                // Parse percents (remaining parts) for Percent Chance plot type
+                if (state.plotType === "Percent Chance: Time Vs. Points Down" && paramParts.length > 2) {
+                    // Get remaining parts for percent values and guide flags
+                    const percentParts = paramParts.slice(2);
+                    parsePercentParameter(percentParts.join('_'), state);
+                }
+            } else if (tParam !== null) {
+                // Just a simple time parameter
+                parseTimeParameter(tParam, state);
+            } else if (params.has('p') && pParam.includes('-')) {
+                // Oldest style with p=plotType-time-percents
+                const paramParts = pParam.split('-');
+                
+                // Plot type
+                const plotTypeIndex = parseInt(paramParts[0], 10);
+                if (!isNaN(plotTypeIndex) && plotTypeIndex >= 0 && plotTypeIndex < plotTypes.length) {
+                    state.plotType = plotTypes[plotTypeIndex];
+                }
+                
+                // Parse time (second part)
+                if (paramParts.length > 1) {
+                    parseTimeParameter(paramParts[1], state);
+                }
+                
+                // Parse percents (remaining parts) for Percent Chance plot type
+                if (state.plotType === "Percent Chance: Time Vs. Points Down" && paramParts.length > 2) {
+                    // Get remaining parts for percent values and guide flags
+                    const percentParts = paramParts.slice(2);
+                    parsePercentParameter(percentParts.join('_'), state);
+                }
+            }
+            
+            // Helper function to parse time parameter
+            function parseTimeParameter(timeStr, stateObj) {
+                // Check if it's a seconds string like "45s", "30s", etc.
+                if (typeof timeStr === 'string' && timeStr.endsWith('s')) {
+                    const secondsMatch = timeStr.match(/^(\d+)s$/);
+                    if (secondsMatch) {
+                        const seconds = parseInt(secondsMatch[1], 10);
+                        // Convert seconds to the appropriate fractional minute value for the UI
+                        if (seconds === 45) stateObj.startTime = 0.75;
+                        else if (seconds === 30) stateObj.startTime = 0.5;
+                        else if (seconds === 15) stateObj.startTime = 0.25;
+                        else if (seconds === 10) stateObj.startTime = 1/6;
+                        else if (seconds === 5) stateObj.startTime = 1/12;
+                        else stateObj.startTime = seconds / 60; // Generic conversion as fallback
+                    }
+                } else {
+                    // Handle regular minute values
+                    const parsedTime = parseFloat(timeStr);
                     if (!isNaN(parsedTime) && parsedTime > 0 && parsedTime <= 48) {
-                        state.startTime = parsedTime;
-                        // This console logging is no longer needed because features are working fine
-                        // console.log('Set start time to:', state.startTime);
-                        
-                        // For Points Down At Time, use startTime as specificTime
-                        if (state.plotType === "Points Down At Time") {
-                            state.specificTime = state.startTime;
-                        }
-                    } else {
-                        // This console logging is no longer needed because features are working fine
-                        // console.warn('Invalid start time:', parsedTime, 'using default');
+                        stateObj.startTime = parsedTime;
                     }
                 }
                 
-                // Percents for Percent Chance plot type
-                if (state.plotType === "Percent Chance: Time Vs. Points Down" && pParts.length > 2) {
-                    // Handle empty percent strings
-                    if (pParts[2] && pParts[2].length > 0) {
-                        state.selectedPercents = pParts[2].split('_').filter(p => p.length > 0);
-                        // This console logging is no longer needed because features are working fine
-                        // console.log('Set selected percents to:', state.selectedPercents);
+                // For Points Down At Time, use startTime as specificTime
+                if (stateObj.plotType === "Points Down At Time") {
+                    stateObj.specificTime = stateObj.startTime;
+                }
+            }
+            
+            // Helper function to parse percent parameter
+            function parsePercentParameter(percentStr, stateObj) {
+                if (percentStr && percentStr.length > 0) {
+                    // Split by underscore and filter out empty parts
+                    const parts = percentStr.split('_').filter(p => p.length > 0);
+                    
+                    // Check if the last part contains guide flags (it would be a 2-character string with 0/1)
+                    if (parts.length > 0 && parts[parts.length - 1].length === 2 && 
+                        (parts[parts.length - 1][0] === '0' || parts[parts.length - 1][0] === '1') &&
+                        (parts[parts.length - 1][1] === '0' || parts[parts.length - 1][1] === '1')) {
                         
-                        // If no valid percents were parsed, use defaults
-                        if (state.selectedPercents.length === 0) {
-                            state.selectedPercents = ["20", "10", "5", "1"];
-                            // This console logging is no longer needed because features are working fine
-                            // console.warn('No valid percents found, using defaults');
-                        }
+                        // Extract guide flags
+                        const guideFlags = parts.pop();
+                        stateObj.plotGuides = guideFlags[0] === '1';
+                        stateObj.plotCalculatedGuides = guideFlags[1] === '1';
                     }
                     
-                    // Guide flags if provided
-                    if (pParts.length > 3 && pParts[3] && pParts[3].length === 2) {
-                        state.plotGuides = pParts[3][0] === '1';
-                        state.plotCalculatedGuides = pParts[3][1] === '1';
-                        // This console logging is no longer needed because features are working fine
-                        // console.log('Set guide flags to:', state.plotGuides, state.plotCalculatedGuides);
+                    // Remaining parts are percent values
+                    if (parts.length > 0) {
+                        stateObj.selectedPercents = parts;
+                    } else {
+                        // If no valid percents were parsed, use defaults
+                        stateObj.selectedPercents = ["20", "10", "5", "1"];
                     }
                 }
             }
@@ -484,7 +567,7 @@ const nbacc_calculator_state = (() => {
      */
     function hasStateInUrl() {
         const urlParams = new URLSearchParams(window.location.search);
-        const hasParams = urlParams.has('p') || urlParams.has('s') || urlParams.has('g') || urlParams.has('m');
+        const hasParams = urlParams.has('p') || urlParams.has('t') || urlParams.has('pc') || urlParams.has('s') || urlParams.has('g') || urlParams.has('m');
         // This console logging is no longer needed because features are working fine
         // console.log('Checking URL parameters:', window.location.search, 'Has params:', hasParams);
         return hasParams;
