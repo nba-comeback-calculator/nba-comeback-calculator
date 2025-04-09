@@ -717,10 +717,10 @@ function createHoverGuidancePlugin() {
                 
                 // Determine what kind of point this is (scatter or trend line)
                 if (dataset.type === 'scatter') {
-                    guidanceEl.textContent = 'click for game info';
+                    guidanceEl.textContent = 'Click for Game Info';
                     guidanceEl.style.opacity = "1";
                 } else if (dataset.type === 'line') {
-                    guidanceEl.textContent = 'click for trend info';
+                    guidanceEl.textContent = 'Click for Trend Info';
                     guidanceEl.style.opacity = "1";
                 }
             } else {
@@ -743,8 +743,8 @@ function positionGuidanceElement(chart, guidanceEl) {
     const chartArea = chart.chartArea;
     
     // Base margin from edges of chart area
-    const marginTop = 18;
-    const marginLeft = 10;
+    const marginTop = 15; // 3px up from original 18px
+    const marginLeft = 13; // 3px right from original 10px
     
     // Position within the chart area
     guidanceEl.style.top = `${chartArea.top + marginTop}px`;
