@@ -17,7 +17,7 @@ def dict_factory(cursor, row):
 
 # Connect to the NBA games database
 con = sqlite3.connect(
-    "/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v3.sqlite"
+    "/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v4.sqlite"
 )
 con.row_factory = dict_factory
 cursor = con.cursor()
@@ -380,7 +380,7 @@ class PlayByPlay:
 base_path = "../../docs/frontend/source/_static/json/seasons"
 
 # Process each NBA season and create corresponding JSON files
-for year in range(1996, 2025, 1):
+for year in range(2024, 2025, 1):
     print(f"Processing season {year}...")
     games = Games(cursor, start_year=year, stop_year=year)
     games.to_json(f"{base_path}/nba_season_{year}.json.gz")

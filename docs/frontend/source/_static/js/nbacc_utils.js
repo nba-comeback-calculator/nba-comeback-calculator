@@ -23,9 +23,13 @@ const nbacc_utils = (() => {
     // Controls whether to use localStorage for caching data
     // Set to false to disable caching (e.g., for development)
     var __USE_LOCAL_STORAGE_CACHE__ = true;
-
+    
+    // Controls whether to use server file timestamps for cache validation instead of fixed expiration
+    var __USE_SERVER_TIMESTAMPS__ = true;
+    
     // Maximum cache age in milliseconds (1 hour for now, will be increased to 1 day later)
     // 1 hour = 60 * 60 * 1000 = 3,600,000 ms
+    // Only used if __USE_SERVER_TIMESTAMPS__ is false
     var __MAX_CACHE_AGE_MS__ = 1 * 60 * 60 * 1000;
 
     /**
@@ -761,12 +765,13 @@ const nbacc_utils = (() => {
     }
 
     /**
-     * Store data in localStorage with timestamp
+     * Store data in localStorage with timestamp and server last-modified time
      * @param {string} key - The storage key
      * @param {any} data - The data to store (will be JSON stringified)
+     * @param {string} [lastModified] - The Last-Modified header from the server
      * @returns {boolean} - True if storage was successful
      */
-    function setLocalStorageWithTimestamp(key, data) {
+    function setLocalStorageWithTimestamp(key, data, lastModified) {
         if (!__USE_LOCAL_STORAGE_CACHE__) return false;
         
         try {
@@ -775,14 +780,21 @@ const nbacc_utils = (() => {
             
             // Store timestamp metadata
             localStorage.setItem(`${key}_timestamp`, Date.now().toString());
+            
+            // Store the server Last-Modified header if available
+            if (lastModified && __USE_SERVER_TIMESTAMPS__) {
+                localStorage.setItem(`${key}_lastModified`, lastModified);
+            }
+            
             return true;
         } catch (e) {
+            console.error("Error storing in localStorage:", e);
             return false;
         }
     }
     
     /**
-     * Get data from localStorage with timestamp validation
+     * Get data from localStorage with validation
      * @param {string} key - The storage key
      * @returns {any|null} - The stored data or null if not found or expired
      */
@@ -790,19 +802,23 @@ const nbacc_utils = (() => {
         if (!__USE_LOCAL_STORAGE_CACHE__) return null;
         
         try {
-            // Check timestamp first
-            const timestampKey = `${key}_timestamp`;
-            const timestamp = localStorage.getItem(timestampKey);
-            
-            if (timestamp) {
-                const cacheTime = parseInt(timestamp, 10);
-                const now = Date.now();
+            // If using server timestamps, we don't check for expiration here
+            // The timestamp validation will happen in checkIfCacheIsValid when fetching
+            if (!__USE_SERVER_TIMESTAMPS__) {
+                // Check timestamp first
+                const timestampKey = `${key}_timestamp`;
+                const timestamp = localStorage.getItem(timestampKey);
                 
-                // If cache is expired, clear it and return null
-                if (now - cacheTime > __MAX_CACHE_AGE_MS__) {
-                    localStorage.removeItem(key);
-                    localStorage.removeItem(timestampKey);
-                    return null;
+                if (timestamp) {
+                    const cacheTime = parseInt(timestamp, 10);
+                    const now = Date.now();
+                    
+                    // If cache is expired, clear it and return null
+                    if (now - cacheTime > __MAX_CACHE_AGE_MS__) {
+                        localStorage.removeItem(key);
+                        localStorage.removeItem(timestampKey);
+                        return null;
+                    }
                 }
             }
             
@@ -810,7 +826,47 @@ const nbacc_utils = (() => {
             const data = localStorage.getItem(key);
             return data ? JSON.parse(data) : null;
         } catch (e) {
+            console.error("Error retrieving from localStorage:", e);
             return null;
+        }
+    }
+    
+    /**
+     * Checks if the cache is still valid by comparing with server file's Last-Modified
+     * @param {string} key - The storage key
+     * @param {string} url - The URL of the resource
+     * @returns {Promise<boolean>} - True if cache is valid, false if it needs updating
+     */
+    async function checkIfCacheIsValid(key, url) {
+        if (!__USE_LOCAL_STORAGE_CACHE__ || !__USE_SERVER_TIMESTAMPS__) {
+            return false;
+        }
+        
+        try {
+            // Get the cached Last-Modified value
+            const cachedLastModified = localStorage.getItem(`${key}_lastModified`);
+            if (!cachedLastModified) {
+                return false;
+            }
+            
+            // Perform a HEAD request to check the Last-Modified header
+            const response = await fetch(url, { method: 'HEAD' });
+            if (!response.ok) {
+                return true; // If HEAD request fails, assume cache is still valid
+            }
+            
+            const serverLastModified = response.headers.get('Last-Modified');
+            
+            // If server doesn't provide Last-Modified, assume cache is invalid
+            if (!serverLastModified) {
+                return false;
+            }
+            
+            // Compare timestamps
+            return new Date(cachedLastModified).getTime() >= new Date(serverLastModified).getTime();
+        } catch (e) {
+            console.error("Error checking cache validity:", e);
+            return true; // On error, assume cache is valid to prevent excessive requests
         }
     }
     
@@ -821,44 +877,51 @@ const nbacc_utils = (() => {
         if (!__USE_LOCAL_STORAGE_CACHE__) return;
         
         try {
-            // Clean up expired cache entries
-            const now = Date.now();
-            const keysToRemove = [];
-            
-            for (let i = 0; i < localStorage.length; i++) {
-                const key = localStorage.key(i);
+            // If we're using server timestamps, we don't automatically remove entries based on age
+            // Instead, we'll check against server timestamps when the data is requested
+            if (!__USE_SERVER_TIMESTAMPS__) {
+                // Clean up expired cache entries
+                const now = Date.now();
+                const keysToRemove = [];
                 
-                // Only process our cache keys
-                if (key && key.startsWith('nbacc_')) {
-                    try {
-                        // Try to get timestamp metadata
-                        const timestampKey = `${key}_timestamp`;
-                        const timestamp = localStorage.getItem(timestampKey);
-                        
-                        if (timestamp) {
-                            const cacheTime = parseInt(timestamp, 10);
-                            if (now - cacheTime > __MAX_CACHE_AGE_MS__) {
-                                keysToRemove.push(key);
-                                keysToRemove.push(timestampKey);
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    
+                    // Only process our cache data keys (not metadata keys)
+                    if (key && key.startsWith('nbacc_') && !key.endsWith('_timestamp') && !key.endsWith('_lastModified')) {
+                        try {
+                            // Try to get timestamp metadata
+                            const timestampKey = `${key}_timestamp`;
+                            const timestamp = localStorage.getItem(timestampKey);
+                            
+                            if (timestamp) {
+                                const cacheTime = parseInt(timestamp, 10);
+                                if (now - cacheTime > __MAX_CACHE_AGE_MS__) {
+                                    keysToRemove.push(key);
+                                    keysToRemove.push(timestampKey);
+                                    keysToRemove.push(`${key}_lastModified`); // Also remove lastModified if exists
+                                }
                             }
+                        } catch (e) {
+                            // If we can't parse the timestamp, better to remove the item
+                            keysToRemove.push(key);
+                            keysToRemove.push(`${key}_timestamp`);
+                            keysToRemove.push(`${key}_lastModified`);
                         }
-                    } catch (e) {
-                        // If we can't parse the timestamp, better to remove the item
-                        keysToRemove.push(key);
                     }
                 }
+                
+                // Remove expired items
+                keysToRemove.forEach(key => {
+                    try {
+                        localStorage.removeItem(key);
+                    } catch (e) {
+                        // Ignore removal errors
+                    }
+                });
             }
-            
-            // Remove expired items
-            keysToRemove.forEach(key => {
-                try {
-                    localStorage.removeItem(key);
-                } catch (e) {
-                    // Ignore removal errors
-                }
-            });
         } catch (e) {
-            // Ignore any localStorage errors
+            console.error("Error during cache initialization:", e);
         }
     }
     
@@ -871,8 +934,9 @@ const nbacc_utils = (() => {
         
         try {
             const keysToRemove = [];
+            const processedCount = {value: 0};
             
-            // Find all NBACC cache keys
+            // Find all NBACC cache keys (both data and metadata)
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
                 if (key && key.startsWith('nbacc_')) {
@@ -884,13 +948,15 @@ const nbacc_utils = (() => {
             keysToRemove.forEach(key => {
                 try {
                     localStorage.removeItem(key);
+                    processedCount.value++;
                 } catch (e) {
                     // Ignore removal errors
                 }
             });
             
-            return keysToRemove.length;
+            return processedCount.value;
         } catch (e) {
+            console.error("Error clearing cache:", e);
             return 0;
         }
     }
@@ -967,12 +1033,14 @@ const nbacc_utils = (() => {
         formatGameDate,
         setLocalStorageWithTimestamp,
         getLocalStorageWithTimestamp,
+        checkIfCacheIsValid,
         initCacheManagement,
         clearAllCache,
         checkUrlForCacheClear,
         __LOAD_CHART_ON_PAGE_LOAD__,
         __HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__,
         __USE_LOCAL_STORAGE_CACHE__,
+        __USE_SERVER_TIMESTAMPS__,
         __MAX_CACHE_AGE_MS__
     };
 })();

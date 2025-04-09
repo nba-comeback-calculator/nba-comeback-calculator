@@ -46,6 +46,11 @@ eras = [
     (1996, 2024),
 ]
 
+
+breakpoint()
+
+exit()
+
 plot_biggest_deficit(
     json_name=f"{chart_base_path}/twolves_leads/at_4min_all_time.json.gz",
     year_groups=eras,

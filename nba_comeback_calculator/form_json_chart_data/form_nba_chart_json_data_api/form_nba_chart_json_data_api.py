@@ -312,6 +312,7 @@ def plot_biggest_deficit(
     linear_y_axis=False,
     use_logit=False,
 ):
+    breakpoint()
     """
     Generate plots and JSON data showing win probability based on point deficit.
     

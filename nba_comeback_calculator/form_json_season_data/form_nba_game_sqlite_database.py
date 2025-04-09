@@ -94,12 +94,12 @@ remove = False
 
 if remove:
     try:
-        os.unlink("/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v3.sqlite")
+        os.unlink("/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v4.sqlite")
     except EnvironmentError:
         pass
 
 con = sqlite3.connect(
-    "/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v3.sqlite"
+    "/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v4.sqlite"
 )
 
 cursor = con.cursor()
@@ -211,7 +211,7 @@ def get_game_row(game_id, gate_data, season_year, season_type):
 
 
 game_count = 0
-now = datetime.datetime(2025, 4, 10)
+now = datetime.datetime(2025, 4, 12)
 season_types = ["Regular Season", "Playoffs"]
 # season_types = ["Playoffs"]
 # season_types = ["Regular Season"]

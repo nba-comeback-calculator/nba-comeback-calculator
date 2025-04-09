@@ -52,12 +52,13 @@ function getCachedChartData(chartId) {
  * Cache chart data in localStorage
  * @param {string} chartId - The chart ID
  * @param {Object} data - The chart data to cache
+ * @param {string} [lastModified] - The Last-Modified header from the server
  */
-function cacheChartData(chartId, data) {
+function cacheChartData(chartId, data, lastModified) {
     if (!nbacc_utils.__USE_LOCAL_STORAGE_CACHE__) return;
     
-    // Use the utility function with timestamps
-    nbacc_utils.setLocalStorageWithTimestamp(getChartCacheKey(chartId), data);
+    // Use the utility function with timestamps and Last-Modified header
+    nbacc_utils.setLocalStorageWithTimestamp(getChartCacheKey(chartId), data, lastModified);
 }
 
 // Function to check if any part of an element is in the viewport
@@ -158,9 +159,6 @@ async function loadAndPlotChart(chartDiv) {
         typeof nbacc_calculator_state !== 'undefined' && 
         nbacc_calculator_state.hasStateInUrl()) {
         
-        // This console logging is no longer needed because features are working fine
-        // console.log(`Calculator chart with URL parameters detected for ${divId}, using URL data instead of JSON file`);
-        
         // Show loading indicator while calculator processes the URL data
         chartContainer.innerHTML = '<div class="chart-loading">Processing calculator data from URL...</div>';
         
@@ -205,22 +203,40 @@ async function loadAndPlotChart(chartDiv) {
 
     // Show loading indicator within the chart container
     chartContainer.innerHTML = '<div class="chart-loading">Loading chart data...</div>';
-
-    // Try to get chart data from localStorage first
-    let chartData = null;
     
-    if (isChartCached(divId)) {
+    // Construct the URL for the chart data using absolute path from root
+    const rootUrl = window.location.protocol + "//" + window.location.host;
+    const jsonUrl = `${rootUrl}${nbacc_utils.staticDir}/json/charts/${
+        divId.split("_copy")[0]
+    }.json.gz`;
+    
+    let chartData = null;
+    const cacheKey = getChartCacheKey(divId);
+    
+    // Check if we have cached data AND if the server file has changed
+    let useCache = false;
+    
+    if (nbacc_utils.__USE_SERVER_TIMESTAMPS__ && isChartCached(divId)) {
+        try {
+            // First check if cache is still valid based on server's Last-Modified header
+            const isCacheValid = await nbacc_utils.checkIfCacheIsValid(cacheKey, jsonUrl);
+            
+            if (isCacheValid) {
+                // Use cached data if it's still valid
+                chartData = getCachedChartData(divId);
+                useCache = true;
+            }
+        } catch (e) {
+            console.warn("Error checking cache validity, will fetch from server:", e);
+        }
+    } else if (!nbacc_utils.__USE_SERVER_TIMESTAMPS__ && isChartCached(divId)) {
+        // Using time-based expiration instead of Last-Modified headers
         chartData = getCachedChartData(divId);
+        useCache = true;
     }
     
-    // If no cached data, fetch from network
-    if (!chartData) {
-        // Construct the URL for the chart data using absolute path from root
-        const rootUrl = window.location.protocol + "//" + window.location.host;
-        const jsonUrl = `${rootUrl}${nbacc_utils.staticDir}/json/charts/${
-            divId.split("_copy")[0]
-        }.json.gz`;
-
+    // If no cached data or cache is invalid, fetch from network
+    if (!useCache || !chartData) {
         try {
             // Try the absolute path
             let response = await fetch(jsonUrl);
@@ -229,6 +245,9 @@ async function loadAndPlotChart(chartDiv) {
             if (!response.ok) {
                 throw new Error(`Error can't find ${divId}.json!`);
             }
+
+            // Get the Last-Modified header from the response
+            const lastModified = response.headers.get("Last-Modified");
 
             // Check if we have gzipped JSON (based on content type or extension)
             const contentType = response.headers.get("Content-Type");
@@ -245,8 +264,8 @@ async function loadAndPlotChart(chartDiv) {
             // Validate the required attributes early
             validateChartData(chartData);
             
-            // Cache the data for future use
-            cacheChartData(divId, chartData);
+            // Cache the data for future use with the Last-Modified header
+            cacheChartData(divId, chartData, lastModified);
         } catch (error) {
             console.error(`Error loading or validating JSON: ${error.message}`);
             chartContainer.innerHTML = `Error can't find ${divId}.json!`;
