@@ -161,6 +161,16 @@ fullscreen = function(chart, fullScreenButton) {
     return function(event) {
         nbacc_utils.chartJsToolTipClearer(event);
 
+        // First, preemptively hide all configure buttons to prevent flashing
+        const allConfigButtons = document.querySelectorAll(".configure-chart-btn");
+        allConfigButtons.forEach(button => {
+            button.classList.add("configure-chart-btn-disabled");
+            button.disabled = true;
+            button.style.opacity = "0";
+            button.style.visibility = "hidden";
+            button.style.display = "none";
+        });
+
         // Disable page scrolling
         document.body.style.overflow = "hidden";
         
@@ -203,7 +213,23 @@ fullscreen = function(chart, fullScreenButton) {
         configureButtons.forEach(button => {
             button.classList.add("configure-chart-btn-disabled");
             button.disabled = true;
+            // Explicitly set style properties to ensure it's hidden
+            button.style.opacity = "0";
+            button.style.visibility = "hidden";
+            button.style.display = "none";
         });
+        
+        // Double check after a short delay to ensure configure buttons stay hidden
+        setTimeout(() => {
+            const configureButtonsCheck = document.querySelectorAll(".configure-chart-btn");
+            configureButtonsCheck.forEach(button => {
+                button.classList.add("configure-chart-btn-disabled");
+                button.disabled = true;
+                button.style.opacity = "0";
+                button.style.visibility = "hidden";
+                button.style.display = "none";
+            });
+        }, 100);
     };
 };
 
@@ -418,24 +444,26 @@ function exitFullScreen(event) {
     }
 }
 
-// Setup global ESC key handler that uses our global currentFullscreenChart variable
-// COMMENTED OUT - Removed keyboard event listeners as requested
-/*
+// Setup global ESC key handler for non-mobile devices only
 document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape" && lightboxInstance && lightboxInstance.visible()) {
-        // Get the exitFullScreen function from the module scope
+    // Only handle ESC key in fullscreen mode on non-mobile devices
+    if (e.key === "Escape" && 
+        lightboxInstance && 
+        lightboxInstance.visible() && 
+        !nbacc_utils.isMobile()) {
+        
+        // Use exitFullScreen function to properly exit fullscreen mode
         if (typeof nbacc_plotter_ui !== "undefined" && 
             typeof nbacc_plotter_ui.exitFullScreen === "function") {
             nbacc_plotter_ui.exitFullScreen(e);
         } else {
-            // Fallback to just closing the lightbox
+            // Fallback to just closing the lightbox if something goes wrong
             lightboxInstance.close();
             document.body.style.overflow = "";
             currentFullscreenChart = null;
         }
     }
 });
-*/
 
 /**
  * Creates a button container for chart controls
