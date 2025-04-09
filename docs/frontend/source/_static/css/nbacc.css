@@ -259,6 +259,23 @@ canvas {
     padding: 8px 12px;
 }
 
+/* Hover guidance text that appears in top-left of chart plot area */
+.chart-hover-guidance {
+    position: absolute;
+    color: rgba(120, 120, 120, 0.5);
+    font-style: italic;
+    font-weight: bold;
+    font-size: 13px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 10;
+    padding: 4px 8px;
+    border-radius: 3px;
+    background-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
 #chartjs-tooltip.visible {
     opacity: 1;
 }

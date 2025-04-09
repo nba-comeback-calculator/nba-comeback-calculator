@@ -5,6 +5,7 @@
  * - Win count display plugin for scatter points
  * - External tooltip handler with custom positioning
  * - Button position update handling for zoom and pan operations
+ * - Hover guidance text that appears when hovering over points
  * 
  * This module provides Chart.js extensions that enhance the core
  * Chart.js functionality with custom visualizations and interactions.
@@ -151,6 +152,9 @@ function drawWinCountOnPoint(chart, ctx, element, winCount) {
  * @param {Object} chart - The Chart.js chart instance
  */
 // Make updateButtonPositions available globally
+// Make createHoverGuidancePlugin available globally 
+window.createHoverGuidancePlugin = createHoverGuidancePlugin;
+
 window.updateButtonPositions = function(chart) {
     if (!chart || !chart.canvas) {
         return; // Exit early if chart is invalid
@@ -634,6 +638,117 @@ function setupTooltipCloseButton(tooltipEl) {
             return false;
         });
     }
+}
+
+/**
+ * Creates a hover guidance plugin that shows text when hovering over points
+ * @returns {Object} Chart.js plugin object
+ */
+function createHoverGuidancePlugin() {
+    return {
+        id: "hoverGuidancePlugin",
+        afterInit: (chart) => {
+            // Add hover guidance element if it doesn't exist yet
+            if (!chart.canvas.parentElement.querySelector('.chart-hover-guidance')) {
+                const guidanceEl = document.createElement('div');
+                guidanceEl.className = 'chart-hover-guidance';
+                chart.canvas.parentElement.appendChild(guidanceEl);
+                
+                // Position the guidance element within the chart area
+                setTimeout(() => {
+                    if (chart.chartArea) {
+                        positionGuidanceElement(chart, guidanceEl);
+                    }
+                }, 100);
+            }
+        },
+        afterLayout: (chart) => {
+            // Reposition the guidance element when the chart layout changes
+            const guidanceEl = chart.canvas.parentElement.querySelector('.chart-hover-guidance');
+            if (guidanceEl) {
+                positionGuidanceElement(chart, guidanceEl);
+            }
+        },
+        beforeEvent: (chart, args) => {
+            // Skip on mobile devices
+            if (nbacc_utils.isMobile()) return;
+            
+            // Skip if chart is in fullscreen mode
+            if (chart.isFullscreen) return;
+            
+            const event = args.event;
+            const tooltipEl = document.getElementById("chartjs-tooltip");
+            const guidanceEl = chart.canvas.parentElement.querySelector('.chart-hover-guidance');
+            
+            if (!guidanceEl) return;
+            
+            // Ensure the guidance element is positioned within the chart area
+            positionGuidanceElement(chart, guidanceEl);
+            
+            // Check if this is a click event - if so, hide the guidance
+            if (event.type === 'click') {
+                guidanceEl.style.opacity = "0";
+                return;
+            }
+            
+            // If tooltip is visible, hide guidance
+            if (tooltipEl && tooltipEl.style.opacity !== "0" && 
+                tooltipEl.getAttribute("data-sticky") === "true") {
+                guidanceEl.style.opacity = "0";
+                return;
+            }
+            
+            // Only handle mousemove events for showing guidance
+            if (event.type !== 'mousemove') return;
+            
+            // Get active elements
+            const activeElements = chart.getElementsAtEventForMode(
+                event,
+                'nearest',
+                { intersect: true },
+                false
+            );
+            
+            // Show or hide guidance text based on whether the mouse is over a data point
+            if (activeElements.length > 0) {
+                const element = activeElements[0];
+                const datasetIndex = element.datasetIndex;
+                const dataset = chart.data.datasets[datasetIndex];
+                
+                // Determine what kind of point this is (scatter or trend line)
+                if (dataset.type === 'scatter') {
+                    guidanceEl.textContent = 'click for game info';
+                    guidanceEl.style.opacity = "1";
+                } else if (dataset.type === 'line') {
+                    guidanceEl.textContent = 'click for trend info';
+                    guidanceEl.style.opacity = "1";
+                }
+            } else {
+                // Not hovering over a point
+                guidanceEl.style.opacity = "0";
+            }
+        }
+    };
+}
+
+/**
+ * Positions the guidance element within the chart area
+ * @param {Object} chart - The Chart.js chart instance
+ * @param {HTMLElement} guidanceEl - The guidance element
+ */
+function positionGuidanceElement(chart, guidanceEl) {
+    if (!chart.chartArea) return;
+    
+    // Position the guidance in the upper left of the chart area
+    const chartArea = chart.chartArea;
+    
+    // Base margin from edges of chart area
+    const marginTop = 18;
+    const marginLeft = 10;
+    
+    // Position within the chart area
+    guidanceEl.style.top = `${chartArea.top + marginTop}px`;
+    guidanceEl.style.left = `${chartArea.left + marginLeft}px`;
 }
 
 /**

@@ -251,7 +251,9 @@ nbacc_plotter_data = (() => {
                     // Create our own instance of the background plugin
                     createPlotBackgroundPlugin(),
                     createWinCountPlugin(chartData),
-                ], // Add both plugins
+                    // Add hover guidance plugin for desktop users
+                    createHoverGuidancePlugin(),
+                ], // Add all plugins
             };
         }
 
