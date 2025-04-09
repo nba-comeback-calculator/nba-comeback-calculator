@@ -378,6 +378,18 @@ function exitFullScreen(event) {
             button.disabled = false;
         });
         
+        // Double-check after a short delay to ensure configure buttons are fully restored
+        setTimeout(() => {
+            const configureButtonsCheck = document.querySelectorAll(".configure-chart-btn");
+            configureButtonsCheck.forEach(button => {
+                button.classList.remove("configure-chart-btn-disabled");
+                button.disabled = false;
+                button.style.opacity = "1";
+                button.style.visibility = "visible";
+                button.style.display = "flex";
+            });
+        }, 100);
+        
         // For calculator charts, do extra validation of button state
         if (chartToRestore.canvas?.id === "nbacc_calculator_chart" ||
             chartToRestore.canvas?.id?.endsWith("-canvas")) {

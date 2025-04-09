@@ -205,7 +205,7 @@ canvas {
 .nba-fullscreen-lightbox.basicLightbox {
     position: fixed;
     z-index: 10000 !important; /* Ultra-high z-index to override everything */
-    background-color: rgba(225, 225, 225, 0.90); /* Nearly white background */
+    background-color: rgba(60, 60, 60, 0.95); /* Slightly lighter dark grey background */
 }
 
 .nba-fullscreen-lightbox .basicLightbox__placeholder {
@@ -456,8 +456,10 @@ canvas {
 
 /* Class for disabled configure button in fullscreen */
 .configure-chart-btn-disabled {
-    opacity: 0.5;
+    opacity: 0;
     pointer-events: none;
     cursor: not-allowed;
+    visibility: hidden;
+    display: none;
 }
 
