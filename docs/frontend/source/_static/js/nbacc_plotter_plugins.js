@@ -284,6 +284,8 @@ window.externalTooltipHandler = (context) => {
         
         // Skip tooltips on mobile unless in fullscreen mode
         if (nbacc_utils.isMobile() && !context.chart.isFullscreen) {
+            // For mobile not in fullscreen, don't create any tooltip element at all
+            // Don't even make an invisible tooltip - just exit immediately
             return;
         }
 

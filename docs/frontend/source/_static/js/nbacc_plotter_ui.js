@@ -159,6 +159,16 @@ function applyFullscreenDimensions(chart, chartContainer) {
  */
 fullscreen = function(chart, fullScreenButton) {
     return function(event) {
+        // PRE-EMPTIVELY: Hide any tooltip BEFORE doing anything else
+        // This prevents tooltip flashing during transition
+        //const tooltipEl = document.getElementById("chartjs-tooltip");
+        //if (tooltipEl) {
+        //    tooltipEl.style.opacity = 0;
+        //    tooltipEl.style.display = 'none';
+        //    tooltipEl.style.visibility = 'hidden';
+        //}
+        
+        // Now clear tooltip through normal means
         nbacc_utils.chartJsToolTipClearer(event);
 
         // First, preemptively hide all configure buttons to prevent flashing
@@ -174,6 +184,24 @@ fullscreen = function(chart, fullScreenButton) {
         // Disable page scrolling
         document.body.style.overflow = "hidden";
         
+        // IMPORTANT: Clear all tooltips when entering fullscreen mode
+        // This ensures a fresh start in fullscreen with no lingering tooltips
+        nbacc_utils.clearTooltipContent();
+        
+        // Reset last click event timestamp to prevent tooltips from reappearing
+        if (chart) {
+            // Reset any click event timestamps
+            chart.lastClickEvent = 0;
+        }
+        
+        // Force hide any existing tooltip element
+        const tooltipElAgain = document.getElementById("chartjs-tooltip");
+        if (tooltipElAgain) {
+            tooltipElAgain.style.opacity = 0;
+            tooltipElAgain.style.display = 'none';
+            tooltipElAgain.innerHTML = "<table></table>";
+        }
+        
         // Get the latest chart instance in case it's been recreated
         const chartId = chart.canvas.id;
         if (chartId) {
@@ -184,6 +212,12 @@ fullscreen = function(chart, fullScreenButton) {
         // Store the current chart in our global variable for access by ESC key handler
         currentFullscreenChart = chart;
 
+        // IMPORTANT: Remove any tooltip elements BEFORE the lightbox shows
+        //const tooltipElementToRemove = document.getElementById("chartjs-tooltip");
+        //if (tooltipElementToRemove && tooltipElementToRemove.parentNode) {
+        //    tooltipElementToRemove.parentNode.removeChild(tooltipElementToRemove);
+        //}
+        
         // Show lightbox
         lightboxInstance.show();
 
