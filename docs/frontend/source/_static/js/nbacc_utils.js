@@ -171,7 +171,7 @@ const nbacc_utils = (() => {
             tooltipEl.style.opacity = 0;
             tooltipEl.setAttribute("data-sticky", "false");
 
-            // Remove all content and event listeners
+            // Completely replace the table to remove all event listeners
             const oldTable = tooltipEl.querySelector("table");
             if (oldTable) {
                 tooltipEl.removeChild(oldTable);

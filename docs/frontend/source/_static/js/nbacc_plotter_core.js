@@ -459,12 +459,6 @@ document.addEventListener('click', function(event) {
             if (canvas.contains(event.target)) {
                 const chartInstance = Chart.getChart(canvas);
                 if (chartInstance) {
-                    // Don't set click timestamp on mobile if not in fullscreen
-                    if (nbacc_utils.isMobile() && !chartInstance.isFullscreen) {
-                        // In mobile non-fullscreen mode, we don't want tooltip clicks
-                        return;
-                    }
-                    
                     // Set last click timestamp
                     chartInstance.lastClickEvent = new Date().getTime();
                 }
