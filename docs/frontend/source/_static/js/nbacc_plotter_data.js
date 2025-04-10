@@ -232,7 +232,7 @@ nbacc_plotter_data = (() => {
                     responsive: true,
                     maintainAspectRatio: false, // Better control over dimensions
                     // Global interactions setting
-                    events: ['mousemove', 'click', 'mouseout'], // Include mousemove for hover effects, click for tooltips
+                    events: ["mousemove", "click", "mouseout"], // Include mousemove for hover effects, click for tooltips
                     interaction: {
                         mode: "nearest",
                         intersect: true, // Require direct intersection
@@ -336,13 +336,13 @@ nbacc_plotter_data = (() => {
                 intersect: true, // Require direct intersection
                 axis: "xy", // Consider both axes for nearest point
                 hoverRadius: 8, // Balanced hover sensitivity for growing effect
-                events: function(context) {
+                events: function (context) {
                     // Use both click and mousemove for fullscreen mobile
                     if (isMobile() && context.chart && context.chart.isFullscreen) {
-                        return ['mousemove', 'click'];
+                        return ["mousemove", "click"];
                     }
                     // Otherwise only use click for tooltip trigger
-                    return ['click'];
+                    return ["click"];
                 }, // Dynamic event handling based on context
                 callbacks: {
                     // Title callback still used by external handler
@@ -416,10 +416,10 @@ nbacc_plotter_data = (() => {
 
             // Format x value with no decimal places
             const xValue = parseFloat(dataPoint.x).toFixed(0);
-            
+
             // Check if we're dealing with a Record line
             const isRecordLine = dataset.label && dataset.label.includes("Record");
-            
+
             // If this is a time_v_point_margin plot and the user clicked on the Record line,
             // show both Minutes Remaining and Points Down values
             if (chartData.plot_type === "time_v_point_margin" && isRecordLine) {
@@ -432,7 +432,7 @@ nbacc_plotter_data = (() => {
                     return `${chartData.x_label} = ${xValue}<br>Points Down: ${pointsDown}`;
                 }
             }
-            
+
             // Default header for all other cases - use the x_label from the chart data
             // For trend lines, always use "=" regardless of or_less/or_more values
             // Trend lines should always show "Point Margin = X" format
@@ -505,15 +505,23 @@ nbacc_plotter_data = (() => {
                 // Check for special cases of or_less and or_more
                 const line = chartData.lines && chartData.lines[lineIndex];
                 let pointMarginLabel;
-                
-                if (line && line.or_less_point_margin !== undefined && pointData.x_value === line.or_less_point_margin) {
+
+                if (
+                    line &&
+                    line.or_less_point_margin !== undefined &&
+                    pointData.x_value === line.or_less_point_margin
+                ) {
                     pointMarginLabel = `${chartData.x_label} <= ${pointData.x_value}`;
-                } else if (line && line.or_more_point_margin !== undefined && pointData.x_value === line.or_more_point_margin) {
+                } else if (
+                    line &&
+                    line.or_more_point_margin !== undefined &&
+                    pointData.x_value === line.or_more_point_margin
+                ) {
                     pointMarginLabel = `${chartData.x_label} >= ${pointData.x_value}`;
                 } else {
                     pointMarginLabel = `${chartData.x_label} = ${pointData.x_value}`;
                 }
-                
+
                 return `<div style="text-align: left;">${pointMarginLabel}<br/>Occurs: ${
                     pointData.game_count
                 } out of ${numberOfGames} Total Games<br/>Occurs %: ${(
@@ -521,17 +529,20 @@ nbacc_plotter_data = (() => {
                 ).toFixed(2)}</div>`;
             } else {
                 // Check if this is a Record line in time_v_point_margin plot
-                const isRecordLine = chartData.plot_type === "time_v_point_margin" && 
-                                   chartData.lines[lineIndex].legend === "Record";
-                
+                const isRecordLine =
+                    chartData.plot_type === "time_v_point_margin" &&
+                    chartData.lines[lineIndex].legend === "Record";
+
                 if (isRecordLine) {
                     // For Record line, include both Minutes Remaining and Points Down
                     const pointsDown = Math.round(pointData.y_value);
-                    
+
                     // Always use "=" for Record line time values
                     const timeLabel = `${chartData.x_label} = ${pointData.x_value}`;
-                    
-                    return `<div style="text-align: left;">${timeLabel}<br/>Points Down: ${pointsDown}<br/>Wins: ${pointData.win_count} out of ${
+
+                    return `<div style="text-align: left;">${timeLabel}<br/>Points Down: ${pointsDown}<br/>Wins: ${
+                        pointData.win_count
+                    } out of ${
                         pointData.game_count
                     } Total Games<br/>Win %: ${winPercent}<br/>Occurs %: ${(
                         pointData.point_margin_occurs_percent * 100
@@ -541,16 +552,26 @@ nbacc_plotter_data = (() => {
                     // Check for special cases of or_less and or_more
                     const line = chartData.lines && chartData.lines[lineIndex];
                     let pointMarginLabel;
-                    
-                    if (line && line.or_less_point_margin !== undefined && pointData.x_value === line.or_less_point_margin) {
+
+                    if (
+                        line &&
+                        line.or_less_point_margin !== undefined &&
+                        pointData.x_value === line.or_less_point_margin
+                    ) {
                         pointMarginLabel = `${chartData.x_label} <= ${pointData.x_value}`;
-                    } else if (line && line.or_more_point_margin !== undefined && pointData.x_value === line.or_more_point_margin) {
+                    } else if (
+                        line &&
+                        line.or_more_point_margin !== undefined &&
+                        pointData.x_value === line.or_more_point_margin
+                    ) {
                         pointMarginLabel = `${chartData.x_label} >= ${pointData.x_value}`;
                     } else {
                         pointMarginLabel = `${chartData.x_label} = ${pointData.x_value}`;
                     }
-                    
-                    return `<div style="text-align: left;">${pointMarginLabel}<br/>Wins: ${pointData.win_count} out of ${
+
+                    return `<div style="text-align: left;">${pointMarginLabel}<br/>Wins: ${
+                        pointData.win_count
+                    } out of ${
                         pointData.game_count
                     } Total Games<br/>Win %: ${winPercent}<br/>Occurs %: ${(
                         pointData.point_margin_occurs_percent * 100
@@ -707,15 +728,15 @@ nbacc_plotter_data = (() => {
 
         // Store a direct reference to the original chart data in the config object
         chartConfig.chartData = chartData;
-        
+
         // Also store pointMarginData in the config for access in tooltip handlers
         chartConfig.pointMarginData = pointMarginData;
-        
+
         // Also store each line's m and b coefficients directly for easier access in tooltips
-        chartConfig.lineCoefficients = chartData.lines.map(line => ({
+        chartConfig.lineCoefficients = chartData.lines.map((line) => ({
             legend: line.legend,
             m: line.m,
-            b: line.b
+            b: line.b,
         }));
 
         // Do not add datasets here - this will be handled by nbacc_plotter_core.js
@@ -762,7 +783,7 @@ nbacc_plotter_data = (() => {
             // Make sticky permanently
             tooltipEl.setAttribute("data-sticky", "true");
         }
-        
+
         // Get the point data
         const dataPoint = dataset.data[index];
         if (!dataPoint) return "";
@@ -772,47 +793,56 @@ nbacc_plotter_data = (() => {
 
         let bodyHtml = "";
         const colors = getColorWheel(0.8);
-        
+
         // IMPORTANT: Get chart-specific data to avoid cross-chart contamination
         // First try to get pointMarginData from the chart instance itself (preferred)
-        const chartPointMarginData = context.chart.pointMarginData || 
-                                    (context.chart.options && context.chart.options.pointMarginData) ||
-                                    modulePointMarginData;
-        
+        const chartPointMarginData =
+            context.chart.pointMarginData ||
+            (context.chart.options && context.chart.options.pointMarginData) ||
+            modulePointMarginData;
+
         // Get line coefficients from the chart
-        const lineCoefficients = context.chart.lineCoefficients || 
-                                (context.chart.options && context.chart.options.lineCoefficients) || 
-                                [];
+        const lineCoefficients =
+            context.chart.lineCoefficients ||
+            (context.chart.options && context.chart.options.lineCoefficients) ||
+            [];
 
         // For point_margin_v_win_percent plots, we must use the line coefficients
         if (context.chart.plotType === "point_margin_v_win_percent") {
             // Must have line coefficients available
-            if (lineCoefficients.length === 0 || typeof Num === 'undefined') {
-                throw new Error("Line coefficients or Num class not available for tooltip calculation");
+            if (lineCoefficients.length === 0 || typeof Num === "undefined") {
+                throw new Error(
+                    "Line coefficients or Num class not available for tooltip calculation"
+                );
             }
-            
+
             lineCoefficients.forEach((lineCoef, i) => {
                 // Must have m and b coefficients
                 if (lineCoef.m === undefined || lineCoef.b === undefined) {
-                    throw new Error(`Missing m or b coefficient for line ${lineCoef.legend}`);
+                    throw new Error(
+                        `Missing m or b coefficient for line ${lineCoef.legend}`
+                    );
                 }
-                
+
                 // Calculate y-value using line equation y = mx + b
                 const y = lineCoef.m * parseInt(xValue) + lineCoef.b;
-                
+
                 // Calculate win percentage using normalCDF
                 const winPercentage = (100.0 * Num.CDF(y)).toFixed(2);
-                
+
                 // Get the color for this line
                 const color = colors[i % colors.length];
-                
+
                 // Remove the "(XXXX Total Games)" part from the legend text
-                const cleanLegend = lineCoef.legend.replace(/\s+\(\d+\s+Total\s+Games\)$/, "");
-                
+                const cleanLegend = lineCoef.legend.replace(
+                    /\s+\(\d+\s+Total\s+Games\)$/,
+                    ""
+                );
+
                 // Show win percentages
                 const lineContent = `<span class="color-indicator" style="background-color:${color};"></span>
                 <span class="legend-text">${cleanLegend}:</span> <span class="legend-text">Win %= ${winPercentage}</span>`;
-                
+
                 // Add to body HTML
                 bodyHtml += `<tr><td>
                 ${lineContent}
@@ -822,12 +852,12 @@ nbacc_plotter_data = (() => {
         // For time_v_point_margin plots, use pre-calculated data
         else if (context.chart.plotType === "time_v_point_margin") {
             // Already defined chartPointMarginData for consistency across code paths
-            
+
             // This console logging is no longer needed because features are working fine
-            // console.debug(`Chart tooltip for time ${xValue}, using chart-specific data:`, 
-            //              !!context.chart.pointMarginData, 
+            // console.debug(`Chart tooltip for time ${xValue}, using chart-specific data:`,
+            //              !!context.chart.pointMarginData,
             //              `Chart ID: ${context.chart.id}`);
-            
+
             // Check if we have pre-calculated point margin data
             if (!chartPointMarginData[xValue]) {
                 // Instead of throwing an error, just return the existing body HTML
@@ -836,36 +866,42 @@ nbacc_plotter_data = (() => {
                 // console.warn(`No pre-calculated data available for time ${xValue} in chart ${context.chart.id}`);
                 return bodyHtml;
             }
-            
+
             // Loop through all lines and add their data from pre-calculated values
-            Object.entries(chartPointMarginData[xValue]).forEach(([legend, data], i) => {
-                // Skip if pointValue is missing
-                if (data.pointValue === undefined) {
-                    // This console logging is no longer needed because features are working fine
-                    // console.warn(`Missing pointValue for line ${legend} at time ${xValue}`);
-                    return; // Skip this entry instead of throwing error
-                }
-                
-                // Remove the "(XXXX Total Games)" part from the legend text
-                const cleanLegend = legend.replace(/\s+\(\d+\s+Total\s+Games\)$/, "");
-    
-                // Get the color for this line
-                const color = colors[i % colors.length];
-    
-                // Show point values for time_v_point_margin
-                // For Record legend, round to integer to fix the -28.20 issue
-                const displayValue = cleanLegend === "Record" 
-                    ? Math.round(data.pointValue)  // Round to integer for Record
-                    : data.pointValue.toFixed(2);  // Keep decimals for other percentages
-                
-                const lineContent = `<span class="color-indicator" style="background-color:${color};"></span>
+            Object.entries(chartPointMarginData[xValue]).forEach(
+                ([legend, data], i) => {
+                    // Skip if pointValue is missing
+                    if (data.pointValue === undefined) {
+                        // This console logging is no longer needed because features are working fine
+                        // console.warn(`Missing pointValue for line ${legend} at time ${xValue}`);
+                        return; // Skip this entry instead of throwing error
+                    }
+
+                    // Remove the "(XXXX Total Games)" part from the legend text
+                    const cleanLegend = legend.replace(
+                        /\s+\(\d+\s+Total\s+Games\)$/,
+                        ""
+                    );
+
+                    // Get the color for this line
+                    const color = colors[i % colors.length];
+
+                    // Show point values for time_v_point_margin
+                    // For Record legend, round to integer to fix the -28.20 issue
+                    const displayValue =
+                        cleanLegend === "Record"
+                            ? Math.round(data.pointValue) // Round to integer for Record
+                            : data.pointValue.toFixed(2); // Keep decimals for other percentages
+
+                    const lineContent = `<span class="color-indicator" style="background-color:${color};"></span>
                 <span class="legend-text">${cleanLegend}:</span> <span class="legend-text">${displayValue} Points</span>`;
-    
-                // Add to body HTML
-                bodyHtml += `<tr><td>
+
+                    // Add to body HTML
+                    bodyHtml += `<tr><td>
                 ${lineContent}
             </td></tr>`;
-            });
+                }
+            );
         } else {
             console.warn(`Unknown plot type: ${context.chart.plotType}`);
             return bodyHtml; // Return existing body HTML instead of throwing
@@ -901,7 +937,7 @@ nbacc_plotter_data = (() => {
             // Make sticky permanently
             tooltipEl.setAttribute("data-sticky", "true");
         }
-        
+
         // Ensure we have all required parameters
         if (
             !context ||
@@ -1035,7 +1071,8 @@ nbacc_plotter_data = (() => {
 
             if (notOccurredGames && notOccurredGames.length > 0) {
                 // For not occurred games, we need to calculate how many did not occur
-                const notOccurredCount = chartData.lines[lineIndex].number_of_games - pointData.game_count;
+                const notOccurredCount =
+                    chartData.lines[lineIndex].number_of_games - pointData.game_count;
                 bodyHtml += nbacc_utils.renderGameExamples(
                     notOccurredGames,
                     "Not occurred examples:",
@@ -1079,22 +1116,25 @@ nbacc_plotter_data = (() => {
     // Custom external tooltip handler that supports HTML and sticky behavior
     const externalTooltipHandler = function (context) {
         // Check if this is a click event
-        const isClick = context.chart && 
-                       context.chart.lastClickEvent && 
-                       (new Date().getTime() - context.chart.lastClickEvent) < 500;
-        
+        const isClick =
+            context.chart &&
+            context.chart.lastClickEvent &&
+            new Date().getTime() - context.chart.lastClickEvent < 500;
+
         // Get the event type from context if available
-        const eventType = context.tooltip && context.tooltip.opacity === 1 ? 'click' : 'mousemove';
-        
+        const eventType =
+            context.tooltip && context.tooltip.opacity === 1 ? "click" : "mousemove";
+
         // Handle mobile tooltip behavior
         if (typeof isMobile === "function" && isMobile()) {
             // Check if we're in fullscreen mode
-            const isFullscreen = context.chart && context.chart.isFullscreen;
-            
+            const isFullscreen = context.chart && context.chart.isFullscreenTooltips;
+
             // Check the configuration flag
-            const allowClickWhenNotFullscreen = typeof nbacc_utils !== "undefined" && 
+            const allowClickWhenNotFullscreen =
+                typeof nbacc_utils !== "undefined" &&
                 nbacc_utils.__HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__ === true;
-            
+
             // On mobile, only show tooltips in fullscreen mode
             // Keep the special handling for fullscreen to allow hover effects
             if (isFullscreen) {
@@ -1186,7 +1226,7 @@ nbacc_plotter_data = (() => {
         // Add mouse enter event - make tooltip sticky permanently
         tooltipEl.addEventListener("mouseenter", () => {
             tooltipEl.setAttribute("data-sticky", "true");
-            
+
             // Clear any auto-hide timeout that may have been set
             if (tooltipEl.stickyTimeout) {
                 clearTimeout(tooltipEl.stickyTimeout);
@@ -1212,10 +1252,10 @@ nbacc_plotter_data = (() => {
         // Get current stickiness state
         const isSticky = tooltipEl.getAttribute("data-sticky") === "true";
         const isHovered = tooltipEl.matches(":hover");
-        
+
         // For click events, make the tooltip sticky immediately
         const event = window.event || {};
-        if (event.type === 'click') {
+        if (event.type === "click") {
             tooltipEl.setAttribute("data-sticky", "true");
             // Clear any hide timers
             if (tooltipEl.hideTimer) {
@@ -1224,34 +1264,35 @@ nbacc_plotter_data = (() => {
             }
             return true;
         }
-        
+
         // Prevent hiding when hovering on tooltip or when sticky is true
         if (isHovered || isSticky) {
             return true;
         }
-        
+
         // Special handling for mobile fullscreen mode - allow mousemove events to show tooltip
-        if (event.type === 'mousemove') {
+        if (event.type === "mousemove") {
             // Check if we're in mobile fullscreen mode
             const chartInstance = tooltipModel.chart;
-            const isMobileFullscreen = typeof isMobile === "function" && 
-                                      isMobile() && 
-                                      chartInstance && 
-                                      chartInstance.isFullscreen;
-            
+            const isMobileFullscreen =
+                typeof isMobile === "function" &&
+                isMobile() &&
+                chartInstance &&
+                chartInstance.isFullscreen;
+
             // Allow tooltip on mousemove for mobile fullscreen
             if (isMobileFullscreen) {
                 // Make tooltip sticky for better mobile experience
                 tooltipEl.setAttribute("data-sticky", "true");
                 return true;
             }
-            
+
             // Otherwise, don't show tooltip on mousemove when not sticky
             if (!isSticky) {
                 return false;
             }
         }
-        
+
         // Cancel any hide timers if we're showing the tooltip
         if (tooltipEl.hideTimer) {
             clearTimeout(tooltipEl.hideTimer);
@@ -1555,6 +1596,6 @@ nbacc_plotter_data = (() => {
         createWinCountPlugin,
         // Export tooltip generation functions for use in other modules
         generateRegressionLineTooltipBody,
-        generateScatterPointTooltipBody
+        generateScatterPointTooltipBody,
     };
 })();
