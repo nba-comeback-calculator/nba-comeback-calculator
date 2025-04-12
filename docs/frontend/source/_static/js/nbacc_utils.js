@@ -27,10 +27,10 @@ const nbacc_utils = (() => {
     // Controls whether to use server file timestamps for cache validation instead of fixed expiration
     var __USE_SERVER_TIMESTAMPS__ = true;
     
-    // Maximum cache age in milliseconds (1 hour for now, will be increased to 1 day later)
-    // 1 hour = 60 * 60 * 1000 = 3,600,000 ms
+    // Maximum cache age in milliseconds (1 day)
+    // 1 day = 24 * 60 * 60 * 1000 = 86,400,000 ms
     // Only used if __USE_SERVER_TIMESTAMPS__ is false
-    var __MAX_CACHE_AGE_MS__ = 1 * 60 * 60 * 1000;
+    var __MAX_CACHE_AGE_MS__ = 24 * 60 * 60 * 1000;
 
     /**
      * Reads and decompresses a gzipped JSON file from a URL or Response object
@@ -775,6 +775,11 @@ const nbacc_utils = (() => {
         if (!__USE_LOCAL_STORAGE_CACHE__) return false;
         
         try {
+            // Try to clear some space first if localStorage is getting full
+            if (isLocalStorageAlmostFull()) {
+                pruneOldestCacheEntries();
+            }
+            
             // Store the data
             localStorage.setItem(key, JSON.stringify(data));
             
@@ -790,6 +795,77 @@ const nbacc_utils = (() => {
         } catch (e) {
             console.error("Error storing in localStorage:", e);
             return false;
+        }
+    }
+    
+    /**
+     * Checks if localStorage is getting close to its quota
+     * @returns {boolean} True if localStorage is more than 80% full
+     */
+    function isLocalStorageAlmostFull() {
+        try {
+            // Estimate localStorage usage
+            let totalSize = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const value = localStorage.getItem(key);
+                totalSize += (key.length + value.length) * 2; // Unicode characters take 2 bytes
+            }
+            
+            // Default quota is typically 5MB (5,242,880 bytes)
+            // Consider it almost full if using more than 80% of estimated quota
+            const estimatedQuota = 5 * 1024 * 1024; // 5MB in bytes
+            return totalSize > (estimatedQuota * 0.8);
+        } catch (e) {
+            console.error("Error checking localStorage size:", e);
+            return true; // Assume it's almost full if we can't check
+        }
+    }
+    
+    /**
+     * Removes oldest cache entries to free up space
+     * Removes up to 20% of the cached entries, starting with the oldest
+     */
+    function pruneOldestCacheEntries() {
+        try {
+            // Collect all cache entries with their timestamps
+            const cacheEntries = [];
+            
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                
+                // Only process data keys (not metadata keys)
+                if (key && key.startsWith('nbacc_') && !key.endsWith('_timestamp') && !key.endsWith('_lastModified')) {
+                    const timestampKey = `${key}_timestamp`;
+                    const timestamp = localStorage.getItem(timestampKey);
+                    
+                    if (timestamp) {
+                        cacheEntries.push({
+                            key: key,
+                            timestamp: parseInt(timestamp, 10)
+                        });
+                    }
+                }
+            }
+            
+            // Sort by timestamp (oldest first)
+            cacheEntries.sort((a, b) => a.timestamp - b.timestamp);
+            
+            // Remove oldest 20% of entries
+            const entriesToRemove = Math.ceil(cacheEntries.length * 0.2);
+            
+            for (let i = 0; i < entriesToRemove; i++) {
+                if (i < cacheEntries.length) {
+                    const key = cacheEntries[i].key;
+                    localStorage.removeItem(key);
+                    localStorage.removeItem(`${key}_timestamp`);
+                    localStorage.removeItem(`${key}_lastModified`);
+                }
+            }
+            
+            // console.log(`Pruned ${entriesToRemove} oldest cache entries to free up space`);
+        } catch (e) {
+            console.error("Error pruning cache entries:", e);
         }
     }
     
@@ -1037,6 +1113,8 @@ const nbacc_utils = (() => {
         initCacheManagement,
         clearAllCache,
         checkUrlForCacheClear,
+        isLocalStorageAlmostFull,
+        pruneOldestCacheEntries,
         __LOAD_CHART_ON_PAGE_LOAD__,
         __HOVER_PLOTS_ON_CLICK_ON_MOBILE_NOT_FULLSCREEN__,
         __USE_LOCAL_STORAGE_CACHE__,

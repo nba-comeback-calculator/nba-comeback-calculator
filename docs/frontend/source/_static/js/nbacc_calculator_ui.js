@@ -1277,7 +1277,7 @@ const nbacc_calculator_ui = (() => {
 
         // Make sure the chart container exists
         if (!chartContainer) {
-            console.error("Chart container not found");
+            // Silently return if chart container is not found
             return;
         }
 
@@ -1292,7 +1292,7 @@ const nbacc_calculator_ui = (() => {
         try {
             // Check if year groups exist
             if (!state.yearGroups || state.yearGroups.length === 0) {
-                console.error("No year groups defined");
+                // No year groups defined
                 chartContainer.innerHTML = '<div class="error">Please add at least one season range before calculating.</div>';
                 return;
             }
@@ -1320,7 +1320,7 @@ const nbacc_calculator_ui = (() => {
                             // );
                         })
                         .catch((error) => {
-                            console.error(`Failed to load season ${year}:`, error);
+                            // Silently handle season loading error
                             // Create a minimal empty season to avoid breaking the calculator
                             // Create an instance of Season with minimal data to avoid errors
                             const emptySeason =
@@ -1570,49 +1570,16 @@ const nbacc_calculator_ui = (() => {
                 setTimeout(forceButtonVisibility, 100);
                 setTimeout(forceButtonVisibility, 250);
             } catch (error) {
-                console.error("Error rendering chart:", error);
+                // Silently handle rendering error
                 throw new Error("Failed to render chart: " + error.message);
             }
         } catch (error) {
-            console.error("Error calculating chart:", error);
+            // Silently handle calculation error
 
             // Create a detailed error message
             let errorMessage = error.message;
 
-            // Add direct debugging information to the console to help users
-            console.log("Modules available:");
-            try {
-                console.log(
-                    "- nbacc_utils: " +
-                        (typeof nbacc_utils !== "undefined" ? "Yes" : "No")
-                );
-            } catch (e) {
-                console.log("- nbacc_utils: No");
-            }
-            try {
-                console.log(
-                    "- nbacc_plotter_data: " +
-                        (typeof nbacc_plotter_data !== "undefined" ? "Yes" : "No")
-                );
-            } catch (e) {
-                console.log("- nbacc_plotter_data: No");
-            }
-            try {
-                console.log(
-                    "- nbacc_plotter_core: " +
-                        (typeof nbacc_plotter_core !== "undefined" ? "Yes" : "No")
-                );
-            } catch (e) {
-                console.log("- nbacc_plotter_core: No");
-            }
-            try {
-                console.log(
-                    "- nbacc_calculator_api: " +
-                        (typeof nbacc_calculator_api !== "undefined" ? "Yes" : "No")
-                );
-            } catch (e) {
-                console.log("- nbacc_calculator_api: No");
-            }
+            // Module availability check removed to prevent console logging
 
             // Check if it's a file loading error or a module loading error
             if (
@@ -1650,14 +1617,14 @@ const nbacc_calculator_ui = (() => {
         // Get the target chart div
         const targetDiv = document.getElementById(targetChartId);
         if (!targetDiv) {
-            console.error(`Target chart div with ID ${targetChartId} not found`);
+            // Silently return if target chart div not found
             return;
         }
         
         // Get the chart container within the target div
         const chartContainer = document.getElementById(`${targetChartId}-container`);
         if (!chartContainer) {
-            console.error(`Chart container for ${targetChartId} not found`);
+            // Silently return if chart container not found
             return;
         }
         
@@ -1667,7 +1634,7 @@ const nbacc_calculator_ui = (() => {
         try {
             // Check if year groups exist
             if (!state.yearGroups || state.yearGroups.length === 0) {
-                console.error("No year groups defined");
+                // No year groups defined
                 chartContainer.innerHTML = '<div class="error">Please add at least one season range before calculating.</div>';
                 return;
             }
@@ -1686,7 +1653,7 @@ const nbacc_calculator_ui = (() => {
                             seasonData[year] = season;
                         })
                         .catch((error) => {
-                            console.error(`Failed to load season ${year}:`, error);
+                            // Silently handle season loading error
                             // Create a minimal empty season to avoid breaking the calculator
                             const emptySeason = 
                                 new nbacc_calculator_season_game_loader.Season(year);
@@ -1899,7 +1866,7 @@ const nbacc_calculator_ui = (() => {
             }
             
         } catch (error) {
-            console.error("Error calculating chart:", error);
+            // Silently handle calculation error
             chartContainer.innerHTML = `<div class="error">Error: ${error.message}</div>`;
         }
     }

@@ -57,8 +57,28 @@ function getCachedChartData(chartId) {
 function cacheChartData(chartId, data, lastModified) {
     if (!nbacc_utils.__USE_LOCAL_STORAGE_CACHE__) return;
     
-    // Use the utility function with timestamps and Last-Modified header
-    nbacc_utils.setLocalStorageWithTimestamp(getChartCacheKey(chartId), data, lastModified);
+    try {
+        // Use the utility function with timestamps and Last-Modified header
+        nbacc_utils.setLocalStorageWithTimestamp(getChartCacheKey(chartId), data, lastModified);
+    } catch (e) {
+        // If localStorage is full, try to prune older entries and retry
+        if (e.name === 'QuotaExceededError') {
+            // localStorage quota exceeded, pruning older entries
+            
+            if (typeof nbacc_utils.pruneOldestCacheEntries === 'function') {
+                nbacc_utils.pruneOldestCacheEntries();
+                
+                // Try again after pruning
+                try {
+                    nbacc_utils.setLocalStorageWithTimestamp(getChartCacheKey(chartId), data, lastModified);
+                } catch (retryError) {
+                    // Failed to store data even after pruning
+                }
+            }
+        } else {
+            // Error caching chart data
+        }
+    }
 }
 
 // Function to check if any part of an element is in the viewport
@@ -89,7 +109,7 @@ function resetChartZoom(chartId) {
 async function loadAndPlotChart(chartDiv) {
     const divId = chartDiv.id;
     if (!divId) {
-        console.error("Chart div must have an ID attribute");
+        // Chart div must have an ID attribute
         return;
     }
 
@@ -144,7 +164,7 @@ async function loadAndPlotChart(chartDiv) {
             if (typeof nbacc_calculator_ui !== "undefined") {
                 nbacc_calculator_ui.showCalculatorUI(divId, event);
             } else {
-                console.error("nbacc_calculator_ui module is not loaded");
+                // nbacc_calculator_ui module is not loaded
             }
         });
 
@@ -227,7 +247,7 @@ async function loadAndPlotChart(chartDiv) {
                 useCache = true;
             }
         } catch (e) {
-            console.warn("Error checking cache validity, will fetch from server:", e);
+            // Error checking cache validity, will fetch from server
         }
     } else if (!nbacc_utils.__USE_SERVER_TIMESTAMPS__ && isChartCached(divId)) {
         // Using time-based expiration instead of Last-Modified headers
@@ -267,7 +287,7 @@ async function loadAndPlotChart(chartDiv) {
             // Cache the data for future use with the Last-Modified header
             cacheChartData(divId, chartData, lastModified);
         } catch (error) {
-            console.error(`Error loading or validating JSON: ${error.message}`);
+            // Error loading or validating JSON
             chartContainer.innerHTML = `Error can't find ${divId}.json!`;
             return;
         }
@@ -366,14 +386,14 @@ function checkChartsInViewport() {
     const chartDivs = document.querySelectorAll("div.nbacc-chart");
 
     if (chartDivs.length === 0) {
-        console.log("No chart divs found with class 'nbacc-chart'");
+        // No chart divs found with class 'nbacc-chart'
     }
 
     chartDivs.forEach((div) => {
         const divId = div.id;
 
         if (!divId) {
-            console.warn("Found chart div without ID - skipping");
+            // Found chart div without ID - skipping
             return;
         }
 
@@ -392,14 +412,14 @@ function loadAllCharts() {
     const chartDivs = document.querySelectorAll("div.nbacc-chart");
     
     if (chartDivs.length === 0) {
-        console.log("No chart divs found with class 'nbacc-chart'");
+        // No chart divs found with class 'nbacc-chart'
     }
     
     chartDivs.forEach((div) => {
         const divId = div.id;
         
         if (!divId) {
-            console.warn("Found chart div without ID - skipping");
+            // Found chart div without ID - skipping
             return;
         }
         
