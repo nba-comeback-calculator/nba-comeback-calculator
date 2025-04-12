@@ -312,10 +312,9 @@ def plot_biggest_deficit(
     linear_y_axis=False,
     use_logit=False,
 ):
-    breakpoint()
     """
     Generate plots and JSON data showing win probability based on point deficit.
-    
+
     Creates chart data showing how point deficits at different game times
     correlate with comeback probabilities. Can analyze either deficits at a
     specific moment or maximum deficits faced during a period.

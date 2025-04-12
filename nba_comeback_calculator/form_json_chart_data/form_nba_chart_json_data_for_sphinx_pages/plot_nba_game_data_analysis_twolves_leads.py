@@ -47,12 +47,17 @@ eras = [
 ]
 
 
-breakpoint()
+plot_biggest_deficit(
+    json_name=f"{chart_base_path}/twolves_leads/at_10min_all_time.json.gz",
+    year_groups=eras,
+    start_time=10,
+    down_mode="at",
+    cumulate=False,
+)
 
-exit()
 
 plot_biggest_deficit(
-    json_name=f"{chart_base_path}/twolves_leads/at_4min_all_time.json.gz",
+    json_name=f"{chart_base_path}/twolves_leads/max_4min_all_time.json.gz",
     year_groups=eras,
     start_time=4,
     down_mode="max",
