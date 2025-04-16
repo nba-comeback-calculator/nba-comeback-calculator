@@ -352,6 +352,12 @@ canvas {
     white-space: nowrap; /* Keep on one line */
 }
 
+/* Ensure headers don't look like links */
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
 #chartjs-tooltip a:hover {
     background-color: rgba(255, 255, 255, 0.08);
     color: #a8daff;

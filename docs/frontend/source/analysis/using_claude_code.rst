@@ -23,57 +23,59 @@ Using Claude Code to Write This Website
     If you have any thoughts or advice or feedback, please feel free to `drop me a line
     <mailto:nba.comeback.calculator@gmail.com>`_.
 
-I used the AI coding agent Claude Code to code major sections of this website.  By no
-means all of this website and I `for sure didn't just give it a rough outline and let
+I used the AI coding agent Claude Code to code major sections of this website. By no
+means all of this website, and I `for sure didn't just give it a rough outline and let
 it figure out the rest
 <https://www.reddit.com/r/ClaudeAI/comments/1enle9c/can_someone_explain_how_to_actually_use_claude/>`_
 
 Previously, I had never used AI for anything large scale. At work, we are not currently
-allowed to use AI systems at with our codebase or any company data -- so basically, not
+allowed to use AI systems with our codebase or any company data -- so basically, not
 much to work with. So when I got talking to another programmer friend about downloading
 this NBA data and running some quick one-off Python scripts against it, he had the idea
-of using AI to build out a front end tool.
+of using AI to build out a front-end tool.
 
 When I started at the beginning of March 2025, Claude Code was newly released and,
 `like others
 <https://waleedk.medium.com/claude-code-top-tips-lessons-from-the-first-20-hours-246032b943b4>`_,
-it didn't take me long to settle on using it over Cursor of Copilot. Agentic/agent
-based AI code systems are newly emerging and Claude Code seems the state of the art of
-these approaches -- with a price tag of 10 to 100x over other options you pay for this
-extra power.  To boot, I really like that it's a REPL as opposed to having it
-integrated in an IDE.
+it didn't take me long to settle on using it over Cursor or Copilot. Agentic/agent
+based AI code systems are newly emerging and Claude Code seems to be the state of the
+art of these approaches -- with a price tag of 10 to 100x over other options, you pay
+for this extra power. To boot, I really like that it's a REPL as opposed to having it
+integrated in an IDE.  (And recently, after I finished this project up, Open AI has
+`released CodeX which takes a similar tact -- something I'm checking out next
+<https://openai.com/index/openai-codex/>`_).
 
-Overall, I settled on a hybrid project where I wrote most of the python myself for the
-data processing and `tried by hand at vibe coding
-<https://zapier.com/blog/vibe-coding/>`_ the JavaScript front end UI using Claude Code.
+Overall, I settled on a hybrid project where I wrote most of the Python myself for the
+data processing and `tried my hand at vibe coding
+<https://zapier.com/blog/vibe-coding/>`_ the JavaScript front-end UI using Claude Code.
 
 In broad strokes, I:
 
-* Downloaded the game using `the nba_api.stats package
-  <https://github.com/nba-comeback-calculator/nba-comeback-calculator/blob/main/nba_comeback_calculator/form_json_season_data/form_nba_game_sqlite_database.py>`_.
-  and stuck that data into a an sqlite database I could more quickly iterate upon.
-  Then, I converted all the data I needed for each game into reduced data structures
-  and stored them in json files, one for each season.
+* Downloaded the games using `the nba_api.stats package
+  <https://github.com/nba-comeback-calculator/nba-comeback-calculator/blob/main/nba_comeback_calculator/form_json_season_data/form_nba_game_sqlite_database.py>`_
+  and stored that data in an SQLite database I could more quickly iterate upon. Then, I
+  converted all the data I needed for each game into reduced data structures and stored
+  them in JSON files, one for each season.
 
-* Wrote the code that can read those season json files and processes the NBA
+* Wrote the code that can read those season JSON files and process the NBA
   play-by-play game data in Python. This Python code would, based on various
   conditions, form the necessary data structures, run the statistical processing code,
   and then create structured chart JSON files that contained everything needed to make
-  a plot (including titles, axis labels, hover point data, etc).
+  a plot (including titles, axis labels, hover point data, etc.).
 
 * Used Claude to write a
-  `chart.js <https://www.chartjs.org/>`_ front end that could plot these JSON data
-  files, add the hover boxes, add the custom full screen (using `basicLightbox
+  `chart.js <https://www.chartjs.org/>`_ front-end that could plot these JSON data
+  files, add the hover boxes, add the custom full screen mode (using `basicLightbox
   <https://basiclightbox.electerious.com/>`_) and everything you see when you interact
   with a chart. I did jump in regularly to fix this and change basic code architecture,
   but :ref:`mostly I let Claude do the work via prompts <vibe-coding-the-front-end>`.
 
-* Then, asked Claude code :ref:`to convert my analysis Python
+* Then, asked Claude Code :ref:`to convert my analysis Python
   code <creating-the-interactive-calculator>` so the game processing could happen in
   the browser to build the :doc:`calculator </calculator/index>`.
 
-* Then, I again vibe coded the calculator bootstrap form UI that allows users to setup
-  the conditions they want to analyze to run the calculator.  And once I got all that
+* Then, I again vibe coded the calculator bootstrap form UI that allows users to set up
+  the conditions they want to analyze to run the calculator. And once I got all that
   working, used Claude to get it working as best I could on mobile devices.
   
 .. _vibe-coding-the-front-end:
@@ -81,61 +83,60 @@ In broad strokes, I:
 Vibe Coding the Front End
 =========================
 
-After I had my Python scripts churning out my chart json data files, I wanted to use
-Claude to write a javascript front end.  To start, I did poke around on the internet
-and figure out which packages I wanted to use.  Once settled after a few very small
-prototypes, I asked Claude to help me make a chart.js chart and it took very little
+After I had my Python scripts churning out my chart JSON data files, I wanted to use
+Claude to write a JavaScript front-end. To start, I did poke around on the internet and
+figure out which packages I wanted to use. Once settled after a few very small
+prototypes, I asked Claude to help me make a Chart.js chart and it took very little
 time to be up and running. Claude, being one of the best `agentic agents
 <https://blogs.nvidia.com/blog/what-is-agentic-ai/>`_, does things like use grep and
 other shell commands to figure out what it's looking at. I very lightly sketched out
 the JSON format to the tool and it figured the rest out on its own.
 
-After I had a basic plot working I then, briefly, described how I wanted to create
-hover boxes that appear when the user pressed on a datapoint on the line:
+After I had a basic plot working, I then briefly described how I wanted to create hover
+boxes that appear when the user presses on a datapoint on the line:
 
 .. code::
 
-     > You'll notice in the JSON file that there are Point Margin, Win %, Win Game Count, 
-     Game Count, Occurrence %, and also a list of win games and loss games along with some 
-     data for each game. I want the hover box to look something like (and these are 
-     example numbers):
+    You'll notice in the JSON file that there are Point Margin, Win %, Win Game Count, 
+    Game Count, Occurrence %, and also a list of win games and loss games along with some 
+    data for each game. I want the hover box to look something like (and these are 
+    example numbers):
 
-     Point Margin: -23
-     Wins: 81 out of 3028 Total Games
-     Win %: 2.67
-     Occurs %: 31.81
-      Win examples:
+    Point Margin: -23
+    Wins: 81 out of 3028 Total Games
+    Win %: 2.67
+    Occurs %: 31.81
+    Win examples:
       04/08/2022 HOU(30th/0.244) @ TOR(10th/0.585): 115-117
 
-      Loss examples:
+    Loss examples:
       12/22/2017 WAS(17th/0.524) @ BKN(23rd/0.341): 84-119
 
-    Where the 30th is the rank and 0.244 is the team percentage; 115-117 is 
-    the score. 
+    Where the 30th is the rank and 0.244 is the team percentage; 115-117 is the score. 
 
-    But there can be many wins and losses, so only show up to 10 wins and 
-    4 losses. Note, each game data point has a 'game_id' field. Use that 
-    to make the hyperlink that when clicked brings you to www.nba.com/games/{game_id}
+    But there can be many wins and losses, so only show up to 10 wins and 4 losses. 
+    Note, each game data point has a 'game_id' field. Use that to make the hyperlink 
+    that when clicked brings you to www.nba.com/games/{game_id}
 
-And it thought about it for a few minutes and it created the hover boxes for the data
-points pretty much on the very first try.  After 3 or 4 more prompts, I had it styled,
-with the outline of the hover box matching the line color and other futzy odds and
-ends. Didn't even look at the html or css once.
+And it thought about it for a few minutes and created the hover boxes for the data
+points pretty much on the very first try. After 3 or 4 more prompts, I had it styled,
+with the outline of the hover box matching the line color and other fussy odds and
+ends. Didn't even look at the HTML or CSS once.
 
 Then, once I had the :ref:`main statistical fitting and data processing code translated
 from Python to JavaScript <creating-the-interactive-calculator>`, I basically asked it
-create a bootstrap UI form to match the fields in the main API function call and had
-this working very quickly with again not looking much at the generated UI code.
+to create a Bootstrap UI form to match the fields in the main API function call and had
+this working very quickly, again without looking much at the generated UI code.
 
 There were many things in this project where I was surprised how well it performed with
-minimal or even downright bad specification inputs, with some caveats.  Once I had the
+minimal or even downright bad specification inputs, with some caveats. Once I had the
 calculator form up and running, I wanted to persist it using a URL coding scheme to
 create shareable links. I barely sketched out a spec like this:
 
 .. code::
     
-    We need to store the state of the
-    form whether we press calculate or cancel, the form values and URL always persist.
+    We need to store the state of the form whether we press calculate or cancel, 
+    the form values and URL always persist.
     
     p=<plot_type:values 0-4>,<time>,<percent_one>_<percent_two>_...
     &s={season_one}+{season_two}
@@ -144,14 +145,16 @@ create shareable links. I barely sketched out a spec like this:
     where season_one is of the form {year0},{year1},{B|R|P} for both or regular season
     or playoff. The game filter is (Team|Rank|HomeStatus),(Team|Rank)
 
-    Just g={for_team_field}-{home_away_field}-{vs_team_field}~{for_team_field}-{home_away_field}-{vs_team_field}
-    That example shows two filters. Also, it should be 'e', 'h', or 'a' for the home 
-    away field. So for example, if we had BOS at home playing ANY, we would have 
+    Just g={for_team_field}-{home_away_field}-{vs_team_field}~{for_team_field}-
+    {home_away_field}-{vs_team_field}
+    
+    That example shows two filters. Also, it should be 'e', 'h', or 'a' for the home
+    away field. So for example, if we had BOS at home playing ANY, we would have
     BOS-H-ANY. That's one game filter.
 
-I got this working fairly quickly without needing to look at how it was coded.  However
+I got this working fairly quickly without needing to look at how it was coded. However
 (most likely because I started asking for multiple features at a time, something that
-is not best practice) it introduced a very strange bug where is started plotting two
+is not best practice) it introduced a very strange bug where it started plotting two
 charts.
 
 That got me back to the good URL encoding scheme. But the state of the form was still
@@ -160,24 +163,23 @@ storage mechanism. So I guided it with:
 
 .. code::
 
-    OK that worked very well. Now, we have a URL -- that will be the sole state of 
-    the system. Get rid of the other state mechanisms and simply store  
-    that string somewhere accessible once formed. Now, when we load the form, 
-    the form needs to parse the URL string and set up the form accordingly. 
-    It needs to add a row for every season range in the URL and the game filter, set up 
-    the plot types, minutes, set the percent box, etc. If there is   
-    a URL string (either created by us or the user gave us a URL string) we need to 
-    parse it and set the form up when we hit 'Calculate' -- the sole     
-    state should be this URL string.
+    OK that worked very well. Now, we have a URL -- that will be the sole state of
+    the system. Get rid of the other state mechanisms and simply store that string
+    somewhere accessible once formed. Now, when we load the form, the form needs to
+    parse the URL string and set up the form accordingly. It needs to add a row for
+    every season range in the URL and the game filter, set up the plot types, minutes,
+    set the percent box, etc. If there is a URL string (either created by us or the
+    user gave us a URL string) we need to parse it and set the form up when we hit
+    'Calculate' -- the sole state should be this URL string.
 
 And that worked -- and it clearly updated the CLAUDE.md about the singularity of the
 URL state.
 
-But this lead to a complex bug of the chart being duplicated.  And now I was paying a
-price for not understanding the code Claude was generating along the way.  After some
-trouble and having to revert the code more than once, I got it working but this is for
-sure a case where it would have been easier to get involved early and not try and
-prompt my way to a solution.
+But this led to a complex bug of the chart being duplicated. And now I was paying a
+price for not understanding the code Claude was generating along the way. After some
+trouble and having to revert the code more than once, I got it working, but this is for
+sure a case where it would have been easier to get involved early and not try to prompt
+my way to a solution.
 
 .. _creating-the-interactive-calculator:
 
@@ -215,11 +217,10 @@ fed these four files into Claude and had it take a crack at it.
 
 .. code::
 
-    > Let's try this Python to JavaScript translation again.
+    Let's try this Python to JavaScript translation again.
 
-    Currently, we have working js/nbacc_chart_loader.js and js/nbacc_plotter_*.js
-    files that can load the JSON data from _static/json/charts/* and plot the
-    charts.
+    Currently, we have working js/nbacc_chart_loader.js and js/nbacc_plotter_*.js files
+    that can load the JSON data from _static/json/charts/* and plot the charts.
 
     Now we need to add a new 'calculator' feature that will provide a UI to select plot
     options. You have added the start of this bootstrap UI in the
@@ -246,17 +247,17 @@ fed these four files into Claude and had it take a crack at it.
     However, this time we need to translate all of the logic found in the four Python
     files in ../../../nba_python_data/form_plots/form_nba_chart_json_data/
 
-    The key classes / functions to translate are:
+    The key classes/functions to translate are:
     
     plot_biggest_down_or_more plot_percent_chance_time_vs_points_down GameFilter
 
 Those results were better, but still not perfect, so I doubled down on the mission
-again with these prompts.  I found the results improved dramatically when I asked for
-an *exact* translation:
+again with these prompts. I found the results improved dramatically when I asked for an
+*exact* translation:
 
 .. code::
 
-    > We want an *exact* translation of the Python files in 
+    We want an *exact* translation of the Python files in 
     ../../../nba_python_data/form_plots/form_nba_chart_json_data/. Re-read them and check 
     that your implementation works exactly like those files. We don't need to do any 
     checking for defaults or unnecessary error checking. The goal here is a 1 to 1 
@@ -264,7 +265,7 @@ an *exact* translation:
 
 .. code::
 
-    > Your starting implementation of js/nbacc_calculator_season_game_loader.js is good. 
+    Your starting implementation of js/nbacc_calculator_season_game_loader.js is good. 
     However, we want a 1 to 1 direct translation of
     ../../../nba_python_data/form_plots/form_nba_chart_json_data/form_nba_chart_json_data_season_game_loader.py.
     Ensure that your translation is 1 to 1 and do not add any additional error checking or 
@@ -274,7 +275,7 @@ an *exact* translation:
 
 .. code::
 
-    > First, rename js/nbacc_calculator_core.js to js/nbacc_calculator_plot_primitives.js 
+    First, rename js/nbacc_calculator_core.js to js/nbacc_calculator_plot_primitives.js 
     and make sure it matches form_nba_chart_json_data_plot_primitives.py 1 to 1 without 
     any unnecessary error checking. Then, do the same for js/nbacc_calculator_api.js and 
     make sure it matches the form_nba_chart_json_data_api.py API. Again, we are trying to 
