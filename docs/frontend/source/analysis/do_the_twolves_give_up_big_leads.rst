@@ -2,40 +2,40 @@
 Do the Timberwolves Actually Give Up Big Leads?
 ***********************************************
 
-There's a feeling in the zeitgeist that the Timberwolves of the last few years don't
-put teams away and frequently give up big leads. I was personally at the `04/21/2022
+There's a feeling among fans that the Timberwolves of the last few years don't
+put teams away and frequently surrender big leads. I was personally at the `04/21/2022
 MEM @ MIN playoff game where the Wolves blew a 26-point lead
-<https://www.nba.com/game/0042100153>`_ so I was buying what they were selling.
+<https://www.nba.com/game/0042100153>`_, so I was inclined to believe this narrative.
 
-And I originally wrote this before the Twolves :ref:`tied a since-1996 NBA record for
-giving up the largest lead <twolves-tie-a-dubious-nba-record>` against the `Bucks on
+I originally wrote this analysis before the Twolves :ref:`tied a since-1996 NBA record for
+surrendering the largest lead <twolves-tie-a-dubious-nba-record>` against the `Bucks on
 04/09/2025 <https://www.nba.com/news/bucks-stun-timberwolves-4th-quarter-comeback>`_.
-So I would be remiss for not addressing this first.
+It would be remiss not to address this first.
 
-But as hard as this is to believe, at least looking at the comeback data as
-traditionally defined, the Twolves of the last few years are actually a little better
-than holding leads than the league average.
+But as difficult as this may be to believe, when examining the comeback data as
+traditionally defined, the Timberwolves of the last few years are actually slightly better
+at maintaining leads than the league average.
 
 .. _twolves-tie-a-dubious-nba-record:
 
 Twolves Tie a Dubious NBA Record For Giving Up 24 Point Lead With 10 Minutes Left
 =================================================================================
 
-But first, I have to address very recent memory.  Here's a look at comeback odds max
-points down in the last 10 minutes of the game since 1996 when play-by-play data first
-become available:
+But first, I must address very recent memory. Here's a look at comeback odds for maximum
+point deficits in the last 10 minutes of games since 1996, when play-by-play data first
+became available:
 
 .. raw:: html
 
     <div id="twolves_leads/max_10min_all_time" class="nbacc-chart"></div>
 
-And only two teams have ever given up a game being up 24 or more in the last ten
-minutes, and one of those games is the Twolves to the Bucks on 04/09/2025 (the other
+Only two teams have ever lost a game after leading by 24 or more points in the last ten
+minutes, and one of those games involves the Timberwolves against the Bucks on 04/09/2025 (the other
 `being a LAC @ MEM playoff game back in 2012 <http://www.nba.com/game/0041100171>`_).
-Out of the 752 games where a team's max lead was 24 points at some point in the last 10
-minutes, we have the distinction of sharing the record of giving up the game.  And,
-after averaging out the statistical noise, it appears the odds were about 1 in 1000. 
-As we say in Minnesota, Oh Geez.
+Out of the 752 games where a team's maximum lead was 24 points at some point in the last 10
+minutes, we have the distinction of sharing the record for surrendering such a lead. And,
+after averaging out the statistical noise, it appears the odds were about 1 in 1000.
+As we say in Minnesota, "Oh Geez."
 
 And, I'll just quickly note, that if you look at teams up 24 points *entering* the 10th
 minute we actually hold the record:
@@ -44,8 +44,8 @@ minute we actually hold the record:
 
     <div id="twolves_leads/at_10min_all_time" class="nbacc-chart"></div>
 
-But that's not quite as fair a way of looking at it (LAC didn't fall behind 24 until
-almost the 9th minute, which actually made that comeback even a little more impressive).
+However, this isn't quite as fair a way of looking at it (LAC didn't fall behind by 24 points until
+almost the 9th minute, which actually makes that comeback even more impressive).
 
 
 .. _but-what-about-on-the-level:
@@ -68,17 +68,17 @@ appear that the wolves are *on average* worse at holding leads:
 
     <div id="plots/recent_min_versus/max_down_or_more_48" class="nbacc-chart"></div>
 
-Here, the 'For MIN' (yellow) are the comebacks for the Twolves and the 'For Plays MIN'
-(green) are the comebacks we give up.  And both of these are compared against all games
+Here, the 'For MIN' (yellow) shows the comebacks by the Timberwolves and 'For Plays MIN'
+(green) shows the comebacks they surrendered. Both of these are compared against all games
 in the same time range (the blue line).
 
-In fact, they are a better than the league average.  Looking at just one point on this
-chart, if you are down 20 points or more against the Wolves, your odds of coming back
+In fact, they're better than the league average. Looking at just one point on this
+chart: if you're down 20 points or more against the Wolves, your odds of coming back
 (``4.90%``) are actually worse than the league average (``5.24%``). And the
 Timberwolves are better than average at coming back from 20 points down (``7.46%``).
-(Note: this is using the :doc:`trend lines</analysis/forming_the_plot_trend_lines>`
-rather than raw data points, which eliminates much of the statistical noise and is a
-little more accurate.)
+(Note: this analysis uses the :doc:`trend lines</analysis/forming_the_plot_trend_lines>`
+rather than raw data points, which eliminates much of the statistical noise and provides
+more accurate results.)
 
 :doc:`There are many ways to analyze this </plots/recent_min_versus>` and they all tell
 a slightly different but similar story: the recent Timberwolves are not much different

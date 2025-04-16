@@ -10,7 +10,7 @@ A Rule Of Thumb That Actually Works If Your Thumb Is Good At Math
 
 A Rule Of Thumb
 ===============
-:doc:`What started all of this </analysis/about>` is, I had this rule of thumb about
+:doc:`What started all of this </analysis/about>` was my rule of thumb about
 whether my team's lead was "safe":
 
 * 2 times the number of minutes remaining = pretty safe
@@ -30,7 +30,7 @@ And then we can plot those 2x and 3x guides on top of it and we get:
 
     <div id="thumb/nbacc_points_versus_time_with_bad_guides_all_eras" class="nbacc-chart"></div>
 
-So, in short, a very bad rule of thumb.
+So, in short, my rule of thumb was very poor.
 
 So -- in googling about to see if someone had a better one -- I was delighted `to have
 stumbled on this explanation <https://messymatters.com/moneyball/>`_:
@@ -41,9 +41,9 @@ stumbled on this explanation <https://messymatters.com/moneyball/>`_:
     80% chance of winning.”
 
 
-This turns out to be very close, no matter which era you look at. In fact, leveraging
+This turns out to be very accurate, regardless of which era you examine. In fact, leveraging
 the :doc:`observation that win probabilities versus point deficit are normally
-distributed </analysis/forming_the_plot_trend_lines>`, we can actually come up with the
+distributed </analysis/forming_the_plot_trend_lines>`, we can derive the
 multiplier for any given win probability:
 
 .. math::
@@ -52,10 +52,10 @@ multiplier for any given win probability:
 
 
 Where :math:`\Phi^{-1}` is the inverse of the standard normal cumulative distribution
-function and the ``2.49`` constant is when you look at all data from 1996 to now (if
+function and the ``2.49`` constant applies when looking at all data from 1996 to now (if
 you change the conditions, that number changes, usually slightly, :ref:`as explained
 below<best-fit-guides>`). This allows us to expand this rule for the (more
-interesting) 5% and close to snowball's chance in hell of 1%:
+interesting) 5% chance and the nearly impossible 1% chance:
 
 .. list-table::
     :header-rows: 1 
@@ -81,7 +81,7 @@ Which you can see holds up very nicely. (In fact, even later on, I stumbled upon
 <https://www.slate.com/articles/sports/sports_nut/2015/06/golden_state_warriors_championship_a_new_formula_for_predicting_lead_changes.html>`_
 but for the 90% probability case).
 
-For a lot of numbers, it's hard to take the square root in your head, but for 16, 9, 4
+For many numbers, it's difficult to calculate square roots mentally, but for 16, 9, 4
 and 1 it's easy:
 
 .. list-table::

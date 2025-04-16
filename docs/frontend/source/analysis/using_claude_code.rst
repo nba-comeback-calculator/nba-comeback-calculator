@@ -39,9 +39,9 @@ When I started at the beginning of March 2025, Claude Code was newly released an
 <https://waleedk.medium.com/claude-code-top-tips-lessons-from-the-first-20-hours-246032b943b4>`_,
 it didn't take me long to settle on using it over Cursor or Copilot. Agentic/agent
 based AI code systems are newly emerging and Claude Code seems to be the state of the
-art of these approaches -- with a price tag of 10 to 100x over other options, you pay
-for this extra power. To boot, I really like that it's a REPL as opposed to having it
-integrated in an IDE.  (And recently, after I finished this project up, Open AI has
+art of these approaches.  And with a price tag of 10 to 100x over other options, you
+pay for this extra power. To boot, I really like that it's a REPL as opposed to having
+it integrated in an IDE.  (And recently, after I finished this project up, Open AI has
 `released CodeX which takes a similar tact -- something I'm checking out next
 <https://openai.com/index/openai-codex/>`_).
 
@@ -72,7 +72,10 @@ In broad strokes, I:
 
 * Then, asked Claude Code :ref:`to convert my analysis Python
   code <creating-the-interactive-calculator>` so the game processing could happen in
-  the browser to build the :doc:`calculator </calculator/index>`.
+  the browser to build the :doc:`calculator </calculator/index>`.  This includes
+  converting some fairly involved numpy/scipy number crunching code so in the browser
+  we can perform :doc:`probit regression using maximum likelihood estimation running a
+  gradient descent fmin algorithm </analysis/forming_the_plot_trend_lines>`.
 
 * Then, I again vibe coded the calculator bootstrap form UI that allows users to set up
   the conditions they want to analyze to run the calculator. And once I got all that

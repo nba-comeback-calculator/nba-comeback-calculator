@@ -14,7 +14,7 @@ NBA Comeback Calculator
 .. green-box::
 
    Game data last updated: 04/14/2025. Due to the large amount of data, charts are best
-   viewed on a computer.  On mobile, click the fullscreen icon to view all chart data.
+   viewed on a computer. On mobile, click the fullscreen icon to view all chart data.
    Feel free to `drop me a line <mailto:nba.comeback.calculator@gmail.com>`_ or `click
    here if you would like to tip this project
    <https://buymeacoffee.com/nba.comeback.calculator>`_.
@@ -24,7 +24,7 @@ from when play-by-play data was available (from the 1996-1997 season to now) and
 at the percentage of times games were won under varying conditions.
 
 * :doc:`./analysis/index`: Looks at some trends in the data and tries to answer "Are
-  big comebacks just much more common nowadays?" and other questions and a few notes on
+  big comebacks just much more common nowadays?" and other questions, plus includes a few notes on
   how this project was put together.
 
 * :doc:`./plots/index`: Provides an auto-generated scrollable webpage of many different

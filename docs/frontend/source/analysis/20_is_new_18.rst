@@ -7,13 +7,13 @@
 Are Big Leads No Longer Safe?
 =============================
 
-There's a sense that, in recent times, teams are busting out of big holes more often
-than ever. Just as `Kevin Pelton and Baxter Holmes noted in 2019
+There's a perception that, in recent times, teams are climbing out of big deficits more often
+than ever before. Just as `Kevin Pelton and Baxter Holmes noted in 2019
 <https://www.espn.com/nba/story/_/id/26725776/this-season-massive-comeback-nba>`_, so
 did ESPN reporter Andrew Lopez in `'20 is the old 12': Why no lead is safe in the NBA
 anymore
 <https://www.espn.com/nba/story/_/id/39698420/no-lead-safe-nba-big-comebacks-blown-leads>`_.
-There he points out that 2023-24 has already seen the most 20-point victories in a
+There he points out that the 2023-24 season had already seen the most 20-point comebacks in a
 single season since 1996-97 and continues with analysis by Steve Kerr:
 
 .. pull-quote::
@@ -24,7 +24,7 @@ single season since 1996-97 and continues with analysis by Steve Kerr:
     mean, there's definitely an awareness from everybody that leads are not safe."
 
 
-But is this true? In short ... not really.
+But is this true? In short... not really.
 
 To frame this, I decided to break up the available play-by-play data into:
 
@@ -34,12 +34,12 @@ To frame this, I decided to break up the available play-by-play data into:
 (:ref:`As explained below <deciding-on-eras-breakdown>`, a more targeted recent modern
 era does not change the analysis so the larger dataset was chosen).
  
-So while there's about 1.8x times as many 20 points-or-more comebacks comparing the
+So while there are about 1.8 times as many 20-points-or-more comebacks comparing the
 eras, the *chance* of coming back from 20 points-or-more down (``~5.3%``) is about the
-same as coming back from 18 points-or-more down (``~4.9%``) back in the day.
+same as coming back from 18 points-or-more down (``~4.9%``) in the earlier era.
 
-Meaning leads are *roughly* as safe as they have been, maybe at most needing an extra
-bucket.
+This means leads are *roughly* as safe as they have been, perhaps at most needing an extra
+basket to maintain the same level of security.
 
 .. _win-percentages-when-max-deficit-is-n-or-more-points:
 
