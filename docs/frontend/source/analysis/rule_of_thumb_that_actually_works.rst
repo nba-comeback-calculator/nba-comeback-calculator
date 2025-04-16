@@ -10,8 +10,8 @@ A Rule Of Thumb That Actually Works If Your Thumb Is Good At Math
 
 A Rule Of Thumb
 ===============
-:doc:`What started all of this </analysis/about>` was my rule of thumb about
-whether my team's lead was "safe":
+:doc:`What started all of this </analysis/about>` was my rule of thumb about whether my
+team's lead was "safe":
 
 * 2 times the number of minutes remaining = pretty safe
 * 3 times the number of minutes remaining = very safe
@@ -41,9 +41,9 @@ stumbled on this explanation <https://messymatters.com/moneyball/>`_:
     80% chance of winning.”
 
 
-This turns out to be very accurate, regardless of which era you examine. In fact, leveraging
-the :doc:`observation that win probabilities versus point deficit are normally
-distributed </analysis/forming_the_plot_trend_lines>`, we can derive the
+This turns out to be very accurate, regardless of which era you examine. In fact,
+leveraging the :doc:`observation that win probabilities versus point deficit are
+normally distributed </analysis/forming_the_plot_trend_lines>`, we can derive the
 multiplier for any given win probability:
 
 .. math::
@@ -52,10 +52,10 @@ multiplier for any given win probability:
 
 
 Where :math:`\Phi^{-1}` is the inverse of the standard normal cumulative distribution
-function and the ``2.49`` constant applies when looking at all data from 1996 to now (if
-you change the conditions, that number changes, usually slightly, :ref:`as explained
-below<best-fit-guides>`). This allows us to expand this rule for the (more
-interesting) 5% chance and the nearly impossible 1% chance:
+function and the ``2.49`` constant applies when looking at all data from 1996 to now
+(if you change the conditions, that number changes, usually slightly, :ref:`as
+explained below<best-fit-guides>`). This allows us to expand this rule for the (more
+interesting) 5% chance and the snowball-in-hell 1% chance:
 
 .. list-table::
     :header-rows: 1 
