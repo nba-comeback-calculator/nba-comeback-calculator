@@ -54,14 +54,16 @@ game:
 
     <div id="plots/old_school_v_modern/max_down_or_more_48" class="nbacc-chart"></div>
 
-A major point is that the almost always the data is normal (Gaussian) so adding
-:doc:`trend lines to the statistical data </analysis/forming_the_plot_trend_lines>` and
-plotting it on a `normal probability plot
-<https://en.wikipedia.org/wiki/Normal_probability_plot>`_, we can see a fairly constant
-shift of about 2 points to the left for the modern era.
+And using a bit of stats which I'll keep as brief as possible, since this data is
+normal (Gaussian) we can plot the data on a `normal probability plot
+<https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and :doc:`and fit trend lines
+to the statistical data </analysis/forming_the_plot_trend_lines>`.  Once done, we can
+then more easily compare different eras or situations.  And when comparing the two
+eras, we can see a mostly stable and constant shift of about 2 points to the left for
+the modern era versus the past.
 
-You can :ref:`interact with this chart <using-the-plot-controls>` and hover over the
-raw data points to see which games compose a point (and compare it with a `list of
+You can :ref:`interact with this chart <using-the-plot-controls>` and hover over and
+click the points to see which games compose a point (and compare it with a `list of
 biggest comebacks <https://en.wikipedia.org/wiki/Comeback_(sports)#NBA>`_ if so
 inclined).  To focus on a few we get:
 
@@ -208,15 +210,15 @@ What *Would* Be Dramatic
 ========================
 
 Just to get a sense of what an 8 point shift looks like, if we look at top 10 teams
-(out of 30) vs. bottom 10 team we get:
+(out of 30) vs. bottom 10 teams in the modern era we get:
 
 .. raw:: html
 
     <div id="20_18/dramatic" class="nbacc-chart"></div>
 
 Here, the chance of top ten team playing a bottom 10 team coming back from a
-20-points-or-more deficit (``~ 20%``) is about the same for any team coming back from
-12 or more down against any other team (basically, the average odds).
+20-points-or-more deficit (``~20%``) is about the same for any team coming back from 12
+or more down against any other team.
 
 .. _deciding-on-eras-breakdown:
 

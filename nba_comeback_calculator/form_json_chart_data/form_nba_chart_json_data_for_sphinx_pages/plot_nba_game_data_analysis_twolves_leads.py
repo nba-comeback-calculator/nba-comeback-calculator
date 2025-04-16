@@ -31,8 +31,12 @@ print(f"Script directory: {script_dir}")
 os.chdir(script_dir)
 print(f"Working directory changed to: {os.getcwd()}")
 # Base paths for input and output files
-json_base_path = "../../../docs/frontend/source/_static/json/seasons"
-chart_base_path = "../../../docs/frontend/source/_static/json/charts"
+json_base_path = (
+    "/Users/ajcarter/workspace/GIT_NBACC_GITHUB_IO/docs/_static/json/seasons"
+)
+chart_base_path = (
+    "/Users/ajcarter/workspace/GIT_NBACC/docs/frontend/source/_static/json/charts"
+)
 
 import form_nba_chart_json_data_season_game_loader as loader
 
@@ -48,10 +52,10 @@ eras = [
 
 
 plot_biggest_deficit(
-    json_name=f"{chart_base_path}/twolves_leads/at_10min_all_time.json.gz",
+    json_name=f"{chart_base_path}/twolves_leads/max_10min_all_time.json.gz",
     year_groups=eras,
     start_time=10,
-    down_mode="at",
+    down_mode="max",
     cumulate=False,
 )
 

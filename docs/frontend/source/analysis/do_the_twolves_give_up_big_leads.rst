@@ -7,31 +7,45 @@ put teams away and frequently give up big leads. I was personally at the `04/21/
 MEM @ MIN playoff game where the Wolves blew a 26-point lead
 <https://www.nba.com/game/0042100153>`_ so I was buying what they were selling.
 
-And I originally wrote this before a twolves :ref:`set a modern NBA record for giving
-up the largest lead <twolves-set-a-dubious-nba-record>` against the `Bucks on
+And I originally wrote this before the Twolves :ref:`tied a since-1996 NBA record for
+giving up the largest lead <twolves-tie-a-dubious-nba-record>` against the `Bucks on
 04/09/2025 <https://www.nba.com/news/bucks-stun-timberwolves-4th-quarter-comeback>`_.
 So I would be remiss for not addressing this first.
 
 But as hard as this is to believe, at least looking at the comeback data as
-traditionally defined, the twolves of the last few years are actually better than
-holding leads than the league average.
+traditionally defined, the Twolves of the last few years are actually a little better
+than holding leads than the league average.
 
-.. _twolves-set-a-dubious-nba-record:
+.. _twolves-tie-a-dubious-nba-record:
 
-Twolves Set a Dubious NBA Record For Giving Up 24 Point Lead With 10 Minutes Left
+Twolves Tie a Dubious NBA Record For Giving Up 24 Point Lead With 10 Minutes Left
 =================================================================================
 
-But first, I have to address very recent memory.  Here's a look at comeback odds at 10
-minutes remaining in the game since 1996 when play-by-play data first become available:
+But first, I have to address very recent memory.  Here's a look at comeback odds max
+points down in the last 10 minutes of the game since 1996 when play-by-play data first
+become available:
+
+.. raw:: html
+
+    <div id="twolves_leads/max_10min_all_time" class="nbacc-chart"></div>
+
+And only two teams have ever given up a game being up 24 or more in the last ten
+minutes, and one of those games is the Twolves to the Bucks on 04/09/2025 (the other
+`being a LAC @ MEM playoff game back in 2012 <http://www.nba.com/game/0041100171>`_).
+Out of the 752 games where a team's max lead was 24 points at some point in the last 10
+minutes, we have the distinction of sharing the record of giving up the game.  And,
+after averaging out the statistical noise, it appears the odds were about 1 in 1000. 
+As we say in Minnesota, Oh Geez.
+
+And, I'll just quickly note, that if you look at teams up 24 points *entering* the 10th
+minute we actually hold the record:
 
 .. raw:: html
 
     <div id="twolves_leads/at_10min_all_time" class="nbacc-chart"></div>
 
-And that dot at -24 point margin, which is the largest lead ever given up at the 10
-minute mark since 1996, is to the Bucks on 04/09/2025.  Out of the 431 games where a
-team was up 24 with 10 minutes to go, we are the first to have lead it slip away.  And
-statistically, the odds were about 1 in 1000.  As we say in Minnesota, Oh Geez.
+But that's not quite as fair a way of looking at it (LAC didn't fall behind 24 until
+almost the 9th minute, which actually made that comeback even a little more impressive).
 
 
 .. _but-what-about-on-the-level:
@@ -54,8 +68,9 @@ appear that the wolves are *on average* worse at holding leads:
 
     <div id="plots/recent_min_versus/max_down_or_more_48" class="nbacc-chart"></div>
 
-Here, the 'For MIN' are the comeback for the Twolves and the 'For Plays MIN' are the
-comebacks we give up compared against all games in the same time range.
+Here, the 'For MIN' (yellow) are the comebacks for the Twolves and the 'For Plays MIN'
+(green) are the comebacks we give up.  And both of these are compared against all games
+in the same time range (the blue line).
 
 In fact, they are a better than the league average.  Looking at just one point on this
 chart, if you are down 20 points or more against the Wolves, your odds of coming back
