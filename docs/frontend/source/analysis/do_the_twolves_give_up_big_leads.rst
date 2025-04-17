@@ -7,7 +7,7 @@ put teams away and frequently surrender big leads. I was personally at the `04/2
 MEM @ MIN playoff game where the Wolves blew a 26-point lead
 <https://www.nba.com/game/0042100153>`_, so I was inclined to believe this narrative.
 
-I originally wrote this analysis before the Twolves :ref:`tied a since-1996 NBA record for
+I originally wrote this analysis before the Timberwolves :ref:`tied a since-1996 NBA record for
 surrendering the largest lead <twolves-tie-a-dubious-nba-record>` against the `Bucks on
 04/09/2025 <https://www.nba.com/news/bucks-stun-timberwolves-4th-quarter-comeback>`_.
 It would be remiss not to address this first.
@@ -45,7 +45,7 @@ minute we actually hold the record:
     <div id="twolves_leads/at_10min_all_time" class="nbacc-chart"></div>
 
 However, this isn't quite as fair a way of looking at it (LAC didn't fall behind by 24 points until
-almost the 9th minute, which actually makes that comeback even more impressive).
+almost the 9th minute, which actually makes that comeback even more impressive). 
 
 
 .. _but-what-about-on-the-level:
@@ -53,7 +53,7 @@ almost the 9th minute, which actually makes that comeback even more impressive).
 How Does This Shake Out In The Long Run?
 ========================================
 
-As our excellent beat writer for the `MinnPost Britt Robson pointed out on twitter
+As our excellent beat writer for the `MinnPost Britt Robson pointed out on Twitter
 <https://x.com/brittrobson/status/1910151733734498510>`_:
 
 .. pull-quote::
@@ -109,7 +109,7 @@ more than they let the lead slip away.
 In the end, there's probably some other statistically significant stat (maybe size of
 their runs versus runs they let opponents go on) that explain the frequency of these
 outliers and why we are collectively chewing our nails to bloody stubs watching them
-with a 20 point lead in the 4th.  Again on twitter, `Britt noted
+with a 20 point lead in the 4th.  Again on Twitter, `Britt noted
 <https://x.com/brittrobson/status/1909794675004702866>`_:
 
 .. pull-quote::

@@ -59,7 +59,7 @@ distributed under most conditions.  So when plotted on a `normal probability plo
 <https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and :doc:`we fit trend lines
 (e.g. fit a normal model) to the statistical data
 </analysis/forming_the_plot_trend_lines>` we can then better examine the lower
-probability events and also more easily compare different eras or situations..  And
+probability events and also more easily compare different eras or situations.  And
 when comparing these two eras, we can see a mostly stable and constant shift of about
 2-3 points to the left for the modern era versus the past.
 
@@ -144,8 +144,8 @@ down *exactly* -33, -32, -31, -30 or -29 at the half.
 Now, the divide here is a little larger: being down -20 in the modern era is about the
 same as being down 16.5 points in the old school era (3.5 point shift).
 
-But as time decreases it tightens up -- looking at starting the 4th quarter we have
-being 20 points down (``~0.17%``) being about the same as 17.8 points down when
+But as time decreases it tightens up -- looking at starting the 4th quarter we see that
+being 20 points down (``~0.17%``) is about the same as 17.8 points down when
 comparing new to old:
 
 .. raw:: html

@@ -108,7 +108,7 @@ and determine the chance of winning, leading to plots like this:
 
 So that chart shows: if your team is down 20 points at halftime, they have a 5% chance
 of winning on average. You can use the :doc:`calculator <../calculator/index>` to try
-many different game times as you want.
+as many different game times as you want.
 
 
 
@@ -121,7 +121,7 @@ Now, it's a little inconvenient to have to look at a different chart for every p
 time. So what you can further do is, behind the scenes:
 
 1. Pick a percent chance you want to focus on, say 20% or 1%.
-2. Calculate a `Points Down At Time`_ for every minute and invert the :doc:`trend lines
+2. Calculate a `Points Down At Time`_ for every minute. Then invert the :doc:`trend lines
    </analysis/forming_the_plot_trend_lines>` to determine what point deficit matches
    your percentage. By using the trend line, we filter out the statistical noise and
    get the most accurate point deficit for our given probability.
@@ -165,7 +165,6 @@ can copy and paste and share it how you see fit.
 How Win % Is Calculated
 =======================
 
-
 The Win % number in the plots is calculated as:
 
 .. math::
@@ -179,10 +178,10 @@ This is a little unintuitive, because you might think it should be:
     \text{Win %} = \frac{\text{# of Wins @ Point Deficit}}{\text{# of Games @ Point Deficit}}
 
 
-For many cases, this is the same thing. Consider, however, the Win % for the case where
+In many cases, this is the same thing. Consider, however, the Win % for the case where
 the score is tied at halftime. Let's say there are 1,000 such games in your set. Well,
 there are 1,000 wins and 1,000 losses in these cases, so if you used the second formula
-you would get a Win % = 100%, which is incorrect.
+you would get a Win % = 50%, which is correct.
 
 The same thing happens with the Max Down Or More plots. Some of the same games are both
 wins and losses, so we use the first formula which matches with how the statistic is

@@ -88,8 +88,7 @@ to, say, linear regression).
 
 The major question is whether to use logit or probit. And the answer is probit because
 the inverse CDF function does a better job of linearizing our data, meaning it is more
-likely to be the correct underlying model. Looking at the tail using the two methods
-we get:
+likely to be the correct underlying model. Looking at the tail using the two methods, we get:
 
 .. image:: probit_v_logit.png
    :scale: 33%
@@ -97,7 +96,7 @@ we get:
 
 As you can see, the inverse normal CDF does a better job at linearizing the data.
 
-This bears out when using the two methods and comparing returned p-values and fit lines
+This is confirmed when using the two methods and comparing returned p-values and fit lines
 across various cases. Using probit for our current set of conditions, we get:
 
 .. raw:: html
