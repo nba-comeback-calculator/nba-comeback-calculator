@@ -452,7 +452,7 @@ Some Notes / Thoughts
 Just some thoughts from this experience and, being a noob, these are more notes than
 advice:
 
-* **Claude's memory is fincky**:  Using the ``CLAUDE.md`` file and other .md files
+* **Claude's memory is finicky**:  Using the ``CLAUDE.md`` file and other .md files
   to instruct Claude on how I wanted to code (e.g. less error handling, do exact 1 to 1
   python to js translations, etc.) I was surprised how it would do this for a few
   prompts and then stop doing it, and I had to remind it again.  Similarly, in another
