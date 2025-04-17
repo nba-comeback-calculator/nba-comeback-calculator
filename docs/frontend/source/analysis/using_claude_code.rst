@@ -478,18 +478,18 @@ advice:
 
 * **Make sure you're actually testing what you are asking Claude to fix**: A combo of
   the above points, I wasted more than few dollars asking Claude to repeatedly fix
-  something it already had fixed.  Then, it can get into a real rabbit hole, of
-  creating piles of unnecessary logging, fallback code, and other unnecessary attempts
-  at trying to solve an unsolvable problem.  To my amazement, one time it even told me
-  that most likely I wasn't looking at the code it was changing.
+  something it already had fixed by testing on a wrong url.  Then, it can get into a
+  real rabbit hole, creating piles of unnecessary logging, fallback code, and other
+  unnecessary attempts at trying to solve an unsolvable problem.  To my amazement, one
+  time it even told me that most likely I wasn't looking at the code it was changing.
 
 * **Commit, then ask for a single feature one at a time**:  I got into a flow where
-  every time before I asked for a feature, I would commit, ask, test, then (maybe) diff
-  the change using ``git difftool`` and if it was a mess, revert.  Many times I didn't
-  follow this advice, asking for multiple features at a time or not committing changes
-  and that's when I would get into the most trouble.  (Also, Claude Code can commit for
-  you, something I didn't do much in an effort to save cost but something I'm revisting
-  more in the future.)
+  every time before I asked for a feature, I would commit, ask, test, then (usually)
+  diff the change using ``git difftool``.  If it was a mess, I would revert.  Many
+  times I didn't follow this advice, asking for multiple features at a time or not
+  committing changes and that's when I would get into the most trouble.  (Also, Claude
+  Code can commit for you, something I didn't do much in an effort to save cost but
+  something I'm revisting more in the future.)
 
 * **Use Claude to help write your requirements**:  Since the whole point is save effort,
   you'll start to notice that typing all the .md files and prompts can take time, too.
