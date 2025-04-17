@@ -12,6 +12,18 @@ project:
 * `Points Down At Time`_
 * `Percent Chance of Winning: Time v. Points Down`_
 
+.. green-box::
+
+    Note, for the first three plot types, the percent chance of coming back versus
+    point deficit is normally distributed.  So when plotted on a `normal probability
+    plot <https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and :doc:`we fit
+    trend lines (e.g. fit a normal model) to the statistical data
+    </analysis/forming_the_plot_trend_lines>` we can then better examine the lower
+    probability events and also more easily compare different eras or situations.
+
+    The final plot type uses these normal fits across many different conditions to
+    create the time v. point down plots.
+
 .. _max-points-down-or-more:
 
 Max Points Down Or More
@@ -50,11 +62,11 @@ Max Points Down
 ===============
 
 Even though this is a common way of talking about comebacks, it's a little unfair in a
-sense. For the -10 point deficit, the odds of coming back are weighted down by all the other
-more unlikely comebacks.
+sense. For the -10 point deficit, the odds of coming back are weighted down by all the
+other more unlikely comebacks.
 
-A somewhat fairer way to look at it is: the maximum point deficit you face *at most* -- that
-leads to these types of plots:
+A somewhat fairer way to look at it is: the maximum point deficit you face *at most* --
+that leads to these types of plots:
 
 .. raw:: html
 
@@ -62,8 +74,8 @@ leads to these types of plots:
 
 So here we see the raw data for being 10 points down is 53% for the modern era and 48%
 for the old school era. What this is saying is that, on average, the winning team goes
-down by at most 10 points at some point in the game -- and comes back! So if your team is
-down 10 points, don't sweat it too hard, it's totally average.
+down by at most 10 points at some point in the game -- and comes back! So if your team
+is down 10 points, don't sweat it too hard, it's totally average.
 
 .. green-box::
 
@@ -72,11 +84,12 @@ down 10 points, don't sweat it too hard, it's totally average.
     larger point margin cases.
     
     And unlike :ref:`points down at time plots <points-down-at-time>`, it accounts for
-    the fact that a team might not be down at that specific time, but they may fall behind later
-    in the game and still come back. For example, if a team is down 24 points starting the 10th
-    minute and stages a comeback (like the :ref:`Bucks did to our Twolves on 04/09/2025
-    <twolves-tie-a-dubious-nba-record>`) you want to compare against other teams that
-    fell behind by 24 points at an even later time and still came back.
+    the fact that a team might not be down at that specific time, but they may fall
+    behind later in the game and still come back. For example, if a team is down 24
+    points starting the 10th minute and stages a comeback (like the :ref:`Bucks did to
+    our Twolves on 04/09/2025 <twolves-tie-a-dubious-nba-record>`) you want to compare
+    against other teams that fell behind by 24 points at an even later time and still
+    came back.
 
 .. _points-down-at-time:
 
@@ -93,9 +106,9 @@ and determine the chance of winning, leading to plots like this:
 
     <div id="understand/nbacc_down_at_24_eras_1" class="nbacc-chart"></div>
 
-So that chart shows: if your team is down 20 points at halftime, they have a
-5% chance of winning on average. You can use the :doc:`calculator
-<../calculator/index>` to try many different game times as you want.
+So that chart shows: if your team is down 20 points at halftime, they have a 5% chance
+of winning on average. You can use the :doc:`calculator <../calculator/index>` to try
+many different game times as you want.
 
 
 
@@ -110,8 +123,8 @@ time. So what you can further do is, behind the scenes:
 1. Pick a percent chance you want to focus on, say 20% or 1%.
 2. Calculate a `Points Down At Time`_ for every minute and invert the :doc:`trend lines
    </analysis/forming_the_plot_trend_lines>` to determine what point deficit matches
-   your percentage. By using the trend line, we filter out the statistical noise and get
-   the most accurate point deficit for our given probability.
+   your percentage. By using the trend line, we filter out the statistical noise and
+   get the most accurate point deficit for our given probability.
 
 Then you can make plots like this:
    

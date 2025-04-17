@@ -7,14 +7,14 @@
 Are Big Leads No Longer Safe?
 =============================
 
-There's a perception that, in recent times, teams are climbing out of big deficits more often
-than ever before. Just as `Kevin Pelton and Baxter Holmes noted in 2019
+There's a perception that, in recent times, teams are climbing out of big deficits more
+often than ever before. Just as `Kevin Pelton and Baxter Holmes noted in 2019
 <https://www.espn.com/nba/story/_/id/26725776/this-season-massive-comeback-nba>`_, so
 did ESPN reporter Andrew Lopez in `'20 is the old 12': Why no lead is safe in the NBA
 anymore
 <https://www.espn.com/nba/story/_/id/39698420/no-lead-safe-nba-big-comebacks-blown-leads>`_.
-There he points out that the 2023-24 season had already seen the most 20-point comebacks in a
-single season since 1996-97 and continues with analysis by Steve Kerr:
+There he points out that the 2023-24 season had already seen the most 20-point
+comebacks in a single season since 1996-97 and continues with analysis by Steve Kerr:
 
 .. pull-quote::
 
@@ -38,8 +38,8 @@ So while there are about 1.8 times as many 20-points-or-more comebacks comparing
 eras, the *chance* of coming back from 20 points-or-more down (``~5.3%``) is about the
 same as coming back from 18 points-or-more down (``~4.9%``) in the earlier era.
 
-This means leads are *roughly* as safe as they have been, perhaps at most needing an extra
-basket to maintain the same level of security.
+This means leads are *roughly* as safe as they have been, perhaps at most needing an
+extra basket to maintain the same level of security.
 
 .. _win-percentages-when-max-deficit-is-n-or-more-points:
 
@@ -54,13 +54,14 @@ game:
 
     <div id="plots/old_school_v_modern/max_down_or_more_48" class="nbacc-chart"></div>
 
-And using a bit of stats which I'll keep as brief as possible, since this data is
-normal (Gaussian) we can plot the data on a `normal probability plot
-<https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and :doc:`and fit trend lines
-to the statistical data </analysis/forming_the_plot_trend_lines>`.  Once done, we can
-then more easily compare different eras or situations.  And when comparing the two
-eras, we can see a mostly stable and constant shift of about 2 points to the left for
-the modern era versus the past.
+An insight is that percent chance of coming back versus point deficit is normally
+distributed under most conditions.  So when plotted on a `normal probability plot
+<https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and :doc:`we fit trend lines
+(e.g. fit a normal model) to the statistical data
+</analysis/forming_the_plot_trend_lines>` we can then better examine the lower
+probability events and also more easily compare different eras or situations..  And
+when comparing these two eras, we can see a mostly stable and constant shift of about
+2-3 points to the left for the modern era versus the past.
 
 You can :ref:`interact with this chart <using-the-plot-controls>` and hover over and
 click the points to see which games compose a point (and compare it with a `list of
