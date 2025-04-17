@@ -198,11 +198,6 @@ A major idea when I started this was to:
 * Have Claude convert these files into JavaScript to implement the :doc:`interactive
   calculator </calculator/index>`.
 
-The core idea being, I know Python much much better than JavaScript, know the NumPy/
-SciPy libraries well and it will be much easier to work out all the bugs there, and
-have that all worked out rather than trying to prompt Claude to do the same thing in
-JavaScript without a reference. I think overall, this hunch was very correct.
-
 Mostly this worked great and had it all working in a relatively short time frame. There
 were bumps and many missteps though.
 
