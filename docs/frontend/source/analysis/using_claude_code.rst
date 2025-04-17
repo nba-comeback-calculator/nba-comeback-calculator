@@ -468,8 +468,8 @@ advice:
   touching on the memory issue, that's why `in the CLAUDE.md file
   <https://github.com/nba-comeback-calculator/nba-comeback-calculator/blob/main/docs/frontend/source/_static/CLAUDE.md>`_
   you'll see many, many notes about error handling, over and over.  It would be ok for
-  a while this for a while, but usually revert back to adding error handling code
-  again, leading me to tell it again not to do this.
+  a while but usually revert back to adding error handling code again, leading me to
+  tell it again not to do this.
 
 * **After a couple of tries, debug the error yourself**:  And this problem gets worse
   and worse as the you try to get Claude to solve a tough bug that's it is not able to
