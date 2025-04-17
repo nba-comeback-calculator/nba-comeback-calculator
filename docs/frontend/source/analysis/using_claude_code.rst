@@ -498,24 +498,5 @@ advice:
   doing this more than few times.
 
 
-.. _and-the-verdict-is-:
-
-And the Verdict Is ...
-======================
-
-Pretty much very happy with it. I mean, it's not like you tell it "build me a website"
-and you're done -- it's still a lot of work and takes a lot of iterations, debugging,
-missteps, and backtracking just like any coding project.
-
-After a while I did find -- say, after the Calculator form was stable -- that I could
-ask for updates and with the memory/context it had from the CLAUDE.md and code
-comments, it would get the new features added with very little effort.  That is, it got
-better over time.
-
-For a project not as limited as this one, I think the next major step would be to more
-fully understand the code and use Claude to clean up unnecessary bloat, etc. To get a
-firmer understanding of what you have before you start adding major new features.
-
-Or maybe not! Maybe just fire and forget!
 
 
