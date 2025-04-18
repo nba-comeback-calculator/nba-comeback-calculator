@@ -275,7 +275,7 @@ class GameFilter:
             return f"Pulls Within {amount}"
         elif self.comeback_type.startswith("leads_by_"):
             amount = self.comeback_type.rsplit("_", 1)[-1]
-            return f"Leads By {amount}"
+            return f"Leads By {amount} Or More"
 
         for_parts = []
         vs_parts = []
@@ -530,10 +530,10 @@ def plot_biggest_deficit(
         points_down_line.set_sigma_final(min_y, max_y)
 
     x_label = f"Point Margin"
+    # Hack for close games by
     if calculate_occurrences or True:
         y_label = "Occurrence %"
     else:
-        # Hack for close games by
         y_label = "% Chance"
         # y_label = "Win %"
 
