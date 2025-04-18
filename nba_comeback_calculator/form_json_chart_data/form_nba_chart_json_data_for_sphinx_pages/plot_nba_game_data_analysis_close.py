@@ -91,6 +91,24 @@ plot_biggest_deficit(
 )
 
 
+eras = [
+    # ERA ONE
+    # (1996, 2024),
+    (2017, 2024),
+]
+
+plot_biggest_deficit(
+    json_name=f"{chart_base_path}/close/at_36_tie_game_modern_era.json.gz",
+    year_groups=eras,
+    start_time=36,
+    down_mode="at",
+    cumulate=False,
+    game_filters=game_filters,
+    fit_max_points=-20,
+    max_point_margin=-12,
+)
+
+
 game_filters = [
     GameFilter(comeback_type="win"),
     GameFilter(comeback_type="leads_by_10"),
