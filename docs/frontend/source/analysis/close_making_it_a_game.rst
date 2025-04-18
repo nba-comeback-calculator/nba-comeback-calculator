@@ -17,12 +17,10 @@ fully answer this question:
 
     <div id="close/at_36_tie_game_all_time" class="nbacc-chart"></div>
 
-I looked at this for all games since 1996, but it doesn't change much if you limit it
-to the last 8 years.  So if you're down 20 after the first, historical game data
-suggests you have:
+So if you're down 20 after the first, historical game data suggests you have:
 
-* A 8.8% of coming back and winning
-* A 15.5% chance of tieing the game at some point and
+* An 8.8% chance of coming back and winning
+* A 15.5% chance of tying the game at some point and
 * A 34.5% chance of pulling within five.
 
 So a third of the time, you get a pretty close game.
@@ -41,10 +39,22 @@ And at the start of the 4th quarter you get:
 
 
 
+.. _modern-era:
 
-.. _what-are-the-odds-a-beaten-down-team-will-get-repay-the-favor:
+Modern Era
+==========
 
-What Are The Odds A Beaten Down Team Will Get Repay The Favor?
+Above, I looked at this for all games since 1996, but it doesn't change much if you
+limit it to the last 8 years and draws the same conclusions:
+
+.. raw:: html
+
+    <div id="close/at_36_tie_game_modern_era" class="nbacc-chart"></div>
+
+
+.. _what-are-the-odds-a-beaten-down-team-will-repay-the-favor:
+
+What Are The Odds A Beaten Down Team Will Repay The Favor?
 ==============================================================
 
 And, just because it was easy, we can also look at some games with huge point swings:

@@ -464,38 +464,38 @@ advice:
 
 * **Watch out for needless error handling**: I found that Claude often wants to
   add unnecessary and counterproductive error handling / logging / fallback code that
-  just causes more problems that are harder to debug and leads to bloated code.  Again
+  just causes more problems that are harder to debug and leads to bloated code. Again,
   touching on the memory issue, that's why `in the CLAUDE.md file
   <https://github.com/nba-comeback-calculator/nba-comeback-calculator/blob/main/docs/frontend/source/_static/CLAUDE.md>`_
-  you'll see many, many notes about error handling, over and over.  It would be ok for
-  a while but usually revert back to adding error handling code again, leading me to
+  you'll see many, many notes about error handling, over and over. It would be ok for
+  a while but would usually revert back to adding error handling code again, leading me to
   tell it again not to do this.
 
-* **After a couple of tries, debug the error yourself**:  And this problem gets worse
-  and worse as the you try to get Claude to solve a tough bug that's it is not able to
-  solve.  Here, I found it's often better after a try or two to figure out what is
-  going on and directly guiding the tool.
+* **After a couple of tries, debug the error yourself**: And this problem gets worse
+  and worse as you try to get Claude to solve a tough bug that it is not able to
+  solve. Here, I found it's often better after a try or two to figure out what is
+  going on and directly guide the tool.
 
 * **Make sure you're actually testing what you are asking Claude to fix**: A combo of
-  the above points, I wasted more than few dollars asking Claude to repeatedly fix
-  something it already had fixed by testing on a wrong url.  Then, it can get into a
+  the above points, I wasted more than a few dollars asking Claude to repeatedly fix
+  something it already had fixed by testing on a wrong URL. Then, it can get into a
   real rabbit hole, creating piles of unnecessary logging, fallback code, and other
-  unnecessary attempts at trying to solve an unsolvable problem.  To my amazement, one
+  unnecessary attempts at trying to solve an unsolvable problem. To my amazement, one
   time it even told me that most likely I wasn't looking at the code it was changing.
 
-* **Commit, then ask for a single feature one at a time**:  I got into a flow where
+* **Commit, then ask for a single feature one at a time**: I got into a flow where
   every time before I asked for a feature, I would commit, ask, test, then (usually)
-  diff the change using ``git difftool``.  If it was a mess, I would revert.  Many
+  diff the change using ``git difftool``. If it was a mess, I would revert. Many
   times I didn't follow this advice, asking for multiple features at a time or not
-  committing changes and that's when I would get into the most trouble.  (Also, Claude
+  committing changes and that's when I would get into the most trouble. (Also, Claude
   Code can commit for you, something I didn't do much in an effort to save cost but
-  something I'm revisting more in the future.)
+  something I'm revisiting more in the future.)
 
-* **Use Claude to help write your requirements**:  Since the whole point is save effort,
+* **Use Claude to help write your requirements**: Since the whole point is to save effort,
   you'll start to notice that typing all the .md files and prompts can take time, too.
   So I did get into a habit of writing bad specs and giving bad prompts, asking Claude
-  to clean up and flesh out my requirements before writing code.  I had good success
-  doing this more than few times.
+  to clean up and flesh out my requirements before writing code. I had good success
+  doing this more than a few times.
 
 
 

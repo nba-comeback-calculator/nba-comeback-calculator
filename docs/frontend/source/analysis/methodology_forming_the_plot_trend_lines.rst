@@ -19,13 +19,13 @@ This is a simple calculator -- it:
   trend in the underlying data more clearly.
 
 This is different than other 'in-game' probability calculators that have a more
-involved opaque formula that consider many factors (team rank, player lineups, vegas
-odds, etc.).  This is probably more what you want if you are betting on a game
+involved opaque formula that considers many factors (team rank, player lineups, vegas
+odds, etc.). This is probably more what you want if you are betting on a game
 (assuming the calculation is correct!). Rather, the idea here is just to plot the
 available data in a way that allows analysis and comparison.
 
 One of the unfortunate conditions that adds to the complexity of this is :doc:`the
-language used to describe a comeback </analysis/understanding_and_using_the_plots>`
+language used to describe a comeback </analysis/understanding_and_using_the_plots>`.
 This was added, however, so I could square the data with the various common
 descriptions of comebacks I encountered in the sports press.
 

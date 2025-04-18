@@ -59,9 +59,9 @@ distributed under most conditions.  So when plotted on a `normal probability plo
 <https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and :doc:`we fit trend lines
 (e.g. fit a normal model) to the statistical data
 </analysis/methodology_forming_the_plot_trend_lines>` we can then better examine the
-lower probability events and also more easily compare different eras or situations. 
-And when comparing these two eras, we can see a mostly stable and constant shift of
-about 2-3 points to the left for the modern era versus the past.
+lower probability events and also more easily compare different eras or situations. And
+when comparing these two eras, we can see a mostly stable and constant shift of about
+2-3 points to the left for the modern era versus the past.
 
 You can :ref:`interact with this chart <using-the-plot-controls>` and hover over and
 click the points to see which games compose a point (and compare it with a `list of
@@ -119,6 +119,7 @@ To me at least, looking at the point shift gives me a better feel for how dramat
 Increase is more dramatic, point shift is more modest) but as a fan watching your team
 sink into a 20 point hole, I don't think the data is telling you to say "20 points,
 that's nothing anymore".
+
 
 
 .. _win-percentages-when-teams-are-down-n-points-with-so-much-time-left:
@@ -210,7 +211,13 @@ the past, a notable 1.59x increase (or about 59% more frequently).
 What *Would* Be Dramatic
 ========================
 
-Just to get a sense of what an 8 point shift looks like, if we look at top 10 teams
+When I started to compare the modern versus old school eras, I was expecting (based on
+the current perception out there) that the shift was going to be large.  When it
+wasn't, I assumed there were simply bugs in my setup and I spent a lot of time sanity
+checking the results (and, if I still have mistakes, lines are open).
+
+In that context, I thought it would be useful to get a sense of what an 8 point shift
+looks like and the kind of trend I was expecting to see.  So if we look at top 10 teams
 (out of 30) vs. bottom 10 teams in the modern era we get:
 
 .. raw:: html
