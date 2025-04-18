@@ -1,6 +1,37 @@
-*****************************
-Forming the Plot Trend Lines
-*****************************
+********************************************
+Methodology and Forming the Plot Trend Lines
+********************************************
+
+.. _methodology:
+
+Methodology
+===========
+
+This is a simple calculator -- it:
+
+* Finds all the games that meet the conditions specified (years, time left, team rank,
+  etc.)
+  
+* Does a simple # wins / # games :ref:`calculation of the win percentages
+  <how-win-is-calculated>`
+  
+* And then fits a normal trend line model to that data so we can see the
+  trend in the underlying data more clearly.
+
+This is different than other 'in-game' probability calculators that have a more
+involved opaque formula that consider many factors (team rank, player lineups, vegas
+odds, etc.).  This is probably more what you want if you are betting on a game
+(assuming the calculation is correct!). Rather, the idea here is just to plot the
+available data in a way that allows analysis and comparison.
+
+One of the unfortunate conditions that adds to the complexity of this is :doc:`the
+language used to describe a comeback </analysis/understanding_and_using_the_plots>`
+This was added, however, so I could square the data with the various common
+descriptions of comebacks I encountered in the sports press.
+
+The only part of the process where judgement is applied is the approach to statistical
+tail model fitting which is described below.
+
 
 
 .. _trend-lines-help-reduce-statistical-noise:
@@ -11,8 +42,8 @@ Trend Lines Help Reduce Statistical Noise
 The purpose of the trend lines is to fit a statistically valid model to the data. The
 real data will have fluctuations, especially as you reduce the number of games in
 whatever set you are looking at. For example, look at the points down at halftime chart
-for regular season and playoff games for 2017-2024 (~10k games) versus just the
-playoff games (~600 games).
+for regular season and playoff games for 2017-2024 (~10k games) versus just the playoff
+games (~600 games).
 
 .. raw:: html
 
@@ -38,8 +69,8 @@ As is, this is not very useful, as all the events we care about are compressed d
 together at the bottom of the y-axis.
 
 What we can do, however, is find a function that will convert our non-linear data to a
-linear domain. For example, people often use the :math:`ln` function `when
-dealing with exponential data
+linear domain. For example, people often use the :math:`ln` function `when dealing with
+exponential data
 <https://leancrew.com/all-this/2020/03/exponential-growth-and-log-scales/>`_.
 
 With statistical data, the first go-to is the inverse of the unit normal (Gaussian)
@@ -60,8 +91,8 @@ Down at Time' charts are: normal probability plots.
 
 Usually, these plots are shown with the y-axis in standard deviations from the mean (or
 sigmas). I've simply changed the y-axis labels to show the standard probabilities that
-we're used to discussing: for example, -1 sigma maps to about 15.8%, -2 to 2.2%,
-and -3 to 0.13%, etc.
+we're used to discussing: for example, -1 sigma maps to about 15.8%, -2 to 2.2%, and -3
+to 0.13%, etc.
 
 
 .. _how-to-fit-the-line:
@@ -88,7 +119,8 @@ to, say, linear regression).
 
 The major question is whether to use logit or probit. And the answer is probit because
 the inverse CDF function does a better job of linearizing our data, meaning it is more
-likely to be the correct underlying model. Looking at the tail using the two methods, we get:
+likely to be the correct underlying model. Looking at the tail using the two methods,
+we get:
 
 .. image:: probit_v_logit.png
    :scale: 33%
@@ -96,8 +128,8 @@ likely to be the correct underlying model. Looking at the tail using the two met
 
 As you can see, the inverse normal CDF does a better job at linearizing the data.
 
-This is confirmed when using the two methods and comparing returned p-values and fit lines
-across various cases. Using probit for our current set of conditions, we get:
+This is confirmed when using the two methods and comparing returned p-values and fit
+lines across various cases. Using probit for our current set of conditions, we get:
 
 .. raw:: html
 

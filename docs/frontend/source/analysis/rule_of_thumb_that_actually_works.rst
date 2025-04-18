@@ -43,8 +43,8 @@ stumbled on this explanation <https://messymatters.com/moneyball/>`_:
 
 This turns out to be very accurate, regardless of which era you examine. In fact,
 leveraging the :doc:`observation that win probabilities versus point deficit are
-normally distributed </analysis/forming_the_plot_trend_lines>`, we can derive the
-multiplier for any given win probability:
+normally distributed </analysis/methodology_forming_the_plot_trend_lines>`, we can
+derive the multiplier for any given win probability:
 
 .. math::
  

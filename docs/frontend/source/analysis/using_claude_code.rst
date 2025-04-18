@@ -75,7 +75,7 @@ In broad strokes, I:
   the browser to build the :doc:`calculator </calculator/index>`.  This includes
   converting some fairly involved numpy/scipy number crunching code so in the browser
   we can perform :doc:`probit regression using maximum likelihood estimation running a
-  gradient descent fmin algorithm </analysis/forming_the_plot_trend_lines>`.
+  gradient descent fmin algorithm </analysis/methodology_forming_the_plot_trend_lines>`.
 
 * Then, I again vibe coded the calculator bootstrap form UI that allows users to set up
   the conditions they want to analyze to run the calculator. And once I got all that

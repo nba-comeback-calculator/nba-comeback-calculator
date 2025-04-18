@@ -58,10 +58,10 @@ An insight is that percent chance of coming back versus point deficit is normall
 distributed under most conditions.  So when plotted on a `normal probability plot
 <https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and :doc:`we fit trend lines
 (e.g. fit a normal model) to the statistical data
-</analysis/forming_the_plot_trend_lines>` we can then better examine the lower
-probability events and also more easily compare different eras or situations.  And
-when comparing these two eras, we can see a mostly stable and constant shift of about
-2-3 points to the left for the modern era versus the past.
+</analysis/methodology_forming_the_plot_trend_lines>` we can then better examine the
+lower probability events and also more easily compare different eras or situations. 
+And when comparing these two eras, we can see a mostly stable and constant shift of
+about 2-3 points to the left for the modern era versus the past.
 
 You can :ref:`interact with this chart <using-the-plot-controls>` and hover over and
 click the points to see which games compose a point (and compare it with a `list of
@@ -145,8 +145,8 @@ Now, the divide here is a little larger: being down -20 in the modern era is abo
 same as being down 16.5 points in the old school era (3.5 point shift).
 
 But as time decreases it tightens up -- looking at starting the 4th quarter we see that
-being 20 points down (``~0.17%``) is about the same as 17.8 points down when
-comparing new to old:
+being 20 points down (``~0.17%``) is about the same as 17.8 points down when comparing
+new to old:
 
 .. raw:: html
 
