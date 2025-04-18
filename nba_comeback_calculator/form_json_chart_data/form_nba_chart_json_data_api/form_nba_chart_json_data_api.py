@@ -264,6 +264,19 @@ class GameFilter:
         str
             A formatted string describing the filter criteria
         """
+
+        # Hack for close games
+        if self.comeback_type == "win":
+            return "Wins Game"
+        elif self.comeback_type == "tie":
+            return "Ties Game"
+        elif self.comeback_type.startswith("pulls_within_"):
+            amount = self.comeback_type.rsplit("_", 1)[-1]
+            return f"Pulls Within {amount}"
+        elif self.comeback_type.startswith("leads_by_"):
+            amount = self.comeback_type.rsplit("_", 1)[-1]
+            return f"Leads By {amount}"
+
         for_parts = []
         vs_parts = []
 
@@ -517,10 +530,12 @@ def plot_biggest_deficit(
         points_down_line.set_sigma_final(min_y, max_y)
 
     x_label = f"Point Margin"
-    if calculate_occurrences:
-        y_label = "Occurence %"
+    if calculate_occurrences or True:
+        y_label = "Occurrence %"
     else:
-        y_label = "Win %"
+        # Hack for close games by
+        y_label = "% Chance"
+        # y_label = "Win %"
 
     final_plot = FinalPlot(
         plot_type="point_margin_v_win_percent",

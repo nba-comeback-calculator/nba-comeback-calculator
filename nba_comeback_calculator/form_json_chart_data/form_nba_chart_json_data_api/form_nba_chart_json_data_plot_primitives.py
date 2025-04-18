@@ -867,6 +867,9 @@ class FinalPlot:
 
         json_data["lines"] = json_lines = []
 
+        # #CLOSE_HACK: to get it to says Occurs % instead of Win %
+        json_data["is_close_plot"] = True
+
         for line in lines:
             json_lines.append(line.to_json(self.calculate_occurrences))
 
