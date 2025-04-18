@@ -42,8 +42,9 @@ from this ESPN article
     every four games in which a team takes a double-digit lead ends with
     the-other-team-winning.
 
-
-This leads to this chart:
+It's important to note here, that when it's said a team is down by 10, they mean *10
+points or more* points or down by 15 points means *15 or more* points.  This leads to
+this chart:
 
 .. raw:: html
 
