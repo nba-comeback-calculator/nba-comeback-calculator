@@ -17,7 +17,7 @@ def dict_factory(cursor, row):
 
 # Connect to the NBA games database
 con = sqlite3.connect(
-    "/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v4.sqlite"
+    "/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v5.sqlite"
 )
 con.row_factory = dict_factory
 cursor = con.cursor()
