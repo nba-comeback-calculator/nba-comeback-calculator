@@ -109,6 +109,11 @@ plot_biggest_deficit(
 )
 
 
+eras = [
+    # ERA ONE
+    (1996, 2024),
+]
+
 game_filters = [
     GameFilter(comeback_type="win"),
     GameFilter(comeback_type="leads_by_10"),
