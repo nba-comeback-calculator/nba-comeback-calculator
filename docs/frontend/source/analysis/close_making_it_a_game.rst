@@ -37,7 +37,7 @@ So if you're down 20 after the first, historical game data suggests you have:
 
 So a third of the time, you get a pretty close game, but not "more often than not".
 
-(However, let's not lose sight of the overall rareness: out of the 36,000 games since
+(However, let's not lose sight of the overall rareness: out of the ~36,000 games since
 1996, only 148 teams have fallen down exactly 20 points after the first quarter and of
 those only 51 have pulled within 5 or less over the game).
 
