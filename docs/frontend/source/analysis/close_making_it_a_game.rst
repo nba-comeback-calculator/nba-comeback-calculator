@@ -85,3 +85,5 @@ by the 4th and went on a late 4th quarter rampage and went up 22 points and fina
 
     Note, I just did a quick local modification on a branch to the codebase to generate
     these plots.  So some UI elements might say ``Win %`` where it means ``Occurs %``.
+    Also, this is not integrated into the :doc:`interactive calculator
+    </calculator/index>`.
