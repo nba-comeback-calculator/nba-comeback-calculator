@@ -380,7 +380,7 @@ class PlayByPlay:
 base_path = "../../docs/frontend/source/_static/json/seasons"
 
 # Process each NBA season and create corresponding JSON files
-for year in range(2024, 2025, 1):
+for year in range(2019, 2025, 1):
     print(f"Processing season {year}...")
     games = Games(cursor, start_year=year, stop_year=year)
     games.to_json(f"{base_path}/nba_season_{year}.json.gz")
