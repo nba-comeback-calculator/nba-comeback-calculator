@@ -18,8 +18,9 @@ project:
     point deficit is normally distributed.  So when plotted on a `normal probability
     plot <https://en.wikipedia.org/wiki/Normal_probability_plot>`_ and :doc:`we fit
     trend lines (e.g. fit a normal model) to the statistical data
-    </analysis/forming_the_plot_trend_lines>` we can then better examine the lower
-    probability events and also more easily compare different eras or situations.
+    </analysis/methodology_forming_the_plot_trend_lines>` we can then better examine
+    the lower probability events and also more easily compare different eras or
+    situations.
 
     The final plot type uses these normal fits across many different conditions to
     create the time v. point down plots.
@@ -121,10 +122,10 @@ Now, it's a little inconvenient to have to look at a different chart for every p
 time. So what you can further do is, behind the scenes:
 
 1. Pick a percent chance you want to focus on, say 20% or 1%.
-2. Calculate a `Points Down At Time`_ for every minute. Then invert the :doc:`trend lines
-   </analysis/forming_the_plot_trend_lines>` to determine what point deficit matches
-   your percentage. By using the trend line, we filter out the statistical noise and
-   get the most accurate point deficit for our given probability.
+2. Calculate a `Points Down At Time`_ for every minute. Then invert the :doc:`trend
+   lines </analysis/methodology_forming_the_plot_trend_lines>` to determine what point
+   deficit matches your percentage. By using the trend line, we filter out the
+   statistical noise and get the most accurate point deficit for our given probability.
 
 Then you can make plots like this:
    
@@ -151,7 +152,7 @@ For the plots, you can hover over and then click on either:
    
 2. The trend line data points -- this shows you the "best" Win % chance for this
    point deficit :doc:`since the trend line filters out much of the statistical noise
-   </analysis/forming_the_plot_trend_lines>`.
+   </analysis/methodology_forming_the_plot_trend_lines>`.
    
 You can also zoom in or even go full screen to make it easier to hover over a point of
 interest and if you want, save your current plot as an image.
@@ -160,7 +161,7 @@ On the :doc:`calculator page</calculator/index>`, once you form a chart for the
 specific conditions you're after, you'll notice that a unique URL is formed which you
 can copy and paste and share it how you see fit.
 
-.. _how-win--is-calculated:
+.. _how-win-is-calculated:
 
 How Win % Is Calculated
 =======================
