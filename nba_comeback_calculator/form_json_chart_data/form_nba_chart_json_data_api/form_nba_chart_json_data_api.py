@@ -502,7 +502,7 @@ def plot_biggest_deficit(
 
     x_label = f"Point Margin"
     if calculate_occurrences:
-        y_label = "Occurence %"
+        y_label = "Occurrence %"
     else:
         y_label = "Win %"
 
