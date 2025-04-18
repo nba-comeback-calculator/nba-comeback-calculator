@@ -94,12 +94,12 @@ remove = False
 
 if remove:
     try:
-        os.unlink("/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v4.sqlite")
+        os.unlink("/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v5.sqlite")
     except EnvironmentError:
         pass
 
 con = sqlite3.connect(
-    "/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v4.sqlite"
+    "/Users/ajcarter/nbav0/nba_games_running_score_1983_2025_v5.sqlite"
 )
 
 cursor = con.cursor()
@@ -128,8 +128,6 @@ cursor.execute(
             away_team_id,
             home_team_abbr,
             away_team_abbr,
-            home_regular_season_win_pct,
-            away_regular_season_win_pct,
             score
         );"""
 )
@@ -211,8 +209,8 @@ def get_game_row(game_id, gate_data, season_year, season_type):
 
 
 game_count = 0
-now = datetime.datetime(2025, 4, 20)
-season_types = ["Regular Season", "Playoffs"]
+now = datetime.datetime(2025, 9, 1)
+season_types = ["Regular Season", "Playoffs", "Playin"]
 # season_types = ["Playoffs"]
 # season_types = ["Regular Season"]
 for year in range(1996, 2025):
@@ -220,6 +218,8 @@ for year in range(1996, 2025):
     for season_type in season_types:
         if season_type == "Regular Season":
             season_type_nullable = SeasonType.regular
+        elif season_type == "Playin":
+            season_type_nullable = "PlayIn"
         else:
             season_type_nullable = SeasonTypePlayoffs.playoffs
 
@@ -235,12 +235,16 @@ for year in range(1996, 2025):
             continue
 
         season_id = None
-        gamefinder = leaguegamefinder.LeagueGameFinder(
-            season_nullable=season_year,
-            season_type_nullable=season_type_nullable,
-            league_id_nullable="00",
-            headers=headers,
-        )
+        try:
+            gamefinder = leaguegamefinder.LeagueGameFinder(
+                season_nullable=season_year,
+                season_type_nullable=season_type_nullable,
+                league_id_nullable="00",
+                headers=headers,
+            )
+        except KeyError:
+            print(f"No results found for {season_key_r} / {season_type_nullable}")
+            continue
         x = gamefinder.get_data_frames()
         games_df = x[0][
             [
@@ -279,32 +283,33 @@ for year in range(1996, 2025):
         #
         # games = {k: v for k, v in games.items() if isinstance(v, dict)}
 
-        if season_type == "Regular Season":
-            records = {}
-            for game_row in games.values():
-                away_score, home_score = [
-                    int(x) for x in game_row["score"].split(" - ")
-                ]
-                away_team = game_row["away_team_abbr"]
-                home_team = game_row["home_team_abbr"]
-                away_win_loss = records.setdefault(away_team, [0, 0])
-                home_win_loss = records.setdefault(home_team, [0, 0])
-                if away_score > home_score:
-                    away_win_loss[0] = away_win_loss[0] + 1
-                    home_win_loss[1] = home_win_loss[1] + 1
-                elif away_score < home_score:
-                    away_win_loss[1] = away_win_loss[1] + 1
-                    home_win_loss[0] = home_win_loss[0] + 1
-                else:
-                    pass
+        # records = {}
+        # if season_type == "Regular Season":
+        #     for game_row in games.values():
+        #         away_score, home_score = [
+        #             int(x) for x in game_row["score"].split(" - ")
+        #         ]
+        #         away_team = game_row["away_team_abbr"]
+        #         home_team = game_row["home_team_abbr"]
+        #         away_win_loss = records.setdefault(away_team, [0, 0])
+        #         home_win_loss = records.setdefault(home_team, [0, 0])
+        #         if away_score > home_score:
+        #             away_win_loss[0] = away_win_loss[0] + 1
+        #             home_win_loss[1] = home_win_loss[1] + 1
+        #         elif away_score < home_score:
+        #             away_win_loss[1] = away_win_loss[1] + 1
+        #             home_win_loss[0] = home_win_loss[0] + 1
+        #         else:
+        #             pass
 
-        for game_row in games.values():
-            home_record = records[game_row["home_team_abbr"]]
-            away_record = records[game_row["away_team_abbr"]]
-            home_pct = float(home_record[0] / float(sum(home_record)))
-            away_pct = float(away_record[0] / float(sum(away_record)))
-            game_row["home_regular_season_win_pct"] = home_pct
-            game_row["away_regular_season_win_pct"] = away_pct
+        # if records:
+        #     for game_row in games.values():
+        #         home_record = records[game_row["home_team_abbr"]]
+        #         away_record = records[game_row["away_team_abbr"]]
+        #         home_pct = float(home_record[0] / float(sum(home_record)))
+        #         away_pct = float(away_record[0] / float(sum(away_record)))
+        #         game_row["home_regular_season_win_pct"] = home_pct
+        #         game_row["away_regular_season_win_pct"] = away_pct
 
         for game_row in sorted(games.values(), key=lambda x: x["game_date"]):
             if game_row["game_id"] in game_ids:

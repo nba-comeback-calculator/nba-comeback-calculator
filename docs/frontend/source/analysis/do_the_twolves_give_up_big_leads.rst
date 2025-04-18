@@ -101,11 +101,11 @@ comebacks ever at 4 minutes remaining from when play by play was recorded:
 
     <div id="twolves_leads/max_4min_all_time" class="nbacc-chart"></div>
 
-Another one for the record books is a -17 point comeback given up by our 2020 Twolves.
+Another one for the record books is a 17-point comeback given up by our 2020 Twolves.
 
-But to bolster what I said before, if you look at the next dot over at -16, it's the
-Twolves who came back against OKC on 2/24/2025.  Not to mention the recent comeback
-from -13 down with 4 minutes left against Houston on 12/27/2024 (hover over the dots to
+But to bolster what I said before, if you look at the next dot over at 16 points, it's the
+Twolves who came back against OKC on 2/24/2025. Not to mention the recent comeback
+from 13 points down with 4 minutes left against Houston on 12/27/2024 (hover over the dots to
 get the game details and links to nba.com).  So once again the recent Twolves come back
 more than they let the lead slip away.
 

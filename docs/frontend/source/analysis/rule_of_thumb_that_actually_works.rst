@@ -148,7 +148,7 @@ Which is this plot:
 
     <div id="thumb/nbacc_points_versus_time_with_guides_modern_era" class="nbacc-chart"></div>
 
-Showing there is a slight difference in the constants.  But the rule of thumb is still
+Showing there is a slight difference in the constants. But the rule of thumb is still
 very close to accurate.
 
 You can use the :doc:`calculator page </calculator/index>` to see how it works for any
