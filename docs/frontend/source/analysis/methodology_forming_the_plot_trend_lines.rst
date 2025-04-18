@@ -7,7 +7,7 @@ Methodology and Forming the Plot Trend Lines
 Methodology
 ===========
 
-This is a simple calculator -- in steps it:
+This is a simple calculator -- it:
 
 * Finds all the games that meet the conditions specified (years, time left, team rank,
   etc.)
@@ -20,16 +20,19 @@ This is a simple calculator -- in steps it:
 
 This is different than other 'in-game' probability calculators that have a more
 involved opaque formula that consider many factors (team rank, player lineups, vegas
-odds, etc.). Rather, the idea here is just to plot the available data in a way that
-allows analysis and comparison.
+odds, etc.).  This is probably more what you want if you are betting on a game
+(assuming the calculation is correct!). Rather, the idea here is just to plot the
+available data in a way that allows analysis and comparison.
 
 One of the unfortunate conditions that adds to the complexity of this is :doc:`the
-language used to describe a comeback </analysis/understanding_and_using_the_plots>` but
-added this so I could square the data with the various common descriptions of comebacks
-I encountered in the sports press.
+language used to describe a comeback </analysis/understanding_and_using_the_plots>`
+This was added, however, so I could square the data with the various common
+descriptions of comebacks I encountered in the sports press.
 
 The only part of the process where judgement is applied is the approach to statistical
 tail model fitting which is described below.
+
+
 
 .. _trend-lines-help-reduce-statistical-noise:
 

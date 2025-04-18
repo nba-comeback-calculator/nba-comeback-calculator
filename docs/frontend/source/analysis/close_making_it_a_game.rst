@@ -10,8 +10,8 @@ What Are The Odds The Game Will Get Close?
 
 Somebody on reddit `posed this question
 <https://www.reddit.com/r/nba/comments/u2sz31/how_often_does_a_20pt_lead_after_the_1st_quarter/>`_
-to and I realized that a quick modification to what classifies as 'win' and I could
-more fully answer this question:
+and I realized that a quick modification to what classifies as 'win' and I could more
+fully answer this question:
 
 .. raw:: html
 
