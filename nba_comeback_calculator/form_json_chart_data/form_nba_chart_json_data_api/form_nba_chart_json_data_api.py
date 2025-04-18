@@ -48,12 +48,13 @@ def parse_season_type(year):
 
 class GameFilter:
     """
-    Filter for NBA games based on team attributes.
+    Filter for NBA games based on team attributes and comeback criteria.
 
     Allows filtering games based on:
     - Which team won/lost (home/away)
     - Team ranking category (top_5, top_10, mid_10, bot_10, bot_5)
     - Specific team abbreviations
+    - Type of comeback or performance (win, tie, pulling within X points, etc.)
 
     Note: For both winning and losing teams, you can only specify either a rank filter
     OR a team abbreviation filter, not both.
@@ -66,6 +67,7 @@ class GameFilter:
         for_team_abbr=None,
         vs_rank=None,
         vs_team_abbr=None,
+        comeback_type="win",
     ):
         """
         Initialize a GameFilter with criteria for filtering NBA games.
@@ -88,6 +90,14 @@ class GameFilter:
         vs_team_abbr : str or None
             Filter losing team by abbreviation (can be a single abbr or comma-separated list)
             Cannot be used together with vs_rank
+        comeback_type : str
+            Type of comeback to filter for:
+            - 'win': Team comes back to win (default)
+            - 'ties': Team comes back to tie
+            - 'pulls_within_5': Team comes back to within 5 points
+            - 'pulls_within_2': Team comes back to within 2 points
+            - 'leads_by_5': Team comes back to lead by 5 points
+            - other similar criteria for comeback performance
 
         Raises:
         -------
@@ -106,6 +116,7 @@ class GameFilter:
         self.for_team_abbr = for_team_abbr
         self.vs_rank = vs_rank
         self.vs_team_abbr = vs_team_abbr
+        self.comeback_type = comeback_type
 
         # Parse team abbreviations into lists if provided as strings
         if isinstance(self.for_team_abbr, str):
@@ -126,6 +137,11 @@ class GameFilter:
         -----------
         game : Game
             The game to check against the filter
+        is_win : bool
+            Whether to consider the game a win for filtering purposes.
+            This is determined by the comeback_type setting (e.g., when
+            comeback_type is 'pulls_within_5', is_win would be True if
+            the team pulled within 5 points during the comeback).
 
         Returns:
         --------

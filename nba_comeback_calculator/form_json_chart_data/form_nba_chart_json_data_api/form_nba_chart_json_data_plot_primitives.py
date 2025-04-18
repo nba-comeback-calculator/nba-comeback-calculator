@@ -213,37 +213,120 @@ class PointsDownLine(PlotLine):
             all_game_ids.update(data.losses)
         return all_game_ids
 
+    # def setup_point_margin_map(self, games, game_filter, start_time, down_mode):
+    #     """
+    #     Create a mapping of point margins to win/loss outcomes for analysis.
+
+    #     This method processes the game data according to the specified analysis mode:
+    #     - 'at' mode: Analyzes point deficit at a specific time point
+    #     - 'max' mode: Analyzes maximum point deficit faced during the period
+
+    #     Parameters:
+    #     -----------
+    #     games : Games
+    #         Collection of games to analyze
+    #     game_filter : GameFilter or None
+    #         Filter to apply to games
+    #     start_time : int or str
+    #         Time point to start analysis from
+    #     down_mode : str
+    #         Analysis mode ('at' or 'max')
+
+    #     Returns:
+    #     --------
+    #     dict
+    #         Dictionary mapping point margins to PointMarginPercent objects
+
+    #     Raises:
+    #     -------
+    #     AssertionError
+    #         If start_time is not in TIME_TO_INDEX_MAP
+    #     NotImplementedError
+    #         If down_mode is not 'at' or 'max'
+    #     """
+    #     # if game_filter and game_filter.comeback_type == "win":
+    #     return self._setup_point_margin_map(games, game_filter, start_time, down_mode)
+    #     # else:
+    #     #    return self._setup_point_margin_map_comeback_type(
+    #     #        games, game_filter, start_time, down_mode
+    #     #    )
+
+    # def _setup_point_margin_map_std_win(
+    #     self, games, game_filter, start_time, down_mode
+    # ):
+    #     """
+    #     This setups the point_margin_map for the normal comeback case that a team
+    #     wins the came.
+    #     """
+    #     point_margin_map = {}
+    #     if start_time not in TIME_TO_INDEX_MAP:
+    #         raise AssertionError(
+    #             f"Invalid start_time: {start_time}, not found in TIME_TO_INDEX_MAP"
+    #         )
+
+    #     for game in games:
+    #         if down_mode == "at":
+    #             # Analyze point deficit at the specific time point
+    #             sign = 1 if game.score_diff > 0 else -1
+    #             point_margin = game.point_margin_map[start_time]["point_margin"]
+    #             win_point_margin = sign * point_margin
+    #             lose_point_margin = -1 * win_point_margin
+
+    #         elif down_mode == "max":
+    #             # Analyze maximum point deficit faced during the period
+    #             point_margin = game.point_margin_map[start_time]["point_margin"]
+    #             win_point_margin = float("inf")
+    #             lose_point_margin = float("inf")
+
+    #             # Determine the range of time to analyze
+    #             start_index = TIME_TO_INDEX_MAP[start_time]
+    #             stop_index = TIME_TO_INDEX_MAP[0]  # End of game
+
+    #             # Find the maximum deficit throughout the period
+    #             for index in range(start_index, stop_index + 1):
+    #                 time = GAME_MINUTES[index]
+    #                 point_margin_data = game.point_margin_map[time]
+
+    #                 # For first time point, use the current margin
+    #                 if index == start_index:
+    #                     min_point_margin = point_margin_data["point_margin"]
+    #                     max_point_margin = point_margin_data["point_margin"]
+    #                 else:
+    #                     # For subsequent time points, use min/max values
+    #                     min_point_margin = point_margin_data["min_point_margin"]
+    #                     max_point_margin = point_margin_data["max_point_margin"]
+
+    #                 if game.score_diff > 0:  # Home team won
+    #                     win_point_margin = min(min_point_margin, win_point_margin)
+    #                     lose_point_margin = min(
+    #                         -1.0 * max_point_margin, lose_point_margin
+    #                     )
+    #                 elif game.score_diff < 0:  # Away team won
+    #                     win_point_margin = min(
+    #                         -1.0 * max_point_margin, win_point_margin
+    #                     )
+    #                     lose_point_margin = min(min_point_margin, lose_point_margin)
+    #                 else:
+    #                     raise AssertionError("NBA games can't end in a tie")
+    #         else:
+    #             raise NotImplementedError(f"Unsupported down_mode: {down_mode}")
+
+    #         # Record the outcomes based on the game filter
+    #         if game_filter is None or game_filter.is_match(game, is_win=True):
+    #             win_point_margin_percent = point_margin_map.setdefault(
+    #                 win_point_margin, PointMarginPercent()
+    #             )
+    #             win_point_margin_percent.wins.add(game.game_id)
+
+    #         if game_filter is None or game_filter.is_match(game, is_win=False):
+    #             lose_point_margin_percent = point_margin_map.setdefault(
+    #                 lose_point_margin, PointMarginPercent()
+    #             )
+    #             lose_point_margin_percent.losses.add(game.game_id)
+
+    #     return point_margin_map
+
     def setup_point_margin_map(self, games, game_filter, start_time, down_mode):
-        """
-        Create a mapping of point margins to win/loss outcomes for analysis.
-
-        This method processes the game data according to the specified analysis mode:
-        - 'at' mode: Analyzes point deficit at a specific time point
-        - 'max' mode: Analyzes maximum point deficit faced during the period
-
-        Parameters:
-        -----------
-        games : Games
-            Collection of games to analyze
-        game_filter : GameFilter or None
-            Filter to apply to games
-        start_time : int or str
-            Time point to start analysis from
-        down_mode : str
-            Analysis mode ('at' or 'max')
-
-        Returns:
-        --------
-        dict
-            Dictionary mapping point margins to PointMarginPercent objects
-
-        Raises:
-        -------
-        AssertionError
-            If start_time is not in TIME_TO_INDEX_MAP
-        NotImplementedError
-            If down_mode is not 'at' or 'max'
-        """
         point_margin_map = {}
         if start_time not in TIME_TO_INDEX_MAP:
             raise AssertionError(
@@ -251,19 +334,12 @@ class PointsDownLine(PlotLine):
             )
 
         for game in games:
-            if down_mode == "at":
-                # Analyze point deficit at the specific time point
-                sign = 1 if game.score_diff > 0 else -1
-                point_margin = game.point_margin_map[start_time]["point_margin"]
-                win_point_margin = sign * point_margin
-                lose_point_margin = -1 * win_point_margin
+            point_margin = game.point_margin_map[start_time]["point_margin"]
 
-            elif down_mode == "max":
-                # Analyze maximum point deficit faced during the period
-                point_margin = game.point_margin_map[start_time]["point_margin"]
-                win_point_margin = float("inf")
-                lose_point_margin = float("inf")
+            min_point_margin = float("inf")
+            max_point_margin = -float("inf")
 
+            if down_mode != "at" or game_filter and game_filter.comeback_type != "win":
                 # Determine the range of time to analyze
                 start_index = TIME_TO_INDEX_MAP[start_time]
                 stop_index = TIME_TO_INDEX_MAP[0]  # End of game
@@ -275,42 +351,132 @@ class PointsDownLine(PlotLine):
 
                     # For first time point, use the current margin
                     if index == start_index:
-                        min_point_margin = point_margin_data["point_margin"]
-                        max_point_margin = point_margin_data["point_margin"]
+                        min_point_margin_next = point_margin_data["point_margin"]
+                        max_point_margin_next = point_margin_data["point_margin"]
                     else:
                         # For subsequent time points, use min/max values
-                        min_point_margin = point_margin_data["min_point_margin"]
-                        max_point_margin = point_margin_data["max_point_margin"]
+                        min_point_margin_next = point_margin_data["min_point_margin"]
+                        max_point_margin_next = point_margin_data["max_point_margin"]
 
-                    if game.score_diff > 0:  # Home team won
-                        win_point_margin = min(min_point_margin, win_point_margin)
-                        lose_point_margin = min(
-                            -1.0 * max_point_margin, lose_point_margin
-                        )
-                    elif game.score_diff < 0:  # Away team won
-                        win_point_margin = min(
-                            -1.0 * max_point_margin, win_point_margin
-                        )
-                        lose_point_margin = min(min_point_margin, lose_point_margin)
-                    else:
-                        raise AssertionError("NBA games can't end in a tie")
-            else:
-                raise NotImplementedError(f"Unsupported down_mode: {down_mode}")
+                    min_point_margin = min(min_point_margin, min_point_margin_next)
+                    max_point_margin = max(max_point_margin, max_point_margin_next)
 
-            # Record the outcomes based on the game filter
-            if game_filter is None or game_filter.is_match(game, is_win=True):
-                win_point_margin_percent = point_margin_map.setdefault(
-                    win_point_margin, PointMarginPercent()
-                )
-                win_point_margin_percent.wins.add(game.game_id)
+            comeback_type = game_filter.comeback_type if game_filter else "win"
 
-            if game_filter is None or game_filter.is_match(game, is_win=False):
-                lose_point_margin_percent = point_margin_map.setdefault(
-                    lose_point_margin, PointMarginPercent()
-                )
-                lose_point_margin_percent.losses.add(game.game_id)
+            self.set_point_margin_percent(
+                point_margin_map=point_margin_map,
+                game_id=game.game_id,
+                down_mode=down_mode,
+                comeback_type=comeback_type,
+                score_diff=game.score_diff,
+                point_margin=point_margin,
+                min_point_margin=min_point_margin,
+                max_point_margin=max_point_margin,
+                for_team_abbr=game.home_team_abbr,
+                for_team_rank=game.home_team_rank,
+                vs_team_abbr=game.away_team_abbr,
+                vs_team_rank=game.away_team_rank,
+                for_team_where="home",
+            )
+            self.set_point_margin_percent(
+                point_margin_map=point_margin_map,
+                game_id=game.game_id,
+                down_mode=down_mode,
+                comeback_type=comeback_type,
+                score_diff=-1.0 * game.score_diff,
+                point_margin=-1.0 * point_margin,
+                min_point_margin=-1.0 * max_point_margin,
+                max_point_margin=-1.0 * min_point_margin,
+                for_team_abbr=game.away_team_abbr,
+                for_team_rank=game.away_team_rank,
+                vs_team_abbr=game.home_team_abbr,
+                vs_team_rank=game.home_team_rank,
+                for_team_where="away",
+            )
 
         return point_margin_map
+
+    @classmethod
+    def set_point_margin_percent(
+        cls,
+        point_margin_map,
+        game_id,
+        down_mode,
+        comeback_type,
+        score_diff,
+        point_margin,
+        min_point_margin,
+        max_point_margin,
+        for_team_abbr,
+        for_team_rank,
+        vs_team_abbr,
+        vs_team_rank,
+        for_team_where,
+    ):
+        if down_mode == "at":
+            point_margin = point_margin
+        elif down_mode == "max":
+            point_margin = min_point_margin
+        else:
+            raise NotImplementedError(down_mode)
+
+        is_win = cls.determine_if_win(comeback_type, score_diff, max_point_margin)
+
+        point_margin_percent = point_margin_map.setdefault(
+            point_margin, PointMarginPercent()
+        )
+        if is_win:
+            point_margin_percent.wins.add(game_id)
+        else:
+            point_margin_percent.losses.add(game_id)
+
+    @classmethod
+    def determine_if_win(cls, comeback_type, score_diff, max_point_margin):
+        if comeback_type == "win":
+            if score_diff > 0:
+                return True
+            elif score_diff < 0:
+                return False
+            else:
+                raise NotImplementedError(score_diff)
+        if comeback_type == "tie":
+            max_point_threshold = 0
+        elif comeback_type.startswith("pulls_within_"):
+            max_point_threshold = -int(comeback_type.removeprefix("pulls_within_"))
+        elif comeback_type.startswith("leads_by_"):
+            max_point_threshold = int(comeback_type.removeprefix("leads_by_"))
+        else:
+            raise NotImplementedError(comeback_type)
+
+        return max_point_margin >= max_point_threshold
+
+        if game_filter is None or game_filter.is_match(game, is_win=True):
+            win_point_margin_percent = point_margin_map.setdefault(
+                win_point_margin, PointMarginPercent()
+            )
+            win_point_margin_percent.wins.add(game.game_id)
+
+        # if game.score_diff > 0:  # Home team won
+        #     win_point_margin = min(min_point_margin, win_point_margin)
+        #     lose_point_margin = min(-1.0 * max_point_margin, lose_point_margin)
+        # elif game.score_diff < 0:  # Away team won
+        #     win_point_margin = min(-1.0 * max_point_margin, win_point_margin)
+        #     lose_point_margin = min(min_point_margin, lose_point_margin)
+        # else:
+        #     raise AssertionError("NBA games can't end in a tie")
+
+        # Record the outcomes based on the game filter
+        if game_filter is None or game_filter.is_match(game, is_win=True):
+            win_point_margin_percent = point_margin_map.setdefault(
+                win_point_margin, PointMarginPercent()
+            )
+            win_point_margin_percent.wins.add(game.game_id)
+
+        if game_filter is None or game_filter.is_match(game, is_win=False):
+            lose_point_margin_percent = point_margin_map.setdefault(
+                lose_point_margin, PointMarginPercent()
+            )
+            lose_point_margin_percent.losses.add(game.game_id)
 
     def cumulate_point_totals(self, point_margin_map):
         point_margin_items = sorted(point_margin_map.items())
