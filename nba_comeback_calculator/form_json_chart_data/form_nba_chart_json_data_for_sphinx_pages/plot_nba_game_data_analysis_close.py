@@ -64,7 +64,7 @@ plot_biggest_deficit(
     down_mode="at",
     cumulate=False,
     game_filters=game_filters,
-    fit_max_points=-20,
+    fit_max_points=-15,
     max_point_margin=-12,
 )
 
@@ -75,7 +75,7 @@ plot_biggest_deficit(
     down_mode="at",
     cumulate=False,
     game_filters=game_filters,
-    fit_max_points=-20,
+    fit_max_points=-15,
     max_point_margin=-12,
 )
 
@@ -86,7 +86,7 @@ plot_biggest_deficit(
     down_mode="at",
     cumulate=False,
     game_filters=game_filters,
-    fit_max_points=-20,
+    fit_max_points=-15,
     max_point_margin=-12,
 )
 
@@ -104,7 +104,7 @@ plot_biggest_deficit(
     down_mode="at",
     cumulate=False,
     game_filters=game_filters,
-    fit_max_points=-20,
+    fit_max_points=-15,
     max_point_margin=-12,
 )
 
