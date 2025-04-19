@@ -1029,12 +1029,12 @@ const nbacc_calculator_ui = (() => {
         // Start with the appropriate time values based on plot type
         let timeValues;
         if (includeFullGame) {
-            timeValues = [48, 36, 24, 18, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+            timeValues = [48, 36, 24, 21, 18, 15, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
         } else if (isPercentPlot) {
             // For Percent Chance plots, range is 6-24 minutes only
-            timeValues = [24, 18, 12, 11, 10, 9, 8, 7, 6];
+            timeValues = [24, 21, 18, 15, 12, 11, 10, 9, 8, 7, 6];
         } else {
-            timeValues = [36, 24, 18, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+            timeValues = [36, 24, 21, 18, 15, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
         }
         
         // Add seconds values only for non-percent plots

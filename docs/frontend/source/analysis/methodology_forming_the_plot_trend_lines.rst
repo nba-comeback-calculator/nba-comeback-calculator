@@ -7,10 +7,10 @@ Methodology and Forming the Plot Trend Lines
 Methodology
 ===========
 
-This is a simple calculator -- it:
+At core, this is a simple calculator -- it:
 
-* Finds all the games that meet the conditions specified (years, time left, team rank,
-  etc.)
+* Finds all the games that meet the conditions specified (`comeback type
+  </analysis/understanding_and_using_the_plots>`, seasons, time left, team rank, etc.)
   
 * Does a simple # wins / # games :ref:`calculation of the win percentages
   <how-win-is-calculated>`
@@ -18,21 +18,17 @@ This is a simple calculator -- it:
 * And then fits a normal model to that data so we can see the trend in the underlying
   data more clearly.
 
-This is different than other 'in-game' probability calculators that have a more
-involved opaque formula that considers many factors (team rank, player lineups, vegas
-odds, etc.). This is probably more what you want if you are betting on a game (assuming
-the calculation is correct!). Rather, the idea here is just to plot the available data
-in a way that allows analysis and comparison.
+This is different than other probability calculators (like the one you see on a Google
+game summary page or the ESPN app for example). Those have more involved formulas that
+also consider additional factors (player lineups, vegas odds, etc.) and are closed so
+it's not clear what the input conditions are (e.g. what seasons) or what algorithm is
+used.
 
-One of the unfortunate conditions that adds to the complexity of this is :doc:`the
-language used to describe a comeback </analysis/understanding_and_using_the_plots>`.
-This was added, however, so I could square the data with the various common
-descriptions of comebacks I encountered in the sports press.
-
-The only part of the process where judgement is applied is the approach to statistical
-tail model fitting which is described below.
-
-
+Rather, the idea here is just to plot the available data based on a set of conditions
+in a way that allows analysis and comparison, trying to show as much of the actual
+historical game data that makes up the data points as possible.  The only part of the
+process where judgement is applied is the approach to the trend line fitting which is
+described below.
 
 .. _trend-lines-help-reduce-statistical-noise:
 
