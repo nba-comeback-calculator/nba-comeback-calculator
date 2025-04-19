@@ -9,7 +9,7 @@ Methodology
 
 At core, this is a simple calculator -- it:
 
-* Finds all the games that meet the conditions specified (`comeback type
+* Finds all the games that meet the conditions specified (:doc:`comeback type
   </analysis/understanding_and_using_the_plots>`, seasons, time left, team rank, etc.)
   
 * Does a simple # wins / # games :ref:`calculation of the win percentages
@@ -19,10 +19,13 @@ At core, this is a simple calculator -- it:
   data more clearly.
 
 This is different than other probability calculators (like the one you see on a Google
-game summary page or the ESPN app for example). Those have more involved formulas that
-also consider additional factors (player lineups, vegas odds, etc.) and are closed so
-it's not clear what the input conditions are (e.g. what seasons) or what algorithm is
-used.
+game summary page or the ESPN app for example). Those have more `involved formulas
+<https://math.stackexchange.com/questions/3785745/how-does-espn-calculate-the-probability-of-a-team-winning-a-game>`_
+that also consider additional factors (BPI rating, player lineups, vegas odds, etc.)
+and are closed so it's not clear what the input conditions are (e.g. what seasons) or
+what algorithm is used (and, just to note, the entire concept of how accurate
+prediction models are is complicated `and debated
+<https://www.reddit.com/r/CFB/comments/1048sou/i_analyzed_850000_espn_ingame_win_probabilities/>`_).
 
 Rather, the idea here is just to plot the available data based on a set of conditions
 in a way that allows analysis and comparison, trying to show as much of the actual

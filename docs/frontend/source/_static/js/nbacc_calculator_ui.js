@@ -561,13 +561,8 @@ const nbacc_calculator_ui = (() => {
             const newPlotType = this.value;
             state.plotType = newPlotType;
             
-            // For Points Down At Time, use the selected time as the specificTime
-            if (state.plotType === "Points Down At Time") {
-                state.specificTime = state.startTime;
-            }
-            
             // Get current selected time
-            const currentSelectedTime = parseInt(timeSelect.value, 10) || 36;
+            const currentSelectedTime = parseFloat(timeSelect.value) || 36;
             
             // Check if we need to adjust the time options and selected value
             // Include both regular and occurrence versions of the full game plot types
@@ -577,12 +572,13 @@ const nbacc_calculator_ui = (() => {
                 newPlotType === "Occurrence Max Points Down Or More" ||
                 newPlotType === "Occurrence Max Points Down";
             
+            const isPercentPlot = newPlotType === "Percent Chance: Time Vs. Points Down";
+            
             // Get max point margin container
             const maxPointMarginContainer = document.getElementById("max-point-margin-container");
             
-            // Default time for Percent Chance: Time Vs. Points Down is 24
-            if (newPlotType === "Percent Chance: Time Vs. Points Down") {
-                state.startTime = 24;
+            // Toggle UI elements based on plot type
+            if (isPercentPlot) {
                 // Show percent options, hide max point margin selector
                 percentOptionsContainer.style.display = "block";
                 maxPointMarginContainer.style.display = "none";
@@ -595,23 +591,42 @@ const nbacc_calculator_ui = (() => {
                 maxPointMarginContainer.style.display = "block";
             }
             
-            // If switching to a plot type that doesn't allow 48 minutes and currently at 48
-            if (!isFullGamePlot && currentSelectedTime === 48) {
-                state.startTime = newPlotType === "Percent Chance: Time Vs. Points Down" ? 24 : 36;
-                state.specificTime = newPlotType === "Percent Chance: Time Vs. Points Down" ? 24 : 36;
-            }
-            
             // Get the base plot type (without "Occurrence " prefix) for time options
             const basePlotType = newPlotType.replace("Occurrence ", "");
             
-            // Set appropriate defaults based on plot type
-            if (basePlotType === "Max Points Down" || basePlotType === "Max Points Down Or More") {
-                state.startTime = 48; // Default to 48 minutes for Max Down charts (regular and occurrence)
-            } else if (basePlotType === "Points Down At Time") {
-                state.startTime = 24; // Default to 24 minutes for Points Down At Time (regular and occurrence)
-                state.specificTime = 24; // Set specificTime to match
-            } else if (basePlotType === "Percent Chance: Time Vs. Points Down") {
-                state.startTime = 24; // Default to 24 minutes for Percent charts
+            // Determine valid time ranges for the new plot type
+            let validTimeValues = [];
+            if (isFullGamePlot) {
+                validTimeValues = [48, 36, 24, 21, 18, 15, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+            } else if (isPercentPlot) {
+                validTimeValues = [24, 21, 18, 15, 12, 11, 10, 9, 8, 7, 6];
+            } else {
+                validTimeValues = [36, 24, 21, 18, 15, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1];
+            }
+            
+            // Check if current time is valid for the new plot type
+            const isCurrentTimeValid = validTimeValues.includes(currentSelectedTime) || 
+                                      // Also check sub-minute values which are stored as floats
+                                      (currentSelectedTime < 1 && !isPercentPlot);
+            
+            // Only change the time if the current one isn't valid
+            if (!isCurrentTimeValid) {
+                // Set default times based on plot type when current time is invalid
+                if (basePlotType === "Max Points Down" || basePlotType === "Max Points Down Or More") {
+                    state.startTime = 48; // Default for Max Down charts when current time is invalid
+                } else if (basePlotType === "Points Down At Time") {
+                    state.startTime = 24; // Default for Points Down At Time when current time is invalid
+                } else if (basePlotType === "Percent Chance: Time Vs. Points Down") {
+                    state.startTime = 24; // Default for Percent charts when current time is invalid
+                }
+            } else {
+                // Keep the current time if it's valid for the new plot type
+                state.startTime = currentSelectedTime;
+            }
+            
+            // For Points Down At Time, use the selected time as the specificTime
+            if (state.plotType === "Points Down At Time") {
+                state.specificTime = state.startTime;
             }
             
             // Regenerate time options based on the new plot type
